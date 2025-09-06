@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowJs": true
+  },
+  "exclude": ["node_modules"],
+  "references": [
+    { "path": "apps/api-server" },
+    { "path": "apps/web-seo" },
+    { "path": "apps/web-dashboard" },
+    { "path": "apps/mobile-expo" },
+    { "path": "packages/api-router" },
+    { "path": "packages/database" },
+    { "path": "packages/ui" },
+    { "path": "packages/trpc-client" }
+  ]
+}
