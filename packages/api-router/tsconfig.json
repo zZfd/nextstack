@@ -1,0 +1,6 @@
+{
+  "extends": "@lzt/config-typescript/base.json",
+  "include": ["src/**/*.ts", "index.ts"],
+  "exclude": ["node_modules"],
+  "references": [{ "path": "../database" }]
+}

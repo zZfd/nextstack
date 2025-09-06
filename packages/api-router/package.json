@@ -1,0 +1,19 @@
+{
+  "name": "@lzt/api-router",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@trpc/server": "^10.45.2",
+    "zod": "^3.22.4",
+    "@lzt/database": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "@lzt/config-typescript": "workspace:*"
+  }
+}
