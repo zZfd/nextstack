@@ -1,0 +1,6 @@
+# Config build outputs
+lib/
+dist/
+
+# Generated config files
+generated/

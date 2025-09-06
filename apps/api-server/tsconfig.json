@@ -1,0 +1,9 @@
+{
+  "extends": "../../packages/config-typescript/base.json",
+  "include": ["src"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "references": [{ "path": "../../packages/api-router" }]
+}

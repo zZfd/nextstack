@@ -1,0 +1,44 @@
+import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { httpBatchLink } from '@trpc/client';
+import { trpc } from '@lzt/trpc-client';
+import { TamaguiProvider } from 'tamagui';
+import { tamaguiConfig } from '@lzt/ui';
+import HomeScreen from './src/screens/HomeScreen';
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+  const [queryClient] = useState(() => new QueryClient());
+  const [trpcClient] = useState(() =>
+    trpc.createClient({
+      links: [
+        httpBatchLink({
+          url: 'http://localhost:4000/trpc', // Use your development server IP for testing on device
+        }),
+      ],
+    })
+  );
+
+  return (
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <TamaguiProvider config={tamaguiConfig}>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen 
+                name="Home" 
+                component={HomeScreen} 
+                options={{ title: 'Mobile Expo App' }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+          <StatusBar style="auto" />
+        </TamaguiProvider>
+      </QueryClientProvider>
+    </trpc.Provider>
+  );
+}

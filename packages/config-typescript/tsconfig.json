@@ -1,6 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Default",
   "compilerOptions": {
     "composite": true,
     "declaration": true,
@@ -15,7 +13,9 @@
     "preserveWatchOutput": true,
     "strict": true,
     "skipLibCheck": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "outDir": "dist"
   },
+  "files": ["base.json"],
   "exclude": ["node_modules"]
 }

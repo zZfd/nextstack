@@ -1,0 +1,41 @@
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+*.db3
+data/
+database/
+
+# Upload directories
+uploads/
+files/
+static/
+public/uploads/
+
+# Session storage
+sessions/
+
+# Logs
+logs/
+*.log
+
+# Process files
+pids/
+*.pid
+*.seed
+
+# Runtime data
+.pm2/
+
+# SSL certificates
+*.crt
+*.cert
+*.pem
+*.key
+
+# Docker
+.dockerignore
+
+# Backup files
+*.backup
+*.bak

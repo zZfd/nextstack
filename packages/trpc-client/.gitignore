@@ -1,0 +1,9 @@
+# Package build outputs
+lib/
+dist/
+
+# Generated types
+types/generated/
+
+# API client cache
+.api-cache/

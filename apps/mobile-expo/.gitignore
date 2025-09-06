@@ -1,0 +1,35 @@
+# Expo
+.expo/
+.expo-shared/
+
+# Metro
+.metro-health-check*
+
+# React Native
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# iOS
+ios/Pods/
+ios/**/*.xcworkspace
+ios/**/*.xcuserdata/
+ios/.xcode.env.local
+
+# Android
+android/.gradle/
+android/app/build/
+*.apk
+*.aab
+
+# Debug
+flipper-rn-addons.json
+
+# Expo CLI
+.expo-cli/
+
+# EAS
+eas.json

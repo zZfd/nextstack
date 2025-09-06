@@ -1,0 +1,9 @@
+# Package build outputs
+lib/
+dist/
+
+# OpenAPI generated files
+openapi/generated/
+
+# Router build artifacts
+routes/generated/

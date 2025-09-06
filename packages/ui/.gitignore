@@ -1,0 +1,13 @@
+# Package build outputs
+lib/
+dist/
+build/
+
+# Storybook
+storybook-static/
+
+# Component snapshots
+__snapshots__/
+
+# Visual regression testing
+__image_snapshots__/

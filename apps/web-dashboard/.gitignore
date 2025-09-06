@@ -1,0 +1,18 @@
+# Vite
+dist/
+.vite/
+
+# Vite cache
+vite.config.*.timestamp-*
+
+# Vite temp files
+*.local
+
+# ESLint cache
+.eslintcache
+
+# Storybook build outputs
+storybook-static/
+
+# Vite PWA
+dev-dist/

@@ -1,0 +1,12 @@
+# Database package outputs
+lib/
+dist/
+
+# Migration artifacts
+migrations/*.sql
+
+# Database schemas
+schema/generated/
+
+# Prisma generated files
+generated/
