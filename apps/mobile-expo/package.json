@@ -9,6 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build": "tsc --build",
+    "lint": "eslint . --ext ts,tsx --max-warnings 0",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -32,6 +33,7 @@
     "@babel/core": "^7.20.0",
     "@types/react": "~18.2.45",
     "typescript": "latest",
-    "@lzt/config-typescript": "workspace:*"
+    "@lzt/config-typescript": "workspace:*",
+    "@lzt/eslint-config": "workspace:*"
   }
 }

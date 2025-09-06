@@ -4,7 +4,7 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
-    "lint": "turbo lint",
+    "lint": "NODE_OPTIONS='--max-old-space-size=2048' turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "typecheck": "turbo typecheck"
   },

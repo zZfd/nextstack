@@ -1,12 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { useState } from "react";
-import ReactDOM from "react-dom/client";
 import { trpc } from "@lzt/trpc-client";
+import { tamaguiConfig } from "@lzt/ui";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
-import { App } from "./App";
+import React, { useState } from "react";
+import ReactDOM from "react-dom/client";
 import { TamaguiProvider } from "tamagui";
-import { tamaguiConfig } from "@lzt/ui";
+
+import { App } from "./App";
 
 function Root() {
   const [queryClient] = useState(() => new QueryClient());

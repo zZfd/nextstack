@@ -5,7 +5,9 @@
   "main": "./index.ts",
   "types": "./index.ts",
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "lint": "eslint . --ext ts --max-warnings 0",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@trpc/client": "^10.45.2",
@@ -15,6 +17,7 @@
   },
   "devDependencies": {
     "typescript": "latest",
-    "@lzt/config-typescript": "workspace:*"
+    "@lzt/config-typescript": "workspace:*",
+    "@lzt/eslint-config": "workspace:*"
   }
 }

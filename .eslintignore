@@ -1,0 +1,48 @@
+# Dependencies
+node_modules
+**/node_modules/**
+
+# Build outputs
+dist
+build
+out
+.next
+.turbo
+
+# Generated files
+*.min.js
+*.min.css
+
+# Coverage
+coverage
+*.lcov
+
+# Environment files
+.env
+.env.*
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode
+.idea
+
+# Package manager
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Temporary files
+*.tmp
+*.temp
+
+# Generated documentation
+docs/build
+storybook-static
