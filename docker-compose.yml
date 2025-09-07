@@ -3,7 +3,7 @@ version: "3.8"
 services:
   # PostgreSQL Database for development
   db:
-    image: postgres:15-alpine
+    image: postgres:16-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${DB_USER:-nexstack_user}
@@ -11,7 +11,7 @@ services:
       POSTGRES_DB: ${DB_NAME:-nexstack_dev}
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - "${DB_PORT:-5432}:5432"
+      - "${DB_PORT:-5433}:5432"
     volumes:
       - postgres_dev_data:/var/lib/postgresql/data/pgdata
       # Optional: Add init script if exists

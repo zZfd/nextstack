@@ -20,6 +20,23 @@
       "outputs": ["dist/.tsbuildinfo", ".tsbuildinfo"],
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "index.ts", "**/*.ts", "**/*.tsx", "tsconfig.json", "package.json"],
       "dependsOn": []
+    },
+    "db:generate": {
+      "cache": true,
+      "outputs": ["node_modules/.prisma/**"]
+    },
+    "db:push": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false
+    },
+    "db:reset": {
+      "cache": false
+    },
+    "db:studio": {
+      "cache": false,
+      "persistent": true
     }
   }
 }

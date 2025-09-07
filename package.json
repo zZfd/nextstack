@@ -2,8 +2,6 @@
   "name": "nexstack",
   "private": true,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
     "lint": "NODE_OPTIONS='--max-old-space-size=2048' turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "typecheck": "turbo typecheck",
@@ -13,7 +11,12 @@
     "db:dev": "docker-compose up -d db",
     "db:dev:stop": "docker-compose stop db",
     "db:dev:down": "docker-compose down",
-    "db:dev:logs": "docker-compose logs -f db"
+    "db:dev:logs": "docker-compose logs -f db",
+    "db:generate": "turbo db:generate",
+    "db:push": "turbo db:push",
+    "db:migrate": "turbo db:migrate",
+    "db:reset": "turbo db:reset",
+    "db:studio": "turbo db:studio"
   },
   "devDependencies": {
     "prettier": "^3.6.2",
