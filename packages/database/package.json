@@ -9,17 +9,15 @@
     "lint": "eslint . --ext ts --max-warnings 0",
     "lint:fix": "eslint . --ext ts --max-warnings 0 --fix",
     "typecheck": "tsc --noEmit",
-    "db:schema-generate": "prisma-import",
-    "db:generate": "pnpm db:schema-generate && prisma generate",
-    "db:push": "pnpm db:schema-generate && prisma db push --skip-generate",
-    "db:migrate": "pnpm db:schema-generate && prisma migrate dev"
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev"
   },
   "dependencies": {
     "@prisma/client": "^6.15.0"
   },
   "devDependencies": {
     "prisma": "^6.15.0",
-    "prisma-import": "^1.0.1",
     "typescript": "^5.9.2",
     "@nexstack/tsconfig": "workspace:*",
     "@nexstack/eslint-config": "workspace:*"
