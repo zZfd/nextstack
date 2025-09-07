@@ -2,14 +2,24 @@ import { db } from "@nexstack/database";
 import type * as trpc from "@trpc/server";
 import type * as trpcExpress from "@trpc/server/adapters/express";
 
-export const createContext = ({
-  req: _req,
-  res: _res,
-}: trpcExpress.CreateExpressContextOptions): { db: typeof db } => {
-  // For now, we'll just pass the db instance
+// Universal context options for both Express and fetch adapters
+interface CreateContextOptions {
+  req?: Request | trpcExpress.CreateExpressContextOptions['req'];
+  res?: Response | trpcExpress.CreateExpressContextOptions['res'];
+}
+
+export const createContext = (opts?: CreateContextOptions) => {
+  // You can access request/response here if needed for auth, etc.
+  // const { req, res } = opts || {};
+  
   return {
     db,
   };
+};
+
+// Express-specific wrapper for backward compatibility
+export const createExpressContext = (opts: trpcExpress.CreateExpressContextOptions) => {
+  return createContext(opts);
 };
 
 export type Context = trpc.inferAsyncReturnType<typeof createContext>;
