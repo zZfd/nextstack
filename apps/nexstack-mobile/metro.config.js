@@ -19,8 +19,8 @@ config.resolver.nodeModulesPaths = [
 
 // Add workspace packages as extra node modules
 config.resolver.alias = {
-  '@lzt/trpc-client': path.resolve(monorepoRoot, 'packages/trpc-client'),
-  '@lzt/ui': path.resolve(monorepoRoot, 'packages/ui'),
+  '@nexstack/trpc': path.resolve(monorepoRoot, 'packages/trpc'),
+  '@nexstack/ui': path.resolve(monorepoRoot, 'packages/ui'),
 };
 
 module.exports = config;

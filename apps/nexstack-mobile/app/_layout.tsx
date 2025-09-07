@@ -2,12 +2,11 @@ import { trpc } from '@nexstack/trpc';
 import { TamaguiProvider } from '@nexstack/ui';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom/client';
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 
-import { App } from './App';
-
-function Root() {
+export default function RootLayout() {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     trpc.createClient({
@@ -23,15 +22,27 @@ function Root() {
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
         <TamaguiProvider>
-          <App />
+          <Stack
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: '#f4511e',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          >
+            <Stack.Screen 
+              name="index" 
+              options={{ 
+                title: 'Mobile Expo App'
+              }} 
+            />
+          </Stack>
+          <StatusBar style="auto" />
         </TamaguiProvider>
       </QueryClientProvider>
     </trpc.Provider>
   );
 }
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <Root />
-  </React.StrictMode>
-);
