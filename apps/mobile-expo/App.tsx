@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
+import { trpc } from '@lzt/trpc-client';
+import { tamaguiConfig } from '@lzt/ui';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
-import { trpc } from '@lzt/trpc-client';
+import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { TamaguiProvider } from 'tamagui';
-import { tamaguiConfig } from '@lzt/ui';
+
 import HomeScreen from './src/screens/HomeScreen';
 
 const Stack = createNativeStackNavigator();

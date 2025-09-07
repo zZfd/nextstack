@@ -1,7 +1,7 @@
-import express from "express";
-import cors from "cors";
-import * as trpcExpress from "@trpc/server/adapters/express";
 import { appRouter, createContext } from "@lzt/api-router";
+import * as trpcExpress from "@trpc/server/adapters/express";
+import cors from "cors";
+import express from "express";
 
 const app = express();
 

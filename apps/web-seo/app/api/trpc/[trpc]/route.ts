@@ -1,5 +1,5 @@
-import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 import { appRouter, createContext } from '@lzt/api-router'
+import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 
 const handler = (req: Request) =>
   fetchRequestHandler({

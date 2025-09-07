@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { trpc } from '@lzt/trpc-client';
 import { MyButton } from '@lzt/ui';
 import { ScrollView, View, Text, H1, YStack } from 'tamagui';

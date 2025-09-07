@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useState } from 'react'
+import { trpc } from '@lzt/trpc-client'
+import { tamaguiConfig } from '@lzt/ui'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
-import { trpc } from '@lzt/trpc-client'
+import React, { useState } from 'react'
 import { TamaguiProvider } from 'tamagui'
-import { tamaguiConfig } from '@lzt/ui'
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => 
