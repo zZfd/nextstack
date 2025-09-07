@@ -7,18 +7,36 @@
     "lint": "NODE_OPTIONS='--max-old-space-size=2048' turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "typecheck": "turbo typecheck",
-    "test": "turbo test",
-    "test:coverage": "turbo test:coverage",
-    "test:watch": "turbo test:watch",
     "prepare": "husky install",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "clean": "rm -rf node_modules **/node_modules .turbo **/.turbo dist **/dist .next **/.next .cache **/.cache pnpm-lock.yaml && pnpm store prune"
   },
   "devDependencies": {
-    "prettier": "latest",
-    "turbo": "latest",
-    "typescript": "latest",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.2.0"
+    "prettier": "^3.6.2",
+    "turbo": "^2.5.6",
+    "typescript": "^5.9.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6"
+  },
+  "pnpm": {
+    "overrides": {
+      "@babel/plugin-proposal-async-generator-functions": "npm:@babel/plugin-transform-async-generator-functions@^7.25.0",
+      "@babel/plugin-proposal-class-properties": "npm:@babel/plugin-transform-class-properties@^7.25.0",
+      "@babel/plugin-proposal-logical-assignment-operators": "npm:@babel/plugin-transform-logical-assignment-operators@^7.25.0",
+      "@babel/plugin-proposal-nullish-coalescing-operator": "npm:@babel/plugin-transform-nullish-coalescing-operator@^7.25.0",
+      "@babel/plugin-proposal-numeric-separator": "npm:@babel/plugin-transform-numeric-separator@^7.25.0",
+      "@babel/plugin-proposal-object-rest-spread": "npm:@babel/plugin-transform-object-rest-spread@^7.25.0",
+      "@babel/plugin-proposal-optional-catch-binding": "npm:@babel/plugin-transform-optional-catch-binding@^7.25.0",
+      "@babel/plugin-proposal-optional-chaining": "npm:@babel/plugin-transform-optional-chaining@^7.25.0",
+      "glob@<9": "^10.4.5",
+      "rimraf@<4": "^6.0.1",
+      "uuid@3": "^10.0.0",
+      "uuid@<9": "^10.0.0",
+      "eslint": "^9.17.0",
+      "@typescript-eslint/eslint-plugin": "^8.19.1",
+      "@typescript-eslint/parser": "^8.19.1",
+      "@xmldom/xmldom": "^0.8.10"
+    }
   },
   "packageManager": "pnpm@9.15.0",
   "engines": {

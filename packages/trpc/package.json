@@ -11,13 +11,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@trpc/client": "^10.45.2",
-    "@trpc/react-query": "^10.45.2",
-    "@tanstack/react-query": "^5.29.2",
+    "@trpc/client": "^11.5.1",
+    "@trpc/react-query": "^11.5.1",
+    "@tanstack/react-query": "^5.80.3",
     "@nexstack/api": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "latest",
+    "typescript": "^5.9.2",
     "@nexstack/tsconfig": "workspace:*",
     "@nexstack/eslint-config": "workspace:*"
   }

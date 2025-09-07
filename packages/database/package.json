@@ -15,12 +15,12 @@
     "db:migrate": "pnpm db:schema-generate && prisma migrate dev"
   },
   "dependencies": {
-    "@prisma/client": "latest"
+    "@prisma/client": "^6.15.0"
   },
   "devDependencies": {
-    "prisma": "latest",
+    "prisma": "^6.15.0",
     "prisma-import": "^1.0.1",
-    "typescript": "latest",
+    "typescript": "^5.9.2",
     "@nexstack/tsconfig": "workspace:*",
     "@nexstack/eslint-config": "workspace:*"
   }

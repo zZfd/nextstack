@@ -1,4 +1,4 @@
-import { appRouter, createContext } from '@lzt/api-router'
+import { appRouter, createContext } from '@nexstack/api'
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 
 const handler = (req: Request) =>

@@ -8,22 +8,16 @@
     "build": "tsc --build",
     "lint": "eslint . --ext ts --max-warnings 0",
     "lint:fix": "eslint . --ext ts --max-warnings 0 --fix",
-    "typecheck": "tsc --noEmit",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@trpc/server": "^10.45.2",
+    "@trpc/server": "^11.5.1",
     "zod": "^3.22.4",
     "@nexstack/database": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "latest",
+    "typescript": "^5.9.2",
     "@nexstack/tsconfig": "workspace:*",
-    "@nexstack/eslint-config": "workspace:*",
-    "jest": "^29.7.0",
-    "@types/jest": "^29.5.8",
-    "ts-jest": "^29.1.1"
+    "@nexstack/eslint-config": "workspace:*"
   }
 }

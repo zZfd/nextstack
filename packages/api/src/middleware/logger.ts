@@ -60,7 +60,13 @@ class Logger {
 export const logger = new Logger();
 
 // tRPC logging middleware
-export function createLoggingContext({ req, res }: CreateExpressContextOptions) {
+export function createLoggingContext({ req, res }: CreateExpressContextOptions): {
+  req: CreateExpressContextOptions['req'];
+  res: CreateExpressContextOptions['res'];
+  logger: Logger;
+  startTime: number;
+  requestId: string;
+} {
   const start = Date.now();
   
   return {
