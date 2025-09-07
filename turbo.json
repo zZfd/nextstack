@@ -16,7 +16,10 @@
       "persistent": true
     },
     "typecheck": {
-      "dependsOn": ["^build"]
+      "cache": true,
+      "outputs": ["dist/.tsbuildinfo", ".tsbuildinfo"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "index.ts", "**/*.ts", "**/*.tsx", "tsconfig.json", "package.json"],
+      "dependsOn": []
     }
   }
 }

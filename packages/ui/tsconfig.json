@@ -1,8 +1,11 @@
 {
   "extends": "../config-typescript/base.json",
   "compilerOptions": {
-    "composite": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "tsBuildInfoFile": "dist/.tsbuildinfo",
+    "module": "ESNext",
+    "target": "ES2020",
+    "jsx": "react-jsx"
   },
   "include": ["src"],
   "exclude": ["node_modules"]

@@ -24,7 +24,7 @@ function Root() {
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
-        <TamaguiProvider config={tamaguiConfig}>
+        <TamaguiProvider config={tamaguiConfig as any}>
           <App />
         </TamaguiProvider>
       </QueryClientProvider>

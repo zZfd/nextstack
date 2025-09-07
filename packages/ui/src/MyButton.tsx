@@ -2,9 +2,9 @@ import { Button, styled } from "tamagui";
 
 export const MyButton = styled(Button, {
   name: "MyButton",
-  backgroundColor: "$blue10",
+  theme: "blue",
   color: "$color",
   pressStyle: {
-    backgroundColor: "$blue8",
+    opacity: 0.8,
   },
 });

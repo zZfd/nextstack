@@ -17,7 +17,7 @@ export default function HomeScreen() {
         <YStack space="$2">
           <Text fontSize="$6" fontWeight="bold">Posts:</Text>
           {postsQuery.isLoading && <Text>Loading...</Text>}
-          {postsQuery.data?.map((post) => (
+          {postsQuery.data?.map((post: any) => (
             <View key={post.id} padding="$3" backgroundColor="$background075" borderRadius="$2">
               <Text fontSize="$5" fontWeight="bold">{post.title}</Text>
               {post.content && <Text color="$color11">{post.content}</Text>}

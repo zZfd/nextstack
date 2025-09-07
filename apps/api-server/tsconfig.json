@@ -3,7 +3,8 @@
   "include": ["src"],
   "exclude": ["node_modules"],
   "compilerOptions": {
-    "outDir": "dist"
-  },
-  "references": [{ "path": "../../packages/api-router" }]
+    "outDir": "dist",
+    "module": "ESNext",
+    "target": "ES2020"
+  }
 }

@@ -8,8 +8,4 @@
     "module": "ESNext",
     "jsx": "react-jsx"
   },
-  "references": [
-    { "path": "../../packages/trpc-client" },
-    { "path": "../../packages/ui" }
-  ]
 }
