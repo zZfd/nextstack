@@ -18,11 +18,60 @@ importers:
         specifier: latest
         version: 5.9.2
 
-  apps/api-server:
+  apps/nexstack-admin:
     dependencies:
-      '@lzt/api-router':
+      '@nexstack/trpc':
         specifier: workspace:*
-        version: link:../../packages/api-router
+        version: link:../../packages/trpc
+      '@nexstack/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      '@tamagui/config':
+        specifier: ^1.94.3
+        version: 1.132.23(react-dom@18.3.1(react@18.2.0))(react-native-reanimated@4.1.0(@babel/core@7.28.4)(react-native-worklets@0.5.0(@babel/core@7.28.4)(react-native@0.74.5(@babel/core@7.28.4)(@babel/preset-env@7.28.3(@babel/core@7.28.4))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0))(react-native@0.74.5(@babel/core@7.28.4)(@babel/preset-env@7.28.3(@babel/core@7.28.4))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0))(react-native@0.74.5(@babel/core@7.28.4)(@babel/preset-env@7.28.3(@babel/core@7.28.4))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
+      '@tanstack/react-query':
+        specifier: ^5.29.2
+        version: 5.87.1(react@18.2.0)
+      '@trpc/client':
+        specifier: ^10.45.2
+        version: 10.45.2(@trpc/server@10.45.2)
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.2.0)
+      tamagui:
+        specifier: ^1.94.3
+        version: 1.132.23(react-dom@18.3.1(react@18.2.0))(react-native@0.74.5(@babel/core@7.28.4)(@babel/preset-env@7.28.3(@babel/core@7.28.4))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
+    devDependencies:
+      '@nexstack/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@nexstack/tsconfig':
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
+      '@types/react':
+        specifier: ^18.2.66
+        version: 18.2.79
+      '@types/react-dom':
+        specifier: ^18.2.22
+        version: 18.3.7(@types/react@18.2.79)
+      '@vitejs/plugin-react':
+        specifier: ^4.2.1
+        version: 4.7.0(vite@5.4.19(@types/node@20.19.13)(terser@5.44.0))
+      typescript:
+        specifier: latest
+        version: 5.9.2
+      vite:
+        specifier: ^5.2.0
+        version: 5.4.19(@types/node@20.19.13)(terser@5.44.0)
+
+  apps/nexstack-api:
+    dependencies:
+      '@nexstack/api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@trpc/server':
         specifier: ^10.45.2
         version: 10.45.2
@@ -33,12 +82,12 @@ importers:
         specifier: ^4.18.2
         version: 4.21.2
     devDependencies:
-      '@lzt/config-typescript':
-        specifier: workspace:*
-        version: link:../../packages/config-typescript
-      '@lzt/eslint-config':
+      '@nexstack/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      '@nexstack/tsconfig':
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
       '@types/cors':
         specifier: ^2.8.17
         version: 2.8.19
@@ -55,12 +104,12 @@ importers:
         specifier: latest
         version: 5.9.2
 
-  apps/mobile-expo:
+  apps/nexstack-mobile:
     dependencies:
-      '@lzt/trpc-client':
+      '@nexstack/trpc':
         specifier: workspace:*
-        version: link:../../packages/trpc-client
-      '@lzt/ui':
+        version: link:../../packages/trpc
+      '@nexstack/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@react-navigation/native':
@@ -106,12 +155,12 @@ importers:
       '@babel/core':
         specifier: ^7.20.0
         version: 7.28.4
-      '@lzt/config-typescript':
-        specifier: workspace:*
-        version: link:../../packages/config-typescript
-      '@lzt/eslint-config':
+      '@nexstack/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      '@nexstack/tsconfig':
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
       '@types/react':
         specifier: ~18.2.45
         version: 18.2.79
@@ -119,64 +168,15 @@ importers:
         specifier: latest
         version: 5.9.2
 
-  apps/web-dashboard:
+  apps/nexstack-web:
     dependencies:
-      '@lzt/trpc-client':
+      '@nexstack/api':
         specifier: workspace:*
-        version: link:../../packages/trpc-client
-      '@lzt/ui':
+        version: link:../../packages/api
+      '@nexstack/trpc':
         specifier: workspace:*
-        version: link:../../packages/ui
-      '@tamagui/config':
-        specifier: ^1.94.3
-        version: 1.132.23(react-dom@18.3.1(react@18.2.0))(react-native-reanimated@4.1.0(@babel/core@7.28.4)(react-native-worklets@0.5.0(@babel/core@7.28.4)(react-native@0.74.5(@babel/core@7.28.4)(@babel/preset-env@7.28.3(@babel/core@7.28.4))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0))(react-native@0.74.5(@babel/core@7.28.4)(@babel/preset-env@7.28.3(@babel/core@7.28.4))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0))(react-native@0.74.5(@babel/core@7.28.4)(@babel/preset-env@7.28.3(@babel/core@7.28.4))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
-      '@tanstack/react-query':
-        specifier: ^5.29.2
-        version: 5.87.1(react@18.2.0)
-      '@trpc/client':
-        specifier: ^10.45.2
-        version: 10.45.2(@trpc/server@10.45.2)
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.2.0)
-      tamagui:
-        specifier: ^1.94.3
-        version: 1.132.23(react-dom@18.3.1(react@18.2.0))(react-native@0.74.5(@babel/core@7.28.4)(@babel/preset-env@7.28.3(@babel/core@7.28.4))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
-    devDependencies:
-      '@lzt/config-typescript':
-        specifier: workspace:*
-        version: link:../../packages/config-typescript
-      '@lzt/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
-      '@types/react':
-        specifier: ^18.2.66
-        version: 18.2.79
-      '@types/react-dom':
-        specifier: ^18.2.22
-        version: 18.3.7(@types/react@18.2.79)
-      '@vitejs/plugin-react':
-        specifier: ^4.2.1
-        version: 4.7.0(vite@5.4.19(@types/node@20.19.13)(terser@5.44.0))
-      typescript:
-        specifier: latest
-        version: 5.9.2
-      vite:
-        specifier: ^5.2.0
-        version: 5.4.19(@types/node@20.19.13)(terser@5.44.0)
-
-  apps/web-seo:
-    dependencies:
-      '@lzt/api-router':
-        specifier: workspace:*
-        version: link:../../packages/api-router
-      '@lzt/trpc-client':
-        specifier: workspace:*
-        version: link:../../packages/trpc-client
-      '@lzt/ui':
+        version: link:../../packages/trpc
+      '@nexstack/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@tamagui/config':
@@ -210,12 +210,12 @@ importers:
         specifier: ^1.94.3
         version: 1.132.23(react-dom@18.3.1(react@18.2.0))(react-native@0.74.5(@babel/core@7.28.4)(@babel/preset-env@7.28.3(@babel/core@7.28.4))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
     devDependencies:
-      '@lzt/config-typescript':
-        specifier: workspace:*
-        version: link:../../packages/config-typescript
-      '@lzt/eslint-config':
+      '@nexstack/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      '@nexstack/tsconfig':
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
       '@types/node':
         specifier: ^20
         version: 20.19.13
@@ -229,9 +229,9 @@ importers:
         specifier: latest
         version: 5.9.2
 
-  packages/api-router:
+  packages/api:
     dependencies:
-      '@lzt/database':
+      '@nexstack/database':
         specifier: workspace:*
         version: link:../database
       '@trpc/server':
@@ -241,17 +241,15 @@ importers:
         specifier: ^3.22.4
         version: 3.25.76
     devDependencies:
-      '@lzt/config-typescript':
-        specifier: workspace:*
-        version: link:../config-typescript
-      '@lzt/eslint-config':
+      '@nexstack/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@nexstack/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       typescript:
         specifier: latest
         version: 5.9.2
-
-  packages/config-typescript: {}
 
   packages/database:
     dependencies:
@@ -259,12 +257,12 @@ importers:
         specifier: latest
         version: 6.15.0(prisma@6.15.0(typescript@5.9.2))(typescript@5.9.2)
     devDependencies:
-      '@lzt/config-typescript':
-        specifier: workspace:*
-        version: link:../config-typescript
-      '@lzt/eslint-config':
+      '@nexstack/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@nexstack/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       prisma:
         specifier: latest
         version: 6.15.0(typescript@5.9.2)
@@ -308,11 +306,11 @@ importers:
         specifier: ^0.4.6
         version: 0.4.20(eslint@8.57.1)
 
-  packages/trpc-client:
+  packages/trpc:
     dependencies:
-      '@lzt/api-router':
+      '@nexstack/api':
         specifier: workspace:*
-        version: link:../api-router
+        version: link:../api
       '@tanstack/react-query':
         specifier: ^5.29.2
         version: 5.87.1(react@18.2.0)
@@ -323,15 +321,17 @@ importers:
         specifier: ^10.45.2
         version: 10.45.2(@tanstack/react-query@5.87.1(react@18.2.0))(@trpc/client@10.45.2(@trpc/server@10.45.2))(@trpc/server@10.45.2)(react-dom@18.3.1(react@18.2.0))(react@18.2.0)
     devDependencies:
-      '@lzt/config-typescript':
-        specifier: workspace:*
-        version: link:../config-typescript
-      '@lzt/eslint-config':
+      '@nexstack/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@nexstack/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       typescript:
         specifier: latest
         version: 5.9.2
+
+  packages/tsconfig: {}
 
   packages/ui:
     dependencies:
@@ -351,12 +351,12 @@ importers:
         specifier: ^1.94.3
         version: 1.132.23(react-dom@18.3.1(react@18.2.0))(react-native@0.72.12(@babel/core@7.28.4)(@babel/preset-env@7.28.3(@babel/core@7.28.4))(react@18.2.0))(react@18.2.0)
     devDependencies:
-      '@lzt/config-typescript':
-        specifier: workspace:*
-        version: link:../config-typescript
-      '@lzt/eslint-config':
+      '@nexstack/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@nexstack/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/react':
         specifier: ^18.2.38
         version: 18.2.79
@@ -1268,7 +1268,7 @@ packages:
 
   '@expo/bunyan@4.0.1':
     resolution: {integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==}
-    engines: {'0': node >=0.10.0}
+    engines: {node: '>=0.10.0'}
 
   '@expo/cli@0.18.31':
     resolution: {integrity: sha512-v9llw9fT3Uv+TCM6Xllo54t672CuYtinEQZ2LPJ2EJsCwuTc4Cd2gXQaouuIVD21VoeGQnr5JtJuWbF97sBKzQ==}
@@ -14409,7 +14409,7 @@ snapshots:
   normalize-package-data@2.5.0:
     dependencies:
       hosted-git-info: 2.8.9
-      resolve: 1.22.10
+      resolve: 1.22.2
       semver: 5.7.2
       validate-npm-package-license: 3.0.4
 

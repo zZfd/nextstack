@@ -1,5 +1,5 @@
 {
-  "name": "@lzt/eslint-config",
+  "name": "@nexstack/eslint-config",
   "version": "0.0.0",
   "private": true,
   "description": "Shared ESLint configurations for the monorepo",

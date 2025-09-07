@@ -1,20 +1,36 @@
 {
-  "name": "demo",
+  "name": "nexstack",
   "private": true,
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "NODE_OPTIONS='--max-old-space-size=2048' turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "test:coverage": "turbo test:coverage",
+    "test:watch": "turbo test:watch",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
   },
   "devDependencies": {
     "prettier": "latest",
     "turbo": "latest",
-    "typescript": "latest"
+    "typescript": "latest",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0"
   },
   "packageManager": "pnpm@9.15.0",
   "engines": {
     "node": ">=18.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
   }
 }

@@ -1,0 +1,29 @@
+{
+  "name": "@nexstack/api",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "lint": "eslint . --ext ts --max-warnings 0",
+    "lint:fix": "eslint . --ext ts --max-warnings 0 --fix",
+    "typecheck": "tsc --noEmit",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "@trpc/server": "^10.45.2",
+    "zod": "^3.22.4",
+    "@nexstack/database": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "@nexstack/tsconfig": "workspace:*",
+    "@nexstack/eslint-config": "workspace:*",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.8",
+    "ts-jest": "^29.1.1"
+  }
+}

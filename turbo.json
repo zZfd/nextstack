@@ -20,6 +20,23 @@
       "outputs": ["dist/.tsbuildinfo", ".tsbuildinfo"],
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "index.ts", "**/*.ts", "**/*.tsx", "tsconfig.json", "package.json"],
       "dependsOn": []
+    },
+    "test": {
+      "cache": true,
+      "outputs": ["coverage/**"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "**/*.test.{ts,tsx}", "**/*.spec.{ts,tsx}", "jest.config.{js,ts}", "vitest.config.{js,ts}"],
+      "dependsOn": ["build"]
+    },
+    "test:coverage": {
+      "cache": true,
+      "outputs": ["coverage/**"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "**/*.test.{ts,tsx}", "**/*.spec.{ts,tsx}", "jest.config.{js,ts}", "vitest.config.{js,ts}"],
+      "dependsOn": ["build"]
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": []
     }
   }
 }
