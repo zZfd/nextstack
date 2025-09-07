@@ -9,7 +9,13 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "docker:build": "docker build -t nexstack-admin .",
+    "docker:run": "docker run -d -p 8080:80 --name nexstack-admin-container nexstack-admin",
+    "docker:stop": "docker stop nexstack-admin-container",
+    "docker:remove": "docker rm nexstack-admin-container",
+    "docker:logs": "docker logs -f nexstack-admin-container",
+    "docker:deploy": "pnpm docker:build && pnpm docker:run"
   },
   "dependencies": {
     "@nexstack/trpc": "workspace:*",

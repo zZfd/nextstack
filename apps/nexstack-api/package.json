@@ -9,7 +9,13 @@
     "start": "node dist/index.js",
     "lint": "eslint . --ext ts --max-warnings 0",
     "lint:fix": "eslint . --ext ts --max-warnings 0 --fix",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "docker:build": "docker build -t nexstack-api .",
+    "docker:run": "docker run -d -p 3001:3001 --name nexstack-api-container nexstack-api",
+    "docker:stop": "docker stop nexstack-api-container",
+    "docker:remove": "docker rm nexstack-api-container",
+    "docker:logs": "docker logs -f nexstack-api-container",
+    "docker:deploy": "pnpm docker:build && pnpm docker:run"
   },
   "dependencies": {
     "@trpc/server": "^11.5.1",

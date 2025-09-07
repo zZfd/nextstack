@@ -1,4 +1,4 @@
-# Multi-stage build for production optimization
+# Multi-stage build for nexstack-api
 FROM node:18-alpine AS base
 RUN npm install -g pnpm turbo
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 RUN pnpm build --filter=nexstack-api...
 
-# Production image
+# Production runtime
 FROM node:18-alpine AS runner
 WORKDIR /app
 
@@ -25,8 +25,9 @@ WORKDIR /app
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nodejs
 
-# Copy built application
-COPY --from=builder --chown=nodejs:nodejs /app/apps/nexstack-api/dist ./
+# Copy built application and dependencies
+COPY --from=builder --chown=nodejs:nodejs /app/apps/nexstack-api/dist ./dist
+COPY --from=builder --chown=nodejs:nodejs /app/packages ./packages
 COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nodejs:nodejs /app/package.json ./package.json
 
@@ -37,8 +38,4 @@ EXPOSE 3001
 ENV NODE_ENV=production
 ENV PORT=3001
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node healthcheck.js || exit 1
-
-CMD ["node", "index.js"]
+CMD ["node", "dist/index.js"]
