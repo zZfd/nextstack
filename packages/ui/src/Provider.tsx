@@ -1,4 +1,5 @@
 import { TamaguiProvider as TamaguiProviderOriginal, TamaguiProviderProps } from 'tamagui'
+
 import { tamaguiConfig } from './tamagui.config'
 
 export interface ProviderProps extends Omit<TamaguiProviderProps, 'config'> {
@@ -11,7 +12,7 @@ export function TamaguiProvider({
   ...props 
 }: ProviderProps) {
   return (
-    <TamaguiProviderOriginal config={config as any} {...props}>
+    <TamaguiProviderOriginal config={config as TamaguiProviderProps['config']} {...props}>
       {children}
     </TamaguiProviderOriginal>
   )

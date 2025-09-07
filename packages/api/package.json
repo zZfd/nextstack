@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "typescript": "^5.9.2",
+    "@types/node": "^20.0.0",
     "@nexstack/tsconfig": "workspace:*",
     "@nexstack/eslint-config": "workspace:*"
   }

@@ -1,5 +1,4 @@
 const reactConfig = require('@nexstack/eslint-config/react.js');
-const globals = require('globals');
 
 module.exports = [
   ...reactConfig,

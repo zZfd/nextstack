@@ -1,9 +1,16 @@
 import { TRPCError } from '@trpc/server';
+
 import { logger } from './logger';
 
 export interface PerformanceMetrics {
   duration: number;
-  memory: NodeJS.MemoryUsage;
+  memory: {
+    rss: number;
+    heapTotal: number;
+    heapUsed: number;
+    external: number;
+    arrayBuffers: number;
+  };
   timestamp: string;
 }
 

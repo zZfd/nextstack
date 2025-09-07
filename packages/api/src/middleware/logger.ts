@@ -5,13 +5,13 @@ export interface LogEntry {
   timestamp: string;
   level: 'info' | 'warn' | 'error' | 'debug';
   message: string;
-  meta?: Record<string, any>;
+  meta?: Record<string, unknown>;
 }
 
 class Logger {
   private isDevelopment = process.env.NODE_ENV === 'development';
 
-  private formatMessage(level: LogEntry['level'], message: string, meta?: Record<string, any>): LogEntry {
+  private formatMessage(level: LogEntry['level'], message: string, meta?: Record<string, unknown>): LogEntry {
     return {
       timestamp: new Date().toISOString(),
       level,
@@ -38,19 +38,19 @@ class Logger {
     }
   }
 
-  info(message: string, meta?: Record<string, any>) {
+  info(message: string, meta?: Record<string, unknown>) {
     this.output(this.formatMessage('info', message, meta));
   }
 
-  warn(message: string, meta?: Record<string, any>) {
+  warn(message: string, meta?: Record<string, unknown>) {
     this.output(this.formatMessage('warn', message, meta));
   }
 
-  error(message: string, meta?: Record<string, any>) {
+  error(message: string, meta?: Record<string, unknown>) {
     this.output(this.formatMessage('error', message, meta));
   }
 
-  debug(message: string, meta?: Record<string, any>) {
+  debug(message: string, meta?: Record<string, unknown>) {
     if (process.env.LOG_LEVEL === 'debug' || this.isDevelopment) {
       this.output(this.formatMessage('debug', message, meta));
     }

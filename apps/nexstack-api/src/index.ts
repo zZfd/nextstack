@@ -1,11 +1,10 @@
 import { appRouter, createContext } from "@nexstack/api";
 import * as trpcExpress from "@trpc/server/adapters/express";
+import compression from "compression";
 import cors from "cors";
 import express from "express";
-import helmet from "helmet";
 import rateLimit from "express-rate-limit";
-import compression from "compression";
-import { createProxyMiddleware } from "http-proxy-middleware";
+import helmet from "helmet";
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -81,17 +80,17 @@ app.use(
 );
 
 // Error handling middleware
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: unknown, req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error('Error:', err);
   
-  if (err.code === 'LIMIT_FILE_SIZE') {
+  if (typeof err === 'object' && err !== null && 'code' in err && err.code === 'LIMIT_FILE_SIZE') {
     return res.status(413).json({ error: 'File too large' });
   }
   
   res.status(500).json({
     error: process.env.NODE_ENV === 'production' 
       ? 'Internal server error' 
-      : err.message
+      : err instanceof Error ? err.message : 'Unknown error'
   });
 });
 

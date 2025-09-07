@@ -1,7 +1,6 @@
-const nextConfig = require('@nexstack/eslint-config/next.js');
-const globals = require('globals');
+import nextConfig from '@nexstack/eslint-config/next.js';
 
-module.exports = [
+export default [
   ...nextConfig,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],

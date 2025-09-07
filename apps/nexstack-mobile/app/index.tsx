@@ -16,7 +16,7 @@ export default function HomeScreen() {
         <Stack space="$2">
           <Text fontSize="$6" fontWeight="bold">Posts:</Text>
           {postsQuery.isLoading && <Text>Loading...</Text>}
-          {postsQuery.data?.map((post: any) => (
+          {postsQuery.data?.map((post: { id: string; title: string; content?: string }) => (
             <Layout key={post.id} padding="$3" backgroundColor="$background075" borderRadius="$2">
               <Text fontSize="$5" fontWeight="bold">{post.title}</Text>
               {post.content && <Text color="$color11">{post.content}</Text>}

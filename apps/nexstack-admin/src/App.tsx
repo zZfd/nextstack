@@ -14,7 +14,7 @@ export function App() {
         <Stack space="$2">
           <Text fontSize="$6" fontWeight="bold">Posts:</Text>
           {postsQuery.isLoading && <Text>Loading...</Text>}
-          {postsQuery.data?.map((post: any) => (
+          {postsQuery.data?.map((post: { id: string; title: string; content?: string }) => (
             <Layout key={post.id} padding="$2" backgroundColor="$background075">
               <Text fontSize="$4" fontWeight="bold">{post.title}</Text>
               {post.content && <Text>{post.content}</Text>}
