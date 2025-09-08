@@ -44,18 +44,19 @@ describe('Database Real Operations Verification', () => {
       where: { id: created.id }
     })
 
+    expect(verifyUpdate).not.toBeNull()
     expect(verifyUpdate!.title).toBe('Updated Real Database Test')
 
     // 5. 真实的删除操作
     console.log('🗑️ Deleting post...')
-    await db.post.delete({
-      where: { id: created.id }
+    const deleteResult = await db.post.delete({
+      where: { id: updated.id } // 使用updated.id而不是created.id
     })
 
     // 6. 验证删除成功
     console.log('🔍 Verifying deletion...')
     const deleted = await db.post.findUnique({
-      where: { id: created.id }
+      where: { id: updated.id } // 使用updated.id保持一致
     })
 
     console.log('✅ Post successfully deleted from database')

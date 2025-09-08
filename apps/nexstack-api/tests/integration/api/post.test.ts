@@ -47,7 +47,7 @@ describe('Post API Integration Tests', () => {
     // 通过 tRPC 获取数据
     const posts = await caller.post.all()
 
-    // 验证真实的数据库查询结果
+    // 验证真实的数据库查询结果 - 应该至少包含我们刚创建的2个
     expect(posts.length).toBeGreaterThanOrEqual(2)
     
     // 检查我们创建的测试数据是否存在
@@ -58,6 +58,12 @@ describe('Post API Integration Tests', () => {
     expect(foundPost1?.title).toBe('Test Post 1')
     expect(foundPost2).toBeDefined()
     expect(foundPost2?.title).toBe('Test Post 2')
+    
+    // 验证总数是否正确（这个测试应该包含我们的测试数据）
+    const ourTestPosts = posts.filter(p => 
+      p.title === 'Test Post 1' || p.title === 'Test Post 2'
+    )
+    expect(ourTestPosts).toHaveLength(2)
   })
 
   it('should retrieve specific post by ID from real database', async () => {
