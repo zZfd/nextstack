@@ -1,7 +1,8 @@
 import { exec } from 'child_process'
-import { promisify } from 'util'
-import dotenv from 'dotenv'
 import path from 'path'
+import { promisify } from 'util'
+
+import dotenv from 'dotenv'
 
 const execAsync = promisify(exec)
 

@@ -11,6 +11,11 @@
       "outputs": [],
       "dependsOn": []
     },
+    "lint:fix": {
+      "cache": false,
+      "outputs": [],
+      "dependsOn": []
+    },
     "dev": {
       "cache": false,
       "persistent": true

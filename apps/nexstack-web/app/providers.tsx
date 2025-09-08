@@ -5,6 +5,7 @@ import { TamaguiProvider } from '@nexstack/ui'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
 import React, { useState } from 'react'
+
 import { config } from '../config'
 
 export function Providers({ children }: { children: React.ReactNode }) {

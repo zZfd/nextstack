@@ -1,7 +1,9 @@
-import { beforeEach, afterEach } from 'vitest'
+import path from 'path'
+
 import { db } from '@nexstack/database'
 import dotenv from 'dotenv'
-import path from 'path'
+import { beforeEach, afterEach } from 'vitest'
+
 
 // 加载测试环境配置
 dotenv.config({ path: path.resolve(__dirname, '../../.env.test') })

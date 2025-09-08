@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest'
 import { appRouter, createContext } from '@nexstack/api'
 import { db } from '@nexstack/database'
+import { describe, it, expect } from 'vitest'
 
 describe('Post API Integration Tests', () => {
   // 直接创建tRPC caller，绕过test-utils问题

@@ -5,6 +5,7 @@ import { httpBatchLink } from '@trpc/client';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
+
 import { config } from '../config';
 
 export default function RootLayout() {

@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "lint": "NODE_OPTIONS='--max-old-space-size=2048' turbo lint",
+    "lint:fix": "NODE_OPTIONS='--max-old-space-size=2048' turbo lint:fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "typecheck": "turbo typecheck",
     "prepare": "husky install",
