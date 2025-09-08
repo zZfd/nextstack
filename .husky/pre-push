@@ -1,0 +1,16 @@
+# Run lint:fix and typecheck before push
+echo "🔍 Running lint:fix..."
+pnpm lint:fix
+if [ $? -ne 0 ]; then
+  echo "❌ Lint:fix failed. Please fix the issues and try again."
+  exit 1
+fi
+
+echo "🔧 Running typecheck..."
+pnpm typecheck
+if [ $? -ne 0 ]; then
+  echo "❌ Typecheck failed. Please fix the TypeScript errors and try again."
+  exit 1
+fi
+
+echo "✅ Pre-push checks passed!"

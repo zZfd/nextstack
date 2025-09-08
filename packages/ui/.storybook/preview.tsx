@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react';
 import { TamaguiProvider } from 'tamagui';
+
 import config from '../src/tamagui.config';
 
 const preview: Preview = {
