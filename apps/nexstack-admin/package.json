@@ -22,8 +22,8 @@
     "@nexstack/ui": "workspace:*",
     "@tanstack/react-query": "^5.80.3",
     "@trpc/client": "^11.5.1",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "devDependencies": {
     "@nexstack/eslint-config": "workspace:*",

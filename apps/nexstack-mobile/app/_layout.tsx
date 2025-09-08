@@ -5,6 +5,7 @@ import { httpBatchLink } from '@trpc/client';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
+import { config } from '../config';
 
 export default function RootLayout() {
   const [queryClient] = useState(() => new QueryClient());
@@ -12,7 +13,7 @@ export default function RootLayout() {
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: 'http://localhost:4000/trpc',
+          url: config.trpcEndpoint,
         }),
       ],
     })

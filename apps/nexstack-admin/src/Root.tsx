@@ -5,6 +5,7 @@ import { httpBatchLink } from '@trpc/client';
 import { useState } from 'react';
 
 import { App } from './App';
+import { config } from './config';
 
 export function Root() {
   const [queryClient] = useState(() => new QueryClient());
@@ -12,7 +13,7 @@ export function Root() {
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: 'http://localhost:4000/trpc',
+          url: config.trpcEndpoint,
         }),
       ],
     })

@@ -12,9 +12,12 @@
   },
   "dependencies": {
     "@trpc/client": "^11.5.1",
+    "@nexstack/api": "workspace:*"
+  },
+  "peerDependencies": {
     "@trpc/react-query": "^11.5.1",
     "@tanstack/react-query": "^5.80.3",
-    "@nexstack/api": "workspace:*"
+    "react": "19.0.0"
   },
   "devDependencies": {
     "typescript": "^5.9.2",

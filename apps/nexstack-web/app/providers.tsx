@@ -5,6 +5,7 @@ import { TamaguiProvider } from '@nexstack/ui'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
 import React, { useState } from 'react'
+import { config } from '../config'
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => 
@@ -21,7 +22,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: 'http://localhost:4000/trpc',
+          url: config.trpcEndpoint,
         }),
       ],
     })
