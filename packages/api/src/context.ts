@@ -1,6 +1,5 @@
-import { db } from "@nexstack/database";
-import type * as trpc from "@trpc/server";
-import type * as trpcExpress from "@trpc/server/adapters/express";
+import { db } from '@nexstack/database';
+import type * as trpcExpress from '@trpc/server/adapters/express';
 
 // Universal context options for both Express and fetch adapters
 interface CreateContextOptions {
@@ -11,15 +10,17 @@ interface CreateContextOptions {
 export const createContext = (_opts?: CreateContextOptions) => {
   // You can access request/response here if needed for auth, etc.
   // const { req, res } = opts || {};
-  
+
   return {
     db,
   };
 };
 
 // Express-specific wrapper for backward compatibility
-export const createExpressContext = (opts: trpcExpress.CreateExpressContextOptions) => {
+export const createExpressContext = (
+  opts: trpcExpress.CreateExpressContextOptions
+) => {
   return createContext(opts);
 };
 
-export type Context = trpc.inferAsyncReturnType<typeof createContext>;
+export type Context = Awaited<ReturnType<typeof createContext>>;

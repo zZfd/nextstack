@@ -1,3 +1,3 @@
 module.exports = {
-  extends: [require.resolve('@lzt/eslint-config/node')],
+  extends: [require.resolve('@nexstack/eslint-config/node')],
 };

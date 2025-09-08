@@ -1,3 +1,3 @@
 module.exports = {
-  extends: [require.resolve('@lzt/eslint-config/react-native')],
+  extends: [require.resolve('@nexstack/eslint-config/react-native')],
 };

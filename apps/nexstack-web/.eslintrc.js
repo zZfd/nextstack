@@ -1,5 +1,5 @@
 module.exports = {
   extends: [
-    require.resolve('@lzt/eslint-config/next'), // Our shared Next.js config
+    require.resolve('@nexstack/eslint-config/next'), // Our shared Next.js config
   ],
 };
