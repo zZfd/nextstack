@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 
 import { Layout } from '../Layout';
 import { Text } from '../Typography';
@@ -46,9 +46,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: (
-      <Text>Basic Layout component</Text>
-    ),
+    children: <Text>Basic Layout component</Text>,
   },
 };
 
@@ -56,9 +54,7 @@ export const WithPadding: Story = {
   args: {
     padding: '$4',
     backgroundColor: '$gray2',
-    children: (
-      <Text>Layout with padding</Text>
-    ),
+    children: <Text>Layout with padding</Text>,
   },
 };
 
@@ -68,7 +64,7 @@ export const ColoredBackground: Story = {
     padding: '$3',
     borderRadius: '$3',
     children: (
-      <Text color="$blue11">Layout with blue background and border radius</Text>
+      <Text color='$blue11'>Layout with blue background and border radius</Text>
     ),
   },
 };
@@ -81,7 +77,9 @@ export const CenteredContent: Story = {
     backgroundColor: '$purple2',
     borderRadius: '$4',
     children: (
-      <Text color="$purple11" fontSize="$5">Centered Content</Text>
+      <Text color='$purple11' fontSize='$5'>
+        Centered Content
+      </Text>
     ),
   },
 };
@@ -95,9 +93,9 @@ export const FlexLayout: Story = {
     backgroundColor: '$green2',
     children: (
       <>
-        <Text color="$green11">Left</Text>
-        <Text color="$green11">Center</Text>
-        <Text color="$green11">Right</Text>
+        <Text color='$green11'>Left</Text>
+        <Text color='$green11'>Center</Text>
+        <Text color='$green11'>Right</Text>
       </>
     ),
   },
@@ -115,8 +113,12 @@ export const CardLike: Story = {
     elevation: 3,
     children: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <Text fontSize="$6" fontWeight="bold">Card Title</Text>
-        <Text color="$gray11">This layout looks like a card with shadow effects</Text>
+        <Text fontSize='$6' fontWeight='bold'>
+          Card Title
+        </Text>
+        <Text color='$gray11'>
+          This layout looks like a card with shadow effects
+        </Text>
       </div>
     ),
   },
@@ -130,7 +132,7 @@ export const ResponsiveLayout: Story = {
     backgroundColor: '$orange2',
     borderRadius: '$2',
     children: (
-      <Text color="$orange11">Responsive layout with max-width constraint</Text>
+      <Text color='$orange11'>Responsive layout with max-width constraint</Text>
     ),
   },
 };

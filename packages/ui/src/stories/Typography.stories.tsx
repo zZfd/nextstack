@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 
-import { Text, H1, H2, H3, H4, H5, H6 } from '../Typography';
+import { H1, H2, H3, H4, H5, H6, Text } from '../Typography';
 
 // Text Stories
 const textMeta: Meta<typeof Text> = {
@@ -26,7 +26,19 @@ const textMeta: Meta<typeof Text> = {
     },
     fontWeight: {
       control: 'select',
-      options: ['normal', 'bold', '100', '200', '300', '400', '500', '600', '700', '800', '900'],
+      options: [
+        'normal',
+        'bold',
+        '100',
+        '200',
+        '300',
+        '400',
+        '500',
+        '600',
+        '700',
+        '800',
+        '900',
+      ],
       description: 'Font weight',
     },
   },

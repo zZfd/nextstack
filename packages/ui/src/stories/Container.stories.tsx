@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 
 import { Container } from '../Container';
 import { Text } from '../Typography';
@@ -41,9 +41,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: (
-      <Text>This is content inside a Container component</Text>
-    ),
+    children: <Text>This is content inside a Container component</Text>,
   },
 };
 
@@ -51,9 +49,7 @@ export const WithPadding: Story = {
   args: {
     padding: '$4',
     backgroundColor: '$gray2',
-    children: (
-      <Text>Container with padding</Text>
-    ),
+    children: <Text>Container with padding</Text>,
   },
 };
 
@@ -61,9 +57,7 @@ export const WithBackgroundColor: Story = {
   args: {
     backgroundColor: '$blue2',
     padding: '$3',
-    children: (
-      <Text color="$blue11">Container with blue background</Text>
-    ),
+    children: <Text color='$blue11'>Container with blue background</Text>,
   },
 };
 
@@ -88,9 +82,7 @@ export const FixedDimensions: Story = {
     height: 200,
     backgroundColor: '$purple2',
     padding: '$3',
-    children: (
-      <Text color="$purple11">Fixed size container (400x200)</Text>
-    ),
+    children: <Text color='$purple11'>Fixed size container (400x200)</Text>,
   },
 };
 
@@ -100,13 +92,13 @@ export const MultipleChildren: Story = {
     backgroundColor: '$green1',
     children: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <Text fontSize="$6" fontWeight="bold" color="$green11">
+        <Text fontSize='$6' fontWeight='bold' color='$green11'>
           Multiple Children
         </Text>
-        <Text color="$green10">
+        <Text color='$green10'>
           This container holds multiple text elements
         </Text>
-        <Text color="$green9" fontSize="$3">
+        <Text color='$green9' fontSize='$3'>
           With different styles and colors
         </Text>
       </div>
