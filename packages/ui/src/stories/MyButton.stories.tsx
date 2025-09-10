@@ -1,12 +1,36 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
-
+import { YStack, XStack } from 'tamagui';
 import { MyButton } from '../MyButton';
+import { Text } from '../Typography';
 
 const meta: Meta<typeof MyButton> = {
   title: 'Components/MyButton',
   component: MyButton,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: `
+# MyButton Component
+
+Enhanced button component with theme variants, sizes, and hover/press animations.
+
+## Features
+- **Theme Integration**: Uses design system colors from the theme configuration
+- **Variants**: Default, secondary, destructive, outline, and ghost styles
+- **Sizes**: Small, medium, and large variants
+- **Animations**: Smooth hover and press animations with scale transforms
+- **Accessibility**: Proper focus and interaction states
+
+## Variants
+- **default**: Primary button with brand green background
+- **secondary**: Subtle secondary button
+- **destructive**: Red button for dangerous actions
+- **outline**: Bordered button with transparent background
+- **ghost**: Minimal button with no background
+        `,
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -14,14 +38,14 @@ const meta: Meta<typeof MyButton> = {
       control: 'text',
       description: 'Button text content',
     },
-    theme: {
+    variant: {
       control: 'select',
-      options: ['blue', 'red', 'green', 'purple', 'orange'],
-      description: 'Button theme color',
+      options: ['default', 'secondary', 'destructive', 'outline', 'ghost'],
+      description: 'Visual variant of the button',
     },
     size: {
       control: 'select',
-      options: ['$1', '$2', '$3', '$4', '$5'],
+      options: ['sm', 'md', 'lg'],
       description: 'Button size',
     },
     disabled: {
@@ -40,38 +64,52 @@ export const Default: Story = {
   },
 };
 
-export const Blue: Story = {
+export const Secondary: Story = {
   args: {
-    children: 'Blue Button',
-    theme: 'blue',
+    children: 'Secondary Button',
+    variant: 'secondary',
   },
 };
 
-export const Red: Story = {
+export const Destructive: Story = {
   args: {
-    children: 'Red Button',
-    theme: 'red',
+    children: 'Delete Account',
+    variant: 'destructive',
   },
 };
 
-export const Green: Story = {
+export const Outline: Story = {
   args: {
-    children: 'Green Button',
-    theme: 'green',
+    children: 'Outline Button',
+    variant: 'outline',
   },
 };
 
-export const Large: Story = {
+export const Ghost: Story = {
   args: {
-    children: 'Large Button',
-    size: '$5',
+    children: 'Ghost Button',
+    variant: 'ghost',
   },
 };
 
 export const Small: Story = {
   args: {
     children: 'Small Button',
-    size: '$2',
+    size: 'sm',
+  },
+};
+
+export const Medium: Story = {
+  args: {
+    children: 'Medium Button',
+    size: 'md',
+  },
+};
+
+export const Large: Story = {
+  args: {
+    children: 'Large Button',
+    size: 'lg',
   },
 };
 
@@ -86,5 +124,88 @@ export const Interactive: Story = {
   args: {
     children: 'Click Me!',
     onPress: () => alert('Button clicked!'),
+  },
+};
+
+// Showcase all variants
+export const AllVariants: Story = {
+  render: () => (
+    <YStack gap="$4" padding="$4">
+      <Text variant="muted" marginBottom="$2">Button Variants:</Text>
+      <XStack gap="$3" flexWrap="wrap" alignItems="center">
+        <MyButton variant="default">Default</MyButton>
+        <MyButton variant="secondary">Secondary</MyButton>
+        <MyButton variant="destructive">Destructive</MyButton>
+        <MyButton variant="outline">Outline</MyButton>
+        <MyButton variant="ghost">Ghost</MyButton>
+      </XStack>
+    </YStack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'All available button variants displayed together with distinct colors.',
+      },
+    },
+  },
+};
+
+// Showcase all sizes
+export const AllSizes: Story = {
+  render: () => (
+    <YStack gap="$4" padding="$4">
+      <XStack gap="$3" alignItems="center">
+        <MyButton size="sm">Small</MyButton>
+        <MyButton size="md">Medium</MyButton>
+        <MyButton size="lg">Large</MyButton>
+      </XStack>
+    </YStack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'All available button sizes displayed together.',
+      },
+    },
+  },
+};
+
+// Theme showcase
+export const ThemeShowcase: Story = {
+  render: () => (
+    <YStack gap="$6" padding="$4">
+      <YStack>
+        <Text variant="muted" marginBottom="$3">Dark Theme Buttons:</Text>
+        <YStack theme="dark" backgroundColor="$background" padding="$4" borderRadius="$3" borderWidth={1} borderColor="$border">
+          <XStack gap="$3" flexWrap="wrap">
+            <MyButton>Primary</MyButton>
+            <MyButton variant="secondary">Secondary</MyButton>
+            <MyButton variant="destructive">Destructive</MyButton>
+            <MyButton variant="outline">Outline</MyButton>
+            <MyButton variant="ghost">Ghost</MyButton>
+          </XStack>
+        </YStack>
+      </YStack>
+      
+      <YStack>
+        <Text variant="muted" marginBottom="$3">Light Theme Buttons:</Text>
+        <YStack theme="light" backgroundColor="$background" padding="$4" borderRadius="$3" borderWidth={1} borderColor="$border">
+          <XStack gap="$3" flexWrap="wrap">
+            <MyButton>Primary</MyButton>
+            <MyButton variant="secondary">Secondary</MyButton>
+            <MyButton variant="destructive">Destructive</MyButton>
+            <MyButton variant="outline">Outline</MyButton>
+            <MyButton variant="ghost">Ghost</MyButton>
+          </XStack>
+        </YStack>
+      </YStack>
+    </YStack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Button appearance in both dark and light themes, showing proper color adaptation.',
+      },
+    },
   },
 };

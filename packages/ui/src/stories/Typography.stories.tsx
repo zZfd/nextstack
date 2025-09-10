@@ -1,13 +1,33 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
+import { YStack, XStack } from 'tamagui';
+import { H1, H2, H3, H4, H5, H6, Text, Paragraph } from '../Typography';
 
-import { H1, H2, H3, H4, H5, H6, Text } from '../Typography';
-
-// Text Stories
-const textMeta: Meta<typeof Text> = {
-  title: 'Typography/Text',
+const meta: Meta<typeof Text> = {
+  title: 'Design System/Typography',
   component: Text,
   parameters: {
-    layout: 'centered',
+    layout: 'padded',
+    docs: {
+      description: {
+        component: `
+# Typography System
+
+Complete typography system based on Inter font with consistent theming and semantic color variants.
+
+## Features
+- **Inter Font Family**: Modern, readable typeface optimized for interfaces
+- **Size Scale**: Consistent sizing from 12px to 36px following design system tokens
+- **Theme Integration**: Automatic color adaptation for light and dark themes
+- **Semantic Variants**: Muted, destructive, success, warning, and info color options
+- **Line Height**: Proportional line heights for optimal readability
+
+## Components
+- **Headings (H1-H6)**: Hierarchical heading styles with appropriate weights
+- **Text**: Base text component with variant support
+- **Paragraph**: Enhanced paragraph component with lead, large, and small variants
+        `,
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -15,146 +35,183 @@ const textMeta: Meta<typeof Text> = {
       control: 'text',
       description: 'Text content',
     },
-    fontSize: {
+    variant: {
       control: 'select',
-      options: ['$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8'],
-      description: 'Font size',
-    },
-    color: {
-      control: 'text',
-      description: 'Text color',
-    },
-    fontWeight: {
-      control: 'select',
-      options: [
-        'normal',
-        'bold',
-        '100',
-        '200',
-        '300',
-        '400',
-        '500',
-        '600',
-        '700',
-        '800',
-        '900',
-      ],
-      description: 'Font weight',
+      options: ['default', 'muted', 'destructive', 'success', 'warning', 'info'],
+      description: 'Text color variant',
     },
   },
 };
 
-export default textMeta;
-type TextStory = StoryObj<typeof textMeta>;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const DefaultText: TextStory = {
+export const Default: Story = {
   args: {
-    children: 'This is default text',
+    children: 'This is the default text style.',
   },
 };
 
-export const LargeText: TextStory = {
-  args: {
-    children: 'This is large text',
-    fontSize: '$6',
-  },
-};
-
-export const SmallText: TextStory = {
-  args: {
-    children: 'This is small text',
-    fontSize: '$2',
-  },
-};
-
-export const BoldText: TextStory = {
-  args: {
-    children: 'This is bold text',
-    fontWeight: 'bold',
-  },
-};
-
-export const ColoredText: TextStory = {
-  args: {
-    children: 'This is colored text',
-    color: '$blue10',
-  },
-};
-
-// Headings Stories
-const headingMeta: Meta<typeof H1> = {
-  title: 'Typography/Headings',
-  component: H1,
-  parameters: {
-    layout: 'centered',
-  },
-  tags: ['autodocs'],
-};
-
-export const Heading1: StoryObj<typeof H1> = {
-  render: () => <H1>Heading 1</H1>,
-  parameters: {
-    docs: {
-      description: {
-        story: 'The largest heading, typically used for page titles.',
-      },
-    },
-  },
-};
-
-export const Heading2: StoryObj<typeof H2> = {
-  render: () => <H2>Heading 2</H2>,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Second level heading, used for major sections.',
-      },
-    },
-  },
-};
-
-export const Heading3: StoryObj<typeof H3> = {
-  render: () => <H3>Heading 3</H3>,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Third level heading, used for subsections.',
-      },
-    },
-  },
-};
-
-export const Heading4: StoryObj<typeof H4> = {
-  render: () => <H4>Heading 4</H4>,
-};
-
-export const Heading5: StoryObj<typeof H5> = {
-  render: () => <H5>Heading 5</H5>,
-};
-
-export const Heading6: StoryObj<typeof H6> = {
-  render: () => <H6>Heading 6</H6>,
-};
-
-export const AllHeadings: StoryObj = {
+export const TextVariants: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <H1>Heading 1</H1>
-      <H2>Heading 2</H2>
-      <H3>Heading 3</H3>
-      <H4>Heading 4</H4>
-      <H5>Heading 5</H5>
-      <H6>Heading 6</H6>
-    </div>
+    <YStack gap="$3" padding="$4">
+      <Text>Default text color</Text>
+      <Text variant="muted">Muted text color</Text>
+      <Text variant="destructive">Destructive text color</Text>
+      <Text variant="success">Success text color</Text>
+      <Text variant="warning">Warning text color</Text>
+      <Text variant="info">Info text color</Text>
+    </YStack>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'All heading sizes displayed together for comparison.',
+        story: 'All available text color variants using semantic theme colors.',
       },
     },
   },
 };
 
-// Export headings meta separately
-export const HeadingsMeta = headingMeta;
+export const ParagraphVariants: Story = {
+  render: () => (
+    <YStack gap="$4" padding="$4" maxWidth={600}>
+      <Paragraph>
+        This is the default paragraph style. It provides good readability with proper line height and font size for body text content.
+      </Paragraph>
+      <Paragraph variant="muted">
+        This is a muted paragraph variant, useful for secondary content or descriptions that should have less visual prominence.
+      </Paragraph>
+      <Paragraph variant="lead">
+        This is a lead paragraph variant with larger text size, perfect for introductory text or highlighting important content.
+      </Paragraph>
+      <Paragraph variant="large">
+        This is a large paragraph variant with medium font weight for emphasized body text.
+      </Paragraph>
+      <Paragraph variant="small">
+        This is a small paragraph variant for captions, labels, or fine print text.
+      </Paragraph>
+    </YStack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Different paragraph variants for various content hierarchy needs.',
+      },
+    },
+  },
+};
+
+export const HeadingHierarchy: Story = {
+  render: () => (
+    <YStack gap="$4" padding="$4">
+      <H1>Heading 1 (36px)</H1>
+      <H2>Heading 2 (30px)</H2>
+      <H3>Heading 3 (24px)</H3>
+      <H4>Heading 4 (20px)</H4>
+      <H5>Heading 5 (18px)</H5>
+      <H6>Heading 6 (16px)</H6>
+      <Paragraph>
+        Regular paragraph text (16px) for comparison with the heading hierarchy above.
+      </Paragraph>
+    </YStack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Complete heading hierarchy showing size relationships and proper typographic scale.',
+      },
+    },
+  },
+};
+
+export const ContentExample: Story = {
+  render: () => (
+    <YStack gap="$4" padding="$4" maxWidth={700}>
+      <H2>Typography in Practice</H2>
+      <Paragraph variant="lead">
+        This example demonstrates how different typography elements work together to create clear content hierarchy and excellent readability.
+      </Paragraph>
+      
+      <H3>Design Principles</H3>
+      <Paragraph>
+        Good typography is invisible. When readers can focus on content without being distracted by poor formatting, font choices, or unclear hierarchy, the typography has succeeded.
+      </Paragraph>
+      
+      <H4>Key Features</H4>
+      <YStack gap="$2" marginLeft="$4">
+        <Text>• Consistent spacing and rhythm</Text>
+        <Text>• Proper contrast for accessibility</Text>
+        <Text>• Semantic color variants</Text>
+        <Text>• Responsive and scalable</Text>
+      </YStack>
+      
+      <H4>Status Messages</H4>
+      <YStack gap="$2">
+        <Text variant="success">✓ Operation completed successfully</Text>
+        <Text variant="warning">⚠ Please review these settings</Text>
+        <Text variant="destructive">✗ An error occurred during processing</Text>
+        <Text variant="info">ℹ Additional information is available</Text>
+      </YStack>
+      
+      <Paragraph variant="small">
+        Last updated: September 2025
+      </Paragraph>
+    </YStack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Real-world example showing typography components used together in typical content layouts.',
+      },
+    },
+  },
+};
+
+export const ThemeComparison: Story = {
+  render: () => (
+    <YStack gap="$6" padding="$4">
+      <YStack>
+        <Text variant="muted" marginBottom="$2">Dark Theme Typography:</Text>
+        <YStack theme="dark" backgroundColor="$background" padding="$4" borderRadius="$3" borderWidth={1} borderColor="$border">
+          <H3>Dark Theme Typography</H3>
+          <YStack gap="$3">
+            <H4>Heading Example</H4>
+            <Paragraph>This paragraph demonstrates how typography appears in the dark theme with proper contrast ratios.</Paragraph>
+            <Text variant="muted">Muted text maintains readability while providing hierarchy.</Text>
+            <XStack gap="$4" flexWrap="wrap">
+              <Text variant="success">Success</Text>
+              <Text variant="warning">Warning</Text>
+              <Text variant="destructive">Error</Text>
+              <Text variant="info">Info</Text>
+            </XStack>
+          </YStack>
+        </YStack>
+      </YStack>
+      
+      <YStack>
+        <Text variant="muted" marginBottom="$2">Light Theme Typography:</Text>
+        <YStack theme="light" backgroundColor="$background" padding="$4" borderRadius="$3" borderWidth={1} borderColor="$border">
+          <H3>Light Theme Typography</H3>
+          <YStack gap="$3">
+            <H4>Heading Example</H4>
+            <Paragraph>This paragraph shows the same typography in light theme, maintaining consistency while adapting colors.</Paragraph>
+            <Text variant="muted">Muted text adjusts appropriately for the lighter background.</Text>
+            <XStack gap="$4" flexWrap="wrap">
+              <Text variant="success">Success</Text>
+              <Text variant="warning">Warning</Text>
+              <Text variant="destructive">Error</Text>
+              <Text variant="info">Info</Text>
+            </XStack>
+          </YStack>
+        </YStack>
+      </YStack>
+    </YStack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Typography appearance comparison between dark and light themes, showing proper contrast and color adaptation.',
+      },
+    },
+  },
+};

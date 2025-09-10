@@ -22,19 +22,19 @@ const tokens = createTokens({
     primaryForeground: 'hsl(0, 0%, 98%)',
 
     // Secondary colors
-    secondary: 'hsl(0, 0%, 9%)',
+    secondary: 'hsl(0, 0%, 25%)', // Lighter gray for better visibility
     secondaryForeground: 'hsl(0, 0%, 98%)',
 
     // Muted colors
-    muted: 'hsl(0, 0%, 9%)',
-    mutedForeground: 'hsl(0, 0%, 63%)',
+    muted: 'hsl(0, 0%, 20%)', // Slightly lighter for better visibility
+    mutedForeground: 'hsl(0, 0%, 71%)',
 
     // Accent colors
-    accent: 'hsl(0, 0%, 9%)',
+    accent: 'hsl(0, 0%, 18%)', // Slightly lighter for better visibility
     accentForeground: 'hsl(0, 0%, 98%)',
 
     // Destructive/Error colors
-    destructive: 'hsl(0, 63%, 31%)', // #dc2626
+    destructive: 'hsl(0, 84%, 50%)', // Brighter red for better visibility
     destructiveForeground: 'hsl(0, 0%, 98%)',
 
     // Border and input colors
@@ -43,17 +43,17 @@ const tokens = createTokens({
     ring: 'hsl(142, 76%, 36%)', // Focus ring uses primary
 
     // Extended semantic colors from style guide
-    success: 'hsl(142, 76%, 36%)', // Green for success
-    warning: 'hsl(35, 91%, 45%)', // #d97706
-    info: 'hsl(217, 91%, 60%)', // #3b82f6
-    error: 'hsl(0, 84%, 60%)', // #ef4444
+    success: 'hsl(142, 76%, 55%)', // Brighter green for better visibility on dark
+    warning: 'hsl(35, 91%, 60%)', // Brighter orange for better visibility
+    info: 'hsl(217, 91%, 70%)', // Brighter blue for better visibility
+    error: 'hsl(0, 84%, 65%)', // Brighter red for better visibility
 
     // Status colors
-    green500: 'hsl(142, 76%, 36%)',
-    blue500: 'hsl(217, 91%, 60%)',
-    red500: 'hsl(0, 84%, 60%)',
-    amber600: 'hsl(35, 91%, 45%)',
-    yellow800: 'hsl(35, 92%, 33%)',
+    green500: 'hsl(142, 76%, 55%)',
+    blue500: 'hsl(217, 91%, 70%)',
+    red500: 'hsl(0, 84%, 65%)',
+    amber600: 'hsl(35, 91%, 60%)',
+    yellow800: 'hsl(35, 92%, 50%)',
 
     // Transparent variants for overlays
     blackAlpha: 'rgba(0, 0, 0, 0.6)',
@@ -225,6 +225,7 @@ export const tamaguiConfig = createTamagui({
   animations,
   shouldAddPrefersColorThemes: true,
   themeClassNameOnRoot: true,
+  defaultTheme: 'dark',
   shorthands: {
     // Layout shorthands
     f: 'flex',
@@ -281,49 +282,135 @@ export const tamaguiConfig = createTamagui({
 
   // Theme definitions
   themes: {
-    // Light theme (fallback) - inverted colors for light mode
+    // Light theme - bright background with dark text
     light: {
-      background: 'hsl(0, 0%, 100%)', // White background
-      backgroundHover: 'hsl(0, 0%, 96%)', // Light gray hover
-      backgroundPress: 'hsl(0, 0%, 94%)', // Slightly darker press
-      backgroundFocus: 'hsl(0, 0%, 96%)', // Light gray focus
-      backgroundStrong: 'hsl(0, 0%, 9%)', // Dark text on light
+      // Basic background and foreground
+      background: 'hsl(0, 0%, 100%)', // Pure white background
+      foreground: 'hsl(0, 0%, 9%)', // Dark text
+      
+      // Card colors
+      card: 'hsl(0, 0%, 100%)', // White card background
+      cardForeground: 'hsl(0, 0%, 9%)', // Dark card text
+      
+      // Popover colors
+      popover: 'hsl(0, 0%, 100%)', // White popover
+      popoverForeground: 'hsl(0, 0%, 9%)', // Dark popover text
+      
+      // Primary colors (keep green brand color)
+      primary: tokens.color.primary, // Brand green
+      primaryForeground: 'hsl(0, 0%, 98%)', // White text on green
+      
+      // Secondary colors
+      secondary: 'hsl(0, 0%, 96%)', // Light gray
+      secondaryForeground: 'hsl(0, 0%, 9%)', // Dark text
+      
+      // Muted colors
+      muted: 'hsl(0, 0%, 96%)', // Light gray
+      mutedForeground: 'hsl(0, 0%, 40%)', // Darker gray text for better contrast
+      
+      // Accent colors
+      accent: 'hsl(0, 0%, 96%)', // Light gray
+      accentForeground: 'hsl(0, 0%, 9%)', // Dark text
+      
+      // Destructive colors
+      destructive: tokens.color.destructive, // Keep red
+      destructiveForeground: 'hsl(0, 0%, 98%)', // White text on red
+      
+      // Border and input
+      border: 'hsl(0, 0%, 89%)', // Light border
+      input: 'hsl(0, 0%, 96%)', // Light input background
+      ring: tokens.color.primary, // Green focus ring
+      
+      // Extended semantic colors - adjusted for light theme
+      success: 'hsl(142, 76%, 36%)', // Darker green for light background
+      warning: 'hsl(35, 91%, 45%)', // Darker orange for light background
+      info: 'hsl(217, 91%, 50%)', // Darker blue for light background
+      error: 'hsl(0, 84%, 50%)', // Darker red for light background
+      
+      // Legacy theme properties for compatibility
+      backgroundHover: 'hsl(0, 0%, 96%)',
+      backgroundPress: 'hsl(0, 0%, 94%)',
+      backgroundFocus: 'hsl(0, 0%, 96%)',
+      backgroundStrong: 'hsl(0, 0%, 9%)',
       backgroundTransparent: 'rgba(255,255,255,0)',
-      color: 'hsl(0, 0%, 9%)', // Dark text on light background
+      color: 'hsl(0, 0%, 9%)',
       colorHover: 'hsl(0, 0%, 9%)',
       colorPress: 'hsl(0, 0%, 9%)',
       colorFocus: 'hsl(0, 0%, 9%)',
       colorTransparent: 'rgba(0,0,0,0)',
-      borderColor: 'hsl(0, 0%, 89%)', // Light border
-      borderColorHover: tokens.color.primary, // Keep primary green
-      borderColorFocus: tokens.color.ring, // Keep primary ring
+      borderColor: 'hsl(0, 0%, 89%)',
+      borderColorHover: tokens.color.primary,
+      borderColorFocus: tokens.color.ring,
       borderColorPress: tokens.color.primary,
-      placeholderColor: 'hsl(0, 0%, 45%)', // Gray placeholder
-      shadowColor: 'rgba(0, 0, 0, 0.1)', // Light shadow
+      placeholderColor: 'hsl(0, 0%, 45%)',
+      shadowColor: 'rgba(0, 0, 0, 0.1)',
       shadowColorHover: 'rgba(0, 0, 0, 0.15)',
       shadowColorPress: 'rgba(0, 0, 0, 0.2)',
       shadowColorFocus: 'rgba(0, 0, 0, 0.15)',
     },
 
-    // Dark theme (primary) - using design system tokens
+    // Dark theme - dark background with light text
     dark: {
-      background: tokens.color.background, // hsl(0, 0%, 3%)
-      backgroundHover: tokens.color.muted, // hsl(0, 0%, 9%)
+      // Basic background and foreground
+      background: tokens.color.background, // Very dark background
+      foreground: tokens.color.foreground, // Light text
+      
+      // Card colors
+      card: tokens.color.card, // Dark card
+      cardForeground: tokens.color.cardForeground, // Light card text
+      
+      // Popover colors
+      popover: tokens.color.popover, // Dark popover
+      popoverForeground: tokens.color.popoverForeground, // Light popover text
+      
+      // Primary colors
+      primary: tokens.color.primary, // Brand green
+      primaryForeground: tokens.color.primaryForeground, // White text on green
+      
+      // Secondary colors
+      secondary: tokens.color.secondary, // Dark gray
+      secondaryForeground: tokens.color.secondaryForeground, // Light text
+      
+      // Muted colors
+      muted: tokens.color.muted, // Dark gray
+      mutedForeground: tokens.color.mutedForeground, // Medium gray text
+      
+      // Accent colors
+      accent: tokens.color.accent, // Dark gray
+      accentForeground: tokens.color.accentForeground, // Light text
+      
+      // Destructive colors
+      destructive: tokens.color.destructive, // Red
+      destructiveForeground: tokens.color.destructiveForeground, // White text on red
+      
+      // Border and input
+      border: tokens.color.border, // Dark border
+      input: tokens.color.input, // Dark input background
+      ring: tokens.color.ring, // Green focus ring
+      
+      // Extended semantic colors - bright colors for dark background
+      success: 'hsl(142, 76%, 55%)', // Bright green for dark background
+      warning: 'hsl(35, 91%, 60%)', // Bright orange for dark background
+      info: 'hsl(217, 91%, 70%)', // Bright blue for dark background
+      error: 'hsl(0, 84%, 65%)', // Bright red for dark background
+      
+      // Legacy theme properties for compatibility
+      backgroundHover: tokens.color.muted,
       backgroundPress: tokens.color.muted,
       backgroundFocus: tokens.color.muted,
-      backgroundStrong: tokens.color.foreground, // hsl(0, 0%, 98%)
+      backgroundStrong: tokens.color.foreground,
       backgroundTransparent: 'rgba(0,0,0,0)',
-      color: tokens.color.foreground, // hsl(0, 0%, 98%)
+      color: tokens.color.foreground,
       colorHover: tokens.color.foreground,
       colorPress: tokens.color.foreground,
       colorFocus: tokens.color.foreground,
       colorTransparent: 'rgba(255,255,255,0)',
-      borderColor: tokens.color.border, // hsl(0, 0%, 15%)
-      borderColorHover: tokens.color.primary, // hsl(142, 76%, 36%)
+      borderColor: tokens.color.border,
+      borderColorHover: tokens.color.primary,
       borderColorFocus: tokens.color.ring,
       borderColorPress: tokens.color.primary,
-      placeholderColor: tokens.color.mutedForeground, // hsl(0, 0%, 63%)
-      shadowColor: tokens.color.blackAlpha, // rgba(0, 0, 0, 0.6)
+      placeholderColor: tokens.color.mutedForeground,
+      shadowColor: tokens.color.blackAlpha,
       shadowColorHover: tokens.color.blackAlpha,
       shadowColorPress: tokens.color.blackAlpha,
       shadowColorFocus: tokens.color.blackAlpha,

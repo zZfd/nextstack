@@ -2,6 +2,97 @@
 
 The goal of the project is to use Monorepo architecture to create a full stack typeScript development Scaffold and provide necessary development templates.
 
+## Development Environment & Technology Stack
+
+### Project Overview
+**NexStack** - A full-stack TypeScript development scaffold built on Monorepo architecture
+
+### 🏗️ Architecture & Toolchain
+
+#### Monorepo Management
+- **Package Manager**: pnpm (v9.15.0) + pnpm workspaces
+- **Build Tool**: Turbo (v2.5.6) - for task orchestration and caching
+- **Workspace Structure**: apps/* and packages/* organization
+
+### Core Technology Stack
+
+#### Frontend Applications (apps/)
+1. **nexstack-web** - Next.js 15.1.8 Web Application
+   - React 19.0.0 + React DOM
+   - tRPC client integration
+   - TypeScript support
+
+2. **nexstack-mobile** - React Native (Expo 53)
+   - React Native 0.79.5
+   - Expo Router 5.1.5
+   - Cross-platform mobile app
+
+3. **nexstack-admin** - Admin dashboard
+4. **nexstack-api** - API service
+
+#### Shared Packages (packages/)
+1. **@nexstack/ui** - Component Library
+   - Tamagui UI Framework (v1.132.23)
+   - Storybook 9.1.5 for component documentation
+   - React Native Web support
+
+2. **@nexstack/database** - Data Layer
+   - Prisma ORM (v6.15.0)
+   - PostgreSQL database
+
+3. **@nexstack/trpc** - Type-safe API Communication
+   - tRPC v11.5.1
+   - End-to-end type safety
+
+4. **@nexstack/api** - Shared API logic
+5. **@nexstack/tsconfig** - Shared TypeScript configuration
+6. **@nexstack/eslint-config** - Shared ESLint configuration
+
+### 🛠️ Development Environment
+
+#### Database
+- **PostgreSQL 16** (Alpine) via Docker Compose
+- Default port: 5433
+- Development database: nexstack_dev
+
+#### Quality Assurance
+- **TypeScript 5.9.2** - Strict type checking
+- **ESLint 9.17.0** - Code linting
+- **Prettier 3.6.2** - Code formatting
+- **Husky 9.1.7** - Git hooks
+- **lint-staged 16.1.6** - Pre-commit checks
+
+#### Containerization
+- Docker support (nexstack-web has complete Docker configuration)
+- Nginx configuration for production deployment
+
+### 🚀 Available Scripts
+
+#### Root Level Commands
+```bash
+# Development
+pnpm typecheck    # Type checking
+pnpm lint         # Code linting
+pnpm format       # Code formatting
+
+# Database
+pnpm db:dev       # Start development database
+pnpm db:generate  # Generate Prisma client
+pnpm db:push      # Push schema changes
+pnpm db:studio    # Database GUI
+
+# Cleanup
+pnpm clean        # Clean all build artifacts
+```
+
+### 🎯 Project Highlights
+
+1. **Full-stack Type Safety**: tRPC provides end-to-end type safety
+2. **Cross-platform UI**: Tamagui supports unified Web + Mobile components
+3. **Modern Toolchain**: Latest React 19, Next.js 15, TypeScript 5.9
+4. **Development Efficiency**: Turbo caching + pnpm workspaces boost build speed
+5. **Quality Assurance**: Complete linting, formatting, type checking workflow
+
 ## Rules
 
 ### Typescript Rules

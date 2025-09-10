@@ -1,244 +1,293 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
+import { YStack, View } from 'tamagui';
 
 import { HStack, Stack } from '../Stack';
-import { Text } from '../Typography';
+import { Text, H3, Paragraph } from '../Typography';
 
-// Vertical Stack Stories
-const stackMeta: Meta<typeof Stack> = {
+const meta: Meta<typeof Stack> = {
   title: 'Layout/Stack',
   component: Stack,
   parameters: {
-    layout: 'centered',
+    layout: 'padded',
+    docs: {
+      description: {
+        component: `
+# Stack Components
+
+Flexible layout components for organizing content vertically (Stack) and horizontally (HStack).
+
+## Features
+- **Variant System**: Spacing, padding, centering, and distribution options
+- **Theme Integration**: Consistent spacing using design tokens
+- **Flexible Layout**: Support for various alignment and distribution patterns
+- **Nested Support**: Easy composition for complex layouts
+
+## Variants
+- **spacing**: none, sm, md, lg, xl
+- **padded**: sm, true, lg
+- **centered**: Centers content
+- **distribution** (HStack): spaceBetween, spaceAround, spaceEvenly
+        `,
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
-    space: {
+    spacing: {
       control: 'select',
-      options: ['$1', '$2', '$3', '$4', '$5', '$6'],
-      description: 'Space between children',
+      options: ['none', 'sm', 'md', 'lg', 'xl'],
+      description: 'Spacing between children',
     },
-    padding: {
+    padded: {
       control: 'select',
-      options: ['$1', '$2', '$3', '$4', '$5', '$6'],
-      description: 'Stack padding',
+      options: [false, 'sm', true, 'lg'],
+      description: 'Padding around content',
     },
-    backgroundColor: {
-      control: 'text',
-      description: 'Background color',
-    },
-    alignItems: {
-      control: 'select',
-      options: ['flex-start', 'center', 'flex-end', 'stretch'],
-      description: 'Align items',
-    },
-    justifyContent: {
-      control: 'select',
-      options: [
-        'flex-start',
-        'center',
-        'flex-end',
-        'space-between',
-        'space-around',
-        'space-evenly',
-      ],
-      description: 'Justify content',
+    centered: {
+      control: 'boolean',
+      description: 'Center align content',
     },
   },
 };
 
-export default stackMeta;
-type StackStory = StoryObj<typeof stackMeta>;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const DefaultStack: StackStory = {
-  args: {
-    space: '$2',
-    children: (
-      <>
-        <Text>First item</Text>
-        <Text>Second item</Text>
-        <Text>Third item</Text>
-      </>
-    ),
-  },
-};
-
-export const WithSpacing: StackStory = {
-  args: {
-    space: '$4',
-    padding: '$3',
-    backgroundColor: '$gray2',
-    children: (
-      <>
-        <Text>Item with large spacing</Text>
-        <Text>Another item</Text>
-        <Text>Third item</Text>
-        <Text>Fourth item</Text>
-      </>
-    ),
-  },
-};
-
-export const CenteredStack: StackStory = {
-  args: {
-    space: '$3',
-    alignItems: 'center',
-    padding: '$4',
-    backgroundColor: '$blue2',
-    children: (
-      <>
-        <Text color='$blue11'>Centered item 1</Text>
-        <Text color='$blue11'>Centered item 2</Text>
-        <Text color='$blue11'>Centered item 3</Text>
-      </>
-    ),
-  },
-};
-
-export const StackWithMixedContent: StackStory = {
-  args: {
-    space: '$3',
-    padding: '$4',
-    backgroundColor: '$purple1',
-    children: (
-      <>
-        <Text fontSize='$6' fontWeight='bold' color='$purple11'>
-          Title
-        </Text>
-        <Text color='$purple10'>Subtitle</Text>
-        <Text fontSize='$3' color='$purple9'>
-          Small description text
-        </Text>
-      </>
-    ),
-  },
-};
-
-// Horizontal Stack Stories
-const hstackMeta: Meta<typeof HStack> = {
-  title: 'Layout/HStack',
-  component: HStack,
-  parameters: {
-    layout: 'centered',
-  },
-  tags: ['autodocs'],
-  argTypes: {
-    space: {
-      control: 'select',
-      options: ['$1', '$2', '$3', '$4', '$5', '$6'],
-      description: 'Space between children',
-    },
-    padding: {
-      control: 'select',
-      options: ['$1', '$2', '$3', '$4', '$5', '$6'],
-      description: 'HStack padding',
-    },
-    backgroundColor: {
-      control: 'text',
-      description: 'Background color',
-    },
-    alignItems: {
-      control: 'select',
-      options: ['flex-start', 'center', 'flex-end', 'stretch'],
-      description: 'Align items',
-    },
-    justifyContent: {
-      control: 'select',
-      options: [
-        'flex-start',
-        'center',
-        'flex-end',
-        'space-between',
-        'space-around',
-        'space-evenly',
-      ],
-      description: 'Justify content',
-    },
-  },
-};
-
-export const DefaultHStack: StoryObj<typeof HStack> = {
-  args: {
-    space: '$2',
-    children: (
-      <>
-        <Text>Item 1</Text>
-        <Text>Item 2</Text>
-        <Text>Item 3</Text>
-      </>
-    ),
-  },
-};
-
-export const HStackSpaceBetween: StoryObj<typeof HStack> = {
-  args: {
-    justifyContent: 'space-between',
-    width: 300,
-    padding: '$3',
-    backgroundColor: '$green2',
-    children: (
-      <>
-        <Text color='$green11'>Left</Text>
-        <Text color='$green11'>Center</Text>
-        <Text color='$green11'>Right</Text>
-      </>
-    ),
-  },
-};
-
-export const HStackCentered: StoryObj<typeof HStack> = {
-  args: {
-    space: '$3',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '$4',
-    backgroundColor: '$orange2',
-    children: (
-      <>
-        <Text color='$orange11'>Centered</Text>
-        <Text color='$orange11'>Items</Text>
-      </>
-    ),
-  },
-};
-
-export const NestedStacks: StoryObj = {
+export const Default: Story = {
   render: () => (
-    <Stack space='$4' padding='$4' backgroundColor='$gray1'>
-      <Text fontSize='$6' fontWeight='bold'>
-        Nested Stacks Example
-      </Text>
+    <Stack>
+      <Text>First item</Text>
+      <Text>Second item</Text>
+      <Text>Third item</Text>
+    </Stack>
+  ),
+};
 
-      <Stack space='$2' padding='$3' backgroundColor='$blue2'>
-        <Text color='$blue11' fontWeight='bold'>
-          Vertical Stack
-        </Text>
-        <Text color='$blue10'>Item 1</Text>
-        <Text color='$blue10'>Item 2</Text>
+export const SpacingVariants: Story = {
+  render: () => (
+    <YStack gap="$6" padding="$4">
+      <YStack gap="$2">
+        <Text variant="muted">Spacing: none</Text>
+        <View backgroundColor="$muted" padding="$3" borderRadius="$2">
+          <Stack spacing="none">
+            <Text>No spacing</Text>
+            <Text>Between items</Text>
+            <Text>At all</Text>
+          </Stack>
+        </View>
+      </YStack>
+      
+      <YStack gap="$2">
+        <Text variant="muted">Spacing: small</Text>
+        <View backgroundColor="$muted" padding="$3" borderRadius="$2">
+          <Stack spacing="sm">
+            <Text>Small spacing</Text>
+            <Text>Between items</Text>
+            <Text>Looks tight</Text>
+          </Stack>
+        </View>
+      </YStack>
+      
+      <YStack gap="$2">
+        <Text variant="muted">Spacing: medium (default)</Text>
+        <View backgroundColor="$muted" padding="$3" borderRadius="$2">
+          <Stack spacing="md">
+            <Text>Medium spacing</Text>
+            <Text>Between items</Text>
+            <Text>Good default</Text>
+          </Stack>
+        </View>
+      </YStack>
+      
+      <YStack gap="$2">
+        <Text variant="muted">Spacing: large</Text>
+        <View backgroundColor="$muted" padding="$3" borderRadius="$2">
+          <Stack spacing="lg">
+            <Text>Large spacing</Text>
+            <Text>Between items</Text>
+            <Text>More breathing room</Text>
+          </Stack>
+        </View>
+      </YStack>
+    </YStack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Different spacing variants showing the gap between stack items.',
+      },
+    },
+  },
+};
+
+export const PaddingAndCentering: Story = {
+  render: () => (
+    <YStack gap="$4">
+      <YStack gap="$2">
+        <Text variant="muted">Centered with padding:</Text>
+        <Stack centered padded backgroundColor="$accent" borderRadius="$3" height={120}>
+          <H3>Centered Title</H3>
+          <Text variant="muted">This content is centered</Text>
+        </Stack>
+      </YStack>
+      
+      <YStack gap="$2">
+        <Text variant="muted">Large padding:</Text>
+        <Stack padded="lg" backgroundColor="$secondary" borderRadius="$3">
+          <Text>Content with</Text>
+          <Text>large padding</Text>
+        </Stack>
+      </YStack>
+    </YStack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stack with different padding options and centering.',
+      },
+    },
+  },
+};
+
+export const NestedStacks: Story = {
+  render: () => (
+    <Stack spacing="lg" padded backgroundColor="$card" borderRadius="$3">
+      <H3>Nested Stack Layout</H3>
+      
+      <Stack spacing="sm" padded backgroundColor="$muted" borderRadius="$2">
+        <Text variant="success">✓ Completed tasks</Text>
+        <Text>Review design mockups</Text>
+        <Text>Update documentation</Text>
+        <Text>Test component library</Text>
       </Stack>
-
-      <HStack
-        space='$3'
-        padding='$3'
-        backgroundColor='$green2'
-        justifyContent='center'
-      >
-        <Text color='$green11' fontWeight='bold'>
-          Horizontal:
-        </Text>
-        <Text color='$green10'>A</Text>
-        <Text color='$green10'>B</Text>
-        <Text color='$green10'>C</Text>
+      
+      <HStack spacing="md" padded backgroundColor="$accent" borderRadius="$2">
+        <Text variant="warning">⚠</Text>
+        <YStack spacing="none">
+          <Text fontWeight="$2">Pending Review</Text>
+          <Text variant="muted" fontSize="$3">Awaiting approval</Text>
+        </YStack>
       </HStack>
     </Stack>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Example showing how Stack and HStack can be nested together.',
+        story: 'Example of nested Stack and HStack components for complex layouts.',
       },
     },
   },
 };
 
-// Export HStack meta
-export const HStackMeta = hstackMeta;
+// HStack Stories
+export const HStackDefault: Story = {
+  render: () => (
+    <HStack>
+      <Text>Item 1</Text>
+      <Text>Item 2</Text>
+      <Text>Item 3</Text>
+    </HStack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Basic horizontal stack with default medium spacing.',
+      },
+    },
+  },
+};
+
+export const HStackDistribution: Story = {
+  render: () => (
+    <YStack gap="$6" padding="$4">
+      <YStack gap="$2">
+        <Text variant="muted">Distribution: Space Between</Text>
+        <HStack distribution="spaceBetween" fullWidth padded backgroundColor="$muted" borderRadius="$2">
+          <Text>Left</Text>
+          <Text>Center</Text>
+          <Text>Right</Text>
+        </HStack>
+      </YStack>
+      
+      <YStack gap="$2">
+        <Text variant="muted">Distribution: Space Around</Text>
+        <HStack distribution="spaceAround" fullWidth padded backgroundColor="$muted" borderRadius="$2">
+          <Text>A</Text>
+          <Text>B</Text>
+          <Text>C</Text>
+        </HStack>
+      </YStack>
+      
+      <YStack gap="$2">
+        <Text variant="muted">Distribution: Space Evenly</Text>
+        <HStack distribution="spaceEvenly" fullWidth padded backgroundColor="$muted" borderRadius="$2">
+          <Text>1</Text>
+          <Text>2</Text>
+          <Text>3</Text>
+        </HStack>
+      </YStack>
+      
+      <YStack gap="$2">
+        <Text variant="muted">Centered</Text>
+        <HStack centered fullWidth padded backgroundColor="$muted" borderRadius="$2">
+          <Text>Centered</Text>
+          <Text>Content</Text>
+        </HStack>
+      </YStack>
+    </YStack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Different distribution options for horizontal stacks.',
+      },
+    },
+  },
+};
+
+export const ComplexLayout: Story = {
+  render: () => (
+    <Stack spacing="lg" padded backgroundColor="$card" borderRadius="$3">
+      <H3>Dashboard Layout</H3>
+      
+      {/* Header row */}
+      <HStack distribution="spaceBetween" fullWidth>
+        <Text fontWeight="$2">Project Status</Text>
+        <Text variant="muted" fontSize="$3">Last updated 2 min ago</Text>
+      </HStack>
+      
+      {/* Stats row */}
+      <HStack spacing="md" fullWidth>
+        <Stack centered padded="sm" backgroundColor="$primary" borderRadius="$2" flex={1}>
+          <Text color="$primaryForeground" fontWeight="$3">24</Text>
+          <Text color="$primaryForeground" fontSize="$3">Active</Text>
+        </Stack>
+        <Stack centered padded="sm" backgroundColor="$secondary" borderRadius="$2" flex={1}>
+          <Text color="$secondaryForeground" fontWeight="$3">8</Text>
+          <Text color="$secondaryForeground" fontSize="$3">Pending</Text>
+        </Stack>
+        <Stack centered padded="sm" backgroundColor="$accent" borderRadius="$2" flex={1}>
+          <Text fontWeight="$3">156</Text>
+          <Text fontSize="$3">Total</Text>
+        </Stack>
+      </HStack>
+      
+      {/* Actions row */}
+      <HStack spacing="sm">
+        <View backgroundColor="$success" paddingHorizontal="$3" paddingVertical="$2" borderRadius="$2">
+          <Text color="$background" fontSize="$3" fontWeight="$2">✓ Approve</Text>
+        </View>
+        <View backgroundColor="$destructive" paddingHorizontal="$3" paddingVertical="$2" borderRadius="$2">
+          <Text color="$destructiveForeground" fontSize="$3" fontWeight="$2">✗ Reject</Text>
+        </View>
+      </HStack>
+    </Stack>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Complex dashboard layout using nested Stack and HStack components.',
+      },
+    },
+  },
+};
