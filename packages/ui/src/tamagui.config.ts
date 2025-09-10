@@ -313,7 +313,7 @@ export const tamaguiConfig = createTamagui({
       accentForeground: 'hsl(0, 0%, 9%)', // Dark text
       
       // Destructive colors
-      destructive: tokens.color.destructive, // Keep red
+      destructive: 'hsl(0, 84%, 40%)', // Darker red for light background
       destructiveForeground: 'hsl(0, 0%, 98%)', // White text on red
       
       // Border and input
@@ -380,7 +380,7 @@ export const tamaguiConfig = createTamagui({
       accentForeground: tokens.color.accentForeground, // Light text
       
       // Destructive colors
-      destructive: tokens.color.destructive, // Red
+      destructive: 'hsl(0, 84%, 65%)', // Bright red for dark background
       destructiveForeground: tokens.color.destructiveForeground, // White text on red
       
       // Border and input
