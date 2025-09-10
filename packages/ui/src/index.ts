@@ -5,3 +5,4 @@ export * from "./Stack";
 export * from "./Typography";
 export * from "./Container";
 export * from "./Provider";
+export * from "./Example";

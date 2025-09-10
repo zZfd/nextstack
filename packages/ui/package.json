@@ -14,6 +14,7 @@
     "storybook:test": "test-storybook"
   },
   "dependencies": {
+    "@tamagui/animations-react-native": "^1.132.23",
     "@tamagui/config": "^1.132.23",
     "@tamagui/core": "^1.132.23",
     "react-dom": "19.0.0",

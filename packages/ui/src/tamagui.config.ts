@@ -1,4 +1,5 @@
-import { createTamagui, createTokens } from 'tamagui'
+import { createAnimations } from '@tamagui/animations-react-native';
+import { createTamagui, createTokens } from 'tamagui';
 
 // Visual Pixel Gallery Design System - Dark Theme
 const tokens = createTokens({
@@ -7,58 +8,58 @@ const tokens = createTokens({
     // Background colors
     background: 'hsl(0, 0%, 3%)',
     foreground: 'hsl(0, 0%, 98%)',
-    
+
     // Card and container colors
     card: 'hsl(0, 0%, 6%)',
     cardForeground: 'hsl(0, 0%, 98%)',
-    
+
     // Popover colors
     popover: 'hsl(0, 0%, 6%)',
     popoverForeground: 'hsl(0, 0%, 98%)',
-    
+
     // Primary brand color - Green
     primary: 'hsl(142, 76%, 36%)', // #22c55e
     primaryForeground: 'hsl(0, 0%, 98%)',
-    
+
     // Secondary colors
     secondary: 'hsl(0, 0%, 9%)',
     secondaryForeground: 'hsl(0, 0%, 98%)',
-    
+
     // Muted colors
     muted: 'hsl(0, 0%, 9%)',
     mutedForeground: 'hsl(0, 0%, 63%)',
-    
+
     // Accent colors
     accent: 'hsl(0, 0%, 9%)',
     accentForeground: 'hsl(0, 0%, 98%)',
-    
+
     // Destructive/Error colors
     destructive: 'hsl(0, 63%, 31%)', // #dc2626
     destructiveForeground: 'hsl(0, 0%, 98%)',
-    
+
     // Border and input colors
     border: 'hsl(0, 0%, 15%)',
     input: 'hsl(0, 0%, 15%)',
     ring: 'hsl(142, 76%, 36%)', // Focus ring uses primary
-    
+
     // Extended semantic colors from style guide
     success: 'hsl(142, 76%, 36%)', // Green for success
     warning: 'hsl(35, 91%, 45%)', // #d97706
     info: 'hsl(217, 91%, 60%)', // #3b82f6
     error: 'hsl(0, 84%, 60%)', // #ef4444
-    
+
     // Status colors
     green500: 'hsl(142, 76%, 36%)',
     blue500: 'hsl(217, 91%, 60%)',
     red500: 'hsl(0, 84%, 60%)',
     amber600: 'hsl(35, 91%, 45%)',
     yellow800: 'hsl(35, 92%, 33%)',
-    
+
     // Transparent variants for overlays
     blackAlpha: 'rgba(0, 0, 0, 0.6)',
     whiteAlpha: 'rgba(255, 255, 255, 0.1)',
   },
-  
+
   // Typography system - Inter font with size hierarchy
   size: {
     // Font sizes matching style guide (text-xs to text-4xl)
@@ -75,7 +76,7 @@ const tokens = createTokens({
     10: 36, // text-4xl
     true: 16, // Default size
   },
-  
+
   // Spacing system - 8px based (gap-1 to gap-8)
   space: {
     0: 0,
@@ -93,19 +94,19 @@ const tokens = createTokens({
     12: 48,
     true: 16, // Default space
   },
-  
+
   // Border radius system
   radius: {
     0: 0,
     1: 3,
-    2: 6,  // rounded
-    3: 8,  // rounded-lg
+    2: 6, // rounded
+    3: 8, // rounded-lg
     4: 12,
     5: 16,
     6: 20,
     true: 6, // Default radius
   },
-  
+
   // Z-index system
   zIndex: {
     0: 0,
@@ -115,7 +116,7 @@ const tokens = createTokens({
     4: 400,
     5: 500,
   },
-})
+});
 
 // Font configuration
 const fonts = {
@@ -157,7 +158,7 @@ const fonts = {
       4: '700', // bold
     },
   },
-}
+};
 
 // Media queries - Tailwind breakpoints
 const media = {
@@ -170,14 +171,58 @@ const media = {
   tall: { minHeight: 820 },
   hoverNone: { hover: 'none' },
   pointerCoarse: { pointer: 'coarse' },
-}
+};
 
-// Animation configuration will be added later when animation driver is properly configured
-// const animations = createAnimations({ ... })
+// Animation configuration - based on Visual Pixel Gallery style guide
+// Base transitions with 300ms duration and spring animations
+const animations = createAnimations({
+  // Base transitions - 300ms duration from style guide
+  quick: {
+    type: 'spring',
+    damping: 20,
+    mass: 1.2,
+    stiffness: 250,
+  },
+  tooltip: {
+    type: 'spring',
+    damping: 10,
+    mass: 0.9,
+    stiffness: 100,
+  },
+  bouncy: {
+    type: 'spring',
+    damping: 9,
+    mass: 0.9,
+    stiffness: 150,
+  },
+  lazy: {
+    type: 'spring',
+    damping: 18,
+    stiffness: 50,
+  },
+  // Additional animations for micro-interactions
+  fast: {
+    type: 'spring',
+    damping: 20,
+    mass: 0.8,
+    stiffness: 300,
+  },
+  medium: {
+    type: 'spring',
+    damping: 15,
+    mass: 1.0,
+    stiffness: 200,
+  },
+  slow: {
+    type: 'spring',
+    damping: 25,
+    stiffness: 60,
+  },
+});
 
 // Tamagui configuration
 export const tamaguiConfig = createTamagui({
-  // animations, // Temporarily disabled until proper animation driver is configured
+  animations,
   shouldAddPrefersColorThemes: true,
   themeClassNameOnRoot: true,
   shorthands: {
@@ -189,7 +234,7 @@ export const tamaguiConfig = createTamagui({
     ac: 'alignContent',
     jc: 'justifyContent',
     ta: 'textAlign',
-    
+
     // Spacing shorthands
     p: 'padding',
     pt: 'paddingTop',
@@ -198,7 +243,7 @@ export const tamaguiConfig = createTamagui({
     pl: 'paddingLeft',
     px: 'paddingHorizontal',
     py: 'paddingVertical',
-    
+
     m: 'margin',
     mt: 'marginTop',
     mr: 'marginRight',
@@ -206,22 +251,22 @@ export const tamaguiConfig = createTamagui({
     ml: 'marginLeft',
     mx: 'marginHorizontal',
     my: 'marginVertical',
-    
+
     // Border
     br: 'borderRadius',
     bw: 'borderWidth',
     bc: 'borderColor',
-    
+
     // Size
     w: 'width',
     h: 'height',
     mw: 'maxWidth',
     mh: 'maxHeight',
-    
+
     // Colors
     bg: 'backgroundColor',
     col: 'color',
-    
+
     // Positioning
     pos: 'position',
     t: 'top',
@@ -233,62 +278,62 @@ export const tamaguiConfig = createTamagui({
   fonts,
   tokens,
   media,
-  
+
   // Theme definitions
   themes: {
-    // Light theme (fallback)
+    // Light theme (fallback) - inverted colors for light mode
     light: {
-      background: tokens.color.background,
-      backgroundHover: tokens.color.muted,
-      backgroundPress: tokens.color.muted,
-      backgroundFocus: tokens.color.muted,
-      backgroundStrong: tokens.color.foreground,
+      background: 'hsl(0, 0%, 100%)', // White background
+      backgroundHover: 'hsl(0, 0%, 96%)', // Light gray hover
+      backgroundPress: 'hsl(0, 0%, 94%)', // Slightly darker press
+      backgroundFocus: 'hsl(0, 0%, 96%)', // Light gray focus
+      backgroundStrong: 'hsl(0, 0%, 9%)', // Dark text on light
       backgroundTransparent: 'rgba(255,255,255,0)',
-      color: tokens.color.foreground,
-      colorHover: tokens.color.foreground,
-      colorPress: tokens.color.foreground,
-      colorFocus: tokens.color.foreground,
+      color: 'hsl(0, 0%, 9%)', // Dark text on light background
+      colorHover: 'hsl(0, 0%, 9%)',
+      colorPress: 'hsl(0, 0%, 9%)',
+      colorFocus: 'hsl(0, 0%, 9%)',
       colorTransparent: 'rgba(0,0,0,0)',
-      borderColor: tokens.color.border,
-      borderColorHover: tokens.color.primary,
-      borderColorFocus: tokens.color.ring,
+      borderColor: 'hsl(0, 0%, 89%)', // Light border
+      borderColorHover: tokens.color.primary, // Keep primary green
+      borderColorFocus: tokens.color.ring, // Keep primary ring
       borderColorPress: tokens.color.primary,
-      placeholderColor: tokens.color.mutedForeground,
-      shadowColor: tokens.color.blackAlpha,
-      shadowColorHover: tokens.color.blackAlpha,
-      shadowColorPress: tokens.color.blackAlpha,
-      shadowColorFocus: tokens.color.blackAlpha,
+      placeholderColor: 'hsl(0, 0%, 45%)', // Gray placeholder
+      shadowColor: 'rgba(0, 0, 0, 0.1)', // Light shadow
+      shadowColorHover: 'rgba(0, 0, 0, 0.15)',
+      shadowColorPress: 'rgba(0, 0, 0, 0.2)',
+      shadowColorFocus: 'rgba(0, 0, 0, 0.15)',
     },
-    
-    // Dark theme (primary)
+
+    // Dark theme (primary) - using design system tokens
     dark: {
-      background: tokens.color.background,
-      backgroundHover: tokens.color.muted,
+      background: tokens.color.background, // hsl(0, 0%, 3%)
+      backgroundHover: tokens.color.muted, // hsl(0, 0%, 9%)
       backgroundPress: tokens.color.muted,
       backgroundFocus: tokens.color.muted,
-      backgroundStrong: tokens.color.foreground,
+      backgroundStrong: tokens.color.foreground, // hsl(0, 0%, 98%)
       backgroundTransparent: 'rgba(0,0,0,0)',
-      color: tokens.color.foreground,
+      color: tokens.color.foreground, // hsl(0, 0%, 98%)
       colorHover: tokens.color.foreground,
       colorPress: tokens.color.foreground,
       colorFocus: tokens.color.foreground,
       colorTransparent: 'rgba(255,255,255,0)',
-      borderColor: tokens.color.border,
-      borderColorHover: tokens.color.primary,
+      borderColor: tokens.color.border, // hsl(0, 0%, 15%)
+      borderColorHover: tokens.color.primary, // hsl(142, 76%, 36%)
       borderColorFocus: tokens.color.ring,
       borderColorPress: tokens.color.primary,
-      placeholderColor: tokens.color.mutedForeground,
-      shadowColor: tokens.color.blackAlpha,
+      placeholderColor: tokens.color.mutedForeground, // hsl(0, 0%, 63%)
+      shadowColor: tokens.color.blackAlpha, // rgba(0, 0, 0, 0.6)
       shadowColorHover: tokens.color.blackAlpha,
       shadowColorPress: tokens.color.blackAlpha,
       shadowColorFocus: tokens.color.blackAlpha,
     },
   },
-})
+});
 
-export default tamaguiConfig
+export default tamaguiConfig;
 
-export type Conf = typeof tamaguiConfig
+export type Conf = typeof tamaguiConfig;
 
 declare module 'tamagui' {
   interface TamaguiCustomConfig extends Conf {}
