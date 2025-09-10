@@ -172,37 +172,12 @@ const media = {
   pointerCoarse: { pointer: 'coarse' },
 }
 
-// Animation configuration
-const animations = {
-  // Base transitions - 300ms duration from style guide
-  quick: {
-    type: 'spring',
-    damping: 20,
-    mass: 1.2,
-    stiffness: 250,
-  },
-  tooltip: {
-    type: 'spring',
-    damping: 10,
-    mass: 0.9,
-    stiffness: 100,
-  },
-  bouncy: {
-    type: 'spring',
-    damping: 9,
-    mass: 0.9,
-    stiffness: 150,
-  },
-  lazy: {
-    type: 'spring',
-    damping: 18,
-    stiffness: 50,
-  },
-}
+// Animation configuration will be added later when animation driver is properly configured
+// const animations = createAnimations({ ... })
 
 // Tamagui configuration
 export const tamaguiConfig = createTamagui({
-  animations,
+  // animations, // Temporarily disabled until proper animation driver is configured
   shouldAddPrefersColorThemes: true,
   themeClassNameOnRoot: true,
   shorthands: {
