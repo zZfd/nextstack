@@ -1,32 +1,29 @@
-import type { Preview } from '@storybook/react';
-import React, { useEffect, useState } from 'react';
-import { TamaguiProvider, View } from 'tamagui';
+import type { Preview } from '@storybook/react-native-web-vite';
+import { useEffect, useState } from 'react';
+import { View } from 'tamagui';
 
+import { TamaguiProvider } from '../src/Provider';
 import config from '../src/tamagui.config';
 
 // Theme decorator with proper context and force re-render
-const ThemeDecorator = (Story: any, context: any) => {
+const ThemeDecorator = (Story, context) => {
   const [currentTheme, setCurrentTheme] = useState('dark');
-  const [key, setKey] = useState(0); // Force re-render key
-  
+
   // Listen for theme changes from Storybook
   useEffect(() => {
     const theme = context.globals?.theme || 'dark';
     if (theme !== currentTheme) {
       setCurrentTheme(theme);
-      setKey(prev => prev + 1); // Force complete re-render
     }
   }, [context.globals?.theme, currentTheme]);
 
   return (
-    <TamaguiProvider key={key} config={config} defaultTheme={currentTheme}>
-      <View 
-        theme={currentTheme}
-        backgroundColor="$background" 
-        minHeight="100vh" 
-        padding="$4"
+    <TamaguiProvider config={config} defaultTheme={currentTheme}>
+      <View
+        backgroundColor='$background'
+        minHeight='100vh'
+        padding='$4'
         flex={1}
-        key={`${key}-${currentTheme}`} // Ensure complete re-render
       >
         <Story />
       </View>
