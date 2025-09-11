@@ -1,63 +1,112 @@
 import { createAnimations } from '@tamagui/animations-react-native';
 import { createTamagui, createTokens } from 'tamagui';
 
-// Visual Pixel Gallery Design System - Dark Theme
+// Visual Pixel Gallery Design System - Color Token System
 const tokens = createTokens({
-  // Color system based on HSL values from style guide
+  // Systematic color palette - base colors only
   color: {
-    // Background colors
-    background: 'hsl(0, 0%, 3%)',
-    foreground: 'hsl(0, 0%, 98%)',
+    // Grayscale palette (14 steps for precise control)
+    gray1: 'hsl(0, 0%, 99%)',    // Almost white
+    gray2: 'hsl(0, 0%, 97.5%)',  // Very light gray  
+    gray3: 'hsl(0, 0%, 96%)',    // Light gray
+    gray4: 'hsl(0, 0%, 94%)',    // Soft gray
+    gray5: 'hsl(0, 0%, 92%)',    // Muted light
+    gray6: 'hsl(0, 0%, 89%)',    // Border light
+    gray7: 'hsl(0, 0%, 83%)',    // Subtle
+    gray8: 'hsl(0, 0%, 71%)',    // Medium 
+    gray9: 'hsl(0, 0%, 60%)',    // Text light
+    gray10: 'hsl(0, 0%, 45%)',   // Text medium
+    gray11: 'hsl(0, 0%, 25%)',   // Text dark
+    gray12: 'hsl(0, 0%, 9%)',    // Almost black
+    gray13: 'hsl(0, 0%, 6%)',    // Very dark
+    gray14: 'hsl(0, 0%, 3%)',    // Darkest
 
-    // Card and container colors
-    card: 'hsl(0, 0%, 6%)',
-    cardForeground: 'hsl(0, 0%, 98%)',
+    // Brand green palette (12 steps)
+    green1: 'hsl(142, 76%, 95%)',  // Very light green
+    green2: 'hsl(142, 76%, 90%)',  // Light green
+    green3: 'hsl(142, 76%, 85%)',  // Soft green
+    green4: 'hsl(142, 76%, 78%)',  // Muted green
+    green5: 'hsl(142, 76%, 70%)',  // Medium light
+    green6: 'hsl(142, 76%, 60%)',  // Brand base
+    green7: 'hsl(142, 76%, 50%)',  // Brand medium
+    green8: 'hsl(142, 76%, 42%)',  // Brand strong
+    green9: 'hsl(142, 76%, 36%)',  // Primary brand
+    green10: 'hsl(142, 76%, 30%)', // Brand dark
+    green11: 'hsl(142, 76%, 24%)', // Very dark green
+    green12: 'hsl(142, 76%, 18%)', // Darkest green
 
-    // Popover colors
-    popover: 'hsl(0, 0%, 6%)',
-    popoverForeground: 'hsl(0, 0%, 98%)',
+    // Red palette (12 steps)
+    red1: 'hsl(0, 84%, 95%)',     // Very light red
+    red2: 'hsl(0, 84%, 90%)',     // Light red
+    red3: 'hsl(0, 84%, 85%)',     // Soft red
+    red4: 'hsl(0, 84%, 78%)',     // Muted red
+    red5: 'hsl(0, 84%, 70%)',     // Medium light
+    red6: 'hsl(0, 84%, 65%)',     // Error base
+    red7: 'hsl(0, 84%, 58%)',     // Error medium
+    red8: 'hsl(0, 84%, 52%)',     // Error strong
+    red9: 'hsl(0, 84%, 46%)',     // Error primary
+    red10: 'hsl(0, 84%, 40%)',    // Error dark
+    red11: 'hsl(0, 84%, 35%)',    // Very dark red
+    red12: 'hsl(0, 84%, 30%)',    // Darkest red
 
-    // Primary brand color - Green
-    primary: 'hsl(142, 76%, 36%)', // #22c55e
-    primaryForeground: 'hsl(0, 0%, 98%)',
+    // Blue palette (12 steps)
+    blue1: 'hsl(217, 91%, 95%)',  // Very light blue
+    blue2: 'hsl(217, 91%, 90%)',  // Light blue  
+    blue3: 'hsl(217, 91%, 85%)',  // Soft blue
+    blue4: 'hsl(217, 91%, 78%)',  // Muted blue
+    blue5: 'hsl(217, 91%, 75%)',  // Medium light
+    blue6: 'hsl(217, 91%, 70%)',  // Info base
+    blue7: 'hsl(217, 91%, 65%)',  // Info medium
+    blue8: 'hsl(217, 91%, 58%)',  // Info strong
+    blue9: 'hsl(217, 91%, 52%)',  // Info primary
+    blue10: 'hsl(217, 91%, 46%)', // Info dark
+    blue11: 'hsl(217, 91%, 40%)', // Very dark blue
+    blue12: 'hsl(217, 91%, 35%)', // Darkest blue
 
-    // Secondary colors
-    secondary: 'hsl(0, 0%, 25%)', // Lighter gray for better visibility
-    secondaryForeground: 'hsl(0, 0%, 98%)',
+    // Orange/Amber palette (12 steps)
+    orange1: 'hsl(35, 91%, 95%)', // Very light orange
+    orange2: 'hsl(35, 91%, 90%)', // Light orange
+    orange3: 'hsl(35, 91%, 85%)', // Soft orange
+    orange4: 'hsl(35, 91%, 78%)', // Muted orange
+    orange5: 'hsl(35, 91%, 70%)', // Medium light
+    orange6: 'hsl(35, 91%, 65%)', // Warning base
+    orange7: 'hsl(35, 91%, 60%)', // Warning medium
+    orange8: 'hsl(35, 91%, 55%)', // Warning strong
+    orange9: 'hsl(35, 91%, 50%)', // Warning primary
+    orange10: 'hsl(35, 91%, 45%)', // Warning dark
+    orange11: 'hsl(35, 91%, 40%)', // Very dark orange
+    orange12: 'hsl(35, 91%, 35%)', // Darkest orange
 
-    // Muted colors
-    muted: 'hsl(0, 0%, 20%)', // Slightly lighter for better visibility
-    mutedForeground: 'hsl(0, 0%, 71%)',
+    // Transparency overlays
+    blackA1: 'rgba(0, 0, 0, 0.02)',   // Very subtle
+    blackA2: 'rgba(0, 0, 0, 0.04)',   // Subtle
+    blackA3: 'rgba(0, 0, 0, 0.08)',   // Light
+    blackA4: 'rgba(0, 0, 0, 0.12)',   // Medium light
+    blackA5: 'rgba(0, 0, 0, 0.16)',   // Medium
+    blackA6: 'rgba(0, 0, 0, 0.24)',   // Medium strong
+    blackA7: 'rgba(0, 0, 0, 0.32)',   // Strong
+    blackA8: 'rgba(0, 0, 0, 0.48)',   // Very strong
+    blackA9: 'rgba(0, 0, 0, 0.60)',   // Heavy
+    blackA10: 'rgba(0, 0, 0, 0.72)',  // Very heavy
+    blackA11: 'rgba(0, 0, 0, 0.84)',  // Almost opaque
+    blackA12: 'rgba(0, 0, 0, 0.96)',  // Nearly black
 
-    // Accent colors
-    accent: 'hsl(0, 0%, 18%)', // Slightly lighter for better visibility
-    accentForeground: 'hsl(0, 0%, 98%)',
+    whiteA1: 'rgba(255, 255, 255, 0.02)',   // Very subtle
+    whiteA2: 'rgba(255, 255, 255, 0.04)',   // Subtle
+    whiteA3: 'rgba(255, 255, 255, 0.08)',   // Light
+    whiteA4: 'rgba(255, 255, 255, 0.12)',   // Medium light
+    whiteA5: 'rgba(255, 255, 255, 0.16)',   // Medium
+    whiteA6: 'rgba(255, 255, 255, 0.24)',   // Medium strong
+    whiteA7: 'rgba(255, 255, 255, 0.32)',   // Strong
+    whiteA8: 'rgba(255, 255, 255, 0.48)',   // Very strong
+    whiteA9: 'rgba(255, 255, 255, 0.60)',   // Heavy
+    whiteA10: 'rgba(255, 255, 255, 0.72)', // Very heavy
+    whiteA11: 'rgba(255, 255, 255, 0.84)', // Almost opaque
+    whiteA12: 'rgba(255, 255, 255, 0.96)', // Nearly white
 
-    // Destructive/Error colors
-    destructive: 'hsl(0, 84%, 50%)', // Brighter red for better visibility
-    destructiveForeground: 'hsl(0, 0%, 98%)',
-
-    // Border and input colors
-    border: 'hsl(0, 0%, 15%)',
-    input: 'hsl(0, 0%, 15%)',
-    ring: 'hsl(142, 76%, 36%)', // Focus ring uses primary
-
-    // Extended semantic colors from style guide
-    success: 'hsl(142, 76%, 55%)', // Brighter green for better visibility on dark
-    warning: 'hsl(35, 91%, 60%)', // Brighter orange for better visibility
-    info: 'hsl(217, 91%, 70%)', // Brighter blue for better visibility
-    error: 'hsl(0, 84%, 65%)', // Brighter red for better visibility
-
-    // Status colors
-    green500: 'hsl(142, 76%, 55%)',
-    blue500: 'hsl(217, 91%, 70%)',
-    red500: 'hsl(0, 84%, 65%)',
-    amber600: 'hsl(35, 91%, 60%)',
-    yellow800: 'hsl(35, 92%, 50%)',
-
-    // Transparent variants for overlays
-    blackAlpha: 'rgba(0, 0, 0, 0.6)',
-    whiteAlpha: 'rgba(255, 255, 255, 0.1)',
+    // Base colors for theme reference
+    white: '#ffffff',
+    black: '#000000',
   },
 
   // Typography system - Inter font with size hierarchy
@@ -280,140 +329,172 @@ export const tamaguiConfig = createTamagui({
   tokens,
   media,
 
-  // Theme definitions
+  // Theme definitions using new token system
   themes: {
-    // Light theme - bright background with dark text
+    // Light theme - optimized for readability on light backgrounds
     light: {
-      // Basic background and foreground
-      background: 'hsl(0, 0%, 100%)', // Pure white background
-      foreground: 'hsl(0, 0%, 9%)', // Dark text
-      
-      // Card colors
-      card: 'hsl(0, 0%, 100%)', // White card background
-      cardForeground: 'hsl(0, 0%, 9%)', // Dark card text
-      
-      // Popover colors
-      popover: 'hsl(0, 0%, 100%)', // White popover
-      popoverForeground: 'hsl(0, 0%, 9%)', // Dark popover text
-      
-      // Primary colors (keep green brand color)
-      primary: tokens.color.primary, // Brand green
-      primaryForeground: 'hsl(0, 0%, 98%)', // White text on green
-      
+      // Tamagui standard background properties
+      background: tokens.color.white,
+      backgroundHover: tokens.color.gray3,
+      backgroundPress: tokens.color.gray4,
+      backgroundFocus: tokens.color.gray3,
+      backgroundStrong: tokens.color.gray12,
+      backgroundTransparent: tokens.color.whiteA1,
+
+      // Tamagui standard text color properties  
+      color: tokens.color.gray12,
+      colorHover: tokens.color.gray11,
+      colorPress: tokens.color.gray11,
+      colorFocus: tokens.color.gray11,
+      colorTransparent: tokens.color.blackA6,
+
+      // Tamagui standard border properties
+      borderColor: tokens.color.gray6,
+      borderColorHover: tokens.color.green7,
+      borderColorPress: tokens.color.green8,
+      borderColorFocus: tokens.color.green7,
+
+      // Tamagui standard shadow properties
+      shadowColor: tokens.color.blackA2,
+      shadowColorHover: tokens.color.blackA3,
+      shadowColorPress: tokens.color.blackA4,
+      shadowColorFocus: tokens.color.blackA3,
+
+      // Custom semantic properties for component variants
+      // Primary brand colors
+      primary: tokens.color.green9,
+      primaryHover: tokens.color.green8,
+      primaryPress: tokens.color.green10,
+      primaryForeground: tokens.color.white,
+
       // Secondary colors
-      secondary: 'hsl(0, 0%, 96%)', // Light gray
-      secondaryForeground: 'hsl(0, 0%, 9%)', // Dark text
-      
-      // Muted colors
-      muted: 'hsl(0, 0%, 96%)', // Light gray
-      mutedForeground: 'hsl(0, 0%, 40%)', // Darker gray text for better contrast
-      
+      secondary: tokens.color.gray4,
+      secondaryHover: tokens.color.gray5,
+      secondaryPress: tokens.color.gray6,
+      secondaryForeground: tokens.color.gray12,
+
+      // Destructive/error colors
+      destructive: tokens.color.red9,
+      destructiveHover: tokens.color.red8,
+      destructivePress: tokens.color.red10,
+      destructiveForeground: tokens.color.white,
+
+      // Muted/subtle colors
+      muted: tokens.color.gray4,
+      mutedHover: tokens.color.gray5,
+      mutedPress: tokens.color.gray6,
+      mutedForeground: tokens.color.gray10,
+
       // Accent colors
-      accent: 'hsl(0, 0%, 96%)', // Light gray
-      accentForeground: 'hsl(0, 0%, 9%)', // Dark text
-      
-      // Destructive colors
-      destructive: 'hsl(0, 84%, 40%)', // Darker red for light background
-      destructiveForeground: 'hsl(0, 0%, 98%)', // White text on red
-      
-      // Border and input
-      border: 'hsl(0, 0%, 89%)', // Light border
-      input: 'hsl(0, 0%, 96%)', // Light input background
-      ring: tokens.color.primary, // Green focus ring
-      
-      // Extended semantic colors - adjusted for light theme
-      success: 'hsl(142, 76%, 36%)', // Darker green for light background
-      warning: 'hsl(35, 91%, 45%)', // Darker orange for light background
-      info: 'hsl(217, 91%, 50%)', // Darker blue for light background
-      error: 'hsl(0, 84%, 50%)', // Darker red for light background
-      
-      // Legacy theme properties for compatibility
-      backgroundHover: 'hsl(0, 0%, 96%)',
-      backgroundPress: 'hsl(0, 0%, 94%)',
-      backgroundFocus: 'hsl(0, 0%, 96%)',
-      backgroundStrong: 'hsl(0, 0%, 9%)',
-      backgroundTransparent: 'rgba(255,255,255,0)',
-      color: 'hsl(0, 0%, 9%)',
-      colorHover: 'hsl(0, 0%, 9%)',
-      colorPress: 'hsl(0, 0%, 9%)',
-      colorFocus: 'hsl(0, 0%, 9%)',
-      colorTransparent: 'rgba(0,0,0,0)',
-      borderColor: 'hsl(0, 0%, 89%)',
-      borderColorHover: tokens.color.primary,
-      borderColorFocus: tokens.color.ring,
-      borderColorPress: tokens.color.primary,
-      placeholderColor: 'hsl(0, 0%, 45%)',
-      shadowColor: 'rgba(0, 0, 0, 0.1)',
-      shadowColorHover: 'rgba(0, 0, 0, 0.15)',
-      shadowColorPress: 'rgba(0, 0, 0, 0.2)',
-      shadowColorFocus: 'rgba(0, 0, 0, 0.15)',
+      accent: tokens.color.gray4,
+      accentHover: tokens.color.gray5,
+      accentPress: tokens.color.gray6,
+      accentForeground: tokens.color.gray12,
+
+      // UI element colors
+      card: tokens.color.white,
+      cardForeground: tokens.color.gray12,
+      popover: tokens.color.white,
+      popoverForeground: tokens.color.gray12,
+      input: tokens.color.gray3,
+      inputBorder: tokens.color.gray6,
+      ring: tokens.color.green7,
+
+      // Extended semantic colors
+      success: tokens.color.green9,
+      successForeground: tokens.color.white,
+      warning: tokens.color.orange9,
+      warningForeground: tokens.color.white,
+      error: tokens.color.red9,
+      errorForeground: tokens.color.white,
+      info: tokens.color.blue9,
+      infoForeground: tokens.color.white,
+
+      // Additional utility colors
+      placeholderColor: tokens.color.gray8,
     },
 
-    // Dark theme - dark background with light text
+    // Dark theme - optimized for readability on dark backgrounds
     dark: {
-      // Basic background and foreground
-      background: tokens.color.background, // Very dark background
-      foreground: tokens.color.foreground, // Light text
-      
-      // Card colors
-      card: tokens.color.card, // Dark card
-      cardForeground: tokens.color.cardForeground, // Light card text
-      
-      // Popover colors
-      popover: tokens.color.popover, // Dark popover
-      popoverForeground: tokens.color.popoverForeground, // Light popover text
-      
-      // Primary colors
-      primary: tokens.color.primary, // Brand green
-      primaryForeground: tokens.color.primaryForeground, // White text on green
-      
+      // Tamagui standard background properties
+      background: tokens.color.gray14,
+      backgroundHover: tokens.color.gray13,
+      backgroundPress: tokens.color.gray12,
+      backgroundFocus: tokens.color.gray13,
+      backgroundStrong: tokens.color.gray1,
+      backgroundTransparent: tokens.color.blackA1,
+
+      // Tamagui standard text color properties
+      color: tokens.color.gray1,
+      colorHover: tokens.color.gray2,
+      colorPress: tokens.color.gray2,
+      colorFocus: tokens.color.gray2,
+      colorTransparent: tokens.color.whiteA6,
+
+      // Tamagui standard border properties
+      borderColor: tokens.color.gray11,
+      borderColorHover: tokens.color.green7,
+      borderColorPress: tokens.color.green6,
+      borderColorFocus: tokens.color.green7,
+
+      // Tamagui standard shadow properties
+      shadowColor: tokens.color.blackA8,
+      shadowColorHover: tokens.color.blackA9,
+      shadowColorPress: tokens.color.blackA10,
+      shadowColorFocus: tokens.color.blackA9,
+
+      // Custom semantic properties for component variants
+      // Primary brand colors
+      primary: tokens.color.green7,
+      primaryHover: tokens.color.green8,
+      primaryPress: tokens.color.green6,
+      primaryForeground: tokens.color.white,
+
       // Secondary colors
-      secondary: tokens.color.secondary, // Dark gray
-      secondaryForeground: tokens.color.secondaryForeground, // Light text
-      
-      // Muted colors
-      muted: tokens.color.muted, // Dark gray
-      mutedForeground: tokens.color.mutedForeground, // Medium gray text
-      
+      secondary: tokens.color.gray11,
+      secondaryHover: tokens.color.gray10,
+      secondaryPress: tokens.color.gray9,
+      secondaryForeground: tokens.color.gray1,
+
+      // Destructive/error colors
+      destructive: tokens.color.red7,
+      destructiveHover: tokens.color.red8,
+      destructivePress: tokens.color.red6,
+      destructiveForeground: tokens.color.white,
+
+      // Muted/subtle colors
+      muted: tokens.color.gray11,
+      mutedHover: tokens.color.gray10,
+      mutedPress: tokens.color.gray9,
+      mutedForeground: tokens.color.gray8,
+
       // Accent colors
-      accent: tokens.color.accent, // Dark gray
-      accentForeground: tokens.color.accentForeground, // Light text
-      
-      // Destructive colors
-      destructive: 'hsl(0, 84%, 65%)', // Bright red for dark background
-      destructiveForeground: tokens.color.destructiveForeground, // White text on red
-      
-      // Border and input
-      border: tokens.color.border, // Dark border
-      input: tokens.color.input, // Dark input background
-      ring: tokens.color.ring, // Green focus ring
-      
-      // Extended semantic colors - bright colors for dark background
-      success: 'hsl(142, 76%, 55%)', // Bright green for dark background
-      warning: 'hsl(35, 91%, 60%)', // Bright orange for dark background
-      info: 'hsl(217, 91%, 70%)', // Bright blue for dark background
-      error: 'hsl(0, 84%, 65%)', // Bright red for dark background
-      
-      // Legacy theme properties for compatibility
-      backgroundHover: tokens.color.muted,
-      backgroundPress: tokens.color.muted,
-      backgroundFocus: tokens.color.muted,
-      backgroundStrong: tokens.color.foreground,
-      backgroundTransparent: 'rgba(0,0,0,0)',
-      color: tokens.color.foreground,
-      colorHover: tokens.color.foreground,
-      colorPress: tokens.color.foreground,
-      colorFocus: tokens.color.foreground,
-      colorTransparent: 'rgba(255,255,255,0)',
-      borderColor: tokens.color.border,
-      borderColorHover: tokens.color.primary,
-      borderColorFocus: tokens.color.ring,
-      borderColorPress: tokens.color.primary,
-      placeholderColor: tokens.color.mutedForeground,
-      shadowColor: tokens.color.blackAlpha,
-      shadowColorHover: tokens.color.blackAlpha,
-      shadowColorPress: tokens.color.blackAlpha,
-      shadowColorFocus: tokens.color.blackAlpha,
+      accent: tokens.color.gray11,
+      accentHover: tokens.color.gray10,
+      accentPress: tokens.color.gray9,
+      accentForeground: tokens.color.gray1,
+
+      // UI element colors
+      card: tokens.color.gray13,
+      cardForeground: tokens.color.gray1,
+      popover: tokens.color.gray13,
+      popoverForeground: tokens.color.gray1,
+      input: tokens.color.gray12,
+      inputBorder: tokens.color.gray11,
+      ring: tokens.color.green7,
+
+      // Extended semantic colors
+      success: tokens.color.green7,
+      successForeground: tokens.color.white,
+      warning: tokens.color.orange7,
+      warningForeground: tokens.color.white,
+      error: tokens.color.red7,
+      errorForeground: tokens.color.white,
+      info: tokens.color.blue7,
+      infoForeground: tokens.color.white,
+
+      // Additional utility colors
+      placeholderColor: tokens.color.gray8,
     },
   },
 });
