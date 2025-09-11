@@ -77,6 +77,62 @@ const tokens = createTokens({
     orange11: 'hsl(35, 91%, 40%)', // Very dark orange
     orange12: 'hsl(35, 91%, 35%)', // Darkest orange
 
+    // Purple palette (12 steps)
+    purple1: 'hsl(280, 65%, 95%)', // Very light purple
+    purple2: 'hsl(280, 65%, 90%)', // Light purple
+    purple3: 'hsl(280, 65%, 85%)', // Soft purple
+    purple4: 'hsl(280, 65%, 78%)', // Muted purple
+    purple5: 'hsl(280, 65%, 70%)', // Medium light
+    purple6: 'hsl(280, 65%, 62%)', // Purple base
+    purple7: 'hsl(280, 65%, 55%)', // Purple medium
+    purple8: 'hsl(280, 65%, 48%)', // Purple strong
+    purple9: 'hsl(280, 65%, 42%)', // Purple primary
+    purple10: 'hsl(280, 65%, 36%)', // Purple dark
+    purple11: 'hsl(280, 65%, 30%)', // Very dark purple
+    purple12: 'hsl(280, 65%, 24%)', // Darkest purple
+
+    // Teal palette (12 steps)
+    teal1: 'hsl(166, 76%, 95%)', // Very light teal
+    teal2: 'hsl(166, 76%, 90%)', // Light teal
+    teal3: 'hsl(166, 76%, 85%)', // Soft teal
+    teal4: 'hsl(166, 76%, 78%)', // Muted teal
+    teal5: 'hsl(166, 76%, 70%)', // Medium light
+    teal6: 'hsl(166, 76%, 60%)', // Teal base
+    teal7: 'hsl(166, 76%, 50%)', // Teal medium
+    teal8: 'hsl(166, 76%, 42%)', // Teal strong
+    teal9: 'hsl(166, 76%, 36%)', // Teal primary
+    teal10: 'hsl(166, 76%, 30%)', // Teal dark
+    teal11: 'hsl(166, 76%, 24%)', // Very dark teal
+    teal12: 'hsl(166, 76%, 18%)', // Darkest teal
+
+    // Emerald palette (12 steps)
+    emerald1: 'hsl(152, 81%, 95%)', // Very light emerald
+    emerald2: 'hsl(152, 81%, 90%)', // Light emerald
+    emerald3: 'hsl(152, 81%, 85%)', // Soft emerald
+    emerald4: 'hsl(152, 81%, 78%)', // Muted emerald
+    emerald5: 'hsl(152, 81%, 70%)', // Medium light
+    emerald6: 'hsl(152, 81%, 60%)', // Emerald base
+    emerald7: 'hsl(152, 81%, 50%)', // Emerald medium
+    emerald8: 'hsl(152, 81%, 42%)', // Emerald strong
+    emerald9: 'hsl(152, 81%, 36%)', // Emerald primary
+    emerald10: 'hsl(152, 81%, 30%)', // Emerald dark
+    emerald11: 'hsl(152, 81%, 24%)', // Very dark emerald
+    emerald12: 'hsl(152, 81%, 18%)', // Darkest emerald
+
+    // Yellow palette (12 steps)
+    yellow1: 'hsl(55, 92%, 95%)', // Very light yellow
+    yellow2: 'hsl(55, 92%, 90%)', // Light yellow
+    yellow3: 'hsl(55, 92%, 85%)', // Soft yellow
+    yellow4: 'hsl(55, 92%, 78%)', // Muted yellow
+    yellow5: 'hsl(55, 92%, 70%)', // Medium light
+    yellow6: 'hsl(55, 92%, 62%)', // Yellow base
+    yellow7: 'hsl(55, 92%, 55%)', // Yellow medium
+    yellow8: 'hsl(55, 92%, 48%)', // Yellow strong (warning highlight)
+    yellow9: 'hsl(55, 92%, 42%)', // Yellow primary
+    yellow10: 'hsl(55, 92%, 36%)', // Yellow dark
+    yellow11: 'hsl(55, 92%, 30%)', // Very dark yellow
+    yellow12: 'hsl(55, 92%, 24%)', // Darkest yellow
+
     // Transparency overlays
     blackA1: 'rgba(0, 0, 0, 0.02)',   // Very subtle
     blackA2: 'rgba(0, 0, 0, 0.04)',   // Subtle
@@ -165,6 +221,15 @@ const tokens = createTokens({
     4: 400,
     5: 500,
   },
+
+  // Container max width system (matching design doc)
+  maxWidth: {
+    sm: 448,   // max-w-md - search boxes
+    md: 896,   // max-w-4xl - content areas
+    lg: 1280,  // max-w-7xl - main containers
+    xl: 1536,  // max-w-screen-2xl - full width
+    true: 896, // Default max width
+  },
 });
 
 // Font configuration
@@ -223,7 +288,7 @@ const media = {
 };
 
 // Animation configuration - based on Visual Pixel Gallery style guide
-// Base transitions with 300ms duration and spring animations
+// Enhanced animation system with fade, scale, pulse, and spin effects
 const animations = createAnimations({
   // Base transitions - 300ms duration from style guide
   quick: {
@@ -249,7 +314,8 @@ const animations = createAnimations({
     damping: 18,
     stiffness: 50,
   },
-  // Additional animations for micro-interactions
+  
+  // Speed variants for micro-interactions
   fast: {
     type: 'spring',
     damping: 20,
@@ -266,6 +332,142 @@ const animations = createAnimations({
     type: 'spring',
     damping: 25,
     stiffness: 60,
+  },
+
+  // Fade animations (following design doc)
+  fadeIn: {
+    type: 'timing',
+    duration: 600,
+    from: {
+      opacity: 0,
+      y: 10,
+    },
+    to: {
+      opacity: 1,
+      y: 0,
+    },
+  },
+  fadeOut: {
+    type: 'timing',
+    duration: 300,
+    from: {
+      opacity: 1,
+      y: 0,
+    },
+    to: {
+      opacity: 0,
+      y: -10,
+    },
+  },
+
+  // Scale animations (following design doc)
+  scaleIn: {
+    type: 'timing',
+    duration: 300,
+    from: {
+      opacity: 0,
+      scale: 0.95,
+    },
+    to: {
+      opacity: 1,
+      scale: 1,
+    },
+  },
+  scaleOut: {
+    type: 'timing',
+    duration: 200,
+    from: {
+      opacity: 1,
+      scale: 1,
+    },
+    to: {
+      opacity: 0,
+      scale: 0.95,
+    },
+  },
+
+  // Pulse animation for loading states
+  pulse: {
+    type: 'timing',
+    duration: 2000,
+    loop: true,
+    from: {
+      opacity: 1,
+    },
+    to: {
+      opacity: 0.4,
+    },
+  },
+
+  // Spin animation for loaders
+  spin: {
+    type: 'timing',
+    duration: 1000,
+    loop: true,
+    from: {
+      rotate: '0deg',
+    },
+    to: {
+      rotate: '360deg',
+    },
+  },
+
+  // Hover scale for interactive elements
+  hoverScale: {
+    type: 'spring',
+    damping: 15,
+    mass: 0.8,
+    stiffness: 200,
+    from: {
+      scale: 1,
+    },
+    to: {
+      scale: 1.02,
+    },
+  },
+
+  // Press scale for button interactions
+  pressScale: {
+    type: 'spring',
+    damping: 20,
+    mass: 0.8,
+    stiffness: 300,
+    from: {
+      scale: 1,
+    },
+    to: {
+      scale: 0.95,
+    },
+  },
+
+  // Slide animations for modals/drawers
+  slideInUp: {
+    type: 'spring',
+    damping: 18,
+    mass: 1.0,
+    stiffness: 150,
+    from: {
+      y: 100,
+      opacity: 0,
+    },
+    to: {
+      y: 0,
+      opacity: 1,
+    },
+  },
+  slideOutDown: {
+    type: 'spring',
+    damping: 18,
+    mass: 1.0,
+    stiffness: 150,
+    from: {
+      y: 0,
+      opacity: 1,
+    },
+    to: {
+      y: 100,
+      opacity: 0,
+    },
   },
 });
 

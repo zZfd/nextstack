@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { YStack, View } from 'tamagui';
 
 import { HStack, Stack } from '../Stack';
-import { Text, H3, Paragraph } from '../Typography';
+import { Text, H3 } from '../Typography';
 
 const meta: Meta<typeof Stack> = {
   title: 'Layout/Stack',
@@ -163,10 +163,10 @@ export const NestedStacks: Story = {
       
       <HStack spacing="md" padded backgroundColor="$accent" borderRadius="$2">
         <Text variant="warning">⚠</Text>
-        <YStack spacing="none">
+        <Stack spacing="none">
           <Text fontWeight="$2">Pending Review</Text>
           <Text variant="muted" fontSize="$3">Awaiting approval</Text>
-        </YStack>
+        </Stack>
       </HStack>
     </Stack>
   ),

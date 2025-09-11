@@ -1,5 +1,6 @@
 import React from 'react';
-import { YStack, XStack, Button, Text, Theme } from 'tamagui';
+import { YStack, XStack, Text, Theme } from 'tamagui';
+
 import { MyButton } from './MyButton';
 
 export const ThemeTest = () => {

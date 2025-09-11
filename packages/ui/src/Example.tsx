@@ -134,7 +134,7 @@ export const Example: React.FC<ExampleProps> = ({
             Animated Cards
           </H3>
           <XStack gap="$4" flexWrap="wrap">
-            {['Card 1', 'Card 2', 'Card 3'].map((cardName, index) => (
+            {['Card 1', 'Card 2', 'Card 3'].map((cardName) => (
               <Card
                 key={cardName}
                 animation={animationPreset}

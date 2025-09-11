@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { YStack, XStack } from 'tamagui';
+
 import { MyButton } from '../MyButton';
 import { Text } from '../Typography';
 
