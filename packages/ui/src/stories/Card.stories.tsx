@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { XStack, YStack, Text } from 'tamagui';
 
 import { Badge } from '../Badge';
+import { Button } from '../Button';
 import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from '../Card';
-import { MyButton } from '../MyButton';
 
 const meta: Meta<typeof Card> = {
   title: 'Components/Card',
@@ -63,7 +63,7 @@ export const Basic: Story = {
         <Text>This is the main content of the card. You can put any content here.</Text>
       </CardContent>
       <CardFooter>
-        <MyButton size="sm">Action</MyButton>
+        <Button size="sm">Action</Button>
       </CardFooter>
     </Card>
   ),
@@ -99,8 +99,8 @@ export const WithBorders: Story = {
       </CardContent>
       <CardFooter withBorder>
         <XStack space="$2">
-          <MyButton size="sm" variant="outline">Cancel</MyButton>
-          <MyButton size="sm">Confirm</MyButton>
+          <Button size="sm" variant="outline">Cancel</Button>
+          <Button size="sm">Confirm</Button>
         </XStack>
       </CardFooter>
     </Card>
@@ -136,8 +136,8 @@ export const ProductCard: Story = {
       </CardContent>
       <CardFooter>
         <XStack space="$2" width="100%">
-          <MyButton flex={1} variant="outline">Add to Cart</MyButton>
-          <MyButton flex={1}>Buy Now</MyButton>
+          <Button flex={1} variant="outline">Add to Cart</Button>
+          <Button flex={1}>Buy Now</Button>
         </XStack>
       </CardFooter>
     </Card>
@@ -180,8 +180,8 @@ export const UserProfileCard: Story = {
       </CardContent>
       <CardFooter>
         <XStack space="$2" width="100%">
-          <MyButton flex={1} variant="outline">Message</MyButton>
-          <MyButton flex={1}>View Profile</MyButton>
+          <Button flex={1} variant="outline">Message</Button>
+          <Button flex={1}>View Profile</Button>
         </XStack>
       </CardFooter>
     </Card>
@@ -217,7 +217,7 @@ export const CardGrid: Story = {
               </Text>
             </CardContent>
             <CardFooter>
-              <MyButton width="100%" size="sm">Add to Cart</MyButton>
+              <Button width="100%" size="sm">Add to Cart</Button>
             </CardFooter>
           </Card>
         ))}

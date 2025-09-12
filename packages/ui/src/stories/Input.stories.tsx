@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { YStack, XStack, Text } from 'tamagui';
 
+import { Button } from '../Button';
 import { Input, InputWithLabel, SmallInput, LargeInput, Textarea, SearchInput } from '../Input';
-import { MyButton } from '../MyButton';
 
 const meta: Meta<typeof Input> = {
   title: 'Components/Input',
@@ -226,8 +226,8 @@ export const FormExample: Story = {
       </InputWithLabel>
       
       <XStack space="$3" marginTop="$2">
-        <MyButton flex={1} variant="outline">Cancel</MyButton>
-        <MyButton flex={1}>Create Account</MyButton>
+        <Button flex={1} variant="outline">Cancel</Button>
+        <Button flex={1}>Create Account</Button>
       </XStack>
     </YStack>
   ),

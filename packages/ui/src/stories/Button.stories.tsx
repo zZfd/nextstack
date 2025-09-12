@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { YStack, XStack } from 'tamagui';
 
-import { MyButton } from '../MyButton';
+import { Button } from '../Button';
 import { Text } from '../Typography';
 
-const meta: Meta<typeof MyButton> = {
-  title: 'Components/MyButton',
-  component: MyButton,
+const meta: Meta<typeof Button> = {
+  title: 'Components/Button',
+  component: Button,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         component: `
-# MyButton Component
+# Button Component
 
 Enhanced button component with theme variants, sizes, and hover/press animations.
 
@@ -134,11 +134,11 @@ export const AllVariants: Story = {
     <YStack gap="$4" padding="$4">
       <Text variant="muted" marginBottom="$2">Button Variants:</Text>
       <XStack gap="$3" flexWrap="wrap" alignItems="center">
-        <MyButton variant="default">Default</MyButton>
-        <MyButton variant="secondary">Secondary</MyButton>
-        <MyButton variant="destructive">Destructive</MyButton>
-        <MyButton variant="outline">Outline</MyButton>
-        <MyButton variant="ghost">Ghost</MyButton>
+        <Button variant="default">Default</Button>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="destructive">Destructive</Button>
+        <Button variant="outline">Outline</Button>
+        <Button variant="ghost">Ghost</Button>
       </XStack>
     </YStack>
   ),
@@ -156,9 +156,9 @@ export const AllSizes: Story = {
   render: () => (
     <YStack gap="$4" padding="$4">
       <XStack gap="$3" alignItems="center">
-        <MyButton size="sm">Small</MyButton>
-        <MyButton size="md">Medium</MyButton>
-        <MyButton size="lg">Large</MyButton>
+        <Button size="sm">Small</Button>
+        <Button size="md">Medium</Button>
+        <Button size="lg">Large</Button>
       </XStack>
     </YStack>
   ),
@@ -179,11 +179,11 @@ export const ThemeShowcase: Story = {
         <Text variant="muted" marginBottom="$3">Dark Theme Buttons:</Text>
         <YStack theme="dark" backgroundColor="$background" padding="$4" borderRadius="$3" borderWidth={1} borderColor="$border">
           <XStack gap="$3" flexWrap="wrap">
-            <MyButton>Primary</MyButton>
-            <MyButton variant="secondary">Secondary</MyButton>
-            <MyButton variant="destructive">Destructive</MyButton>
-            <MyButton variant="outline">Outline</MyButton>
-            <MyButton variant="ghost">Ghost</MyButton>
+            <Button>Primary</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="destructive">Destructive</Button>
+            <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
           </XStack>
         </YStack>
       </YStack>
@@ -192,11 +192,11 @@ export const ThemeShowcase: Story = {
         <Text variant="muted" marginBottom="$3">Light Theme Buttons:</Text>
         <YStack theme="light" backgroundColor="$background" padding="$4" borderRadius="$3" borderWidth={1} borderColor="$border">
           <XStack gap="$3" flexWrap="wrap">
-            <MyButton>Primary</MyButton>
-            <MyButton variant="secondary">Secondary</MyButton>
-            <MyButton variant="destructive">Destructive</MyButton>
-            <MyButton variant="outline">Outline</MyButton>
-            <MyButton variant="ghost">Ghost</MyButton>
+            <Button>Primary</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="destructive">Destructive</Button>
+            <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
           </XStack>
         </YStack>
       </YStack>

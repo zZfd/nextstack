@@ -91,6 +91,7 @@ export const CardDescription = styled(Text, {
 });
 
 // Compound Card component with all parts
+// eslint-disable-next-line react-refresh/only-export-components
 export const CompoundCard = {
   Root: Card,
   Header: CardHeader,

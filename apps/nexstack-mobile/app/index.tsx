@@ -1,5 +1,5 @@
 import { trpc } from '@nexstack/trpc';
-import { Container, H1, Layout, MyButton, Stack, Text } from '@nexstack/ui';
+import { Container, H1, Layout, Button, Stack, Text } from '@nexstack/ui';
 
 export default function HomeScreen() {
   const postsQuery = trpc.post.all.useQuery();
@@ -10,14 +10,14 @@ export default function HomeScreen() {
         <H1>Mobile Expo App</H1>
         <Text>React Native with Tamagui and tRPC</Text>
 
-        <MyButton>Hello from Tamagui on React Native</MyButton>
+        <Button>Hello from Tamagui on React Native</Button>
 
         <Stack space='$2'>
           <Text fontSize='$6' fontWeight='bold'>
             Posts:
           </Text>
           {postsQuery.isLoading && <Text>Loading...</Text>}
-          {postsQuery.data?.map(post => (
+          {postsQuery.data?.map((post: { id: string; title: string; content: string | null }) => (
             <Layout
               key={post.id}
               padding='$3'

@@ -6,6 +6,7 @@ import { TamaguiProvider } from '../src/Provider';
 import config from '../src/tamagui.config';
 
 // Theme decorator with proper context and force re-render
+// eslint-disable-next-line react-refresh/only-export-components
 const ThemeDecorator = (Story, context) => {
   const [currentTheme, setCurrentTheme] = useState('dark');
 

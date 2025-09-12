@@ -1,7 +1,7 @@
-import { Button, styled } from 'tamagui';
+import { Button as TamaguiButton, styled } from 'tamagui';
 
-export const MyButton = styled(Button, {
-  name: 'MyButton',
+export const Button = styled(TamaguiButton, {
+  name: 'Button',
   borderRadius: '$3',
   borderWidth: 0,
   
