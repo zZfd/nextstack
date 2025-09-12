@@ -1,7 +1,7 @@
-import { styled, XStack } from 'tamagui';
+import { styled, Text, XStack } from 'tamagui';
 
 // Base Badge component following design guide
-export const Badge = styled(XStack, {
+export const Badge = styled(Text, {
   name: 'Badge',
   alignItems: 'center',
   justifyContent: 'center',
@@ -10,26 +10,28 @@ export const Badge = styled(XStack, {
   borderColor: 'transparent',
   paddingHorizontal: '$2', // px-2
   paddingVertical: '$1',   // py-1
-  
-  // Default variant - gray
-  backgroundColor: '$muted',
+  fontSize: '$3',
+  fontWeight: '500',
   
   variants: {
     variant: {
       default: {
         backgroundColor: '$muted',
+        color: '$mutedForeground',
         hoverStyle: {
           backgroundColor: '$mutedHover',
         },
       },
       secondary: {
         backgroundColor: '$secondary',
+        color: '$secondaryForeground',
         hoverStyle: {
           backgroundColor: '$secondaryHover',
         },
       },
       destructive: {
         backgroundColor: '$destructive',
+        color: '$destructiveForeground',
         hoverStyle: {
           backgroundColor: '$destructiveHover',
         },
@@ -37,6 +39,7 @@ export const Badge = styled(XStack, {
       outline: {
         backgroundColor: 'transparent',
         borderColor: '$borderColor',
+        color: '$color',
         hoverStyle: {
           backgroundColor: '$accent',
           borderColor: '$borderColorHover',
@@ -44,18 +47,21 @@ export const Badge = styled(XStack, {
       },
       success: {
         backgroundColor: '$success',
+        color: '$successForeground',
         hoverStyle: {
           opacity: 0.9,
         },
       },
       warning: {
         backgroundColor: '$warning',
+        color: '$warningForeground',
         hoverStyle: {
           opacity: 0.9,
         },
       },
       info: {
         backgroundColor: '$info',
+        color: '$infoForeground',
         hoverStyle: {
           opacity: 0.9,
         },
@@ -65,16 +71,19 @@ export const Badge = styled(XStack, {
       sm: {
         paddingHorizontal: '$1',
         paddingVertical: 0,
+        fontSize: '$2',
         minHeight: 16,
       },
       md: {
         paddingHorizontal: '$2',
         paddingVertical: '$1',
+        fontSize: '$3',
         minHeight: 20,
       },
       lg: {
         paddingHorizontal: '$3',
         paddingVertical: '$2',
+        fontSize: '$4',
         minHeight: 24,
       },
     },
