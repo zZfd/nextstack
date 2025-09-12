@@ -55,9 +55,6 @@ export const Input = styled(TamaguiInput, {
       },
     },
   } as const,
-
-  // Animation
-  animation: 'quick',
 });
 
 // Input with Label wrapper
@@ -156,7 +153,6 @@ export const Textarea = styled(TamaguiInput, {
   },
 
   placeholderTextColor: '$placeholderColor',
-  animation: 'quick',
 });
 
 // Search Input with icon (conceptual - would need icon implementation)
