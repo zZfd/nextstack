@@ -17,7 +17,14 @@
     "db:push": "turbo db:push",
     "db:migrate": "turbo db:migrate",
     "db:reset": "turbo db:reset",
-    "db:studio": "turbo db:studio"
+    "db:studio": "turbo db:studio",
+    "storage:dev": "docker-compose up -d minio",
+    "storage:dev:stop": "docker-compose stop minio",
+    "storage:dev:down": "docker-compose down minio",
+    "storage:dev:logs": "docker-compose logs -f minio",
+    "dev:all": "docker-compose up -d && turbo dev",
+    "dev:stop": "docker-compose stop",
+    "dev:down": "docker-compose down"
   },
   "devDependencies": {
     "husky": "^9.1.7",
