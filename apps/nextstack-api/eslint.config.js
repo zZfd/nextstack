@@ -5,7 +5,7 @@ module.exports = [
   {
     files: ['**/*.{js,ts}'],
     rules: {
-      // API package specific rules
+      // Node.js API specific rules
       'no-console': 'off', // Console logging is common in APIs
     },
   },

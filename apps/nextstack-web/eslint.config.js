@@ -1,13 +1,11 @@
-const reactConfig = require('@nextstack/eslint-config/react.js');
+import nextConfig from '@nextstack/eslint-config/next.js';
 
-module.exports = [
-  ...reactConfig,
+export default [
+  ...nextConfig,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     rules: {
-      // UI package specific rules
-      'react/prop-types': 'off', // Using TypeScript for props
-      '@typescript-eslint/no-empty-object-type': 'off', // Allow empty interfaces for extensibility
+      // Add any project-specific overrides here
     },
   },
   // Test files configuration
@@ -16,12 +14,21 @@ module.exports = [
     languageOptions: {
       globals: {
         vi: 'readonly', // Vitest global
+        React: 'readonly', // React global for test files
       },
     },
     rules: {
       // Relax rules for test files
       'no-console': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
+      'no-undef': 'off', // TypeScript handles this
+    },
+  },
+  // Layout and root files
+  {
+    files: ['app/layout.tsx', 'app/root.tsx'],
+    rules: {
+      'react-refresh/only-export-components': 'off', // Layout files can export metadata
     },
   },
 ];

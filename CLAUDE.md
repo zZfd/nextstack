@@ -20,37 +20,37 @@ The goal of the project is to use Monorepo architecture to create a full stack t
 
 #### Frontend Applications (apps/)
 
-1. **nexstack-web** - Next.js 15.1.8 Web Application
+1. **nextstack-web** - Next.js 15.1.8 Web Application
    - React 19.0.0 + React DOM
    - tRPC client integration
    - TypeScript support
 
-2. **nexstack-mobile** - React Native (Expo 53)
+2. **nextstack-mobile** - React Native (Expo 53)
    - React Native 0.79.5
    - Expo Router 5.1.5
    - Cross-platform mobile app
 
-3. **nexstack-admin** - Admin dashboard
-4. **nexstack-api** - API service
+3. **nextstack-admin** - Admin dashboard
+4. **nextstack-api** - API service
 
 #### Shared Packages (packages/)
 
-1. **@nexstack/ui** - Component Library
+1. **@nextstack/ui** - Component Library
    - Tamagui UI Framework (v1.132.23)
    - Storybook 9.1.5 for component documentation
    - React Native Web support
 
-2. **@nexstack/database** - Data Layer
+2. **@nextstack/database** - Data Layer
    - Prisma ORM (v6.15.0)
    - PostgreSQL database
 
-3. **@nexstack/trpc** - Type-safe API Communication
+3. **@nextstack/trpc** - Type-safe API Communication
    - tRPC v11.5.1
    - End-to-end type safety
 
-4. **@nexstack/api** - Shared API logic
-5. **@nexstack/tsconfig** - Shared TypeScript configuration
-6. **@nexstack/eslint-config** - Shared ESLint configuration
+4. **@nextstack/api** - Shared API logic
+5. **@nextstack/tsconfig** - Shared TypeScript configuration
+6. **@nextstack/eslint-config** - Shared ESLint configuration
 
 ### 🛠️ Development Environment
 
@@ -58,7 +58,7 @@ The goal of the project is to use Monorepo architecture to create a full stack t
 
 - **PostgreSQL 16** (Alpine) via Docker Compose
 - Default port: 5433
-- Development database: nexstack_dev
+- Development database: nextstack_dev
 
 #### Quality Assurance
 
@@ -70,7 +70,7 @@ The goal of the project is to use Monorepo architecture to create a full stack t
 
 #### Containerization
 
-- Docker support (nexstack-web has complete Docker configuration)
+- Docker support (nextstack-web has complete Docker configuration)
 - Nginx configuration for production deployment
 
 ### 🚀 Available Scripts

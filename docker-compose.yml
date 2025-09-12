@@ -6,9 +6,9 @@ services:
     image: postgres:16-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${DB_USER:-nexstack_user}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-nexstack_password}
-      POSTGRES_DB: ${DB_NAME:-nexstack_dev}
+      POSTGRES_USER: ${DB_USER:-nextstack_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-nextstack_password}
+      POSTGRES_DB: ${DB_NAME:-nextstack_dev}
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "${DB_PORT:-5433}:5432"
@@ -17,12 +17,12 @@ services:
       # Optional: Add init script if exists
       # - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     networks:
-      - nexstack-dev-network
+      - nextstack-dev-network
 
 volumes:
   postgres_dev_data:
     driver: local
 
 networks:
-  nexstack-dev-network:
-    name: nexstack-dev-network
+  nextstack-dev-network:
+    name: nextstack-dev-network

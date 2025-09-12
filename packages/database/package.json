@@ -1,5 +1,5 @@
 {
-  "name": "@nexstack/database",
+  "name": "@nextstack/database",
   "version": "0.0.0",
   "private": true,
   "main": "./index.ts",
@@ -19,8 +19,8 @@
     "@prisma/client": "^6.15.0"
   },
   "devDependencies": {
-    "@nexstack/eslint-config": "workspace:*",
-    "@nexstack/tsconfig": "workspace:*",
+    "@nextstack/eslint-config": "workspace:*",
+    "@nextstack/tsconfig": "workspace:*",
     "dotenv": "^17.2.2",
     "prisma": "^6.15.0",
     "typescript": "^5.9.2"

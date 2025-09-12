@@ -1,3 +1,3 @@
 module.exports = {
-  extends: [require.resolve('@nexstack/eslint-config/library')],
+  extends: [require.resolve('@nextstack/eslint-config/library')],
 };

@@ -1,4 +1,4 @@
-import { db } from '@nexstack/database';
+import { db } from '@nextstack/database';
 import type * as trpcExpress from '@trpc/server/adapters/express';
 
 // Universal context options for both Express and fetch adapters

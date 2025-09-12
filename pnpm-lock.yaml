@@ -50,12 +50,12 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
 
-  apps/nexstack-admin:
+  apps/nextstack-admin:
     dependencies:
-      '@nexstack/trpc':
+      '@nextstack/trpc':
         specifier: workspace:*
         version: link:../../packages/trpc
-      '@nexstack/ui':
+      '@nextstack/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@tanstack/react-query':
@@ -71,10 +71,10 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
     devDependencies:
-      '@nexstack/eslint-config':
+      '@nextstack/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@nexstack/tsconfig':
+      '@nextstack/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
       '@types/react':
@@ -93,9 +93,9 @@ importers:
         specifier: ^5.4.19
         version: 5.4.19(@types/node@20.19.13)(lightningcss@1.27.0)(terser@5.44.0)
 
-  apps/nexstack-api:
+  apps/nextstack-api:
     dependencies:
-      '@nexstack/api':
+      '@nextstack/api':
         specifier: workspace:*
         version: link:../../packages/api
       '@trpc/server':
@@ -120,10 +120,10 @@ importers:
         specifier: ^2.0.6
         version: 2.0.9(@types/express@4.17.23)
     devDependencies:
-      '@nexstack/eslint-config':
+      '@nextstack/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@nexstack/tsconfig':
+      '@nextstack/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
       '@types/compression':
@@ -163,12 +163,12 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@20.19.13)(@vitest/ui@3.2.4)(lightningcss@1.27.0)(terser@5.44.0)
 
-  apps/nexstack-mobile:
+  apps/nextstack-mobile:
     dependencies:
-      '@nexstack/trpc':
+      '@nextstack/trpc':
         specifier: workspace:*
         version: link:../../packages/trpc
-      '@nexstack/ui':
+      '@nextstack/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@tanstack/react-query':
@@ -205,10 +205,10 @@ importers:
       '@babel/core':
         specifier: ^7.20.0
         version: 7.28.4
-      '@nexstack/eslint-config':
+      '@nextstack/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@nexstack/tsconfig':
+      '@nextstack/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
       '@tamagui/babel-plugin':
@@ -221,15 +221,15 @@ importers:
         specifier: ~5.8.3
         version: 5.8.3
 
-  apps/nexstack-web:
+  apps/nextstack-web:
     dependencies:
-      '@nexstack/api':
+      '@nextstack/api':
         specifier: workspace:*
         version: link:../../packages/api
-      '@nexstack/trpc':
+      '@nextstack/trpc':
         specifier: workspace:*
         version: link:../../packages/trpc
-      '@nexstack/ui':
+      '@nextstack/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@tanstack/react-query':
@@ -257,10 +257,10 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
     devDependencies:
-      '@nexstack/eslint-config':
+      '@nextstack/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@nexstack/tsconfig':
+      '@nextstack/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
       '@types/node':
@@ -278,7 +278,7 @@ importers:
 
   packages/api:
     dependencies:
-      '@nexstack/database':
+      '@nextstack/database':
         specifier: workspace:*
         version: link:../database
       '@trpc/server':
@@ -288,10 +288,10 @@ importers:
         specifier: ^3.22.4
         version: 3.25.76
     devDependencies:
-      '@nexstack/eslint-config':
+      '@nextstack/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@nexstack/tsconfig':
+      '@nextstack/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       '@types/node':
@@ -307,10 +307,10 @@ importers:
         specifier: ^6.15.0
         version: 6.15.0(prisma@6.15.0(typescript@5.9.2))(typescript@5.9.2)
     devDependencies:
-      '@nexstack/eslint-config':
+      '@nextstack/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@nexstack/tsconfig':
+      '@nextstack/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       dotenv:
@@ -367,7 +367,7 @@ importers:
 
   packages/trpc:
     dependencies:
-      '@nexstack/api':
+      '@nextstack/api':
         specifier: workspace:*
         version: link:../api
       '@tanstack/react-query':
@@ -383,10 +383,10 @@ importers:
         specifier: 19.0.0
         version: 19.0.0
     devDependencies:
-      '@nexstack/eslint-config':
+      '@nextstack/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@nexstack/tsconfig':
+      '@nextstack/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       typescript:
@@ -419,10 +419,10 @@ importers:
         specifier: ^1.132.23
         version: 1.132.23(react-dom@19.0.0(react@19.0.0))(react-native@0.79.5(@babel/core@7.28.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
     devDependencies:
-      '@nexstack/eslint-config':
+      '@nextstack/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@nexstack/tsconfig':
+      '@nextstack/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       '@storybook/addon-essentials':
@@ -10739,7 +10739,7 @@ snapshots:
 
   dotenv-expand@11.0.7:
     dependencies:
-      dotenv: 16.4.7
+      dotenv: 16.6.1
 
   dotenv@16.4.7: {}
 

@@ -1,5 +1,5 @@
 {
-  "name": "nexstack",
+  "name": "nextstack",
   "private": true,
   "scripts": {
     "lint": "NODE_OPTIONS='--max-old-space-size=2048' turbo lint",

@@ -1,4 +1,4 @@
-const baseConfig = require('@nexstack/eslint-config/base.js');
+const baseConfig = require('@nextstack/eslint-config/base.js');
 
 module.exports = [
   ...baseConfig,

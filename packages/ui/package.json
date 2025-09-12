@@ -1,5 +1,5 @@
 {
-  "name": "@nexstack/ui",
+  "name": "@nextstack/ui",
   "version": "0.0.0",
   "private": true,
   "main": "src/index.ts",
@@ -25,8 +25,8 @@
     "react": "19.0.0"
   },
   "devDependencies": {
-    "@nexstack/eslint-config": "workspace:*",
-    "@nexstack/tsconfig": "workspace:*",
+    "@nextstack/eslint-config": "workspace:*",
+    "@nextstack/tsconfig": "workspace:*",
     "@storybook/addon-essentials": "9.0.0-alpha.12",
     "@storybook/addon-interactions": "9.0.0-alpha.10",
     "@storybook/react-native-web-vite": "9.1.5",
