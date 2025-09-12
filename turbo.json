@@ -28,7 +28,7 @@
     },
     "db:generate": {
       "cache": true,
-      "outputs": ["node_modules/.prisma/**"]
+      "outputs": ["node_modules/.prisma/**", "packages/validators/src/generated/**"]
     },
     "db:push": {
       "cache": false

@@ -21,6 +21,7 @@
     "@nextstack/api": "workspace:*",
     "@nextstack/trpc": "workspace:*",
     "@nextstack/ui": "workspace:*",
+    "@nextstack/validators": "workspace:*",
     "@tanstack/react-query": "^5.80.3",
     "@trpc/client": "^11.5.1",
     "@trpc/next": "^11.5.1",
