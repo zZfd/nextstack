@@ -29,8 +29,8 @@ export class LocalStorageProvider extends BaseStorageProvider {
   private async ensureDirectory(path: string): Promise<void> {
     try {
       await fs.mkdir(path, { recursive: true });
-    } catch (error: any) {
-      if (error.code !== 'EEXIST') {
+    } catch (error: unknown) {
+      if (error instanceof Error && 'code' in error && error.code !== 'EEXIST') {
         throw error;
       }
     }
@@ -110,8 +110,8 @@ export class LocalStorageProvider extends BaseStorageProvider {
     
     try {
       return await fs.readFile(filePath);
-    } catch (error: any) {
-      if (error.code === 'ENOENT') {
+    } catch (error: unknown) {
+      if (error instanceof Error && 'code' in error && error.code === 'ENOENT') {
         throw new Error(`File not found: ${key}`);
       }
       throw error;
@@ -141,8 +141,8 @@ export class LocalStorageProvider extends BaseStorageProvider {
     
     try {
       await fs.unlink(filePath);
-    } catch (error: any) {
-      if (error.code !== 'ENOENT') {
+    } catch (error: unknown) {
+      if (error instanceof Error && 'code' in error && error.code !== 'ENOENT') {
         throw error;
       }
     }
@@ -195,8 +195,8 @@ export class LocalStorageProvider extends BaseStorageProvider {
             }
           }
         }
-      } catch (error: any) {
-        if (error.code !== 'ENOENT') {
+      } catch (error: unknown) {
+        if (error instanceof Error && 'code' in error && error.code !== 'ENOENT') {
           throw error;
         }
       }

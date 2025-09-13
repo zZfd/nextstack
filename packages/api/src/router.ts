@@ -1,10 +1,14 @@
 import { publicProcedure } from './procedures/public';
+import { authRouter } from './routers/auth';
 import { postRouter } from './routers/post';
 import { storageRouter } from './routers/storage';
 import { userRouter } from './routers/user';
 import { router } from './trpc';
 
 export const appRouter = router({
+  // Authentication
+  auth: authRouter,
+
   // Core business domains
   user: userRouter,
   post: postRouter,

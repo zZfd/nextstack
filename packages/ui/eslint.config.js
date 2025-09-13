@@ -12,7 +12,11 @@ module.exports = [
   },
   // Test files configuration
   {
-    files: ['**/*.test.{js,jsx,ts,tsx}', '**/test/**/*.{js,jsx,ts,tsx}', '**/__tests__/**/*.{js,jsx,ts,tsx}'],
+    files: [
+      '**/*.test.{js,jsx,ts,tsx}',
+      '**/test/**/*.{js,jsx,ts,tsx}',
+      '**/__tests__/**/*.{js,jsx,ts,tsx}',
+    ],
     languageOptions: {
       globals: {
         vi: 'readonly', // Vitest global
@@ -21,7 +25,6 @@ module.exports = [
     rules: {
       // Relax rules for test files
       'no-console': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 ];

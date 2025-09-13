@@ -18,7 +18,7 @@ export function createStorageProvider(config: StorageConfig): StorageProvider {
 
 export function createStorageProviderFromEnv(): StorageProvider {
   const config: StorageConfig = {
-    provider: (process.env.STORAGE_PROVIDER as any) ?? 'local',
+    provider: (process.env.STORAGE_PROVIDER as StorageConfig['provider']) ?? 'local',
     bucket: process.env.STORAGE_BUCKET ?? 'nextstack-dev',
     region: process.env.STORAGE_REGION ?? 'us-east-1',
     endpoint: process.env.STORAGE_ENDPOINT,

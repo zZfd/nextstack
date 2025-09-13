@@ -13,6 +13,7 @@
   "dependencies": {
     "@trpc/server": "^11.5.1",
     "zod": "^3.22.4",
+    "@nextstack/auth": "workspace:*",
     "@nextstack/database": "workspace:*",
     "@nextstack/validators": "workspace:*",
     "@nextstack/storage": "workspace:*",

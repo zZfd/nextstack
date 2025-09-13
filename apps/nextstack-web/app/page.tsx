@@ -1,9 +1,11 @@
 'use client';
 
 import { trpc } from '@nextstack/trpc';
-import { H1, Layout, Button, Stack, Text } from '@nextstack/ui';
+import { H1, Layout, Button, Stack, HStack, Text } from '@nextstack/ui';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter();
   const postsQuery = trpc.post.all.useQuery({});
 
   return (
@@ -12,7 +14,11 @@ export default function Home() {
         <H1>Web SEO (Next.js)</H1>
         <Text>SEO-optimized application with server-side rendering</Text>
 
-        <Button>Hello from Tamagui on Next.js</Button>
+        <HStack space='$2'>
+          <Button onPress={() => router.push('/auth/signin')}>Sign In</Button>
+          <Button onPress={() => router.push('/auth/signup')}>Sign Up</Button>
+          <Button onPress={() => router.push('/dashboard')}>Dashboard</Button>
+        </HStack>
 
         <Stack space='$2'>
           <Text fontSize='$6' fontWeight='bold'>

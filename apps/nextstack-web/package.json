@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@nextstack/api": "workspace:*",
+    "@nextstack/auth": "workspace:*",
     "@nextstack/trpc": "workspace:*",
     "@nextstack/ui": "workspace:*",
     "@nextstack/validators": "workspace:*",
@@ -27,6 +28,7 @@
     "@trpc/next": "^11.5.1",
     "@trpc/react-query": "^11.5.1",
     "@trpc/server": "^11.5.1",
+    "better-auth": "^1.3.9",
     "next": "^15.1.8",
     "react": "19.0.0",
     "react-dom": "19.0.0"

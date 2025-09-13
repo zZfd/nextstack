@@ -121,8 +121,8 @@ export class S3StorageProvider extends BaseStorageProvider {
     }
 
     const chunks: Uint8Array[] = [];
-    const stream = response.Body as any;
-    
+    const stream = response.Body as AsyncIterable<Uint8Array>;
+
     for await (const chunk of stream) {
       chunks.push(chunk);
     }
@@ -183,8 +183,8 @@ export class S3StorageProvider extends BaseStorageProvider {
 
       await this.client.send(command);
       return true;
-    } catch (error: any) {
-      if (error.name === 'NotFound') {
+    } catch (error: unknown) {
+      if (error instanceof Error && error.name === 'NotFound') {
         return false;
       }
       throw error;
