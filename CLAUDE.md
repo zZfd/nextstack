@@ -48,17 +48,34 @@ The goal of the project is to use Monorepo architecture to create a full stack t
    - tRPC v11.5.1
    - End-to-end type safety
 
-4. **@nextstack/api** - Shared API logic
-5. **@nextstack/tsconfig** - Shared TypeScript configuration
-6. **@nextstack/eslint-config** - Shared ESLint configuration
+4. **@nextstack/auth** - Authentication Layer
+   - better-auth v1.3.9
+   - Secure authentication workflows
+
+5. **@nextstack/storage** - Storage Layer
+   - AWS S3 SDK v3.691.0
+   - MinIO support for local development
+
+6. **@nextstack/validators** - Data Validation
+   - Zod v3.22.4
+   - Type-safe schema validation
+
+7. **@nextstack/api** - Shared API logic
+8. **@nextstack/tsconfig** - Shared TypeScript configuration
+9. **@nextstack/eslint-config** - Shared ESLint configuration
 
 ### 🛠️ Development Environment
 
-#### Database
+#### Database & Storage
 
 - **PostgreSQL 16** (Alpine) via Docker Compose
 - Default port: 5433
 - Development database: nextstack_dev
+
+- **MinIO** - S3-compatible storage for development
+- API port: 9000
+- Console port: 9001
+- Local file storage and bucket management
 
 #### Quality Assurance
 
@@ -78,10 +95,18 @@ pnpm typecheck    # Type checking
 pnpm lint         # Code linting
 pnpm format       # Code formatting
 
+# Docker Services
+pnpm dev          # Start development services (PostgreSQL + MinIO)
+pnpm dev:stop     # Stop development services
+pnpm dev:down     # Stop and remove services with volumes
+pnpm dev:logs     # View service logs
+pnpm dev:status   # Check service status
+
 # Database
-pnpm db:dev       # Start development database
 pnpm db:generate  # Generate Prisma client
 pnpm db:push      # Push schema changes
+pnpm db:migrate   # Run database migrations
+pnpm db:reset     # Reset database
 pnpm db:studio    # Database GUI
 
 # Cleanup

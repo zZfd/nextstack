@@ -18,7 +18,6 @@
     "docker:deploy": "pnpm docker:build && pnpm docker:run"
   },
   "dependencies": {
-    "@nextstack/api": "workspace:*",
     "@nextstack/auth": "workspace:*",
     "@nextstack/trpc": "workspace:*",
     "@nextstack/ui": "workspace:*",
@@ -27,7 +26,6 @@
     "@trpc/client": "^11.5.1",
     "@trpc/next": "^11.5.1",
     "@trpc/react-query": "^11.5.1",
-    "@trpc/server": "^11.5.1",
     "better-auth": "^1.3.9",
     "next": "^15.1.8",
     "react": "19.0.0",
