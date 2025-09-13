@@ -1,55 +1,6 @@
+import type { AuthClient } from '@nextstack/auth';
 import React, { useState } from 'react';
 import { Button, Input, YStack, Text, H2 } from 'tamagui';
-
-interface AuthError {
-  message: string;
-  code?: string;
-}
-
-interface AuthResult<T = unknown> {
-  data?: T;
-  error?: AuthError;
-}
-
-interface User {
-  id: string;
-  email: string;
-  name: string | null;
-  emailVerified: Date | null;
-  image: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface SessionResult {
-  user: User;
-  session: {
-    token: string;
-    expiresAt: Date;
-  };
-}
-
-interface SocialProvider {
-  name: string;
-  id: string;
-  enabled: boolean;
-}
-
-interface AuthClient {
-  signUp?: {
-    email?: (params: {
-      name: string;
-      email: string;
-      password: string;
-    }) => Promise<AuthResult<SessionResult>>;
-  };
-  signIn?: {
-    email?: (params: { email: string; password: string }) => Promise<AuthResult<SessionResult>>;
-  };
-  getSession?: () => Promise<AuthResult<SessionResult>>;
-  signOut?: () => Promise<AuthResult<null>>;
-  social?: SocialProvider[];
-}
 
 interface SignUpFormProps {
   authClient: AuthClient;
@@ -139,18 +90,16 @@ export function SignUpForm({
     setFieldErrors({});
 
     try {
-      const result = await authClient.signUp?.email?.({
+      const result = await authClient.signUp.email({
         name,
         email,
         password,
       });
 
-      if (result?.error) {
+      if (result.error) {
         onError?.(result.error.message || 'Sign up failed');
-      } else if (result?.data) {
-        onSuccess?.();
       } else {
-        onError?.('Sign up failed');
+        onSuccess?.();
       }
     } catch {
       onError?.('An unexpected error occurred');

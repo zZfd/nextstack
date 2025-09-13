@@ -1,4 +1,5 @@
 import type { Server } from 'http';
+import type { Socket } from 'net';
 
 /**
  * Graceful shutdown handler
@@ -7,7 +8,7 @@ import type { Server } from 'http';
 export class GracefulShutdown {
   private server: Server;
   private isShuttingDown = false;
-  private connections = new Set<any>();
+  private connections = new Set<Socket>();
   private timeoutMs: number;
 
   constructor(server: Server, timeoutMs: number = 30000) {

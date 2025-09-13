@@ -477,6 +477,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@nextstack/auth':
+        specifier: workspace:*
+        version: link:../auth
       '@tamagui/animations-react-native':
         specifier: ^1.132.23
         version: 1.132.23(react-dom@19.0.0(react@19.0.0))(react-native@0.79.5(@babel/core@7.28.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)

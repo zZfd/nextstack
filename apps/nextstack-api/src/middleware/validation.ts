@@ -21,12 +21,6 @@ interface EnvConfig {
   // Rate limiting
   RATE_LIMIT_WINDOW_MS?: string;
   RATE_LIMIT_MAX_REQUESTS?: string;
-
-  // Request timeout
-  REQUEST_TIMEOUT_MS?: string;
-
-  // Logging
-  LOG_LEVEL?: string;
 }
 
 interface ValidationRule {
@@ -78,16 +72,6 @@ const envSchema: Record<keyof EnvConfig, ValidationRule> = {
     defaultValue: '100',
     validator: value => !isNaN(Number(value)) && Number(value) > 0,
     description: 'Maximum requests per window',
-  },
-  REQUEST_TIMEOUT_MS: {
-    defaultValue: '30000',
-    validator: value => !isNaN(Number(value)) && Number(value) > 0,
-    description: 'Request timeout in milliseconds',
-  },
-  LOG_LEVEL: {
-    defaultValue: 'info',
-    validator: value => ['debug', 'info', 'warn', 'error'].includes(value),
-    description: 'Logging level',
   },
 };
 
@@ -154,7 +138,8 @@ try {
   validatedConfig = validateEnvironment();
 } catch (error) {
   console.error(
-    'Failed to start application due to environment validation errors'
+    'Failed to start application due to environment validation errors',
+    error
   );
   process.exit(1);
 }

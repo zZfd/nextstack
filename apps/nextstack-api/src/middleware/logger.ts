@@ -1,4 +1,4 @@
-import type { Request, Response } from 'express';
+import type { Request } from 'express';
 import morgan from 'morgan';
 
 // Custom token for request ID
@@ -6,7 +6,7 @@ morgan.token('request-id', (req: Request) => req.requestId || 'unknown');
 
 // Custom token for user ID if available
 morgan.token('user-id', (req: Request) => {
-  const userId = (req as any).user?.id;
+  const userId = (req as Request & { user?: { id: string } }).user?.id;
   return userId || 'anonymous';
 });
 
@@ -15,7 +15,7 @@ const developmentFormat =
   ':method :url :status :res[content-length] - :response-time ms - :request-id';
 
 // Production format in JSON
-const productionFormat = (tokens: any, req: Request, res: Response) => {
+const productionFormat: morgan.FormatFn = (tokens, req, res) => {
   return JSON.stringify({
     timestamp: new Date().toISOString(),
     method: tokens.method(req, res),
@@ -32,7 +32,7 @@ const productionFormat = (tokens: any, req: Request, res: Response) => {
 };
 
 // Create logger middleware based on environment
-export const createRequestLogger = (): any => {
+export const createRequestLogger = () => {
   const isProduction = process.env.NODE_ENV === 'production';
 
   if (isProduction) {
@@ -54,4 +54,4 @@ export const shouldSkipLogging = (req: Request) => {
   return req.url === '/health' || req.url === '/metrics';
 };
 
-export const requestLogger: any = createRequestLogger();
+export const requestLogger = createRequestLogger();

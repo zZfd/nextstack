@@ -1,55 +1,6 @@
+import type { AuthClient, User } from '@nextstack/auth';
 import React, { useState } from 'react';
 import { Button, YStack, XStack, Text, H3, Avatar } from 'tamagui';
-
-interface User {
-  id: string;
-  email: string;
-  name: string | null;
-  emailVerified: Date | null;
-  image: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface AuthError {
-  message: string;
-  code?: string;
-}
-
-interface AuthResult<T = unknown> {
-  data?: T;
-  error?: AuthError;
-}
-
-interface SessionResult {
-  user: User;
-  session: {
-    token: string;
-    expiresAt: Date;
-  };
-}
-
-interface SocialProvider {
-  name: string;
-  id: string;
-  enabled: boolean;
-}
-
-interface AuthClient {
-  signOut?: () => Promise<AuthResult<null>>;
-  getSession?: () => Promise<AuthResult<SessionResult>>;
-  signIn?: {
-    email?: (params: { email: string; password: string }) => Promise<AuthResult<SessionResult>>;
-  };
-  signUp?: {
-    email?: (params: {
-      name: string;
-      email: string;
-      password: string;
-    }) => Promise<AuthResult<SessionResult>>;
-  };
-  social?: SocialProvider[];
-}
 
 interface UserProfileProps {
   user: User;
@@ -69,8 +20,8 @@ export function UserProfile({
   const handleSignOut = async () => {
     setLoading(true);
     try {
-      const result = await authClient.signOut?.();
-      if (result?.error) {
+      const result = await authClient.signOut();
+      if (result.error) {
         onError?.('Failed to sign out');
       } else {
         onSignOut?.();

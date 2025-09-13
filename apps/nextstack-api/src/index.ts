@@ -69,7 +69,7 @@ app.use(
   trpcExpress.createExpressMiddleware({
     router: appRouter,
     createContext,
-    onError: ({ error, type, path, input, ctx, req }) => {
+    onError: ({ error, type, path, input, req }) => {
       console.error(`❌ tRPC Error [${req?.requestId}]:`, {
         type,
         path,

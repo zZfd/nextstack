@@ -1,15 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
-// Extend Request interface to include requestId
-declare global {
-  namespace Express {
-    interface Request {
-      requestId: string;
-    }
-  }
-}
-
 /**
  * Request ID middleware
  * Generates a unique ID for each request and adds it to:

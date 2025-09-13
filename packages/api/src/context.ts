@@ -53,7 +53,7 @@ export const createContext = async (opts?: CreateContextOptions) => {
         user = {
           ...sessionResult.user,
           name: sessionResult.user.name ?? null,
-          emailVerified: sessionResult.user.emailVerified ? new Date() : null,
+          emailVerified: sessionResult.user.emailVerified,
           image: sessionResult.user.image ?? null,
         };
       }

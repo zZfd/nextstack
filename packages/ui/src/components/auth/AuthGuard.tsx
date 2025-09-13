@@ -1,55 +1,6 @@
+import type { AuthClient, User } from '@nextstack/auth';
 import React, { useEffect, useState } from 'react';
 import { YStack, Text, Spinner } from 'tamagui';
-
-interface User {
-  id: string;
-  email: string;
-  name: string | null;
-  emailVerified: Date | null;
-  image: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface AuthError {
-  message: string;
-  code?: string;
-}
-
-interface AuthResult<T = unknown> {
-  data?: T;
-  error?: AuthError;
-}
-
-interface SessionResult {
-  user: User;
-  session: {
-    token: string;
-    expiresAt: Date;
-  };
-}
-
-interface SocialProvider {
-  name: string;
-  id: string;
-  enabled: boolean;
-}
-
-interface AuthClient {
-  getSession?: () => Promise<AuthResult<SessionResult>>;
-  signIn?: {
-    email?: (params: { email: string; password: string }) => Promise<AuthResult<SessionResult>>;
-  };
-  signUp?: {
-    email?: (params: {
-      name: string;
-      email: string;
-      password: string;
-    }) => Promise<AuthResult<SessionResult>>;
-  };
-  signOut?: () => Promise<AuthResult<null>>;
-  social?: SocialProvider[];
-}
 
 interface AuthGuardProps {
   authClient: AuthClient;
@@ -72,9 +23,9 @@ export function AuthGuard({
 
     const checkAuth = async () => {
       try {
-        const result = await authClient.getSession?.();
+        const result = await authClient.getSession();
         if (mounted) {
-          if (result?.data?.user) {
+          if (result.data?.user) {
             setUser(result.data.user);
           } else {
             onUnauthenticated?.();

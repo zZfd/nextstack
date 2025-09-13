@@ -18,13 +18,13 @@ export const authClient = createAuthClient({
 
 export type AuthClient = typeof authClient;
 
-// Define types based on Prisma database schema
+// Define types based on what better-auth actually returns at runtime
 export interface User {
   id: string;
   email: string;
-  name: string | null;
-  emailVerified: Date | null;
-  image: string | null;
+  name: string;
+  emailVerified: boolean;  // better-auth returns boolean, not Date
+  image?: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -35,7 +35,7 @@ export interface Session {
   token: string;
   createdAt: Date;
   updatedAt: Date;
-  ipAddress: string | null;
-  userAgent: string | null;
+  ipAddress?: string | null;
+  userAgent?: string | null;
   userId: string;
 }
