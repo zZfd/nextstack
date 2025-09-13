@@ -68,11 +68,6 @@ The goal of the project is to use Monorepo architecture to create a full stack t
 - **Husky 9.1.7** - Git hooks
 - **lint-staged 16.1.6** - Pre-commit checks
 
-#### Containerization
-
-- Docker support (nextstack-web has complete Docker configuration)
-- Nginx configuration for production deployment
-
 ### 🚀 Available Scripts
 
 #### Root Level Commands
@@ -92,14 +87,6 @@ pnpm db:studio    # Database GUI
 # Cleanup
 pnpm clean        # Clean all build artifacts
 ```
-
-### 🎯 Project Highlights
-
-1. **Full-stack Type Safety**: tRPC provides end-to-end type safety
-2. **Cross-platform UI**: Tamagui supports unified Web + Mobile components
-3. **Modern Toolchain**: Latest React 19, Next.js 15, TypeScript 5.9
-4. **Development Efficiency**: Turbo caching + pnpm workspaces boost build speed
-5. **Quality Assurance**: Complete linting, formatting, type checking workflow
 
 ## Rules
 

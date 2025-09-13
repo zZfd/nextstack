@@ -6,7 +6,8 @@ import {
   UpdateUserSchema,
 } from '@nextstack/validators';
 
-import { publicProcedure, router } from '../trpc';
+import { publicProcedure } from '../procedures/public';
+import { router } from '../trpc';
 
 export const userRouter = router({
   all: publicProcedure

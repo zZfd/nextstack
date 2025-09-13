@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
-import { join, dirname } from 'path';
 import { createReadStream, createWriteStream, existsSync } from 'fs';
-import { BaseStorageProvider } from './base';
+import { join, dirname } from 'path';
+
 import type {
   StorageConfig,
   UploadRequest,
@@ -11,6 +11,9 @@ import type {
   ListObjectsResponse,
   StorageObject,
 } from '../types';
+
+import { BaseStorageProvider } from './base';
+
 
 export class LocalStorageProvider extends BaseStorageProvider {
   private basePath: string;
@@ -50,7 +53,7 @@ export class LocalStorageProvider extends BaseStorageProvider {
 
   async getPresignedUploadUrl(
     request: UploadRequest,
-    options?: PresignedUrlOptions
+    _options?: PresignedUrlOptions
   ): Promise<UploadResponse> {
     this.validateKey(request.key);
 
@@ -64,7 +67,7 @@ export class LocalStorageProvider extends BaseStorageProvider {
     };
   }
 
-  async uploadBuffer(key: string, buffer: Buffer, mimeType?: string): Promise<void> {
+  async uploadBuffer(key: string, buffer: Buffer, _mimeType?: string): Promise<void> {
     const filePath = this.getFilePath(key);
     
     // Ensure directory exists
@@ -73,7 +76,7 @@ export class LocalStorageProvider extends BaseStorageProvider {
     await fs.writeFile(filePath, buffer);
   }
 
-  async uploadFile(key: string, sourceFilePath: string, mimeType?: string): Promise<void> {
+  async uploadFile(key: string, sourceFilePath: string, _mimeType?: string): Promise<void> {
     const destPath = this.getFilePath(key);
     
     // Ensure directory exists
@@ -91,7 +94,7 @@ export class LocalStorageProvider extends BaseStorageProvider {
     });
   }
 
-  async getPresignedDownloadUrl(key: string, options?: PresignedUrlOptions): Promise<string> {
+  async getPresignedDownloadUrl(key: string, _options?: PresignedUrlOptions): Promise<string> {
     const filePath = this.getFilePath(key);
     
     if (!existsSync(filePath)) {

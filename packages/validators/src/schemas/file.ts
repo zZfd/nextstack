@@ -14,7 +14,7 @@ export const RequestUploadSchema = z.object({
   mimeType: z.string()
     .min(1, 'MIME type is required')
     .refine(
-      (mimeType) => /^[a-z]+\/[a-z0-9\-\+\.]+$/i.test(mimeType),
+      (mimeType) => /^[a-z]+\/[a-z0-9\-+.]+$/i.test(mimeType),
       'Invalid MIME type format'
     ),
   size: z.number()

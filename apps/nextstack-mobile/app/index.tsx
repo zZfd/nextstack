@@ -2,7 +2,7 @@ import { trpc } from '@nextstack/trpc';
 import { Container, H1, Layout, Button, Stack, Text } from '@nextstack/ui';
 
 export default function HomeScreen() {
-  const postsQuery = trpc.post.all.useQuery();
+  const postsQuery = trpc.post.all.useQuery({});
 
   return (
     <Container flex={1} padding='$4'>

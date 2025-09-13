@@ -1,4 +1,3 @@
-import { TRPCError } from '@trpc/server';
 import { createStorageProviderFromEnv } from '@nextstack/storage';
 import {
   RequestUploadSchema,
@@ -10,8 +9,10 @@ import {
   UpdateFileMetadataSchema,
   DeleteMultipleFilesSchema,
 } from '@nextstack/validators';
+import { TRPCError } from '@trpc/server';
 
-import { publicProcedure, router } from '../trpc';
+import { publicProcedure } from '../procedures/public';
+import { router } from '../trpc';
 
 // Initialize storage provider
 const storageProvider = createStorageProviderFromEnv();
@@ -22,11 +23,11 @@ export const storageRouter = router({
     .input(RequestUploadSchema)
     .mutation(async ({ ctx, input }) => {
       const { filename, mimeType, size } = input;
-      
+
       // TODO: Add user authentication
       // For now, using a dummy user ID
       const userId = 'dummy-user-id';
-      
+
       // Generate unique storage key
       const timestamp = Date.now();
       const sanitizedFilename = filename.replace(/[^a-zA-Z0-9._-]/g, '_');
@@ -89,7 +90,7 @@ export const storageRouter = router({
 
         // Check if file exists in storage
         const exists = await storageProvider.objectExists(file.storageKey);
-        
+
         if (!exists) {
           throw new TRPCError({
             code: 'BAD_REQUEST',
@@ -99,7 +100,7 @@ export const storageRouter = router({
 
         // Update file status and generate public URL
         const publicUrl = storageProvider.getObjectUrl(file.storageKey);
-        
+
         const updatedFile = await ctx.db.file.update({
           where: { id: fileId },
           data: {
@@ -200,58 +201,56 @@ export const storageRouter = router({
     }),
 
   // List files with pagination
-  list: publicProcedure
-    .input(GetFilesSchema)
-    .query(async ({ ctx, input }) => {
-      const { cursor, limit, status, mimeTypePrefix, search } = input;
+  list: publicProcedure.input(GetFilesSchema).query(async ({ ctx, input }) => {
+    const { cursor, limit, status, mimeTypePrefix, search } = input;
 
-      // TODO: Add user filtering based on authentication
-      const whereClause: any = {
-        deletedAt: null, // Only show non-deleted files
+    // TODO: Add user filtering based on authentication
+    const whereClause: Record<string, unknown> = {
+      deletedAt: null, // Only show non-deleted files
+    };
+
+    if (status) {
+      whereClause.status = status;
+    }
+
+    if (mimeTypePrefix) {
+      whereClause.mimeType = {
+        startsWith: mimeTypePrefix,
       };
+    }
 
-      if (status) {
-        whereClause.status = status;
-      }
+    if (search) {
+      whereClause.OR = [
+        { filename: { contains: search, mode: 'insensitive' } },
+        { originalName: { contains: search, mode: 'insensitive' } },
+      ];
+    }
 
-      if (mimeTypePrefix) {
-        whereClause.mimeType = {
-          startsWith: mimeTypePrefix,
-        };
-      }
-
-      if (search) {
-        whereClause.OR = [
-          { filename: { contains: search, mode: 'insensitive' } },
-          { originalName: { contains: search, mode: 'insensitive' } },
-        ];
-      }
-
-      const files = await ctx.db.file.findMany({
-        where: whereClause,
-        take: limit + 1, // Take one extra to check if there are more
-        cursor: cursor ? { id: cursor } : undefined,
-        orderBy: { createdAt: 'desc' },
-        include: {
-          user: {
-            select: { id: true, name: true, email: true },
-          },
+    const files = await ctx.db.file.findMany({
+      where: whereClause,
+      take: limit + 1, // Take one extra to check if there are more
+      cursor: cursor ? { id: cursor } : undefined,
+      orderBy: { createdAt: 'desc' },
+      include: {
+        user: {
+          select: { id: true, name: true, email: true },
         },
-      });
+      },
+    });
 
-      const hasMore = files.length > limit;
-      const items = hasMore ? files.slice(0, -1) : files;
-      const nextCursor = hasMore ? items[items.length - 1]?.id : null;
+    const hasMore = files.length > limit;
+    const items = hasMore ? files.slice(0, -1) : files;
+    const nextCursor = hasMore ? items[items.length - 1]?.id : null;
 
-      return {
-        items: items.map(file => ({
-          ...file,
-          size: file.size.toString(), // Convert BigInt to string
-        })),
-        nextCursor,
-        hasMore,
-      };
-    }),
+    return {
+      items: items.map(file => ({
+        ...file,
+        size: file.size.toString(), // Convert BigInt to string
+      })),
+      nextCursor,
+      hasMore,
+    };
+  }),
 
   // Delete file (soft delete)
   delete: publicProcedure

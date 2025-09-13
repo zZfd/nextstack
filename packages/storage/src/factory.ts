@@ -1,5 +1,5 @@
-import { S3StorageProvider } from './providers/s3';
 import { LocalStorageProvider } from './providers/local';
+import { S3StorageProvider } from './providers/s3';
 import type { StorageConfig, StorageProvider } from './types';
 
 export function createStorageProvider(config: StorageConfig): StorageProvider {

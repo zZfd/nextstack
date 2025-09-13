@@ -1,3 +1,5 @@
+import { createReadStream, createWriteStream } from 'fs';
+
 import {
   S3Client,
   GetObjectCommand,
@@ -9,8 +11,7 @@ import {
   CopyObjectCommand,
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { createReadStream, createWriteStream } from 'fs';
-import { BaseStorageProvider } from './base';
+
 import type {
   StorageConfig,
   UploadRequest,
@@ -20,6 +21,9 @@ import type {
   ListObjectsResponse,
   StorageObject,
 } from '../types';
+
+import { BaseStorageProvider } from './base';
+
 
 export class S3StorageProvider extends BaseStorageProvider {
   private client: S3Client;

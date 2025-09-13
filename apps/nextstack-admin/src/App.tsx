@@ -2,8 +2,7 @@ import { trpc } from '@nextstack/trpc';
 import { H1, Layout, Button, Stack, Text } from '@nextstack/ui';
 
 export function App() {
-  const postsQuery = trpc.post.all.useQuery();
-
+  const postsQuery = trpc.post.all.useQuery({});
   return (
     <Layout padding='$4'>
       <Stack space='$4'>
@@ -15,7 +14,7 @@ export function App() {
             Posts:
           </Text>
           {postsQuery.isLoading && <Text>Loading...</Text>}
-          {postsQuery.data?.map((post: { id: string; title: string; content: string | null }) => (
+          {postsQuery.data?.map(post => (
             <Layout key={post.id} padding='$2' backgroundColor='$background075'>
               <Text fontSize='$4' fontWeight='bold'>
                 {post.title}
