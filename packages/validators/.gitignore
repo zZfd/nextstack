@@ -4,3 +4,6 @@ dist
 .env.*
 !.env.example
 .turbo
+
+# Generated Zod validators from Prisma
+src/generated/
