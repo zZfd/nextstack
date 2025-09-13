@@ -1,106 +1,104 @@
-import { appRouter, createContext } from "@nextstack/api";
-import * as trpcExpress from "@trpc/server/adapters/express";
-import compression from "compression";
-import cors from "cors";
-import express from "express";
-import rateLimit from "express-rate-limit";
-import helmet from "helmet";
+import { appRouter, createContext } from '@nextstack/api';
+import * as trpcExpress from '@trpc/server/adapters/express';
+import compression from 'compression';
+import express from 'express';
+
+// Import custom middleware and configurations
+import {
+  env,
+  requestIdMiddleware,
+  timeoutMiddleware,
+  requestLogger,
+  createSecurityMiddleware,
+  createCorsMiddleware,
+  createRateLimitMiddleware,
+  globalErrorHandler,
+  notFoundHandler,
+} from './middleware';
+import { setupGracefulShutdown } from './utils/shutdown';
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = env.PORT || 3001;
 
-// Security middleware
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'"],
-      imgSrc: ["'self'", "data:", "https:"],
-    },
-  },
-  hsts: {
-    maxAge: 31536000,
-    includeSubDomains: true,
-    preload: true,
-  },
-}));
+// ===== MIDDLEWARE SETUP =====
+// Order is critical - each middleware builds on the previous ones
 
-// Compression middleware
+// 1. Request ID (must be first - other middleware depend on it)
+app.use(requestIdMiddleware);
+
+// 2. Request timeout (early protection against long-running requests)
+app.use(timeoutMiddleware);
+
+// 3. Security headers (protect against common attacks)
+app.use(createSecurityMiddleware());
+
+// 4. CORS handling (must be before other processing)
+app.use(createCorsMiddleware());
+
+// 5. Request logging (after security and CORS, before business logic)
+app.use(requestLogger);
+
+// 6. Body parsing and compression
 app.use(compression());
-
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'), // 15 minutes
-  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100'),
-  message: {
-    error: 'Too many requests from this IP, please try again later.',
-  },
-  standardHeaders: true,
-  legacyHeaders: false,
-});
-
-app.use('/trpc', limiter);
-
-// CORS configuration
-const corsOrigins = process.env.CORS_ORIGINS?.split(',') || [
-  'http://localhost:3000',
-  'http://localhost:5173',
-];
-
-app.use(cors({
-  origin: corsOrigins,
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
-
-// Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Health check endpoint
+// 7. Rate limiting (protect API endpoints)
+const rateLimiter = createRateLimitMiddleware();
+app.use('/trpc', rateLimiter);
+
+// ===== ROUTES =====
+
+// Health check endpoint (before tRPC to avoid interference)
 app.get('/health', (req, res) => {
   res.status(200).json({
     status: 'ok',
+    service: 'nextstack-api',
+    version: process.env.npm_package_version || '0.0.0',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     memory: process.memoryUsage(),
-    env: process.env.NODE_ENV,
+    environment: env.NODE_ENV,
+    requestId: req.requestId,
   });
 });
 
-// tRPC middleware
+// tRPC API routes
 app.use(
-  "/trpc",
+  '/trpc',
   trpcExpress.createExpressMiddleware({
     router: appRouter,
     createContext,
+    onError: ({ error, type, path, input, ctx, req }) => {
+      console.error(`❌ tRPC Error [${req?.requestId}]:`, {
+        type,
+        path,
+        error: error.message,
+        code: error.code,
+        input: process.env.NODE_ENV === 'development' ? input : '[REDACTED]',
+      });
+    },
   })
 );
 
-// Error handling middleware
-app.use((err: unknown, req: express.Request, res: express.Response, _next: express.NextFunction) => {
-  console.error('Error:', err);
-  
-  if (typeof err === 'object' && err !== null && 'code' in err && err.code === 'LIMIT_FILE_SIZE') {
-    return res.status(413).json({ error: 'File too large' });
-  }
-  
-  res.status(500).json({
-    error: process.env.NODE_ENV === 'production' 
-      ? 'Internal server error' 
-      : err instanceof Error ? err.message : 'Unknown error'
-  });
+// ===== ERROR HANDLING =====
+
+// 404 handler (must be after all routes but before global error handler)
+app.use('*', notFoundHandler);
+
+// Global error handler (must be last)
+app.use(globalErrorHandler);
+
+// ===== SERVER STARTUP =====
+
+const server = app.listen(port, () => {
+  console.log('🎯 NextStack API Server Started');
+  console.log(`├─ 🚀 Server: http://localhost:${port}`);
+  console.log(`├─ 📊 Health: http://localhost:${port}/health`);
+  console.log(`├─ 🔌 tRPC: http://localhost:${port}/trpc`);
+  console.log(`├─ 🔒 Environment: ${env.NODE_ENV}`);
+  console.log(`└─ 🆔 Process: ${process.pid}`);
 });
 
-// 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({ error: 'Route not found' });
-});
-
-app.listen(port, () => {
-  console.log(`🚀 API server listening on http://localhost:${port}`);
-  console.log(`📊 Health check: http://localhost:${port}/health`);
-  console.log(`🔌 tRPC endpoint: http://localhost:${port}/trpc`);
-});
+// Setup graceful shutdown handling
+setupGracefulShutdown(server);
