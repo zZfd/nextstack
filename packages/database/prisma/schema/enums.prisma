@@ -10,7 +10,6 @@ enum Role {
 enum ProfileType {
   PHOTOGRAPHER
   MERCHANT
-  MAKEUP_ARTIST
 }
 
 enum ApplicationStatus {

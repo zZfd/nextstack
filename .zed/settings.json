@@ -37,12 +37,8 @@
       }
     },
     "Prisma": {
-      "formatter": {
-        "external": {
-          "command": "sh",
-          "arguments": ["-c", "cat > /dev/null && cd packages/database && npx prisma format --schema ./prisma/schema >/dev/null 2>&1 && cat {buffer_path}"]
-        }
-      }
+      "formatter": "language_server",
+      "format_on_save": "on"
     }
   },
   "terminal": {

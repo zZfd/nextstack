@@ -3,45 +3,42 @@
 // ----------------------------------------
 
 model Level {
-  id          String  @id @default(cuid())
-  name        String
-  minPoints   Int
-  maxPoints   Int?
-  description String? @db.Text
+  id                     String      @id @default(cuid())
+  profileType            ProfileType
+  levelNumber            Int
+  name                   String
+  description            String?
+  iconUrl                String?
+  upgradeThresholdMetric PointType   @default(EXPERIENCE_POINTS)
+  upgradeThresholdValue  Int         @default(0)
+  nextLevelId            String?     @unique
+  nextLevel              Level?      @relation("LevelProgression", fields: [nextLevelId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  previousLevel          Level?      @relation("LevelProgression")
+  profiles               Profile[]
 
-  // Relations
-  profiles Profile[]
-
-  @@index([minPoints])
+  @@unique([profileType, levelNumber])
 }
 
+/// A performance-optimization table to store aggregated metrics for a profile.
 model ProfileMetric {
-  id        String  @id @default(cuid())
-  profileId String  @unique
-  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
-
-  totalPoints    Int   @default(0)
-  currentLevel   Int   @default(1)
-  completedTasks Int   @default(0)
-  successRate    Float @default(0.0)
-
-  lastUpdated DateTime @default(now())
-
-  @@index([totalPoints])
-  @@index([currentLevel])
+  id                     String   @id @default(cuid())
+  profileId              String   @unique
+  profile                Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  totalExperiencePoints  BigInt   @default(0)
+  currentReputationScore Float    @default(0.0)
+  updatedAt              DateTime @updatedAt
 }
 
+/// A detailed log of every point transaction. Provides a full audit trail.
 model PointLog {
-  id        String  @id @default(cuid())
-  profileId String
-  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
-
-  pointType PointType
-  amount    Int
-  reason    String    @db.Text
-
-  createdAt DateTime @default(now())
+  id              String    @id @default(cuid())
+  profileId       String
+  profile         Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  type            PointType
+  amount          Int
+  description     String
+  relatedEntityId String?
+  createdAt       DateTime  @default(now())
 
   @@index([profileId, createdAt])
-  @@index([pointType])
 }

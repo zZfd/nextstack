@@ -26,8 +26,10 @@ model Profile {
 
   @@unique([userId, profileType])
   @@index([profileType])
+  @@index([profileType, levelId])
 }
 
+// profile validation
 model ProfileApplication {
   id        String  @id @default(cuid())
   profileId String
@@ -54,9 +56,9 @@ model PhotographerProfile {
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   // Photographer-specific fields
-  bio          String?  @db.Text
-  portfolioUrl String?
-  specialties  String[]
+  description String?  @db.Text
+  website     String?
+  specialties String[]
 }
 
 /// Holds data specific ONLY to Merchants.

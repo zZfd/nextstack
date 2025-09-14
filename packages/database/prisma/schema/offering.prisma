@@ -20,8 +20,9 @@ model Offering {
   // Service-specific fields
   serviceCategory String?
 
-  photoServiceOrderItemId String?    @unique
-  photoServiceOrderItem   OrderItem? @relation("ProductPhotoService", fields: [photoServiceOrderItemId], references: [id])
+  // product should have one service order before publishing
+  productServiceOrderItemId String?    @unique
+  productServiceOrderItem   OrderItem? @relation("ProductPhotoService", fields: [productServiceOrderItemId], references: [id])
 
   // Relations
   orderItems OrderItem[]
