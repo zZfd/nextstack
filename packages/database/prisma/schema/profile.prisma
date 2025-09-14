@@ -11,8 +11,8 @@ model Profile {
   levelId     String?
   level       Level?      @relation(fields: [levelId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
   applications ProfileApplication[]
@@ -20,25 +20,56 @@ model Profile {
   pointLogs    PointLog[]
   offerings    Offering[]
 
+  // Profile type-specific relations
+  photographerProfile PhotographerProfile?
+  merchantProfile     MerchantProfile?
+
   @@unique([userId, profileType])
   @@index([profileType])
 }
 
 model ProfileApplication {
-  id          String            @id @default(cuid())
-  profileId   String
-  profile     Profile           @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  id        String  @id @default(cuid())
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   status      ApplicationStatus @default(PENDING)
   submittedAt DateTime          @default(now())
   reviewedAt  DateTime?
-  reviewNotes String?          @db.Text
+  reviewNotes String?           @db.Text
 
   // Application data stored as JSON
   applicationData Json
 
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([profileId, status])
+}
+
+/// Holds data specific ONLY to Photographers.
+model PhotographerProfile {
+  id        String  @id @default(cuid())
+  profileId String  @unique
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  // Photographer-specific fields
+  bio          String?  @db.Text
+  portfolioUrl String?
+  specialties  String[]
+}
+
+/// Holds data specific ONLY to Merchants.
+model MerchantProfile {
+  id        String  @id @default(cuid())
+  profileId String  @unique
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  // Merchant-specific fields
+  companyName       String
+  businessLicenseId String? @unique
+  address           String?
+  contactPhone      String?
+
+  @@index([companyName])
 }

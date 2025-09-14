@@ -3,19 +3,19 @@
 // ----------------------------------------
 
 model Post {
-  id        String     @id @default(cuid())
-  authorId  String
-  author    User       @relation(fields: [authorId], references: [id])
+  id       String @id @default(cuid())
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
 
-  title     String?
-  content   String     @db.Text
-  status    PostStatus @default(DRAFT)
+  title   String?
+  content String     @db.Text
+  status  PostStatus @default(DRAFT)
 
   // Relations
-  media     PostMedia[] // Relation to the media join table.
+  media PostMedia[] // Relation to the media join table.
 
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([authorId])
   @@index([status])
@@ -23,16 +23,16 @@ model Post {
 
 /// Join table to link Posts to Files and define media order.
 model PostMedia {
-  id        String   @id @default(cuid())
+  id String @id @default(cuid())
 
-  postId    String
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 
-  fileId    String
-  file      File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  fileId String
+  file   File   @relation(fields: [fileId], references: [id], onDelete: Cascade)
 
   // Defines the order of the image/video in the post.
-  order     Int      @default(0)
+  order Int @default(0)
 
   createdAt DateTime @default(now())
 

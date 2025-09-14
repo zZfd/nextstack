@@ -1,0 +1,47 @@
+// ----------------------------------------
+// LEVEL & PROGRESSION SYSTEM
+// ----------------------------------------
+
+model Level {
+  id          String  @id @default(cuid())
+  name        String
+  minPoints   Int
+  maxPoints   Int?
+  description String? @db.Text
+
+  // Relations
+  profiles Profile[]
+
+  @@index([minPoints])
+}
+
+model ProfileMetric {
+  id        String  @id @default(cuid())
+  profileId String  @unique
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  totalPoints    Int   @default(0)
+  currentLevel   Int   @default(1)
+  completedTasks Int   @default(0)
+  successRate    Float @default(0.0)
+
+  lastUpdated DateTime @default(now())
+
+  @@index([totalPoints])
+  @@index([currentLevel])
+}
+
+model PointLog {
+  id        String  @id @default(cuid())
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  pointType PointType
+  amount    Int
+  reason    String    @db.Text
+
+  createdAt DateTime @default(now())
+
+  @@index([profileId, createdAt])
+  @@index([pointType])
+}

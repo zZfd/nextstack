@@ -3,55 +3,56 @@
 // ----------------------------------------
 
 model Order {
-  id              String      @id @default(cuid())
-  buyerUserId     String
-  buyer           User        @relation(fields: [buyerUserId], references: [id])
+  id          String @id @default(cuid())
+  buyerUserId String
+  buyer       User   @relation(fields: [buyerUserId], references: [id])
 
   totalAmount     Decimal     @db.Decimal(12, 2)
   status          OrderStatus @default(PENDING_PAYMENT)
   shippingAddress Json?
   paymentMethod   String?
 
-  items           OrderItem[]
-  payments        Payment[]
+  items    OrderItem[]
+  payments Payment[]
 
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([buyerUserId])
   @@index([status])
 }
 
 model OrderItem {
-  id                    String   @id @default(cuid())
-  orderId               String
-  order                 Order    @relation(fields: [orderId], references: [id])
+  id      String @id @default(cuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id])
 
-  offeringId            String
-  offering              Offering @relation(fields: [offeringId], references: [id])
+  offeringId String
+  offering   Offering @relation(fields: [offeringId], references: [id])
 
   quantity              Int
-  priceAtTimeOfPurchase Decimal  @db.Decimal(10, 2)
+  priceAtTimeOfPurchase Decimal @db.Decimal(10, 2)
   sellerProfileId       String
 
   productOfferingLinked Offering? @relation("ProductPhotoService")
 
-  createdAt             DateTime @default(now())
+  createdAt DateTime @default(now())
+
   @@index([offeringId])
   @@index([sellerProfileId])
 }
 
 model Payment {
-  id                String        @id @default(cuid())
-  orderId           String
-  order             Order         @relation(fields: [orderId], references: [id])
+  id      String @id @default(cuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id])
 
-  amount            Decimal       @db.Decimal(12, 2)
-  status            PaymentStatus @default(PENDING)
-  paymentGatewayId  String?
+  amount           Decimal       @db.Decimal(12, 2)
+  status           PaymentStatus @default(PENDING)
+  paymentGatewayId String?
 
-  createdAt         DateTime      @default(now())
-  updatedAt         DateTime      @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([orderId])
   @@index([status])

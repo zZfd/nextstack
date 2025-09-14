@@ -3,27 +3,27 @@
 // ----------------------------------------
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  passwordHash String?
-  name         String?
+  id            String  @id @default(cuid())
+  email         String  @unique
+  passwordHash  String?
+  name          String?
   emailVerified Boolean @default(false)
-  role         Role     @default(USER)
+  role          Role    @default(USER)
 
   // A user can have one avatar.
   avatarFileId String? @unique
   avatar       File?   @relation(fields: [avatarFileId], references: [id])
 
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
-  profiles     Profile[]
-  orders       Order[]
-  posts        Post[]
-  uploadedFiles File[]  @relation("UploadedBy") // All files uploaded by this user.
+  profiles      Profile[]
+  orders        Order[]
+  posts         Post[]
+  uploadedFiles File[]    @relation("UploadedBy") // All files uploaded by this user.
 
   // Better-Auth Relations
-  sessions     Session[]
-  accounts     Account[]
+  sessions Session[]
+  accounts Account[]
 }
