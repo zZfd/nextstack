@@ -123,3 +123,130 @@ pnpm clean        # Clean all build artifacts
 ### Coding Rules
 
 - Everything should be in English
+
+## Backend Architecture
+
+NextStack implements a **modular layered architecture** based on Monorepo structure, achieving high code reuse and type safety.
+
+### Architecture Overview
+
+The backend follows a **modern microservice-style architecture** with clear separation of concerns:
+
+```
+┌─────────────────┐
+│   Client Apps   │ (Web, Mobile, Admin)
+└─────────────────┘
+        │
+        ▼ tRPC Client
+┌─────────────────┐
+│  API Service    │ apps/nextstack-api (Express.js)
+└─────────────────┘
+        │
+        ▼ HTTP/tRPC
+┌─────────────────┐
+│  tRPC Layer     │ packages/api + packages/trpc
+└─────────────────┘
+        │
+        ▼ Procedures
+┌─────────────────┐
+│ Business Logic  │ Routers + Middleware
+└─────────────────┘
+        │
+        ▼ Prisma ORM
+┌─────────────────┐
+│   Data Layer    │ packages/database (PostgreSQL)
+└─────────────────┘
+```
+
+### Core Components
+
+#### 1. API Service Layer (`apps/nextstack-api`)
+
+- **Express.js** HTTP server (port 3001)
+
+#### 2. API Communication Layer (`packages/api` + `packages/trpc`)
+
+- **tRPC v11.5.1**: End-to-end type-safe RPC communication
+- **Procedure Types**:
+  - `publicProcedure`: Open access
+  - `protectedProcedure`: Requires authentication
+  - `optionalAuthProcedure`: Optional authentication
+
+#### 3. Authentication Layer (`packages/auth`)
+
+- **Better Auth v1.3.9**: JWT-based session management
+- **Endpoints**: `/api/auth/*`
+- **Prisma Adapter**: Direct database integration
+
+#### 4. Data Access Layer (`packages/database`)
+
+- **Prisma ORM v6.15.0** with PostgreSQL 16
+- **Features**:
+  - Zod integration for type validation
+
+#### 5. Storage Layer (`packages/storage`)
+
+- **Multi-provider Architecture**:
+  - **S3 Provider**: AWS S3 compatible storage
+  - **MinIO Provider**: Local development storage
+  - **Local Provider**: File system storage
+
+#### 6. Validation Layer (`packages/validators`)
+
+- **Zod v3.22.4**: Schema validation
+- **Auto-generated** validators from Prisma models
+- **Type-safe** input/output validation
+
+### Development Workflow: Adding New API Endpoints
+
+#### 1. Define Data Model (if needed)
+
+```prisma
+// packages/database/prisma/schema/example.prisma
+model Example {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+}
+```
+
+#### 2. Create Validation Schema
+
+```typescript
+// packages/validators/src/example.ts
+export const CreateExampleSchema = z.object({
+  title: z.string().min(1),
+  content: z.string(),
+});
+```
+
+#### 3. Implement tRPC Router
+
+```typescript
+// packages/api/src/routers/example.ts
+export const exampleRouter = router({
+  create: protectedProcedure
+    .input(CreateExampleSchema)
+    .mutation(({ ctx, input }) => {
+      return ctx.db.example.create({ data: input });
+    }),
+});
+```
+
+#### 4. Register Router
+
+```typescript
+// packages/api/src/router.ts
+return router({
+  // ... existing routers
+  example: exampleRouter,
+});
+```
+
+#### 5. Use in Frontend
+
+```typescript
+// Frontend usage with full type safety
+const { data } = trpc.example.create.useMutation();
+```
