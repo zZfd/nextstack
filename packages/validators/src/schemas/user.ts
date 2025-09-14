@@ -1,17 +1,26 @@
 import { z } from 'zod';
 
-import { UserSchema } from '../generated';
-
 // Basic user validation schemas
 export const CreateUserSchema = z.object({
   email: z.string().email('Invalid email address'),
-  name: z.string().min(1, 'Name is required').max(100, 'Name too long').optional().nullable(),
+  name: z
+    .string()
+    .min(1, 'Name is required')
+    .max(100, 'Name too long')
+    .optional()
+    .nullable(),
 });
 
-export const UpdateUserSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  name: z.string().min(1, 'Name is required').max(100, 'Name too long').nullable(),
-}).partial();
+export const UpdateUserSchema = z
+  .object({
+    email: z.string().email('Invalid email address'),
+    name: z
+      .string()
+      .min(1, 'Name is required')
+      .max(100, 'Name too long')
+      .nullable(),
+  })
+  .partial();
 
 // Query schemas
 export const GetUserByIdSchema = z.object({
@@ -34,4 +43,3 @@ export type UpdateUserInput = z.infer<typeof UpdateUserSchema>;
 export type GetUserByIdInput = z.infer<typeof GetUserByIdSchema>;
 export type GetUserByEmailInput = z.infer<typeof GetUserByEmailSchema>;
 export type GetUsersInput = z.infer<typeof GetUsersSchema>;
-export type User = z.infer<typeof UserSchema>;

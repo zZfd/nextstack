@@ -1,23 +1,24 @@
 import { z } from 'zod';
 
-import { FileSchema } from '../generated';
-
 // File upload request validation
 export const RequestUploadSchema = z.object({
-  filename: z.string()
+  filename: z
+    .string()
     .min(1, 'Filename is required')
     .max(255, 'Filename too long')
     .refine(
-      (filename) => !filename.includes('..') && !filename.startsWith('/'),
+      filename => !filename.includes('..') && !filename.startsWith('/'),
       'Invalid filename format'
     ),
-  mimeType: z.string()
+  mimeType: z
+    .string()
     .min(1, 'MIME type is required')
     .refine(
-      (mimeType) => /^[a-z]+\/[a-z0-9\-+.]+$/i.test(mimeType),
+      mimeType => /^[a-z]+\/[a-z0-9\-+.]+$/i.test(mimeType),
       'Invalid MIME type format'
     ),
-  size: z.number()
+  size: z
+    .number()
     .positive('File size must be positive')
     .max(10 * 1024 * 1024, 'File size cannot exceed 10MB'), // 10MB limit
 });
@@ -30,7 +31,8 @@ export const ConfirmUploadSchema = z.object({
 // File download request
 export const GetDownloadUrlSchema = z.object({
   fileId: z.string().cuid('Invalid file ID'),
-  expiresIn: z.number()
+  expiresIn: z
+    .number()
     .positive()
     .max(24 * 60 * 60) // Max 24 hours
     .default(3600) // Default 1 hour
@@ -50,7 +52,9 @@ export const DeleteFileSchema = z.object({
 export const GetFilesSchema = z.object({
   cursor: z.string().cuid().optional(),
   limit: z.number().min(1).max(50).default(20),
-  status: z.enum(['PENDING', 'UPLOADED', 'PROCESSING', 'READY', 'FAILED']).optional(),
+  status: z
+    .enum(['PENDING', 'UPLOADED', 'PROCESSING', 'READY', 'FAILED'])
+    .optional(),
   mimeTypePrefix: z.string().optional(), // e.g., 'image/' for all images
   search: z.string().optional(), // Search in filename
 });
@@ -69,7 +73,14 @@ export const DeleteMultipleFilesSchema = z.object({
 // File status update (internal use)
 export const UpdateFileStatusSchema = z.object({
   fileId: z.string().cuid('Invalid file ID'),
-  status: z.enum(['PENDING', 'UPLOADED', 'PROCESSING', 'READY', 'FAILED', 'DELETED']),
+  status: z.enum([
+    'PENDING',
+    'UPLOADED',
+    'PROCESSING',
+    'READY',
+    'FAILED',
+    'DELETED',
+  ]),
   url: z.string().url().optional(),
   metadata: z.record(z.any()).optional(),
 });
@@ -128,8 +139,10 @@ export type GetFileByIdInput = z.infer<typeof GetFileByIdSchema>;
 export type DeleteFileInput = z.infer<typeof DeleteFileSchema>;
 export type GetFilesInput = z.infer<typeof GetFilesSchema>;
 export type UpdateFileMetadataInput = z.infer<typeof UpdateFileMetadataSchema>;
-export type DeleteMultipleFilesInput = z.infer<typeof DeleteMultipleFilesSchema>;
+export type DeleteMultipleFilesInput = z.infer<
+  typeof DeleteMultipleFilesSchema
+>;
 export type UpdateFileStatusInput = z.infer<typeof UpdateFileStatusSchema>;
 export type UploadImageInput = z.infer<typeof UploadImageSchema>;
 export type UploadDocumentInput = z.infer<typeof UploadDocumentSchema>;
-export type File = z.infer<typeof FileSchema>;
+// Note: File type is exported from generated/index.ts to avoid conflicts

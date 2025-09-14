@@ -1,7 +1,5 @@
 import { z } from 'zod';
 
-import { PostSchema } from '../generated';
-
 // Basic post validation schemas
 export const CreatePostSchema = z.object({
   title: z.string().min(1, 'Title is required').max(255, 'Title too long'),
@@ -9,11 +7,13 @@ export const CreatePostSchema = z.object({
   published: z.boolean().default(false),
 });
 
-export const UpdatePostSchema = z.object({
-  title: z.string().min(1, 'Title is required').max(255, 'Title too long'),
-  content: z.string().nullable(),
-  published: z.boolean(),
-}).partial();
+export const UpdatePostSchema = z
+  .object({
+    title: z.string().min(1, 'Title is required').max(255, 'Title too long'),
+    content: z.string().nullable(),
+    published: z.boolean(),
+  })
+  .partial();
 
 // Query schemas
 export const GetPostByIdSchema = z.object({
@@ -31,4 +31,3 @@ export type CreatePostInput = z.infer<typeof CreatePostSchema>;
 export type UpdatePostInput = z.infer<typeof UpdatePostSchema>;
 export type GetPostByIdInput = z.infer<typeof GetPostByIdSchema>;
 export type GetPostsInput = z.infer<typeof GetPostsSchema>;
-export type Post = z.infer<typeof PostSchema>;
