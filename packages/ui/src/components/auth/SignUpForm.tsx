@@ -19,10 +19,10 @@ export function SignUpForm({
   validateEmail,
   validatePassword,
 }: SignUpFormProps) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState('zfd');
+  const [email, setEmail] = useState('zfdyes@gmail.com');
+  const [password, setPassword] = useState('12345678');
+  const [confirmPassword, setConfirmPassword] = useState('12345678');
   const [loading, setLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<{
     name?: string;

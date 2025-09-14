@@ -71,6 +71,7 @@ export function createAuthConfig(config: AuthConfig): BetterAuthOptions {
       generateId: false, // Use Prisma default ID generation
       useSecureCookies: !isDev, // Use secure cookies in production
     },
+    trustedOrigins: config.corsOrigins || ['http://localhost:3000'],
   };
 }
 

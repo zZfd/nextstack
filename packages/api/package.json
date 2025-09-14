@@ -11,18 +11,19 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@trpc/server": "^11.5.1",
-    "zod": "^3.22.4",
     "@nextstack/auth": "workspace:*",
     "@nextstack/database": "workspace:*",
-    "@nextstack/validators": "workspace:*",
     "@nextstack/storage": "workspace:*",
-    "@prisma/client": "^6.15.0"
+    "@nextstack/validators": "workspace:*",
+    "@prisma/client": "^6.15.0",
+    "@trpc/server": "^11.5.1",
+    "better-auth": "^1.3.9",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "typescript": "^5.9.2",
-    "@types/node": "^20.0.0",
+    "@nextstack/eslint-config": "workspace:*",
     "@nextstack/tsconfig": "workspace:*",
-    "@nextstack/eslint-config": "workspace:*"
+    "@types/node": "^20.0.0",
+    "typescript": "^5.9.2"
   }
 }
