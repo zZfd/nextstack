@@ -10,7 +10,7 @@ export default function SignInPage() {
   const [error, setError] = useState<string | null>(null);
 
   const handleSuccess = () => {
-    router.push('/dashboard');
+    router.push('/');
   };
 
   const handleError = (errorMessage: string) => {

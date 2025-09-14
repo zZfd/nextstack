@@ -52,15 +52,8 @@ app.use(timeoutMiddleware);
 // 3. Security headers (protect against common attacks)
 app.use(createSecurityMiddleware());
 
-// 4. CORS handling (Better Auth handles its own CORS)
-app.use((req, res, next) => {
-  // Better Auth has built-in CORS handling, skip for auth routes
-  if (req.path.startsWith('/api/auth')) {
-    return next();
-  }
-  // Apply custom CORS for other routes
-  createCorsMiddleware()(req, res, next);
-});
+// 4. CORS handling (apply to all routes including auth)
+app.use(createCorsMiddleware());
 
 // 5. Request logging (after security and CORS, before business logic)
 app.use(requestLogger);

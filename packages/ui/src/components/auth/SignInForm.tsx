@@ -17,8 +17,8 @@ export function SignInForm({
   validateEmail,
   validatePassword,
 }: SignInFormProps) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('feida.yes@gmail.com');
+  const [password, setPassword] = useState('12345678');
   const [loading, setLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<{
     email?: string;

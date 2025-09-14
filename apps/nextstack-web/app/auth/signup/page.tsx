@@ -13,7 +13,7 @@ export default function SignUpPage() {
   const handleSuccess = () => {
     setSuccess(true);
     setTimeout(() => {
-      router.push('/dashboard');
+      router.push('/');
     }, 2000);
   };
 
