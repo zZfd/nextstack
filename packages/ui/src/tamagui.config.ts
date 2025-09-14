@@ -6,59 +6,59 @@ const tokens = createTokens({
   // Systematic color palette - base colors only
   color: {
     // Grayscale palette (14 steps for precise control)
-    gray1: 'hsl(0, 0%, 99%)',    // Almost white
-    gray2: 'hsl(0, 0%, 97.5%)',  // Very light gray  
-    gray3: 'hsl(0, 0%, 96%)',    // Light gray
-    gray4: 'hsl(0, 0%, 94%)',    // Soft gray
-    gray5: 'hsl(0, 0%, 92%)',    // Muted light
-    gray6: 'hsl(0, 0%, 89%)',    // Border light
-    gray7: 'hsl(0, 0%, 83%)',    // Subtle
-    gray8: 'hsl(0, 0%, 71%)',    // Medium 
-    gray9: 'hsl(0, 0%, 60%)',    // Text light
-    gray10: 'hsl(0, 0%, 45%)',   // Text medium
-    gray11: 'hsl(0, 0%, 25%)',   // Text dark
-    gray12: 'hsl(0, 0%, 9%)',    // Almost black
-    gray13: 'hsl(0, 0%, 6%)',    // Very dark
-    gray14: 'hsl(0, 0%, 3%)',    // Darkest
+    gray1: 'hsl(0, 0%, 99%)', // Almost white
+    gray2: 'hsl(0, 0%, 97.5%)', // Very light gray
+    gray3: 'hsl(0, 0%, 96%)', // Light gray
+    gray4: 'hsl(0, 0%, 94%)', // Soft gray
+    gray5: 'hsl(0, 0%, 92%)', // Muted light
+    gray6: 'hsl(0, 0%, 89%)', // Border light
+    gray7: 'hsl(0, 0%, 83%)', // Subtle
+    gray8: 'hsl(0, 0%, 71%)', // Medium
+    gray9: 'hsl(0, 0%, 60%)', // Text light
+    gray10: 'hsl(0, 0%, 45%)', // Text medium
+    gray11: 'hsl(0, 0%, 25%)', // Text dark
+    gray12: 'hsl(0, 0%, 9%)', // Almost black
+    gray13: 'hsl(0, 0%, 6%)', // Very dark
+    gray14: 'hsl(0, 0%, 3%)', // Darkest
 
     // Brand green palette (12 steps)
-    green1: 'hsl(142, 76%, 95%)',  // Very light green
-    green2: 'hsl(142, 76%, 90%)',  // Light green
-    green3: 'hsl(142, 76%, 85%)',  // Soft green
-    green4: 'hsl(142, 76%, 78%)',  // Muted green
-    green5: 'hsl(142, 76%, 70%)',  // Medium light
-    green6: 'hsl(142, 76%, 60%)',  // Brand base
-    green7: 'hsl(142, 76%, 50%)',  // Brand medium
-    green8: 'hsl(142, 76%, 42%)',  // Brand strong
-    green9: 'hsl(142, 76%, 36%)',  // Primary brand
+    green1: 'hsl(142, 76%, 95%)', // Very light green
+    green2: 'hsl(142, 76%, 90%)', // Light green
+    green3: 'hsl(142, 76%, 85%)', // Soft green
+    green4: 'hsl(142, 76%, 78%)', // Muted green
+    green5: 'hsl(142, 76%, 70%)', // Medium light
+    green6: 'hsl(142, 76%, 60%)', // Brand base
+    green7: 'hsl(142, 76%, 50%)', // Brand medium
+    green8: 'hsl(142, 76%, 42%)', // Brand strong
+    green9: 'hsl(142, 76%, 36%)', // Primary brand
     green10: 'hsl(142, 76%, 30%)', // Brand dark
     green11: 'hsl(142, 76%, 24%)', // Very dark green
     green12: 'hsl(142, 76%, 18%)', // Darkest green
 
     // Red palette (12 steps)
-    red1: 'hsl(0, 84%, 95%)',     // Very light red
-    red2: 'hsl(0, 84%, 90%)',     // Light red
-    red3: 'hsl(0, 84%, 85%)',     // Soft red
-    red4: 'hsl(0, 84%, 78%)',     // Muted red
-    red5: 'hsl(0, 84%, 70%)',     // Medium light
-    red6: 'hsl(0, 84%, 65%)',     // Error base
-    red7: 'hsl(0, 84%, 58%)',     // Error medium
-    red8: 'hsl(0, 84%, 52%)',     // Error strong
-    red9: 'hsl(0, 84%, 46%)',     // Error primary
-    red10: 'hsl(0, 84%, 40%)',    // Error dark
-    red11: 'hsl(0, 84%, 35%)',    // Very dark red
-    red12: 'hsl(0, 84%, 30%)',    // Darkest red
+    red1: 'hsl(0, 84%, 95%)', // Very light red
+    red2: 'hsl(0, 84%, 90%)', // Light red
+    red3: 'hsl(0, 84%, 85%)', // Soft red
+    red4: 'hsl(0, 84%, 78%)', // Muted red
+    red5: 'hsl(0, 84%, 70%)', // Medium light
+    red6: 'hsl(0, 84%, 65%)', // Error base
+    red7: 'hsl(0, 84%, 58%)', // Error medium
+    red8: 'hsl(0, 84%, 52%)', // Error strong
+    red9: 'hsl(0, 84%, 46%)', // Error primary
+    red10: 'hsl(0, 84%, 40%)', // Error dark
+    red11: 'hsl(0, 84%, 35%)', // Very dark red
+    red12: 'hsl(0, 84%, 30%)', // Darkest red
 
     // Blue palette (12 steps)
-    blue1: 'hsl(217, 91%, 95%)',  // Very light blue
-    blue2: 'hsl(217, 91%, 90%)',  // Light blue  
-    blue3: 'hsl(217, 91%, 85%)',  // Soft blue
-    blue4: 'hsl(217, 91%, 78%)',  // Muted blue
-    blue5: 'hsl(217, 91%, 75%)',  // Medium light
-    blue6: 'hsl(217, 91%, 70%)',  // Info base
-    blue7: 'hsl(217, 91%, 65%)',  // Info medium
-    blue8: 'hsl(217, 91%, 58%)',  // Info strong
-    blue9: 'hsl(217, 91%, 52%)',  // Info primary
+    blue1: 'hsl(217, 91%, 95%)', // Very light blue
+    blue2: 'hsl(217, 91%, 90%)', // Light blue
+    blue3: 'hsl(217, 91%, 85%)', // Soft blue
+    blue4: 'hsl(217, 91%, 78%)', // Muted blue
+    blue5: 'hsl(217, 91%, 75%)', // Medium light
+    blue6: 'hsl(217, 91%, 70%)', // Info base
+    blue7: 'hsl(217, 91%, 65%)', // Info medium
+    blue8: 'hsl(217, 91%, 58%)', // Info strong
+    blue9: 'hsl(217, 91%, 52%)', // Info primary
     blue10: 'hsl(217, 91%, 46%)', // Info dark
     blue11: 'hsl(217, 91%, 40%)', // Very dark blue
     blue12: 'hsl(217, 91%, 35%)', // Darkest blue
@@ -134,28 +134,28 @@ const tokens = createTokens({
     yellow12: 'hsl(55, 92%, 24%)', // Darkest yellow
 
     // Transparency overlays
-    blackA1: 'rgba(0, 0, 0, 0.02)',   // Very subtle
-    blackA2: 'rgba(0, 0, 0, 0.04)',   // Subtle
-    blackA3: 'rgba(0, 0, 0, 0.08)',   // Light
-    blackA4: 'rgba(0, 0, 0, 0.12)',   // Medium light
-    blackA5: 'rgba(0, 0, 0, 0.16)',   // Medium
-    blackA6: 'rgba(0, 0, 0, 0.24)',   // Medium strong
-    blackA7: 'rgba(0, 0, 0, 0.32)',   // Strong
-    blackA8: 'rgba(0, 0, 0, 0.48)',   // Very strong
-    blackA9: 'rgba(0, 0, 0, 0.60)',   // Heavy
-    blackA10: 'rgba(0, 0, 0, 0.72)',  // Very heavy
-    blackA11: 'rgba(0, 0, 0, 0.84)',  // Almost opaque
-    blackA12: 'rgba(0, 0, 0, 0.96)',  // Nearly black
+    blackA1: 'rgba(0, 0, 0, 0.02)', // Very subtle
+    blackA2: 'rgba(0, 0, 0, 0.04)', // Subtle
+    blackA3: 'rgba(0, 0, 0, 0.08)', // Light
+    blackA4: 'rgba(0, 0, 0, 0.12)', // Medium light
+    blackA5: 'rgba(0, 0, 0, 0.16)', // Medium
+    blackA6: 'rgba(0, 0, 0, 0.24)', // Medium strong
+    blackA7: 'rgba(0, 0, 0, 0.32)', // Strong
+    blackA8: 'rgba(0, 0, 0, 0.48)', // Very strong
+    blackA9: 'rgba(0, 0, 0, 0.60)', // Heavy
+    blackA10: 'rgba(0, 0, 0, 0.72)', // Very heavy
+    blackA11: 'rgba(0, 0, 0, 0.84)', // Almost opaque
+    blackA12: 'rgba(0, 0, 0, 0.96)', // Nearly black
 
-    whiteA1: 'rgba(255, 255, 255, 0.02)',   // Very subtle
-    whiteA2: 'rgba(255, 255, 255, 0.04)',   // Subtle
-    whiteA3: 'rgba(255, 255, 255, 0.08)',   // Light
-    whiteA4: 'rgba(255, 255, 255, 0.12)',   // Medium light
-    whiteA5: 'rgba(255, 255, 255, 0.16)',   // Medium
-    whiteA6: 'rgba(255, 255, 255, 0.24)',   // Medium strong
-    whiteA7: 'rgba(255, 255, 255, 0.32)',   // Strong
-    whiteA8: 'rgba(255, 255, 255, 0.48)',   // Very strong
-    whiteA9: 'rgba(255, 255, 255, 0.60)',   // Heavy
+    whiteA1: 'rgba(255, 255, 255, 0.02)', // Very subtle
+    whiteA2: 'rgba(255, 255, 255, 0.04)', // Subtle
+    whiteA3: 'rgba(255, 255, 255, 0.08)', // Light
+    whiteA4: 'rgba(255, 255, 255, 0.12)', // Medium light
+    whiteA5: 'rgba(255, 255, 255, 0.16)', // Medium
+    whiteA6: 'rgba(255, 255, 255, 0.24)', // Medium strong
+    whiteA7: 'rgba(255, 255, 255, 0.32)', // Strong
+    whiteA8: 'rgba(255, 255, 255, 0.48)', // Very strong
+    whiteA9: 'rgba(255, 255, 255, 0.60)', // Heavy
     whiteA10: 'rgba(255, 255, 255, 0.72)', // Very heavy
     whiteA11: 'rgba(255, 255, 255, 0.84)', // Almost opaque
     whiteA12: 'rgba(255, 255, 255, 0.96)', // Nearly white
@@ -180,6 +180,11 @@ const tokens = createTokens({
     9: 30, // text-3xl
     10: 36, // text-4xl
     true: 16, // Default size
+    sm: 14, // 14 - text-sm
+    md: 16, // 16 - text-base
+    lg: 18, // 18 - text-lg
+    xl: 20, // 20 - text-xl
+    '2xl': 24, // 24 - text-2xl
   },
 
   // Spacing system - 8px based (gap-1 to gap-8)
@@ -224,10 +229,10 @@ const tokens = createTokens({
 
   // Container max width system (matching design doc)
   maxWidth: {
-    sm: 448,   // max-w-md - search boxes
-    md: 896,   // max-w-4xl - content areas
-    lg: 1280,  // max-w-7xl - main containers
-    xl: 1536,  // max-w-screen-2xl - full width
+    sm: 448, // max-w-md - search boxes
+    md: 896, // max-w-4xl - content areas
+    lg: 1280, // max-w-7xl - main containers
+    xl: 1536, // max-w-screen-2xl - full width
     true: 896, // Default max width
   },
 });
@@ -314,7 +319,7 @@ const animations = createAnimations({
     damping: 18,
     stiffness: 50,
   },
-  
+
   // Speed variants for micro-interactions
   fast: {
     type: 'spring',
@@ -543,7 +548,7 @@ export const tamaguiConfig = createTamagui({
       backgroundStrong: tokens.color.gray12,
       backgroundTransparent: tokens.color.whiteA1,
 
-      // Tamagui standard text color properties  
+      // Tamagui standard text color properties
       color: tokens.color.gray12,
       colorHover: tokens.color.gray11,
       colorPress: tokens.color.gray11,
