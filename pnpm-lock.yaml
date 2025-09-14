@@ -98,6 +98,9 @@ importers:
       '@nextstack/api':
         specifier: workspace:*
         version: link:../../packages/api
+      '@nextstack/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@trpc/server':
         specifier: ^11.5.1
         version: 11.5.1(typescript@5.9.2)

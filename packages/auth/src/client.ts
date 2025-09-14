@@ -1,9 +1,18 @@
 import { createAuthClient } from "better-auth/client";
 
-const getBaseURL = (): string => {
+// Factory function to create auth client with custom base URL
+export function createAuthClientWithConfig(baseURL?: string) {
+  return createAuthClient({
+    baseURL: baseURL || getDefaultBaseURL(),
+  });
+}
+
+const getDefaultBaseURL = (): string => {
   // In browser, use environment variable or current origin
   if (typeof window !== "undefined") {
     return process.env.NEXT_PUBLIC_BETTER_AUTH_URL ||
+           process.env.VITE_BETTER_AUTH_URL ||
+           process.env.EXPO_PUBLIC_BETTER_AUTH_URL ||
            window.location.origin ||
            "http://localhost:3000";
   }
@@ -12,9 +21,8 @@ const getBaseURL = (): string => {
   return process.env.BETTER_AUTH_URL || "http://localhost:3000";
 };
 
-export const authClient = createAuthClient({
-  baseURL: getBaseURL(),
-});
+// Default client for convenience (maintains backward compatibility)
+export const authClient = createAuthClientWithConfig();
 
 export type AuthClient = typeof authClient;
 

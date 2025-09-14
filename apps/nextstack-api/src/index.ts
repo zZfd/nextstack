@@ -1,4 +1,7 @@
-import { appRouter, createContext } from '@nextstack/api';
+// Load environment variables first
+import './env';
+
+import { createAppRouter, createExpressContext, createAuthFromConfig } from '@nextstack/api';
 import * as trpcExpress from '@trpc/server/adapters/express';
 import compression from 'compression';
 import express from 'express';
@@ -19,6 +22,20 @@ import { setupGracefulShutdown } from './utils/shutdown';
 
 const app = express();
 const port = env.PORT || 3001;
+
+// Create auth instance with environment config
+const auth = createAuthFromConfig({
+  secret: env.BETTER_AUTH_SECRET!,
+  baseURL: env.BETTER_AUTH_URL || 'http://localhost:3000',
+  corsOrigins: env.CORS_ORIGINS?.split(','),
+  isDevelopment: env.NODE_ENV === 'development',
+});
+
+// Create app router with environment config
+const appRouter = createAppRouter({
+  version: process.env.npm_package_version || '0.0.0',
+  environment: env.NODE_ENV,
+});
 
 // ===== MIDDLEWARE SETUP =====
 // Order is critical - each middleware builds on the previous ones
@@ -68,14 +85,14 @@ app.use(
   '/trpc',
   trpcExpress.createExpressMiddleware({
     router: appRouter,
-    createContext,
+    createContext: createExpressContext(auth, env.NODE_ENV === 'development'),
     onError: ({ error, type, path, input, req }) => {
       console.error(`❌ tRPC Error [${req?.requestId}]:`, {
         type,
         path,
         error: error.message,
         code: error.code,
-        input: process.env.NODE_ENV === 'development' ? input : '[REDACTED]',
+        input: env.NODE_ENV === 'development' ? input : '[REDACTED]',
       });
     },
   })

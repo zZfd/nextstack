@@ -31,4 +31,11 @@ export default [
       'react-refresh/only-export-components': 'off', // Layout files can export metadata
     },
   },
+  // Next.js generated files
+  {
+    files: ['next-env.d.ts'],
+    rules: {
+      '@typescript-eslint/triple-slash-reference': 'off', // Next.js auto-generated file
+    },
+  },
 ];

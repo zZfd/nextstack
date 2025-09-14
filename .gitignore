@@ -26,12 +26,16 @@ pnpm-debug.log*
 lerna-debug.log*
 *.log
 
-# Environment files
+# Environment files (allow .env.example for templates)
 .env
 .env.local
+.env.development
 .env.development.local
+.env.test
 .env.test.local
+.env.production
 .env.production.local
+!.env.example
 
 # Package manager lock files (keep only pnpm)
 yarn.lock

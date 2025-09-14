@@ -1,10 +1,9 @@
 'use client';
 
+import { authClient } from '@nextstack/auth';
 import { SignInForm } from '@nextstack/ui';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-
-import { authClient } from '../../../lib/auth';
 
 export default function SignInPage() {
   const router = useRouter();

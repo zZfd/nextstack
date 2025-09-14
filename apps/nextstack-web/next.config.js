@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@nextstack/ui", "@nextstack/trpc", "@nextstack/api", "tamagui", "@tamagui/core", "@tamagui/config"],
+  transpilePackages: ["@nextstack/ui", "@nextstack/trpc", "@nextstack/api", "@nextstack/auth", "tamagui", "@tamagui/core", "@tamagui/config"],
   experimental: {
     optimizePackageImports: ["@nextstack/ui", "tamagui"]
   },

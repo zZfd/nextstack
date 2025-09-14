@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@nextstack/api": "workspace:*",
+    "@nextstack/auth": "workspace:*",
     "@trpc/server": "^11.5.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",

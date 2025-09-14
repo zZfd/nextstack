@@ -1,15 +1,18 @@
-import { auth } from '@nextstack/auth';
 import type { Session, User } from '@nextstack/auth';
 import { db } from '@nextstack/database';
 import type * as trpcExpress from '@trpc/server/adapters/express';
+
+import type { Auth } from './auth';
 
 // Universal context options for both Express and fetch adapters
 interface CreateContextOptions {
   req?: Request | trpcExpress.CreateExpressContextOptions['req'];
   res?: Response | trpcExpress.CreateExpressContextOptions['res'];
+  auth: Auth;
+  isDevelopment?: boolean;
 }
 
-export const createContext = async (opts?: CreateContextOptions) => {
+export const createContext = async (opts: CreateContextOptions) => {
   // Extract session from request headers for auth
   let session: Session | null = null;
   let user: User | null = null;
@@ -39,7 +42,7 @@ export const createContext = async (opts?: CreateContextOptions) => {
         }
       }
 
-      const sessionResult = await auth.api.getSession({
+      const sessionResult = await opts.auth.api.getSession({
         headers,
       });
 
@@ -59,7 +62,7 @@ export const createContext = async (opts?: CreateContextOptions) => {
       }
     } catch (error) {
       // Improved error handling based on environment
-      if (process.env.NODE_ENV === 'development') {
+      if (opts.isDevelopment) {
         console.error('Auth session validation failed:', error);
       }
       // In production, silently fail for security
@@ -73,11 +76,10 @@ export const createContext = async (opts?: CreateContextOptions) => {
   };
 };
 
-// Express-specific wrapper for backward compatibility
-export const createExpressContext = async (
-  opts: trpcExpress.CreateExpressContextOptions
-) => {
-  return await createContext(opts);
-};
+// Express-specific wrapper
+export const createExpressContext = (auth: Auth, isDevelopment?: boolean) =>
+  async (opts: trpcExpress.CreateExpressContextOptions) => {
+    return await createContext({ ...opts, auth, isDevelopment });
+  };
 
 export type Context = Awaited<ReturnType<typeof createContext>>;

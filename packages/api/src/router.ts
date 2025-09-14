@@ -5,26 +5,32 @@ import { storageRouter } from './routers/storage';
 import { userRouter } from './routers/user';
 import { router } from './trpc';
 
-export const appRouter = router({
-  // Authentication
-  auth: authRouter,
+// Factory function to create app router with environment config
+export function createAppRouter(config: {
+  version?: string;
+  environment?: string;
+}) {
+  return router({
+    // Authentication
+    auth: authRouter,
 
-  // Core business domains
-  user: userRouter,
-  post: postRouter,
-  storage: storageRouter,
+    // Core business domains
+    user: userRouter,
+    post: postRouter,
+    storage: storageRouter,
 
-  // System information
-  _meta: {
-    health: publicProcedure.query(() => ({
-      status: 'healthy',
-      timestamp: new Date().toISOString(),
-    })),
-    version: publicProcedure.query(() => ({
-      version: process.env.npm_package_version || '0.0.0',
-      environment: process.env.NODE_ENV || 'development',
-    })),
-  },
-});
+    // System information
+    _meta: {
+      health: publicProcedure.query(() => ({
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+      })),
+      version: publicProcedure.query(() => ({
+        version: config.version || '0.0.0',
+        environment: config.environment || 'development',
+      })),
+    },
+  });
+}
 
-export type AppRouter = typeof appRouter;
+export type AppRouter = ReturnType<typeof createAppRouter>;
