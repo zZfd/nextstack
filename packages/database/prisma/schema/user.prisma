@@ -1,42 +1,15 @@
-
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
   name          String?
   emailVerified DateTime?
   image         String?
-  role          UserRole      @default(USER)
-  profiles      Profile[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
   // Relations
-  sessions      Session[]
-  accounts      Account[]
-  posts         Post[]
-  files         File[]
+  sessions Session[]
+  accounts Account[]
+  posts    Post[]
+  files    File[]
 }
-
-model Profile {
-id          String      @id @default(cuid())
- userId      String
- user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
- profileType ProfileType
- isActive    Boolean     @default(false)
- createdAt   DateTime    @default(now())
- updatedAt   DateTime    @updatedAt
-
- levelId     String?
- level       Level?       @relation(fields: [levelId], references: [id], onUpdate: NoAction, onDelete: NoAction)
-
- // 关系
- photographerProfile PhotographerProfile?
- merchantProfile     MerchantProfile?
- applications        ProfileApplication[] // <-- 关联字段已重命名
- metrics             ProfileMetric?
- pointLogs           PointLog[]
-
- @@unique([userId, profileType])
-}
-
-enum UserRole { USER, ADMIN }

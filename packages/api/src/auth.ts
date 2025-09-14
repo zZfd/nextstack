@@ -1,4 +1,4 @@
-import { createAuth, AuthConfig } from '@nextstack/auth';
+import { createAuth } from '@nextstack/auth';
 
 // Factory function to create auth instance with provided config
 export function createAuthFromConfig(config: {

@@ -1,0 +1,57 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "base_keymap": "VSCode",
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "Material Icon Theme"
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 14,
+  "buffer_font_family": "Monaco",
+  "format_on_save": "on",
+  "languages": {
+    "JavaScript": {
+      "code_actions_on_format": {
+        "source.organizeImports": false,
+        "source.fixAll.eslint": true
+      }
+    },
+    "TypeScript": {
+      "code_actions_on_format": {
+        "source.organizeImports": false,
+        "source.fixAll.eslint": true
+      }
+    },
+    "TSX": {
+      "code_actions_on_format": {
+        "source.organizeImports": false,
+        "source.fixAll.eslint": true
+      }
+    },
+    "Prisma": {
+      "formatter": {
+        "external": {
+          "command": "sh",
+          "arguments": ["-c", "cat > /dev/null && cd packages/database && npx prisma format --schema ./prisma/schema >/dev/null 2>&1 && cat {buffer_path}"]
+        }
+      }
+    }
+  },
+  "terminal": {
+    "dock": "right",
+    "font_size": 14
+  },
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "VSCode Dark Modern"
+  }
+}

@@ -3,12 +3,12 @@ generator client {
 }
 
 generator zod {
-  provider         = "zod-prisma-types"
-  output           = "../../../validators/src/generated"
-  createInputTypes = true
+  provider               = "zod-prisma-types"
+  output                 = "../../../validators/src/generated"
+  createInputTypes       = true
   addInputTypeValidation = true
-  addIncludeType   = true
-  addSelectType    = true
+  addIncludeType         = true
+  addSelectType          = true
 }
 
 datasource db {

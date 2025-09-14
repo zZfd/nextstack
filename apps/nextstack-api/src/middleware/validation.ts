@@ -11,9 +11,9 @@ interface EnvConfig {
   // Database
   DATABASE_URL?: string;
 
-  // Authentication
-  JWT_SECRET?: string;
-  JWT_EXPIRES_IN?: string;
+  // Authentication (Better Auth)
+  BETTER_AUTH_SECRET?: string;
+  BETTER_AUTH_URL?: string;
 
   // CORS
   CORS_ORIGINS?: string;
@@ -45,19 +45,19 @@ const envSchema: Record<keyof EnvConfig, ValidationRule> = {
     required: true,
     description: 'Database connection string',
   },
-  JWT_SECRET: {
+  BETTER_AUTH_SECRET: {
     required: process.env.NODE_ENV === 'production',
-    defaultValue: 'development-secret-key-change-in-production-needs-32-chars',
     validator: value =>
       process.env.NODE_ENV === 'production'
         ? value.length >= 32
         : value.length >= 8,
     description:
-      'JWT signing secret (minimum 32 characters in production, 8 in development)',
+      'Better Auth signing secret (minimum 32 characters in production, 8 in development)',
   },
-  JWT_EXPIRES_IN: {
-    defaultValue: '7d',
-    description: 'JWT expiration time',
+  BETTER_AUTH_URL: {
+    defaultValue: 'http://localhost:3000',
+    validator: value => value.startsWith('http'),
+    description: 'Better Auth base URL',
   },
   CORS_ORIGINS: {
     defaultValue: 'http://localhost:3000,http://localhost:5173',

@@ -6,12 +6,12 @@ model File {
   mimeType     String
   size         BigInt
   storageKey   String     @unique
-  url          String?    // Temporary URL, can be null
+  url          String? // Temporary URL, can be null
   status       FileStatus @default(PENDING)
-  metadata     Json?      // Additional metadata like dimensions for images
+  metadata     Json? // Additional metadata like dimensions for images
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
-  deletedAt    DateTime?  // Soft delete
+  deletedAt    DateTime? // Soft delete
 
   // Relations
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -24,10 +24,10 @@ model File {
 }
 
 enum FileStatus {
-  PENDING    // File record created, upload not complete
-  UPLOADED   // File successfully uploaded to storage
+  PENDING // File record created, upload not complete
+  UPLOADED // File successfully uploaded to storage
   PROCESSING // File is being processed (e.g., image resizing)
-  READY      // File is processed and ready for use
-  FAILED     // Upload or processing failed
-  DELETED    // Soft deleted
+  READY // File is processed and ready for use
+  FAILED // Upload or processing failed
+  DELETED // Soft deleted
 }
