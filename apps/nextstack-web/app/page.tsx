@@ -17,7 +17,6 @@ export default function Home() {
         <HStack space='$2'>
           <Button onPress={() => router.push('/auth/signin')}>Sign In</Button>
           <Button onPress={() => router.push('/auth/signup')}>Sign Up</Button>
-          <Button onPress={() => router.push('/dashboard')}>Dashboard</Button>
         </HStack>
 
         <Stack space='$2'>
