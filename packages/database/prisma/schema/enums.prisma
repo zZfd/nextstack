@@ -1,0 +1,51 @@
+// ----------------------------------------
+// Enums
+// ----------------------------------------
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum ProfileType {
+  PHOTOGRAPHER
+  MERCHANT
+  MAKEUP_ARTIST
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum PointType {
+  EXPERIENCE_POINTS
+  REPUTATION_SCORE
+}
+
+enum OfferingType {
+  PRODUCT
+  SERVICE
+}
+
+enum OrderStatus {
+  PENDING_PAYMENT
+  PROCESSING
+  SHIPPED
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}

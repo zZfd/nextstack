@@ -1,0 +1,54 @@
+// ----------------------------------------
+// OFFERING & PRODUCTS/SERVICES
+// ----------------------------------------
+
+model Offering {
+  id           String       @id @default(cuid())
+  profileId    String
+  profile      Profile      @relation(fields: [profileId], references: [id])
+
+  offeringType OfferingType
+
+  title        String
+  description  String       @db.Text
+  price        Decimal      @db.Decimal(10, 2)
+  isPublished  Boolean      @default(false)
+
+  // Product-specific fields
+  stock        Int?
+
+  // Service-specific fields
+  serviceCategory String?
+
+  photoServiceOrderItemId String?   @unique
+  photoServiceOrderItem OrderItem?  @relation("ProductPhotoService", fields: [photoServiceOrderItemId], references: [id])
+
+  // Relations
+  orderItems   OrderItem[]
+  media        OfferingMedia[] // Relation to the media join table.
+
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@index([profileId, isPublished])
+  @@index([offeringType])
+}
+
+/// Join table to link Offerings to Files and define media order.
+model OfferingMedia {
+  id         String   @id @default(cuid())
+
+  offeringId String
+  offering   Offering @relation(fields: [offeringId], references: [id], onDelete: Cascade)
+
+  fileId     String
+  file       File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+
+  // Defines the order of the image/video in the gallery.
+  order      Int      @default(0)
+
+  createdAt  DateTime @default(now())
+
+  @@unique([offeringId, fileId])
+  @@index([offeringId, order])
+}

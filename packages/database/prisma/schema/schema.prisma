@@ -1,3 +1,17 @@
+/// V4.3 - Final Schema
+/// Integrates a centralized File model for robust media management.
+/// All models and comments are in English.
+/// Last Updated: 2025-09-14
+
+// ----------------------------------------
+// Datasource & Generator
+// ----------------------------------------
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,9 +23,4 @@ generator zod {
   addInputTypeValidation = true
   addIncludeType         = true
   addSelectType          = true
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
 }

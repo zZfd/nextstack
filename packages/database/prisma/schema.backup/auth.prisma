@@ -1,7 +1,3 @@
-// ----------------------------------------
-// AUTHENTICATION (Better-Auth Compatible)
-// ----------------------------------------
-
 model Session {
   id        String   @id @default(cuid())
   expiresAt DateTime

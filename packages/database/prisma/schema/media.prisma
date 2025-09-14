@@ -1,0 +1,33 @@
+// ----------------------------------------
+// FILE & MEDIA MANAGEMENT
+// ----------------------------------------
+
+/// Central model for all uploaded files.
+model File {
+  id         String   @id @default(cuid())
+
+  // The unique key/path in the cloud storage (e.g., S3 path).
+  // The full public URL should be constructed on the application side.
+  storageKey String   @unique
+
+  filename   String   // Original filename from the user.
+  mimetype   String   // e.g., "image/jpeg", "video/mp4"
+  size       BigInt   // File size in bytes.
+
+  // Relation to the user who uploaded the file.
+  uploaderId String
+  uploader   User     @relation("UploadedBy", fields: [uploaderId], references: [id])
+
+  // Additional metadata, e.g., { "width": 1920, "height": 1080, "duration": 30 }
+  metadata   Json?
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Back-relations
+  userAvatar   User?
+  postMedia    PostMedia[]
+  offeringMedia OfferingMedia[]
+
+  @@index([uploaderId])
+}

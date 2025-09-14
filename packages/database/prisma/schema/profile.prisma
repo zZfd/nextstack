@@ -1,0 +1,44 @@
+// ----------------------------------------
+// PROFILE SYSTEM
+// ----------------------------------------
+
+model Profile {
+  id          String      @id @default(cuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  profileType ProfileType
+  isActive    Boolean     @default(false)
+  levelId     String?
+  level       Level?      @relation(fields: [levelId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  applications ProfileApplication[]
+  metrics      ProfileMetric?
+  pointLogs    PointLog[]
+  offerings    Offering[]
+
+  @@unique([userId, profileType])
+  @@index([profileType])
+}
+
+model ProfileApplication {
+  id          String            @id @default(cuid())
+  profileId   String
+  profile     Profile           @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  status      ApplicationStatus @default(PENDING)
+  submittedAt DateTime          @default(now())
+  reviewedAt  DateTime?
+  reviewNotes String?          @db.Text
+
+  // Application data stored as JSON
+  applicationData Json
+
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([profileId, status])
+}
