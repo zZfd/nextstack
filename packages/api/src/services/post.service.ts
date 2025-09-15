@@ -162,13 +162,20 @@ export class PostService extends BaseService {
     const allowedFields = ['title', 'content', 'status'];
     const sanitizedInput = this.sanitizeInput(input, allowedFields);
 
-    // Handle null content by converting to empty string if needed
-    const updateData = {
-      ...sanitizedInput,
-      ...(sanitizedInput.content !== undefined && {
-        content: sanitizedInput.content || ''
-      })
-    };
+    // Handle null/undefined content for Prisma compatibility
+    const updateData: Record<string, unknown> = {};
+
+    if (sanitizedInput.title !== undefined) {
+      updateData.title = sanitizedInput.title;
+    }
+
+    if (sanitizedInput.content !== undefined) {
+      updateData.content = sanitizedInput.content ?? '';
+    }
+
+    if (sanitizedInput.status !== undefined) {
+      updateData.status = sanitizedInput.status;
+    }
 
     return await this.postRepository.update(id, updateData, {
       author: {

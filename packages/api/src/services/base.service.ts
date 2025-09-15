@@ -59,7 +59,7 @@ export abstract class BaseService {
     const sanitized: Partial<T> = {};
     for (const field of allowedFields) {
       if (field in input) {
-        sanitized[field as keyof T] = input[field];
+        sanitized[field as keyof T] = input[field] as T[keyof T];
       }
     }
     return sanitized;

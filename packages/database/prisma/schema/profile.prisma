@@ -21,8 +21,9 @@ model Profile {
   offerings    Offering[]
 
   // Profile type-specific relations
-  photographerProfile PhotographerProfile?
-  merchantProfile     MerchantProfile?
+  photographerProfile  PhotographerProfile?
+  merchantProfile      MerchantProfile?
+  levelProgressHistory ProfileLevelProgress[]
 
   @@unique([userId, profileType])
   @@index([profileType])

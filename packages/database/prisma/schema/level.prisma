@@ -3,30 +3,74 @@
 // ----------------------------------------
 
 model Level {
-  id                     String      @id @default(cuid())
-  profileType            ProfileType
-  levelNumber            Int
-  name                   String
-  description            String?
-  iconUrl                String?
-  upgradeThresholdMetric PointType   @default(EXPERIENCE_POINTS)
-  upgradeThresholdValue  Int         @default(0)
-  nextLevelId            String?     @unique
-  nextLevel              Level?      @relation("LevelProgression", fields: [nextLevelId], references: [id], onUpdate: NoAction, onDelete: NoAction)
-  previousLevel          Level?      @relation("LevelProgression")
-  profiles               Profile[]
+  id          String      @id @default(cuid())
+  profileType ProfileType
+  levelNumber Int
+  name        String
+  description String?
+  iconUrl     String?
+
+  // --- NEW RELATION ---
+  // A level can have multiple requirements that must all be met to achieve it.
+  requirements LevelRequirement[]
+
+  nextLevelId          String?                @unique
+  nextLevel            Level?                 @relation("LevelProgression", fields: [nextLevelId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  previousLevel        Level?                 @relation("LevelProgression")
+  profiles             Profile[]
+  levelProgressRecords ProfileLevelProgress[]
 
   @@unique([profileType, levelNumber])
 }
 
+/// NEW: Defines a single requirement needed to achieve a certain level.
+model LevelRequirement {
+  id String @id @default(cuid())
+
+  // The level that has this requirement.
+  levelId String
+  level   Level  @relation(fields: [levelId], references: [id], onDelete: Cascade)
+
+  // The metric being evaluated (e.g., experience points, order count).
+  metric MetricType
+
+  // The value that the metric must reach.
+  requiredValue BigInt // Use BigInt to accommodate large numbers like XP.
+
+  @@unique([levelId, metric]) // A level can only have one requirement per metric type.
+}
+
 /// A performance-optimization table to store aggregated metrics for a profile.
 model ProfileMetric {
-  id                     String   @id @default(cuid())
-  profileId              String   @unique
-  profile                Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  totalExperiencePoints  BigInt   @default(0)
-  currentReputationScore Float    @default(0.0)
-  updatedAt              DateTime @updatedAt
+  id        String  @id @default(cuid())
+  profileId String  @unique
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  totalExperiencePoints  BigInt @default(0)
+  currentReputationScore Float  @default(0.0)
+  totalCompletedOrders   BigInt @default(0) // New lifetime metric
+
+  updatedAt DateTime @updatedAt
+}
+
+/// NEW: Tracks a profile's progress and history for a specific level.
+model ProfileLevelProgress {
+  id        String  @id @default(cuid())
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  levelId String
+  level   Level  @relation(fields: [levelId], references: [id])
+
+  // A JSON field to store progress for various metrics during this level's tenure.
+  // Example: { "EXPERIENCE_POINTS": 1500, "COMPLETED_ORDERS": 12 }
+  progressMetrics Json @default("{}")
+
+  startedAt   DateTime  @default(now())
+  completedAt DateTime? // A timestamp here means the user has advanced past this level. Null means this is the CURRENT level.
+
+  @@unique([profileId, levelId]) // A user can only have one history record per level.
+  @@index([profileId, completedAt]) // To quickly find the current level's progress for a user.
 }
 
 /// A detailed log of every point transaction. Provides a full audit trail.

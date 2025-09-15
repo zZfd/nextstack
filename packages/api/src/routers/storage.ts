@@ -37,13 +37,11 @@ export const storageRouter = router({
         // Create file record in database
         const file = await ctx.db.file.create({
           data: {
-            userId,
+            uploaderId: userId,
             filename: sanitizedFilename,
-            originalName: filename,
-            mimeType,
+            mimetype: mimeType,
             size: BigInt(size),
             storageKey,
-            status: 'PENDING',
           },
         });
 
@@ -98,15 +96,16 @@ export const storageRouter = router({
           });
         }
 
-        // Update file status and generate public URL
+        // Update file metadata with public URL
         const publicUrl = storageProvider.getObjectUrl(file.storageKey);
 
         const updatedFile = await ctx.db.file.update({
           where: { id: fileId },
           data: {
-            status: 'READY',
-            url: publicUrl,
-            updatedAt: new Date(),
+            metadata: {
+              status: 'READY',
+              url: publicUrl,
+            },
           },
         });
 
@@ -141,7 +140,9 @@ export const storageRouter = router({
           });
         }
 
-        if (file.status === 'DELETED') {
+        // Check if file is marked as deleted in metadata
+        const fileMetadata = file.metadata as Record<string, unknown> | null;
+        if (fileMetadata?.status === 'DELETED') {
           throw new TRPCError({
             code: 'NOT_FOUND',
             message: 'File has been deleted',
@@ -156,8 +157,8 @@ export const storageRouter = router({
 
         return {
           downloadUrl,
-          filename: file.originalName,
-          mimeType: file.mimeType,
+          filename: file.filename,
+          mimeType: file.mimetype,
           size: file.size.toString(),
         };
       } catch (error) {
@@ -181,7 +182,7 @@ export const storageRouter = router({
       const file = await ctx.db.file.findUnique({
         where: { id: fileId },
         include: {
-          user: {
+          uploader: {
             select: { id: true, name: true, email: true },
           },
         },
@@ -205,25 +206,26 @@ export const storageRouter = router({
     const { cursor, limit, status, mimeTypePrefix, search } = input;
 
     // TODO: Add user filtering based on authentication
-    const whereClause: Record<string, unknown> = {
-      deletedAt: null, // Only show non-deleted files
-    };
+    const whereClause: Record<string, unknown> = {};
 
     if (status) {
-      whereClause.status = status;
+      whereClause.metadata = {
+        path: ['status'],
+        equals: status,
+      };
     }
 
     if (mimeTypePrefix) {
-      whereClause.mimeType = {
+      whereClause.mimetype = {
         startsWith: mimeTypePrefix,
       };
     }
 
     if (search) {
-      whereClause.OR = [
-        { filename: { contains: search, mode: 'insensitive' } },
-        { originalName: { contains: search, mode: 'insensitive' } },
-      ];
+      whereClause.filename = {
+        contains: search,
+        mode: 'insensitive',
+      };
     }
 
     const files = await ctx.db.file.findMany({
@@ -232,7 +234,7 @@ export const storageRouter = router({
       cursor: cursor ? { id: cursor } : undefined,
       orderBy: { createdAt: 'desc' },
       include: {
-        user: {
+        uploader: {
           select: { id: true, name: true, email: true },
         },
       },
@@ -270,12 +272,14 @@ export const storageRouter = router({
           });
         }
 
-        // Soft delete in database
+        // Mark as deleted in metadata
         await ctx.db.file.update({
           where: { id: fileId },
           data: {
-            status: 'DELETED',
-            deletedAt: new Date(),
+            metadata: {
+              status: 'DELETED',
+              deletedAt: new Date().toISOString(),
+            },
           },
         });
 
@@ -350,7 +354,6 @@ export const storageRouter = router({
         const files = await ctx.db.file.findMany({
           where: {
             id: { in: fileIds },
-            deletedAt: null,
           },
         });
 
@@ -361,14 +364,19 @@ export const storageRouter = router({
           });
         }
 
-        // Soft delete in database
-        await ctx.db.file.updateMany({
-          where: { id: { in: files.map(f => f.id) } },
-          data: {
-            status: 'DELETED',
-            deletedAt: new Date(),
-          },
-        });
+        // Mark files as deleted in metadata
+        const deletePromises = files.map(file =>
+          ctx.db.file.update({
+            where: { id: file.id },
+            data: {
+              metadata: {
+                status: 'DELETED',
+                deletedAt: new Date().toISOString(),
+              },
+            },
+          })
+        );
+        await Promise.all(deletePromises);
 
         // Delete from storage (async, don't wait)
         const storageKeys = files.map(f => f.storageKey);
