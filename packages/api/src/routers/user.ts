@@ -1,4 +1,4 @@
-import { 
+import {
   CreateUserSchema,
   GetUserByIdSchema,
   GetUserByEmailSchema,
@@ -6,74 +6,117 @@ import {
   UpdateUserSchema,
 } from '@nextstack/validators';
 
+import { handleError } from '../errors';
+import { protectedProcedure } from '../procedures/protected';
 import { publicProcedure } from '../procedures/public';
+import { UserService } from '../services/user.service';
 import { router } from '../trpc';
 
 export const userRouter = router({
   all: publicProcedure
     .input(GetUsersSchema)
-    .query(({ ctx, input }) => {
-      return ctx.db.user.findMany({
-        take: input.limit,
-        cursor: input.cursor ? { id: input.cursor } : undefined,
-        where: input.search ? {
-          OR: [
-            { name: { contains: input.search, mode: 'insensitive' } },
-            { email: { contains: input.search, mode: 'insensitive' } },
-          ]
-        } : undefined,
-        orderBy: { id: 'desc' },
-        include: { _count: { select: { posts: true } } },
-      });
+    .query(async ({ ctx, input }) => {
+      try {
+        const userService = new UserService({
+          db: ctx.db,
+          userId: ctx.user?.id,
+          sessionId: ctx.session?.id,
+        });
+        return await userService.getUsers(input);
+      } catch (error) {
+        throw handleError(error);
+      }
     }),
-  
+
   byId: publicProcedure
     .input(GetUserByIdSchema)
-    .query(({ ctx, input }) => {
-      return ctx.db.user.findFirst({ 
-        where: { id: input.id },
-        include: { 
-          posts: { orderBy: { id: 'desc' } },
-          _count: { select: { posts: true } }
-        }
-      });
+    .query(async ({ ctx, input }) => {
+      try {
+        const userService = new UserService({
+          db: ctx.db,
+          userId: ctx.user?.id,
+          sessionId: ctx.session?.id,
+        });
+        return await userService.getUserById(input.id);
+      } catch (error) {
+        throw handleError(error);
+      }
     }),
-  
+
   byEmail: publicProcedure
     .input(GetUserByEmailSchema)
-    .query(({ ctx, input }) => {
-      return ctx.db.user.findFirst({ 
-        where: { email: input.email },
-        include: { 
-          posts: { orderBy: { id: 'desc' } },
-          _count: { select: { posts: true } }
-        }
-      });
+    .query(async ({ ctx, input }) => {
+      try {
+        const userService = new UserService({
+          db: ctx.db,
+          userId: ctx.user?.id,
+          sessionId: ctx.session?.id,
+        });
+        return await userService.getUserByEmail(input.email);
+      } catch (error) {
+        throw handleError(error);
+      }
     }),
-  
+
   create: publicProcedure
     .input(CreateUserSchema)
-    .mutation(({ ctx, input }) => {
-      return ctx.db.user.create({ 
-        data: input,
-        include: { _count: { select: { posts: true } } }
-      });
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const userService = new UserService({
+          db: ctx.db,
+          userId: ctx.user?.id,
+          sessionId: ctx.session?.id,
+        });
+        return await userService.createUser(input);
+      } catch (error) {
+        throw handleError(error);
+      }
     }),
-  
-  update: publicProcedure
+
+  update: protectedProcedure
     .input(GetUserByIdSchema.merge(UpdateUserSchema))
-    .mutation(({ ctx, input }) => {
-      const { id, ...data } = input;
-      return ctx.db.user.update({ 
-        where: { id }, 
-        data,
-        include: { _count: { select: { posts: true } } }
-      });
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const userService = new UserService({
+          db: ctx.db,
+          userId: ctx.user?.id,
+          sessionId: ctx.session?.id,
+        });
+        const { id, ...data } = input;
+        return await userService.updateUser(id, data);
+      } catch (error) {
+        throw handleError(error);
+      }
     }),
-  
-  delete: publicProcedure
+
+  delete: protectedProcedure
     .input(GetUserByIdSchema)
-    .mutation(({ ctx, input }) => {
-      return ctx.db.user.delete({ where: { id: input.id } });
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const userService = new UserService({
+          db: ctx.db,
+          userId: ctx.user?.id,
+          sessionId: ctx.session?.id,
+        });
+        return await userService.deleteUser(input.id);
+      } catch (error) {
+        throw handleError(error);
+      }
+    }),
+
+  // New endpoint for user stats
+  stats: publicProcedure
+    .input(GetUserByIdSchema)
+    .query(async ({ ctx, input }) => {
+      try {
+        const userService = new UserService({
+          db: ctx.db,
+          userId: ctx.user?.id,
+          sessionId: ctx.session?.id,
+        });
+        return await userService.getUserStats(input.id);
+      } catch (error) {
+        throw handleError(error);
+      }
     }),
 });

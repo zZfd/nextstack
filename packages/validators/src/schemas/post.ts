@@ -4,14 +4,15 @@ import { z } from 'zod';
 export const CreatePostSchema = z.object({
   title: z.string().min(1, 'Title is required').max(255, 'Title too long'),
   content: z.string().optional().nullable(),
-  published: z.boolean().default(false),
+  authorId: z.string().cuid('Invalid author ID'),
+  status: z.enum(['DRAFT', 'PUBLISHED', 'ARCHIVED']).default('DRAFT'),
 });
 
 export const UpdatePostSchema = z
   .object({
     title: z.string().min(1, 'Title is required').max(255, 'Title too long'),
     content: z.string().nullable(),
-    published: z.boolean(),
+    status: z.enum(['DRAFT', 'PUBLISHED', 'ARCHIVED']),
   })
   .partial();
 
@@ -23,7 +24,8 @@ export const GetPostByIdSchema = z.object({
 export const GetPostsSchema = z.object({
   cursor: z.string().cuid().optional(),
   limit: z.number().min(1).max(100).default(10),
-  published: z.boolean().optional(),
+  status: z.enum(['DRAFT', 'PUBLISHED', 'ARCHIVED']).optional(),
+  authorId: z.string().cuid().optional(),
 });
 
 // Type exports
