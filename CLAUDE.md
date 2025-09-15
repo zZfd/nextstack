@@ -1,7 +1,3 @@
-## Project Goal
-
-The goal of the project is to use Monorepo architecture to create a full stack typeScript development Scaffold and provide necessary development templates.
-
 ## Development Environment & Technology Stack
 
 ### Project Overview
@@ -68,14 +64,8 @@ The goal of the project is to use Monorepo architecture to create a full stack t
 
 #### Database & Storage
 
-- **PostgreSQL 16** (Alpine) via Docker Compose
-- Default port: 5433
-- Development database: nextstack_dev
-
-- **MinIO** - S3-compatible storage for development
-- API port: 9000
-- Console port: 9001
-- Local file storage and bucket management
+- **PostgreSQL 16**
+- **MinIO**
 
 #### Quality Assurance
 
@@ -112,29 +102,6 @@ pnpm db:studio    # Database GUI
 # Cleanup
 pnpm clean        # Clean all build artifacts
 ```
-
-## Rules
-
-### Typescript Rules
-
-- Should not use any `any` type
-- Should not use `var`
-
-### Language Rules
-
-- Everything should be in English
-
-### Organization Rules
-
-**Enforce Barrel Pattern**
-
-1. One Entry Point: Every module directory must have an index.ts as its sole export file.
-
-2. Centralize Exports: Use index.ts to re-export the directory's public API. Always convert default exports to named exports.
-
-3. Shallow Imports: All imports must target the directory (./components), never a specific file inside it (./components/Button.ts).
-
-4. Critical Check: Prohibit any change that creates a circular dependency between barrels.
 
 ## Backend Architecture
 
@@ -174,21 +141,15 @@ The backend follows a **modern microservice-style architecture** with clear sepa
 
 #### 1. API Service Layer (`apps/nextstack-api`)
 
-- **Express.js** HTTP server (port 3001)
+- **Express.js**
 
 #### 2. API Communication Layer (`packages/api` + `packages/trpc`)
 
-- **tRPC v11.5.1**: End-to-end type-safe RPC communication
-- **Procedure Types**:
-  - `publicProcedure`: Open access
-  - `protectedProcedure`: Requires authentication
-  - `optionalAuthProcedure`: Optional authentication
+- **tRPC v11.5.1**
 
 #### 3. Authentication Layer (`packages/auth`)
 
-- **Better Auth v1.3.9**: JWT-based session management
-- **Endpoints**: `/api/auth/*`
-- **Prisma Adapter**: Direct database integration
+- **Better Auth v1.3.9**
 
 #### 4. Data Access Layer (`packages/database`)
 
@@ -209,56 +170,63 @@ The backend follows a **modern microservice-style architecture** with clear sepa
 - **Auto-generated** validators from Prisma models
 - **Type-safe** input/output validation
 
-### Development Workflow: Adding New API Endpoints
+## Product Introduction
 
-#### 1. Define Data Model (if needed)
+This project is an innovative vertical platform whose core model is **"professional photography services drive high-quality product transactions."** By integrating a resource of certified photographers, we provide a one-stop product visual solution for brand-conscious merchants. We also offer consumers convenient and reliable personalized photography services, building a creative and consumer community centered around high-quality image content.
 
-```prisma
-// packages/database/prisma/schema/example.prisma
-model Example {
-  id        String   @id @default(cuid())
-  title     String
-  content   String
-  createdAt DateTime @default(now())
-}
-```
+### Target Users
 
-#### 2. Create Validation Schema
+| User Persona       | Core Requirements                                                                                                            | Usage Scenarios                                                                                       |
+| :----------------- | :--------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------- |
+| ** Photographer ** | Stable customer acquisition, improved efficiency, guaranteed income, established personal brand                              | Display portfolio, earn money by taking orders, manage projects, communicate with customers           |
+| ** Merchants **    | Efficiently obtain high-quality product images, improve product conversion rates, build brands                               | Find photographers, post shooting needs, manage products and orders                                   |
+| ** Consumers **    | Discover high-quality products, get inspiration, get trusted shopping references, make appointments for photography services | Browse content, bookmark likes, purchase products, make appointments for photography, follow creators |
 
-```typescript
-// packages/validators/src/example.ts
-export const CreateExampleSchema = z.object({
-  title: z.string().min(1),
-  content: z.string(),
-});
-```
+## Style guidelines
 
-#### 3. Implement tRPC Router
+For comprehensive visual design guidelines and theme specifications, please refer to:
 
-```typescript
-// packages/api/src/routers/example.ts
-export const exampleRouter = router({
-  create: protectedProcedure
-    .input(CreateExampleSchema)
-    .mutation(({ ctx, input }) => {
-      return ctx.db.example.create({ data: input });
-    }),
-});
-```
+**[Application Theme & Visual Guidelines](./docs/product/THEME.md)**
 
-#### 4. Register Router
+The theme document defines our design philosophy of **"Professional, Refined, and Value-Focused"** with the following key principles that should guide all UI component development:
 
-```typescript
-// packages/api/src/router.ts
-return router({
-  // ... existing routers
-  example: exampleRouter,
-});
-```
+- **Professional**: Reflects photographer verification, streamlined project management, and efficient communication
+- **Premium**: Embodies curated visual content, quality merchant products, and overall user experience
+- **Efficient**: Demonstrates seamless processes and smooth user workflows
+- **Trust**: Platform acts as professional endorsement with reliable guarantees
+- **Value-Driven**: Every component should serve measurable business outcomes
 
-#### 5. Use in Frontend
+#### Visual Style: Modern Refinement
 
-```typescript
-// Frontend usage with full type safety
-const { data } = trpc.example.create.useMutation();
-```
+Components should follow the **Modern Refinement** aesthetic that blends:
+
+- Clean efficiency of modern digital products
+- Exquisite quality of the luxury sector
+- Subtle materiality with soft shadows for depth
+- Refined card designs with minimal corner rounding (4-8px)
+- Professional data visualization using brand accent colors
+
+All components and pages must align with these visual principles while maintaining the technical rules outlined above.
+
+## User Rules
+
+### Typescript Rules
+
+- Should not use any `any` type
+- Should not use `var`
+
+### Language Rules
+
+- Everything should be in English
+
+### Organization Rules
+
+**Enforce Barrel Pattern**
+
+1. One Entry Point: Every module directory must have an index.ts as its sole export file.
+
+2. Centralize Exports: Use index.ts to re-export the directory's public API. Always convert default exports to named exports.
+
+3. Shallow Imports: All imports must target the directory (./components), never a specific file inside it (./components/Button.ts).
+
+4. Critical Check: Prohibit any change that creates a circular dependency between barrels.
