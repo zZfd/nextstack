@@ -85,3 +85,39 @@ All component development must strictly adhere to the following principles and r
 
 - **5.1: Create a Storybook Story**: Every new or modified shared component **MUST** have a corresponding `*.stories.tsx` file.
 - **5.2: Cover All Variants**: The stories in Storybook **MUST** clearly demonstrate and cover all of the component's `variants` and key boolean states (e.g., `disabled`, `loading`, `error`).
+
+### Rule 6: The Hybrid Categorization Rule
+
+> Organize components by their function in the file system and Storybook, but build them following the principles of composition and reusability inspired by Atomic Design.
+
+- **6.1: Categorize by Function**: The primary directory structure for components **MUST** be organized by the component's function or purpose. This structure should be mirrored in the Storybook hierarchy. Common categories include:
+  - `general`
+  - `layout`
+  - `forms`
+  - `data-display`
+  - `feedback`
+  - `navigation`
+  - `overlay`
+
+- **6.2: Build with Composition**: Development **SHOULD** follow a compositional approach. Create smaller, reusable "atomic" components first, which can then be composed into larger, more complex "molecular" or "organism-level" components.
+
+- **6.3: Example File Structure**:
+  ```
+  /components
+  ├── 📁 general/
+  │   ├── 📄 button/
+  │   │   ├── Button.tsx
+  │   │   └── Button.stories.tsx
+  │   └── 📄 icon/
+  ├── 📁 forms/
+  │   ├── 📄 input/         (atom)
+  │   ├── 📄 label/         (atom)
+  │   ├── 📄 form-field/      (molecule: composes label and input)
+  │   └── 📄 search-bar/      (molecule: composes input and button)
+  ├── 📁 layout/
+  │   ├── 📄 stack/
+  │   └── 📄 grid/
+  ├── 📁 data-display/
+  │   └── 📄 user-profile-card/ (organism)
+  ...
+  ```

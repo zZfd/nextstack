@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { YStack, XStack, Text } from 'tamagui';
 
-import { Button } from '../Button';
-import { Input, FormField, FormLabel, FormError, FormSuccess, Textarea } from '../Input';
+import { Button } from '../../General/Button/Button';
+
+import { Input, FormField, FormLabel, FormError, FormSuccess, Textarea } from './Input';
 
 const meta: Meta<typeof Input> = {
   title: 'Components/Input',

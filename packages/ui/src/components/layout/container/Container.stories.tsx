@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { YStack, View } from 'tamagui';
 
-import { Container } from '../Container';
-import { Text, H3, Paragraph } from '../Typography';
+import { Text, H3, Paragraph } from '../../General/Typography/Typography';
+
+import { Container } from './Container';
 
 const meta: Meta<typeof Container> = {
   title: 'Layout/Container',
