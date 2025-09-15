@@ -14,7 +14,10 @@ export class UserRepository extends BaseRepository<
     return this.db.user;
   }
 
-  async findByEmail(email: string, include?: Prisma.UserInclude): Promise<User | null> {
+  async findByEmail(
+    email: string,
+    include?: Prisma.UserInclude
+  ): Promise<User | null> {
     return await this.findOne({ email }, include);
   }
 
@@ -31,7 +34,11 @@ export class UserRepository extends BaseRepository<
     });
   }
 
-  async searchUsers(query: string, limit = 10, cursor?: string): Promise<User[]> {
+  async searchUsers(
+    query: string,
+    limit = 10,
+    cursor?: string
+  ): Promise<User[]> {
     return await this.findMany({
       where: {
         OR: [
@@ -73,12 +80,13 @@ export class UserRepository extends BaseRepository<
     };
   }
 
-  async bulkCreateUsers(users: Prisma.UserCreateInput[]): Promise<Prisma.BatchPayload> {
+  async bulkCreateUsers(
+    users: Prisma.UserCreateInput[]
+  ): Promise<Prisma.BatchPayload> {
     return await this.createMany(users);
   }
 
   async softDelete(id: string): Promise<User> {
-    // 如果有 deletedAt 字段，可以实现软删除
     return await this.update(id, {
       // deletedAt: new Date(),
       updatedAt: new Date(),

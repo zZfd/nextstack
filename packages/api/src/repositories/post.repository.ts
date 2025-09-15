@@ -34,7 +34,10 @@ export class PostRepository extends BaseRepository<
     });
   }
 
-  async findUserPosts(authorId: string, includeUnpublished = false): Promise<Post[]> {
+  async findUserPosts(
+    authorId: string,
+    includeUnpublished = false
+  ): Promise<Post[]> {
     return await this.findMany({
       where: {
         authorId,
@@ -95,9 +98,6 @@ export class PostRepository extends BaseRepository<
   }> {
     const post = await this.findById(postId);
 
-    // 这里可以添加更多统计信息，如浏览量、点赞数等
-    // 如果数据库有相应字段的话
-
     return {
       post,
       viewCount: 0, // placeholder
@@ -106,7 +106,6 @@ export class PostRepository extends BaseRepository<
   }
 
   async incrementViewCount(id: string): Promise<Post> {
-    // 如果有 viewCount 字段，可以实现浏览量增加
     return await this.update(id, {
       updatedAt: new Date(),
       // viewCount: { increment: 1 },
