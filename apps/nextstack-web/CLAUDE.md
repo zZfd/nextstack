@@ -31,3 +31,53 @@ Here are some examples to follow:
   <p style={{ fontSize: 16, color: '#333' }}>Username</p>
 </div>
 ```
+
+## Import Path Requirements
+
+**Golden Rule:** You MUST use absolute imports with `@/` prefix for all project imports. Relative imports are strictly forbidden.
+
+1. **Project Imports:** Always use `@/` prefix for importing components, utilities, types, or any project files.
+2. **External Packages:** Keep external package imports unchanged (e.g., `react`, `@nextstack/ui`).
+3. **Consistency:** This ensures consistent import patterns and easier refactoring.
+
+**All imports must follow this pattern without exception.**
+
+Here are examples to follow:
+
+**DO THIS (✅):**
+
+```tsx
+// Component imports
+import { Button } from '@/components/ui/button'
+import { UserCard } from '@/components/user/user-card'
+
+// Utility imports
+import { formatDate } from '@/lib/utils'
+import { cn } from '@/lib/class-names'
+
+// Type imports
+import type { User } from '@/types/user'
+import type { ApiResponse } from '@/types/api'
+
+// Hook imports
+import { useAuth } from '@/hooks/use-auth'
+import { useLocalStorage } from '@/hooks/use-local-storage'
+
+// External packages (unchanged)
+import React from 'react'
+import { XStack, Text } from '@nextstack/ui'
+```
+
+**NOT THIS (❌):**
+
+```tsx
+// Relative imports are forbidden
+import { Button } from '../ui/button'
+import { UserCard } from './user-card'
+import { formatDate } from '../../lib/utils'
+import { cn } from '../../../lib/class-names'
+
+// Mixed relative and absolute patterns
+import type { User } from './types/user'
+import { useAuth } from '../hooks/use-auth'
+```

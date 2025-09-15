@@ -1,7 +1,7 @@
 'use client';
 
 import { trpc } from '@nextstack/trpc';
-import { H1, Layout, Button, Stack, HStack, Text } from '@nextstack/ui';
+import { H1, Button, Stack, HStack, Text } from '@nextstack/ui';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
   const postsQuery = trpc.post.all.useQuery({});
 
   return (
-    <Layout padding='$4'>
+    <Stack padding='$4'>
       <Stack space='$4'>
         <H1>Web SEO (Next.js)</H1>
         <Text>SEO-optimized application with server-side rendering</Text>
@@ -25,8 +25,8 @@ export default function Home() {
           </Text>
           {postsQuery.isLoading && <Text>Loading...</Text>}
           {postsQuery.data?.map(
-            (post: { id: string; title: string; content: string | null }) => (
-              <Layout
+            (post) => (
+              <Stack
                 key={post.id}
                 padding='$2'
                 backgroundColor='$background075'
@@ -35,11 +35,11 @@ export default function Home() {
                   {post.title}
                 </Text>
                 {post.content && <Text>{post.content}</Text>}
-              </Layout>
+              </Stack>
             )
           )}
         </Stack>
       </Stack>
-    </Layout>
+    </Stack>
   );
 }

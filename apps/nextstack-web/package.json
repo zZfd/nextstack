@@ -29,7 +29,8 @@
     "better-auth": "^1.3.9",
     "next": "^15.1.8",
     "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react-dom": "19.0.0",
+    "react-hook-form": "^7.62.0"
   },
   "devDependencies": {
     "@nextstack/eslint-config": "workspace:*",

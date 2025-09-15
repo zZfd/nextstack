@@ -82,7 +82,7 @@
 ```bash
 # Development
 pnpm typecheck    # Type checking
-pnpm lint         # Code linting
+pnpm lint:fix         # Code linting
 pnpm format       # Code formatting
 
 # Docker Services
@@ -209,6 +209,14 @@ Components should follow the **Modern Refinement** aesthetic that blends:
 All components and pages must align with these visual principles while maintaining the technical rules outlined above.
 
 ## User Rules
+
+- **Keep It Simple**: Follow KISS rule. No over-engineering, no unnecessary abstractions
+- **Fetch Documentation**: Use context7 MCP server to get up-to-date library docs when coding
+- **Avoid Tunnel Vision**: Don't focus immediately on implementation:
+  - Understand the full scope first
+  - Check for existing usage and dependencies
+  - Consider migration impact before proposing changes
+- **Always use `@` path aliases instead of relative imports**
 
 ### Typescript Rules
 
