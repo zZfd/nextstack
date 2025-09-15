@@ -1,19 +1,24 @@
-import React from 'react';
-import { Input as TamaguiInput, styled, YStack, Text } from 'tamagui';
+import { Input as TamaguiInput, styled, InputProps as TamaguiInputProps, YStack, YStackProps, Text } from 'tamagui';
 
-// Base Input component following design guide
+// Input Props Interface - Rule 4: Explicit TypeScript interfaces
+export interface InputProps extends TamaguiInputProps {
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'default' | 'error' | 'success';
+}
+
+// Base Input component - Rule 1: Token-based values only
 export const Input = styled(TamaguiInput, {
   name: 'Input',
-  borderRadius: '$2', // rounded-md
+  borderRadius: '$2',
   borderWidth: 1,
   borderColor: '$borderColor',
   backgroundColor: '$input',
   color: '$color',
-  paddingHorizontal: '$3', // px-3
-  paddingVertical: '$2',   // py-2
-  fontSize: '$4',          // text-sm
-  height: 40,              // h-10
-  
+  paddingHorizontal: '$3',
+  paddingVertical: '$2',
+  fontSize: '$4',
+  height: '$height.md', // Rule 1: Use token instead of hardcoded 40
+
   // Focus styles
   focusStyle: {
     borderColor: '$ring',
@@ -27,26 +32,41 @@ export const Input = styled(TamaguiInput, {
   // Placeholder styles
   placeholderTextColor: '$placeholderColor',
 
-  // Disabled styles
+  // Rule 3: Use variants instead of separate components
   variants: {
-    disabled: {
-      true: {
-        opacity: 0.5,
-        cursor: 'not-allowed',
-        backgroundColor: '$muted',
+    size: {
+      sm: {
+        height: '$height.sm',
+        fontSize: '$3',
+        paddingHorizontal: '$2',
+      },
+      md: {
+        height: '$height.md',
+        fontSize: '$4',
+        paddingHorizontal: '$3',
+      },
+      lg: {
+        height: '$height.lg',
+        fontSize: '$5',
+        paddingHorizontal: '$4',
       },
     },
-    error: {
-      true: {
+    variant: {
+      default: {
+        borderColor: '$borderColor',
+        focusStyle: {
+          borderColor: '$ring',
+          shadowColor: '$ring',
+        },
+      },
+      error: {
         borderColor: '$destructive',
         focusStyle: {
           borderColor: '$destructive',
           shadowColor: '$destructive',
         },
       },
-    },
-    success: {
-      true: {
+      success: {
         borderColor: '$success',
         focusStyle: {
           borderColor: '$success',
@@ -54,81 +74,61 @@ export const Input = styled(TamaguiInput, {
         },
       },
     },
+    disabled: {
+      true: {
+        opacity: 0.5,
+        cursor: 'not-allowed',
+        backgroundColor: '$muted',
+      },
+    },
   } as const,
+
+  defaultVariants: {
+    size: 'md',
+    variant: 'default',
+  },
 });
 
-// Input with Label wrapper
-export interface InputWithLabelProps {
-  label?: string;
-  error?: string;
-  success?: string;
-  required?: boolean;
-  children: React.ReactElement;
+// FormLabel component - Rule 2: Use Tamagui building blocks
+export const FormLabel = styled(Text, {
+  name: 'FormLabel',
+  fontSize: '$4',
+  fontWeight: '500',
+  color: '$color',
+  marginBottom: '$2',
+});
+
+// FormError component - Pure presentation
+export const FormError = styled(Text, {
+  name: 'FormError',
+  fontSize: '$3',
+  color: '$destructive',
+  marginTop: '$1',
+});
+
+// FormSuccess component - Pure presentation
+export const FormSuccess = styled(Text, {
+  name: 'FormSuccess',
+  fontSize: '$3',
+  color: '$success',
+  marginTop: '$1',
+});
+
+// FormField container - Rule 2: Use YStack building block
+export interface FormFieldProps extends YStackProps {
+  // Pure presentation props only - Rule 0: No business logic
 }
 
-export const InputWithLabel: React.FC<InputWithLabelProps> = ({
-  label,
-  error,
-  success,
-  required,
-  children,
-}) => {
-  return (
-    <YStack space="$2">
-      {label && (
-        <Text 
-          fontSize="$4" 
-          fontWeight="500" 
-          color="$color"
-        >
-          {label}
-          {required && (
-            <Text color="$destructive" marginLeft="$1">*</Text>
-          )}
-        </Text>
-      )}
-      
-      {children}
-      
-      {/* Error message */}
-      {error && (
-        <Text 
-          fontSize="$3" 
-          color="$destructive"
-          marginTop="$1"
-        >
-          {error}
-        </Text>
-      )}
-      
-      {/* Success message */}
-      {success && (
-        <Text 
-          fontSize="$3" 
-          color="$success"
-          marginTop="$1"
-        >
-          {success}
-        </Text>
-      )}
-    </YStack>
-  );
-};
-
-// Input variants for different sizes
-export const SmallInput = styled(Input, {
-  height: 36,
-  fontSize: '$3',
-  paddingHorizontal: '$2',
+export const FormField = styled(YStack, {
+  name: 'FormField',
+  space: '$2',
 });
 
-export const LargeInput = styled(Input, {
-  height: 44,
-  fontSize: '$5',
-  paddingHorizontal: '$4',
-});
+// Textarea component - Rule 1: Token-based styling
+export interface TextareaProps extends TamaguiInputProps {
+  size?: 'sm' | 'md' | 'lg';
+}
 
-// Textarea variant
 export const Textarea = styled(TamaguiInput, {
   name: 'Textarea',
   borderRadius: '$2',
@@ -139,10 +139,10 @@ export const Textarea = styled(TamaguiInput, {
   paddingHorizontal: '$3',
   paddingVertical: '$3',
   fontSize: '$4',
-  minHeight: 80,
+  minHeight: '$20', // Rule 1: Use token instead of hardcoded 80
   multiline: true,
   numberOfLines: 4,
-  
+
   focusStyle: {
     borderColor: '$ring',
     outlineStyle: 'none',
@@ -153,22 +153,31 @@ export const Textarea = styled(TamaguiInput, {
   },
 
   placeholderTextColor: '$placeholderColor',
-});
 
-// Search Input with icon (conceptual - would need icon implementation)
-export const SearchInput = styled(Input, {
-  paddingLeft: '$10', // Leave space for search icon
-  
   variants: {
     size: {
       sm: {
-        paddingLeft: '$8',
-        maxWidth: '$maxWidth.sm', // 448px from design guide
+        fontSize: '$3',
+        paddingHorizontal: '$2',
+        paddingVertical: '$2',
+        minHeight: '$16',
       },
       md: {
-        paddingLeft: '$10',
-        maxWidth: '$maxWidth.md', // 896px from design guide
+        fontSize: '$4',
+        paddingHorizontal: '$3',
+        paddingVertical: '$3',
+        minHeight: '$20',
+      },
+      lg: {
+        fontSize: '$5',
+        paddingHorizontal: '$4',
+        paddingVertical: '$4',
+        minHeight: '$24',
       },
     },
   } as const,
+
+  defaultVariants: {
+    size: 'md',
+  },
 });

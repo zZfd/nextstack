@@ -1,4 +1,10 @@
-import { styled, Text, XStack } from 'tamagui';
+import { styled, Text, XStack, TextProps, XStackProps } from 'tamagui';
+
+// Badge Props Interface - Rule 4: Explicit TypeScript interfaces
+export interface BadgeProps extends TextProps {
+  variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'info';
+  size?: 'sm' | 'md' | 'lg';
+}
 
 // Base Badge component following design guide
 export const Badge = styled(Text, {
@@ -72,19 +78,19 @@ export const Badge = styled(Text, {
         paddingHorizontal: '$1',
         paddingVertical: 0,
         fontSize: '$2',
-        minHeight: 16,
+        minHeight: '$minHeight.sm',
       },
       md: {
         paddingHorizontal: '$2',
         paddingVertical: '$1',
         fontSize: '$3',
-        minHeight: 20,
+        minHeight: '$minHeight.md',
       },
       lg: {
         paddingHorizontal: '$3',
         paddingVertical: '$2',
         fontSize: '$4',
-        minHeight: 24,
+        minHeight: '$minHeight.lg',
       },
     },
   } as const,
@@ -97,6 +103,11 @@ export const Badge = styled(Text, {
   // Smooth transitions
   animation: 'quick',
 });
+
+// DotBadge Props Interface
+export interface DotBadgeProps extends XStackProps {
+  status?: 'online' | 'offline' | 'busy' | 'away';
+}
 
 // Badge with dot indicator
 export const DotBadge = styled(XStack, {
@@ -122,6 +133,12 @@ export const DotBadge = styled(XStack, {
   } as const,
 });
 
+// NotificationBadge Props Interface
+export interface NotificationBadgeProps extends XStackProps {
+  size?: 'sm' | 'md' | 'lg';
+  color?: 'primary' | 'destructive' | 'success' | 'warning';
+}
+
 // Notification Badge (small circular badge)
 export const NotificationBadge = styled(XStack, {
   name: 'NotificationBadge',
@@ -129,23 +146,23 @@ export const NotificationBadge = styled(XStack, {
   justifyContent: 'center',
   borderRadius: '$6', // fully rounded
   backgroundColor: '$destructive',
-  minWidth: 16,
-  minHeight: 16,
+  minWidth: '$minHeight.sm',
+  minHeight: '$minHeight.sm',
   paddingHorizontal: '$1',
-  
+
   variants: {
     size: {
       sm: {
-        minWidth: 12,
-        minHeight: 12,
+        minWidth: '$3',
+        minHeight: '$3',
       },
       md: {
-        minWidth: 16,
-        minHeight: 16,
+        minWidth: '$minHeight.sm',
+        minHeight: '$minHeight.sm',
       },
       lg: {
-        minWidth: 20,
-        minHeight: 20,
+        minWidth: '$minHeight.md',
+        minHeight: '$minHeight.md',
       },
     },
     color: {
@@ -170,11 +187,16 @@ export const NotificationBadge = styled(XStack, {
   },
 });
 
+// StatusBadge Props Interface
+export interface StatusBadgeProps extends XStackProps {
+  status?: 'online' | 'offline' | 'busy' | 'away';
+}
+
 // Status Badge for online/offline indicators
 export const StatusBadge = styled(XStack, {
   name: 'StatusBadge',
-  width: 8,
-  height: 8,
+  width: '$2',
+  height: '$2',
   borderRadius: '$6', // fully rounded
   borderWidth: 2,
   borderColor: '$background',

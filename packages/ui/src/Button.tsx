@@ -1,4 +1,9 @@
-import { Button as TamaguiButton, styled } from 'tamagui';
+import { Button as TamaguiButton, styled, StackProps } from 'tamagui';
+
+export interface ButtonProps extends StackProps {
+  variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+}
 
 export const Button = styled(TamaguiButton, {
   name: 'Button',
@@ -74,17 +79,17 @@ export const Button = styled(TamaguiButton, {
     },
     size: {
       sm: {
-        height: 32,
+        height: '$height.sm',
         paddingHorizontal: '$3',
         fontSize: '$3',
       },
       md: {
-        height: 40,
+        height: '$height.md',
         paddingHorizontal: '$4',
         fontSize: '$4',
       },
       lg: {
-        height: 48,
+        height: '$height.lg',
         paddingHorizontal: '$6',
         fontSize: '$5',
       },

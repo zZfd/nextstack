@@ -1,4 +1,9 @@
-import { YStack, Text, styled } from 'tamagui';
+import { YStack, Text, styled, YStackProps, TextProps } from 'tamagui';
+
+// Card Props Interface - Rule 4: Explicit TypeScript interfaces
+export interface CardProps extends YStackProps {
+  hover?: boolean;
+}
 
 // Base Card component
 export const Card = styled(YStack, {
@@ -29,6 +34,11 @@ export const Card = styled(YStack, {
   } as const,
 });
 
+// CardHeader Props Interface
+export interface CardHeaderProps extends YStackProps {
+  withBorder?: boolean;
+}
+
 // CardHeader component
 export const CardHeader = styled(YStack, {
   name: 'CardHeader',
@@ -46,6 +56,9 @@ export const CardHeader = styled(YStack, {
   } as const,
 });
 
+// CardContent Props Interface
+export interface CardContentProps extends YStackProps {}
+
 // CardContent component
 export const CardContent = styled(YStack, {
   name: 'CardContent',
@@ -53,6 +66,11 @@ export const CardContent = styled(YStack, {
   paddingTop: 0,
   flex: 1,
 });
+
+// CardFooter Props Interface
+export interface CardFooterProps extends YStackProps {
+  withBorder?: boolean;
+}
 
 // CardFooter component
 export const CardFooter = styled(YStack, {
@@ -72,6 +90,9 @@ export const CardFooter = styled(YStack, {
   } as const,
 });
 
+// CardTitle Props Interface
+export interface CardTitleProps extends TextProps {}
+
 // Card Title component for header
 export const CardTitle = styled(Text, {
   name: 'CardTitle',
@@ -80,6 +101,9 @@ export const CardTitle = styled(Text, {
   color: '$color',
   lineHeight: '$4',
 });
+
+// CardDescription Props Interface
+export interface CardDescriptionProps extends TextProps {}
 
 // Card Description component for header
 export const CardDescription = styled(Text, {

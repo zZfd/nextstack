@@ -1,5 +1,10 @@
-import React from 'react';
-import { styled, XStack, YStack, Image, Text } from 'tamagui';
+import { styled, XStack, YStack, Image, Text, XStackProps, ImageProps, TextProps } from 'tamagui';
+
+// Avatar Props Interface - Rule 4: Explicit TypeScript interfaces
+export interface AvatarProps extends XStackProps {
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  gradient?: boolean | 'brand' | 'sunset' | 'ocean';
+}
 
 // Base Avatar container
 export const Avatar = styled(XStack, {
@@ -14,42 +19,42 @@ export const Avatar = styled(XStack, {
   variants: {
     size: {
       sm: {
-        width: 32,
-        height: 32,
+        width: '$height.sm',
+        height: '$height.sm',
       },
       md: {
-        width: 40,
-        height: 40,
+        width: '$height.md',
+        height: '$height.md',
       },
       lg: {
-        width: 48,
-        height: 48,
+        width: '$height.lg',
+        height: '$height.lg',
       },
       xl: {
-        width: 64,
-        height: 64,
+        width: '$height.xl',
+        height: '$height.xl',
       },
       '2xl': {
-        width: 80,
-        height: 80,
+        width: '$height.2xl',
+        height: '$height.2xl',
       },
     },
     gradient: {
       true: {
         // Gradient border effect using padding + background
-        padding: 2,
+        padding: '$1',
         background: 'linear-gradient(135deg, $blue6, $purple6)',
       },
       brand: {
-        padding: 2,
+        padding: '$1',
         background: 'linear-gradient(135deg, $green6, $teal6)',
       },
       sunset: {
-        padding: 2,
+        padding: '$1',
         background: 'linear-gradient(135deg, $orange6, $red6)',
       },
       ocean: {
-        padding: 2,
+        padding: '$1',
         background: 'linear-gradient(135deg, $blue6, $teal6)',
       },
     },
@@ -60,6 +65,9 @@ export const Avatar = styled(XStack, {
   },
 });
 
+// AvatarImage Props Interface
+export interface AvatarImageProps extends ImageProps {}
+
 // Avatar Image component
 export const AvatarImage = styled(Image, {
   name: 'AvatarImage',
@@ -68,6 +76,11 @@ export const AvatarImage = styled(Image, {
   borderRadius: '$6',
   objectFit: 'cover',
 });
+
+// AvatarFallback Props Interface
+export interface AvatarFallbackProps extends XStackProps {
+  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'destructive' | 'purple' | 'teal' | 'emerald';
+}
 
 // Avatar Fallback component for initials or icon
 export const AvatarFallback = styled(XStack, {
@@ -113,6 +126,11 @@ export const AvatarFallback = styled(XStack, {
   },
 });
 
+// AvatarFallbackText Props Interface
+export interface AvatarFallbackTextProps extends TextProps {
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+}
+
 // Avatar Fallback Text (initials)
 export const AvatarFallbackText = styled(Text, {
   name: 'AvatarFallbackText',
@@ -145,6 +163,11 @@ export const AvatarFallbackText = styled(Text, {
   },
 });
 
+// AvatarGroup Props Interface
+export interface AvatarGroupProps extends XStackProps {
+  spacing?: 'tight' | 'normal' | 'loose';
+}
+
 // Avatar Group for multiple avatars
 export const AvatarGroup = styled(XStack, {
   name: 'AvatarGroup',
@@ -169,44 +192,20 @@ export const AvatarGroup = styled(XStack, {
   },
 });
 
-// Compound Avatar component
-export interface CompoundAvatarProps {
-  src?: string;
-  alt?: string;
-  fallback?: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-  gradient?: boolean | 'brand' | 'sunset' | 'ocean';
-  fallbackColor?: 'primary' | 'secondary' | 'success' | 'warning' | 'destructive' | 'purple' | 'teal' | 'emerald';
-}
-
-export const CompoundAvatar: React.FC<CompoundAvatarProps> = ({
-  src,
-  alt,
-  fallback,
-  size = 'md',
-  gradient,
-  fallbackColor = 'primary',
-}) => {
-  return (
-    <Avatar size={size} gradient={gradient}>
-      {src ? (
-        <AvatarImage source={{ uri: src }} alt={alt} />
-      ) : (
-        <AvatarFallback color={fallbackColor}>
-          <AvatarFallbackText size={size}>
-            {fallback || '?'}
-          </AvatarFallbackText>
-        </AvatarFallback>
-      )}
-    </Avatar>
-  );
-};
+// Rule 0: No business logic in UI components - CompoundAvatar removed
+// Use individual Avatar, AvatarImage, AvatarFallback components for composition
 
 // Online Status Avatar (with status indicator)
 export const StatusAvatar = styled(YStack, {
   name: 'StatusAvatar',
   position: 'relative',
 });
+
+// StatusIndicator Props Interface
+export interface StatusIndicatorProps extends XStackProps {
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  status?: 'online' | 'offline' | 'busy' | 'away';
+}
 
 export const StatusIndicator = styled(XStack, {
   name: 'StatusIndicator',
@@ -216,28 +215,28 @@ export const StatusIndicator = styled(XStack, {
   borderRadius: '$6',
   borderWidth: 2,
   borderColor: '$background',
-  
+
   variants: {
     size: {
       sm: {
-        width: 8,
-        height: 8,
+        width: '$2',
+        height: '$2',
       },
       md: {
-        width: 10,
-        height: 10,
+        width: '$3',
+        height: '$3',
       },
       lg: {
-        width: 12,
-        height: 12,
+        width: '$4',
+        height: '$4',
       },
       xl: {
-        width: 16,
-        height: 16,
+        width: '$5',
+        height: '$5',
       },
       '2xl': {
-        width: 20,
-        height: 20,
+        width: '$6',
+        height: '$6',
       },
     },
     status: {

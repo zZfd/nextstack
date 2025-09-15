@@ -8,5 +8,4 @@ export * from "./Layout";
 export * from "./Provider";
 export * from "./Stack";
 export * from "./Typography";
-export * from "./components/auth";
 export * from "./tamagui.config";

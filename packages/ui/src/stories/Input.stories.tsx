@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { YStack, XStack, Text } from 'tamagui';
 
 import { Button } from '../Button';
-import { Input, InputWithLabel, SmallInput, LargeInput, Textarea, SearchInput } from '../Input';
+import { Input, FormField, FormLabel, FormError, FormSuccess, Textarea } from '../Input';
 
 const meta: Meta<typeof Input> = {
   title: 'Components/Input',
@@ -24,12 +24,12 @@ Form input components with consistent styling and state management.
 - **Theme Integration**: Follows design system colors
 
 ## Components
-- \`Input\`: Base input component
-- \`InputWithLabel\`: Input with label and validation messages
-- \`SmallInput\`: Compact input for tight spaces
-- \`LargeInput\`: Larger input for emphasis
-- \`Textarea\`: Multi-line text input
-- \`SearchInput\`: Input optimized for search with container width limits
+- \`Input\`: Base input component with size and variant options
+- \`FormField\`: Container for grouping form elements
+- \`FormLabel\`: Styled label for form inputs
+- \`FormError\`: Error message display
+- \`FormSuccess\`: Success message display
+- \`Textarea\`: Multi-line text input with size variants
 
 ## Usage
 Use inputs for all text-based user input in forms and interfaces.
@@ -43,17 +43,19 @@ Use inputs for all text-based user input in forms and interfaces.
       control: 'text',
       description: 'Placeholder text',
     },
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'Input size',
+    },
+    variant: {
+      control: 'select',
+      options: ['default', 'error', 'success'],
+      description: 'Input variant',
+    },
     disabled: {
       control: 'boolean',
       description: 'Disable the input',
-    },
-    error: {
-      control: 'boolean',
-      description: 'Show error state',
-    },
-    success: {
-      control: 'boolean',
-      description: 'Show success state',
     },
   },
 };
@@ -76,22 +78,22 @@ export const States: Story = {
         <Text fontSize="$4" fontWeight="500">Normal</Text>
         <Input placeholder="Normal input" />
       </YStack>
-      
+
       <YStack space="$2">
         <Text fontSize="$4" fontWeight="500">Focused</Text>
         <Input placeholder="Click to see focus state" />
       </YStack>
-      
+
       <YStack space="$2">
         <Text fontSize="$4" fontWeight="500">Error</Text>
-        <Input placeholder="Error state" error />
+        <Input placeholder="Error state" variant="error" />
       </YStack>
-      
+
       <YStack space="$2">
         <Text fontSize="$4" fontWeight="500">Success</Text>
-        <Input placeholder="Success state" success />
+        <Input placeholder="Success state" variant="success" />
       </YStack>
-      
+
       <YStack space="$2">
         <Text fontSize="$4" fontWeight="500">Disabled</Text>
         <Input placeholder="Disabled input" disabled />
@@ -106,17 +108,17 @@ export const Sizes: Story = {
     <YStack space="$4" width={300}>
       <YStack space="$2">
         <Text fontSize="$4" fontWeight="500">Small</Text>
-        <SmallInput placeholder="Small input" />
+        <Input placeholder="Small input" size="sm" />
       </YStack>
-      
+
       <YStack space="$2">
         <Text fontSize="$4" fontWeight="500">Medium (Default)</Text>
-        <Input placeholder="Medium input" />
+        <Input placeholder="Medium input" size="md" />
       </YStack>
-      
+
       <YStack space="$2">
         <Text fontSize="$4" fontWeight="500">Large</Text>
-        <LargeInput placeholder="Large input" />
+        <Input placeholder="Large input" size="lg" />
       </YStack>
     </YStack>
   ),
@@ -126,27 +128,27 @@ export const WithLabels: Story = {
   name: 'Input with Labels',
   render: () => (
     <YStack space="$4" width={400}>
-      <InputWithLabel label="Email" required>
+      <FormField>
+        <FormLabel>Email *</FormLabel>
         <Input placeholder="Enter your email address" />
-      </InputWithLabel>
-      
-      <InputWithLabel label="Password" required>
+      </FormField>
+
+      <FormField>
+        <FormLabel>Password *</FormLabel>
         <Input placeholder="Enter your password" secureTextEntry />
-      </InputWithLabel>
-      
-      <InputWithLabel 
-        label="Username" 
-        error="Username is already taken"
-      >
-        <Input placeholder="Choose a username" error />
-      </InputWithLabel>
-      
-      <InputWithLabel 
-        label="Full Name" 
-        success="Looks good!"
-      >
-        <Input placeholder="Enter your full name" success />
-      </InputWithLabel>
+      </FormField>
+
+      <FormField>
+        <FormLabel>Username</FormLabel>
+        <Input placeholder="Choose a username" variant="error" />
+        <FormError>Username is already taken</FormError>
+      </FormField>
+
+      <FormField>
+        <FormLabel>Full Name</FormLabel>
+        <Input placeholder="Enter your full name" variant="success" />
+        <FormSuccess>Looks good!</FormSuccess>
+      </FormField>
     </YStack>
   ),
 };
@@ -155,42 +157,21 @@ export const TextareaExample: Story = {
   name: 'Textarea',
   render: () => (
     <YStack space="$4" width={400}>
-      <InputWithLabel label="Message" required>
+      <FormField>
+        <FormLabel>Message *</FormLabel>
         <Textarea placeholder="Enter your message here..." />
-      </InputWithLabel>
-      
-      <InputWithLabel 
-        label="Bio" 
-        error="Bio must be at least 10 characters"
-      >
-        <Textarea 
-          placeholder="Tell us about yourself..." 
-          borderColor="$destructive"
-        />
-      </InputWithLabel>
-    </YStack>
-  ),
-};
+      </FormField>
 
-export const SearchInputs: Story = {
-  name: 'Search Inputs',
-  render: () => (
-    <YStack space="$4" alignItems="center">
-      <YStack space="$2" alignItems="center">
-        <Text fontSize="$4" fontWeight="500">Small Search (Mobile)</Text>
-        <SearchInput 
-          size="sm"
-          placeholder="Search products..." 
-        />
-      </YStack>
-      
-      <YStack space="$2" alignItems="center">
-        <Text fontSize="$4" fontWeight="500">Medium Search (Desktop)</Text>
-        <SearchInput 
-          size="md"
-          placeholder="Search anything..." 
-        />
-      </YStack>
+      <FormField>
+        <FormLabel>Bio</FormLabel>
+        <Textarea placeholder="Tell us about yourself..." />
+        <FormError>Bio must be at least 10 characters</FormError>
+      </FormField>
+
+      <FormField>
+        <FormLabel>Large Textarea</FormLabel>
+        <Textarea size="lg" placeholder="Large textarea for longer content..." />
+      </FormField>
     </YStack>
   ),
 };
@@ -200,31 +181,37 @@ export const FormExample: Story = {
   render: () => (
     <YStack space="$4" width={400} padding="$4">
       <Text fontSize="$6" fontWeight="bold">Create Account</Text>
-      
-      <InputWithLabel label="First Name" required>
+
+      <FormField>
+        <FormLabel>First Name *</FormLabel>
         <Input placeholder="John" />
-      </InputWithLabel>
-      
-      <InputWithLabel label="Last Name" required>
+      </FormField>
+
+      <FormField>
+        <FormLabel>Last Name *</FormLabel>
         <Input placeholder="Doe" />
-      </InputWithLabel>
-      
-      <InputWithLabel label="Email" required>
+      </FormField>
+
+      <FormField>
+        <FormLabel>Email *</FormLabel>
         <Input placeholder="john.doe@example.com" />
-      </InputWithLabel>
-      
-      <InputWithLabel label="Password" required>
+      </FormField>
+
+      <FormField>
+        <FormLabel>Password *</FormLabel>
         <Input placeholder="••••••••" secureTextEntry />
-      </InputWithLabel>
-      
-      <InputWithLabel label="Confirm Password" required>
+      </FormField>
+
+      <FormField>
+        <FormLabel>Confirm Password *</FormLabel>
         <Input placeholder="••••••••" secureTextEntry />
-      </InputWithLabel>
-      
-      <InputWithLabel label="Bio (Optional)">
+      </FormField>
+
+      <FormField>
+        <FormLabel>Bio (Optional)</FormLabel>
         <Textarea placeholder="Tell us about yourself..." />
-      </InputWithLabel>
-      
+      </FormField>
+
       <XStack space="$3" marginTop="$2">
         <Button flex={1} variant="outline">Cancel</Button>
         <Button flex={1}>Create Account</Button>

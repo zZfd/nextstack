@@ -187,6 +187,54 @@ const tokens = createTokens({
     '2xl': 24, // 24 - text-2xl
   },
 
+  // Height system for components (following common height patterns)
+  height: {
+    0: 0,
+    1: 4,
+    2: 8,
+    3: 12,
+    4: 16,
+    5: 20,
+    6: 24,
+    7: 28,
+    8: 32, // Button small, Badge small
+    9: 36,
+    10: 40, // Button medium, Input default
+    11: 44,
+    12: 48, // Button large
+    13: 52,
+    14: 56,
+    15: 60,
+    16: 64, // Avatar xl
+    17: 68,
+    18: 72,
+    19: 76,
+    20: 80, // Avatar 2xl
+    true: 40, // Default height
+    sm: 32,
+    md: 40,
+    lg: 48,
+    xl: 64,
+    '2xl': 80,
+  },
+
+  // Min height system for badges and other components
+  minHeight: {
+    0: 0,
+    1: 4,
+    2: 8,
+    3: 12,
+    4: 16, // Badge small
+    5: 20, // Badge medium
+    6: 24, // Badge large
+    7: 28,
+    8: 32,
+    true: 20, // Default min height
+    sm: 16,
+    md: 20,
+    lg: 24,
+  },
+
   // Spacing system - 8px based (gap-1 to gap-8)
   space: {
     0: 0,
@@ -519,6 +567,7 @@ export const tamaguiConfig = createTamagui({
     h: 'height',
     mw: 'maxWidth',
     mh: 'maxHeight',
+    minh: 'minHeight',
 
     // Colors
     bg: 'backgroundColor',

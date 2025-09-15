@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { XStack, YStack, Text } from 'tamagui';
 
-import { 
-  Avatar, 
-  AvatarFallback, 
+import {
+  Avatar,
+  AvatarFallback,
   AvatarFallbackText,
   AvatarGroup,
-  CompoundAvatar,
   StatusAvatar,
   StatusIndicator
 } from '../Avatar';
@@ -370,38 +369,36 @@ export const AvatarGroups: Story = {
   ),
 };
 
-export const CompoundAvatarExample: Story = {
-  name: 'Compound Avatar Usage',
+export const CompositionExample: Story = {
+  name: 'Avatar Composition',
   render: () => (
     <YStack space="$4">
-      <Text fontSize="$4" fontWeight="500">Ready-to-use CompoundAvatar</Text>
+      <Text fontSize="$4" fontWeight="500">Composed Avatar Usage</Text>
       <XStack space="$4" alignItems="center">
         <YStack alignItems="center" space="$2">
-          <CompoundAvatar 
-            fallback="JD"
-            size="lg"
-            fallbackColor="primary"
-          />
+          <Avatar size="lg">
+            <AvatarFallback color="primary">
+              <AvatarFallbackText size="lg">JD</AvatarFallbackText>
+            </AvatarFallback>
+          </Avatar>
           <Text fontSize="$3">John Doe</Text>
         </YStack>
-        
+
         <YStack alignItems="center" space="$2">
-          <CompoundAvatar 
-            fallback="SA"
-            size="lg"
-            gradient="brand"
-            fallbackColor="emerald"
-          />
+          <Avatar size="lg" gradient="brand">
+            <AvatarFallback color="emerald">
+              <AvatarFallbackText size="lg">SA</AvatarFallbackText>
+            </AvatarFallback>
+          </Avatar>
           <Text fontSize="$3">Sarah Anderson</Text>
         </YStack>
-        
+
         <YStack alignItems="center" space="$2">
-          <CompoundAvatar 
-            fallback="MJ"
-            size="lg"
-            gradient="sunset"
-            fallbackColor="warning"
-          />
+          <Avatar size="lg" gradient="sunset">
+            <AvatarFallback color="warning">
+              <AvatarFallbackText size="lg">MJ</AvatarFallbackText>
+            </AvatarFallback>
+          </Avatar>
           <Text fontSize="$3">Mike Johnson</Text>
         </YStack>
       </XStack>
