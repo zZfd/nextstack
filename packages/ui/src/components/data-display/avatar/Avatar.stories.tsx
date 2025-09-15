@@ -8,7 +8,7 @@ import {
   AvatarGroup,
   StatusAvatar,
   StatusIndicator
-} from './Avatar';
+} from '.';
 
 const meta: Meta<typeof Avatar> = {
   title: 'Components/Avatar',

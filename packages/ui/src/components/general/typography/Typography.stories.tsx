@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { YStack, XStack } from 'tamagui';
 
-import { H1, H2, H3, H4, H5, H6, Text, Paragraph } from './Typography';
+import { H1, H2, H3, H4, H5, H6, Text, Paragraph } from '.';
 
 const meta: Meta<typeof Text> = {
   title: 'Design System/Typography',

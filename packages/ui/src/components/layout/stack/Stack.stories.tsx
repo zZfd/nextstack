@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { YStack, View } from 'tamagui';
 
-import { Text, H3 } from '../../General/Typography/Typography';
+import { Text, H3 } from '../../general';
 
-import { HStack, Stack } from './Stack';
+import { HStack, Stack } from '.';
 
 const meta: Meta<typeof Stack> = {
   title: 'Layout/Stack',

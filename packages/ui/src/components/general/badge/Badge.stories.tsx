@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { XStack, YStack, Text } from 'tamagui';
 
-import { Badge, NotificationBadge, StatusBadge } from './Badge';
+import { Badge, NotificationBadge, StatusBadge } from '.';
 
 const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',

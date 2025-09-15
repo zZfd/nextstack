@@ -120,9 +120,21 @@ pnpm clean        # Clean all build artifacts
 - Should not use any `any` type
 - Should not use `var`
 
-### Coding Rules
+### Language Rules
 
 - Everything should be in English
+
+### Organization Rules
+
+**Enforce Barrel Pattern**
+
+1. One Entry Point: Every module directory must have an index.ts as its sole export file.
+
+2. Centralize Exports: Use index.ts to re-export the directory's public API. Always convert default exports to named exports.
+
+3. Shallow Imports: All imports must target the directory (./components), never a specific file inside it (./components/Button.ts).
+
+4. Critical Check: Prohibit any change that creates a circular dependency between barrels.
 
 ## Backend Architecture
 

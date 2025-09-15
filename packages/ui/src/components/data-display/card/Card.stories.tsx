@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { XStack, YStack, Text } from 'tamagui';
 
-import { Badge } from '../../General/Badge/Badge';
-import { Button } from '../../General/Button/Button';
+import { Badge, Button } from '../../general';
 
-import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from './Card';
+import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from '.';
 
 const meta: Meta<typeof Card> = {
   title: 'Components/Card',

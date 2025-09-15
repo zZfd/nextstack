@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { YStack, XStack } from 'tamagui';
 
-import { Text } from '../Typography/Typography';
+import { Text } from '../typography';
 
-import { Button } from './Button';
+import { Button } from '.';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
