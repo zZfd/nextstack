@@ -103,6 +103,66 @@ pnpm db:studio    # Database GUI
 pnpm clean        # Clean all build artifacts
 ```
 
+## User Rules
+
+- **Keep It Simple**: Follow KISS rule. No over-engineering, no unnecessary abstractions
+- **Read First**: Check **[Product Requirements](./docs/PRODUCT.md)** for good understanding
+- **Follow Rules**: Check the Coding Rules & existing patterns section for architectural patterns
+- **Fetch Documentation**: Use context7 MCP server to get up-to-date library docs when coding
+- **Avoid Tunnel Vision**: Don't focus immediately on implementation:
+  - Understand the full scope first
+  - Check for existing usage and dependencies
+  - Consider migration impact before proposing changes
+- **Always use `@` path aliases instead of relative imports**
+- **Greenfield Freedom**: This is a new project; you can change or rewrite anything. No need to consider backward compatibility for APIs or database schema. Follow best practices and make optimal decisions without legacy constraints.
+
+### Typescript Rules
+
+- Should not use any `any` type
+- Should not use `var`
+
+### Language Rules
+
+- Everything should be in English
+
+### Organization Rules
+
+**Enforce Barrel Pattern**
+
+1. One Entry Point: Every module directory must have an index.ts as its sole export file.
+
+2. Centralize Exports: Use index.ts to re-export the directory's public API. Always convert default exports to named exports.
+
+3. Shallow Imports: All imports must target the directory (./components), never a specific file inside it (./components/Button.ts).
+
+4. Critical Check: Prohibit any change that creates a circular dependency between barrels.
+
+## Style guidelines
+
+For comprehensive visual design guidelines and theme specifications, please refer to:
+
+**[Application Theme & Visual Guidelines](./docs/THEME.md)**
+
+The theme document defines our design philosophy of **"Professional, Refined, and Value-Focused"** with the following key principles that should guide all UI component development:
+
+- **Professional**: Reflects photographer verification, streamlined project management, and efficient communication
+- **Premium**: Embodies curated visual content, quality merchant products, and overall user experience
+- **Efficient**: Demonstrates seamless processes and smooth user workflows
+- **Trust**: Platform acts as professional endorsement with reliable guarantees
+- **Value-Driven**: Every component should serve measurable business outcomes
+
+#### Visual Style: Modern Refinement
+
+Components should follow the **Modern Refinement** aesthetic that blends:
+
+- Clean efficiency of modern digital products
+- Exquisite quality of the luxury sector
+- Subtle materiality with soft shadows for depth
+- Refined card designs with minimal corner rounding (4-8px)
+- Professional data visualization using brand accent colors
+
+All components and pages must align with these visual principles while maintaining the technical rules outlined above.
+
 ## Backend Architecture
 
 NextStack implements a **modular layered architecture** based on Monorepo structure, achieving high code reuse and type safety.
@@ -169,72 +229,3 @@ The backend follows a **modern microservice-style architecture** with clear sepa
 - **Zod v3.22.4**: Schema validation
 - **Auto-generated** validators from Prisma models
 - **Type-safe** input/output validation
-
-## Product Introduction
-
-This project is an innovative vertical platform whose core model is **"professional photography services drive high-quality product transactions."** By integrating a resource of certified photographers, we provide a one-stop product visual solution for brand-conscious merchants. We also offer consumers convenient and reliable personalized photography services, building a creative and consumer community centered around high-quality image content.
-
-### Target Users
-
-| User Persona       | Core Requirements                                                                                                            | Usage Scenarios                                                                                       |
-| :----------------- | :--------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------- |
-| ** Photographer ** | Stable customer acquisition, improved efficiency, guaranteed income, established personal brand                              | Display portfolio, earn money by taking orders, manage projects, communicate with customers           |
-| ** Merchants **    | Efficiently obtain high-quality product images, improve product conversion rates, build brands                               | Find photographers, post shooting needs, manage products and orders                                   |
-| ** Consumers **    | Discover high-quality products, get inspiration, get trusted shopping references, make appointments for photography services | Browse content, bookmark likes, purchase products, make appointments for photography, follow creators |
-
-## Style guidelines
-
-For comprehensive visual design guidelines and theme specifications, please refer to:
-
-**[Application Theme & Visual Guidelines](./docs/product/THEME.md)**
-
-The theme document defines our design philosophy of **"Professional, Refined, and Value-Focused"** with the following key principles that should guide all UI component development:
-
-- **Professional**: Reflects photographer verification, streamlined project management, and efficient communication
-- **Premium**: Embodies curated visual content, quality merchant products, and overall user experience
-- **Efficient**: Demonstrates seamless processes and smooth user workflows
-- **Trust**: Platform acts as professional endorsement with reliable guarantees
-- **Value-Driven**: Every component should serve measurable business outcomes
-
-#### Visual Style: Modern Refinement
-
-Components should follow the **Modern Refinement** aesthetic that blends:
-
-- Clean efficiency of modern digital products
-- Exquisite quality of the luxury sector
-- Subtle materiality with soft shadows for depth
-- Refined card designs with minimal corner rounding (4-8px)
-- Professional data visualization using brand accent colors
-
-All components and pages must align with these visual principles while maintaining the technical rules outlined above.
-
-## User Rules
-
-- **Keep It Simple**: Follow KISS rule. No over-engineering, no unnecessary abstractions
-- **Fetch Documentation**: Use context7 MCP server to get up-to-date library docs when coding
-- **Avoid Tunnel Vision**: Don't focus immediately on implementation:
-  - Understand the full scope first
-  - Check for existing usage and dependencies
-  - Consider migration impact before proposing changes
-- **Always use `@` path aliases instead of relative imports**
-
-### Typescript Rules
-
-- Should not use any `any` type
-- Should not use `var`
-
-### Language Rules
-
-- Everything should be in English
-
-### Organization Rules
-
-**Enforce Barrel Pattern**
-
-1. One Entry Point: Every module directory must have an index.ts as its sole export file.
-
-2. Centralize Exports: Use index.ts to re-export the directory's public API. Always convert default exports to named exports.
-
-3. Shallow Imports: All imports must target the directory (./components), never a specific file inside it (./components/Button.ts).
-
-4. Critical Check: Prohibit any change that creates a circular dependency between barrels.
