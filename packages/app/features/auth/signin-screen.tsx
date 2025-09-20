@@ -11,11 +11,11 @@ import {
   Paragraph,
 } from '@nextstack/ui';
 import type { JSX } from 'react';
-import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
-// These imports need to be adapted to your specific auth implementation
-// For now, we'll create placeholder types
+import { useAuth, useRememberMe } from '../../hooks/useAuth';
+import { isValidEmail } from '../../utils/auth';
+
 export interface SignInFormProps {
   redirectTo?: string;
   onSuccessCallback?: () => void | Promise<void>;
@@ -28,38 +28,6 @@ export interface SignInFormData {
   email: string;
   password: string;
 }
-
-// Placeholder hook - you'll need to adapt this to your existing useAuth hook
-interface AuthOptions {
-  redirectTo?: string;
-  onSuccess?: () => void | Promise<void>;
-}
-
-interface AuthReturn {
-  isLoading: boolean;
-  error: unknown;
-  signIn: (data: Record<string, unknown>) => Promise<void>;
-  clearError: () => void;
-}
-
-const useAuth = (_options: AuthOptions): AuthReturn => ({
-  isLoading: false,
-  error: null,
-  signIn: async (data: Record<string, unknown>): Promise<void> => {
-    // Your existing sign in logic here
-    void data;
-  },
-  clearError: (): void => {},
-});
-
-const useRememberMe = (): [boolean, (value: boolean) => void] => {
-  const [rememberMe, setRememberMe] = useState(false);
-  return [rememberMe, setRememberMe];
-};
-
-const isValidEmail = (email: string): boolean => {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-};
 
 export function SignInScreen({
   redirectTo = '/',
@@ -218,7 +186,7 @@ export function SignInScreen({
           {error && (
             <Card backgroundColor='$red1' borderColor='$red7' padding='$3'>
               <Text color='$red11'>
-                {(error as Error)?.message || 'An error occurred'}
+                {error.message}
               </Text>
             </Card>
           )}

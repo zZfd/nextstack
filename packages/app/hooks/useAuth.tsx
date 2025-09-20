@@ -1,22 +1,67 @@
-'use client';
-
 import { authClient } from '@nextstack/auth';
-import { useRouter } from 'next/navigation';
 import { useState, useCallback } from 'react';
+import { Platform } from 'react-native';
 
-import { extractAuthError, rememberMeUtils, type AuthError, type AuthResult } from '@/utils/auth';
+import {
+  extractAuthError,
+  rememberMeUtils,
+  type AuthError,
+  type AuthResult
+} from '../utils/auth';
 
+// Platform-specific navigation
+interface NavigationHandler {
+  push: (path: string) => void;
+}
+
+const createNavigationHandler = (): NavigationHandler => {
+  if (Platform.OS === 'web' && typeof window !== 'undefined') {
+    // Web navigation using window.location
+    return {
+      push: (path: string): void => {
+        window.location.href = path;
+      },
+    };
+  } else {
+    // Native navigation - you can integrate with React Navigation here
+    return {
+      push: (path: string): void => {
+        // TODO: Integrate with your navigation library
+        // Example: navigation.navigate(path);
+        // For now, we'll silently ignore navigation on native
+        void path;
+      },
+    };
+  }
+};
+
+// Hook options
 interface UseAuthOptions {
   redirectTo?: string;
   onSuccess?: () => void | Promise<void>;
   onError?: (error: AuthError) => void;
 }
 
+// Sign in data interface
+interface SignInData {
+  email: string;
+  password: string;
+  rememberMe?: boolean;
+}
+
+// Sign up data interface
+interface SignUpData {
+  name: string;
+  email: string;
+  password: string;
+}
+
+// Hook return interface
 interface UseAuthReturn {
   isLoading: boolean;
   error: AuthError | null;
-  signIn: (data: { email: string; password: string; rememberMe?: boolean }) => Promise<AuthResult>;
-  signUp: (data: { name: string; email: string; password: string }) => Promise<AuthResult>;
+  signIn: (data: SignInData) => Promise<AuthResult>;
+  signUp: (data: SignUpData) => Promise<AuthResult>;
   signOut: () => Promise<void>;
   clearError: () => void;
 }
@@ -26,7 +71,7 @@ interface UseAuthReturn {
  */
 export function useAuth(options: UseAuthOptions = {}): UseAuthReturn {
   const { redirectTo = '/', onSuccess, onError } = options;
-  const router = useRouter();
+  const navigation = createNavigationHandler();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<AuthError | null>(null);
@@ -35,11 +80,7 @@ export function useAuth(options: UseAuthOptions = {}): UseAuthReturn {
     setError(null);
   }, []);
 
-  const signIn = useCallback(async (data: {
-    email: string;
-    password: string;
-    rememberMe?: boolean
-  }): Promise<AuthResult> => {
+  const signIn = useCallback(async (data: SignInData): Promise<AuthResult> => {
     setIsLoading(true);
     setError(null);
 
@@ -65,7 +106,7 @@ export function useAuth(options: UseAuthOptions = {}): UseAuthReturn {
       await onSuccess?.();
 
       // Navigate to redirect URL
-      router.push(redirectTo);
+      navigation.push(redirectTo);
 
       return { data: result.data };
     } catch (err) {
@@ -76,18 +117,18 @@ export function useAuth(options: UseAuthOptions = {}): UseAuthReturn {
     } finally {
       setIsLoading(false);
     }
-  }, [redirectTo, onSuccess, onError, router]);
+  }, [redirectTo, onSuccess, onError, navigation]);
 
-  const signUp = useCallback(async (data: {
-    name: string;
-    email: string;
-    password: string
-  }): Promise<AuthResult> => {
+  const signUp = useCallback(async (data: SignUpData): Promise<AuthResult> => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const result = await authClient.signUp.email(data);
+      const result = await authClient.signUp.email({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });
 
       if (result.error) {
         const authError = extractAuthError(result.error);
@@ -99,8 +140,7 @@ export function useAuth(options: UseAuthOptions = {}): UseAuthReturn {
       // Success callback
       await onSuccess?.();
 
-      // For successful signup, we might want to auto-login
-      // or handle email verification flow
+      // For successful signup, auto-login and redirect
       if (result.data) {
         // Auto-login after successful signup
         const loginResult = await authClient.signIn.email({
@@ -109,7 +149,7 @@ export function useAuth(options: UseAuthOptions = {}): UseAuthReturn {
         });
 
         if (loginResult.data) {
-          router.push(redirectTo);
+          navigation.push(redirectTo);
         }
       }
 
@@ -122,7 +162,7 @@ export function useAuth(options: UseAuthOptions = {}): UseAuthReturn {
     } finally {
       setIsLoading(false);
     }
-  }, [redirectTo, onSuccess, onError, router]);
+  }, [redirectTo, onSuccess, onError, navigation]);
 
   const signOut = useCallback(async (): Promise<void> => {
     setIsLoading(true);
@@ -134,16 +174,16 @@ export function useAuth(options: UseAuthOptions = {}): UseAuthReturn {
       // Clear remember me preference
       rememberMeUtils.clear();
 
-      // Redirect to login or home
-      router.push('/auth/signin');
+      // Redirect to login page
+      navigation.push('/auth/signin');
     } catch (err) {
       const authError = extractAuthError(err);
       setError(authError);
-      console.error('Sign out error:', authError);
+      // TODO: Implement proper error logging
     } finally {
       setIsLoading(false);
     }
-  }, [router]);
+  }, [navigation]);
 
   return {
     isLoading,
@@ -158,9 +198,9 @@ export function useAuth(options: UseAuthOptions = {}): UseAuthReturn {
 /**
  * Hook specifically for remember me functionality
  */
-export function useRememberMe() {
+export function useRememberMe(): [boolean, (value: boolean) => void] {
   const [rememberMe, setRememberMe] = useState(() => {
-    // Initialize from localStorage on mount
+    // Initialize from storage on mount
     return rememberMeUtils.get();
   });
 
@@ -169,5 +209,5 @@ export function useRememberMe() {
     rememberMeUtils.set(remember);
   }, []);
 
-  return [rememberMe, handleRememberMeChange] as const;
+  return [rememberMe, handleRememberMeChange];
 }
