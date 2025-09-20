@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
-
-import { Providers } from './providers'
+import { NextTamaguiProvider } from '@nextstack/app/provider/NextTamaguiProvider'
 
 export const metadata: Metadata = {
-  title: 'Web SEO - Next.js App',
-  description: 'SEO-optimized web application with Next.js',
+  title: 'NextStack - Full-stack TypeScript Scaffold',
+  description: 'A full-stack TypeScript development scaffold built on Monorepo architecture',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
@@ -13,9 +16,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <Providers>{children}</Providers>
+        <NextTamaguiProvider>{children}</NextTamaguiProvider>
       </body>
     </html>
   )

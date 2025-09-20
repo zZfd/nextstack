@@ -14,12 +14,16 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@nextstack/app": "workspace:*",
     "@nextstack/trpc": "workspace:*",
+    "@nextstack/ui": "workspace:*",
     "@tanstack/react-query": "^5.80.3",
     "@trpc/client": "^11.5.1",
     "@trpc/react-query": "^11.5.1",
     "expo": "~53.0.22",
+    "expo-font": "~13.1.0",
     "expo-router": "~5.1.5",
+    "expo-splash-screen": "~0.29.17",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
     "react-native": "0.79.5",
