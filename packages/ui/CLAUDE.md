@@ -14,6 +14,7 @@ All component development must strictly adhere to the following principles and r
 2.  **Configuration-Driven**: All styling and design decisions must originate from `tamagui.config.ts`.
 3.  **Static-First**: Prioritize features that can be optimized at compile time to ensure maximum performance.
 4.  **Declarative API**: A component's API (props) should be declarative, describing "what it is," not "how to do something."
+5.  **Storybook**: use `@storybook/react-native-web-vite` not `@storybook/react`
 
 ---
 

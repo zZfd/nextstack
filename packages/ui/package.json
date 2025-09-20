@@ -18,9 +18,11 @@
     "@tamagui/animations-react-native": "^1.132.23",
     "@tamagui/config": "^1.132.23",
     "@tamagui/core": "^1.132.23",
+    "@tamagui/lucide-icons": "^1.132.23",
     "better-auth": "^1.3.9",
     "react-dom": "19.0.0",
     "react-native": "0.79.5",
+    "react-native-svg": "^15.13.0",
     "tamagui": "^1.132.23"
   },
   "peerDependencies": {
