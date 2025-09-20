@@ -1,6 +1,7 @@
-import { Button, H1, Paragraph, YStack, XStack } from '@nextstack/ui';
+import { Button, H1, Paragraph, YStack, XStack } from '@nextstack/ui'
+import type { JSX } from 'react'
 
-export function HomeScreenSimple() {
+export function HomeScreenSimple(): JSX.Element {
   return (
     <YStack
       flex={1}

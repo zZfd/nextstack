@@ -5,9 +5,11 @@ import {
   YStack,
   XStack,
 } from '@nextstack/ui'
+import type { JSX } from 'react'
+
 import { useNavigation } from '../../hooks/useNavigation'
 
-export function HomeScreen() {
+export function HomeScreen(): JSX.Element {
   const { getLinkProps } = useNavigation()
 
   const linkToSignIn = getLinkProps({

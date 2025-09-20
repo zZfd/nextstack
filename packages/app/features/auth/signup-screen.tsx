@@ -11,6 +11,7 @@ import {
   Paragraph,
   Progress,
 } from '@nextstack/ui'
+import type { JSX } from 'react'
 import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 
@@ -37,22 +38,34 @@ export interface SignUpFormProps {
 }
 
 // Placeholder auth hook
-const useAuth = (options: any) => ({
+interface AuthOptions {
+  redirectTo?: string
+  onSuccess?: () => void | Promise<void>
+}
+
+interface AuthReturn {
+  isLoading: boolean
+  error: unknown
+  signUp: (data: Record<string, unknown>) => Promise<void>
+  clearError: () => void
+}
+
+const useAuth = (_options: AuthOptions): AuthReturn => ({
   isLoading: false,
   error: null,
-  signUp: async (data: any) => {
-    console.log('Sign up:', data)
+  signUp: async (data: Record<string, unknown>): Promise<void> => {
     // Your existing sign up logic here
+    void data
   },
-  clearError: () => {},
+  clearError: (): void => {},
 })
 
-const isValidEmail = (email: string) => {
+const isValidEmail = (email: string): boolean => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
 // Simple password strength calculation
-const calculatePasswordStrength = (password: string) => {
+const calculatePasswordStrength = (password: string): number => {
   let strength = 0
   if (password.length >= 8) strength += 25
   if (/[a-z]/.test(password)) strength += 25
@@ -61,14 +74,14 @@ const calculatePasswordStrength = (password: string) => {
   return Math.min(strength, 100)
 }
 
-const getPasswordStrengthColor = (strength: number) => {
+const getPasswordStrengthColor = (strength: number): string => {
   if (strength < 25) return '$red10'
   if (strength < 50) return '$orange10'
   if (strength < 75) return '$yellow10'
   return '$green10'
 }
 
-const getPasswordStrengthText = (strength: number) => {
+const getPasswordStrengthText = (strength: number): string => {
   if (strength < 25) return 'Weak'
   if (strength < 50) return 'Fair'
   if (strength < 75) return 'Good'
@@ -78,13 +91,13 @@ const getPasswordStrengthText = (strength: number) => {
 export function SignUpScreen({
   redirectTo = '/',
   onSuccessCallback,
-  requireEmailVerification = false,
+  requireEmailVerification: _requireEmailVerification = false,
   showPasswordStrength = true,
   showTermsCheckbox = true,
   termsLink = '/terms',
   privacyLink = '/privacy',
   disabled = false,
-}: SignUpFormProps) {
+}: SignUpFormProps): JSX.Element {
   const { isLoading, error, signUp, clearError } = useAuth({
     redirectTo,
     onSuccess: onSuccessCallback,
@@ -110,12 +123,12 @@ export function SignUpScreen({
 
   const watchedPassword = watch('password')
 
-  const onSubmit = async (data: SignUpFormData) => {
+  const onSubmit = async (data: SignUpFormData): Promise<void> => {
     if (disabled) return
 
     clearError()
 
-    const { confirmPassword, agreeToTerms, ...signUpData } = data
+    const { confirmPassword: _confirmPassword, agreeToTerms: _agreeToTerms, ...signUpData } = data
     await signUp(signUpData)
   }
 
@@ -169,7 +182,7 @@ export function SignUpScreen({
               rules={{
                 required: 'Email is required',
                 validate: {
-                  isValidEmail: (value) =>
+                  isValidEmail: (value: string) =>
                     isValidEmail(value) || 'Please enter a valid email address',
                 },
               }}
@@ -259,7 +272,7 @@ export function SignUpScreen({
               name="confirmPassword"
               rules={{
                 required: 'Please confirm your password',
-                validate: (value) =>
+                validate: (value: string) =>
                   value === watchedPassword || 'Passwords do not match',
               }}
               render={({ field }) => (
@@ -337,7 +350,7 @@ export function SignUpScreen({
 
           {error && (
             <Card backgroundColor="$red1" borderColor="$red7" padding="$3">
-              <Text color="$red11">{(error as any)?.message || 'An error occurred'}</Text>
+              <Text color="$red11">{(error as Error)?.message || 'An error occurred'}</Text>
             </Card>
           )}
 

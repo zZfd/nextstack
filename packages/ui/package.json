@@ -15,7 +15,9 @@
   "scripts": {
     "build": "tamagui-build --skip-types",
     "watch": "tamagui-build --skip-types --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext ts,tsx --max-warnings 0",
+    "lint:fix": "eslint . --ext ts,tsx --max-warnings 0 --fix"
   },
   "dependencies": {
     "@tamagui/animations-react-native": "^1.133.0",
@@ -27,6 +29,7 @@
     "tamagui": "^1.133.0"
   },
   "devDependencies": {
+    "@nextstack/eslint-config": "workspace:*",
     "@nextstack/tsconfig": "workspace:*",
     "@tamagui/build": "^1.133.0",
     "@types/react": "^19.0.0",

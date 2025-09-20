@@ -1,27 +1,38 @@
-'use client'
+'use client';
 
-import '@tamagui/core/reset.css'
-import '@tamagui/font-inter/css/400.css'
-import '@tamagui/font-inter/css/700.css'
-import '@tamagui/polyfill-dev'
+import '@tamagui/core/reset.css';
+import '@tamagui/font-inter/css/400.css';
+import '@tamagui/font-inter/css/700.css';
+import '@tamagui/polyfill-dev';
 
-import { config } from '@nextstack/ui'
-import { NextThemeProvider, useRootTheme } from '@tamagui/next-theme'
-import { useServerInsertedHTML } from 'next/navigation'
-import type { ReactNode } from 'react'
-import { StyleSheet } from 'react-native'
+import { config } from '@nextstack/ui';
+import {
+  ColorScheme,
+  NextThemeProvider,
+  useRootTheme,
+} from '@tamagui/next-theme';
+import { useServerInsertedHTML } from 'next/navigation';
+import type { ReactNode, JSX } from 'react';
+import { StyleSheet } from 'react-native';
 
-import { Provider } from './index'
+import { Provider } from './index';
 
-export const NextTamaguiProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useRootTheme()
+export const NextTamaguiProvider = ({
+  children,
+}: {
+  children: ReactNode;
+}): JSX.Element => {
+  const [theme, setTheme] = useRootTheme();
 
   useServerInsertedHTML(() => {
-    // @ts-ignore
-    const rnwStyle = StyleSheet.getSheet()
+    // @ts-expect-error - StyleSheet.getSheet() is not typed properly
+    const rnwStyle = StyleSheet.getSheet();
     return (
       <>
-        <style dangerouslySetInnerHTML={{ __html: rnwStyle.textContent }} id={rnwStyle.id} />
+        <style
+          dangerouslySetInnerHTML={{ __html: rnwStyle.textContent }}
+          id={rnwStyle.id}
+        />
         <style
           dangerouslySetInnerHTML={{
             // the first time this runs you'll get the full CSS including all themes
@@ -33,7 +44,8 @@ export const NextTamaguiProvider = ({ children }: { children: ReactNode }) => {
         <style
           dangerouslySetInnerHTML={{
             __html: config.getCSS({
-              exclude: process.env.NODE_ENV === 'production' ? 'design-system' : null,
+              exclude:
+                process.env.NODE_ENV === 'production' ? 'design-system' : null,
             }),
           }}
         />
@@ -45,20 +57,20 @@ export const NextTamaguiProvider = ({ children }: { children: ReactNode }) => {
           }}
         />
       </>
-    )
-  })
+    );
+  });
 
   return (
     <NextThemeProvider
       skipNextHead
-      defaultTheme="light"
-      onChangeTheme={(next) => {
-        setTheme(next as any)
+      defaultTheme='light'
+      onChangeTheme={next => {
+        setTheme(next as ColorScheme);
       }}
     >
       <Provider disableRootThemeClass defaultTheme={theme || 'light'}>
         {children}
       </Provider>
     </NextThemeProvider>
-  )
-}
+  );
+};

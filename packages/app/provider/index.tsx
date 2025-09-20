@@ -5,13 +5,14 @@ import {
   config,
   isWeb,
 } from '@nextstack/ui'
+import type { JSX } from 'react'
 import { useColorScheme } from 'react-native'
 
 export function Provider({
   children,
   defaultTheme = 'light',
   ...rest
-}: Omit<TamaguiProviderProps, 'config'> & { defaultTheme?: string }) {
+}: Omit<TamaguiProviderProps, 'config'> & { defaultTheme?: string }): JSX.Element {
   const colorScheme = useColorScheme()
   const theme = defaultTheme || (colorScheme === 'dark' ? 'dark' : 'light')
 

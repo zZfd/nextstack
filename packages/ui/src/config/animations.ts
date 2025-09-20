@@ -1,6 +1,7 @@
 import { createAnimations } from '@tamagui/animations-react-native'
+import type { AnimationDriver } from '@tamagui/web'
 
-export const animations = createAnimations({
+export const animations: AnimationDriver = createAnimations({
   '100ms': {
     type: 'timing',
     duration: 100,

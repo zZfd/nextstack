@@ -1,12 +1,12 @@
+import { Provider } from '@nextstack/app/provider';
 import { trpc } from '@nextstack/trpc';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
+import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import { Provider } from '@nextstack/app/provider';
 
 import { config } from '../config';
 
@@ -57,13 +57,13 @@ export default function RootLayout() {
             }}
           >
             <Stack.Screen
-              name="index"
+              name='index'
               options={{
-                title: 'Mobile Expo App'
+                title: 'Mobile Expo App',
               }}
             />
           </Stack>
-          <StatusBar style="auto" />
+          <StatusBar style='auto' />
         </QueryClientProvider>
       </trpc.Provider>
     </Provider>
