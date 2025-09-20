@@ -292,9 +292,6 @@ importers:
       react-native-web:
         specifier: ^0.20.0
         version: 0.20.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      solito:
-        specifier: ^4.2.2
-        version: 4.4.1
     devDependencies:
       '@nextstack/eslint-config':
         specifier: workspace:*
@@ -402,9 +399,6 @@ importers:
       react-native-safe-area-context:
         specifier: 5.4.0
         version: 5.4.0(react-native@0.79.5(@babel/core@7.28.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
-      solito:
-        specifier: ^4.2.2
-        version: 4.4.1
     devDependencies:
       '@nextstack/eslint-config':
         specifier: workspace:*
@@ -415,6 +409,9 @@ importers:
       '@types/react':
         specifier: ~19.0.10
         version: 19.0.14
+      expo-router:
+        specifier: ~5.1.5
+        version: 5.1.5(g2j7k5ypdtogbgdrhh6kpm4jgq)
       next:
         specifier: ^15.1.8
         version: 15.5.2(@babel/core@7.28.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -7136,9 +7133,6 @@ packages:
   slugify@1.6.6:
     resolution: {integrity: sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==}
     engines: {node: '>=8.0.0'}
-
-  solito@4.4.1:
-    resolution: {integrity: sha512-5+XtaaOjRPV+q6uV9DruD2VRwtPpoLkZevQW3INGgRpsJNjulbd6JKlHoNeFRAvEJLJNU+nKbtv6Tq2pTxu2Aw==}
 
   source-list-map@2.0.1:
     resolution: {integrity: sha512-qnQ7gVMxGNxsiL4lEuJwe/To8UnK7fAnmbGEEH8RpLouuKbeEm0lhbQVFIrNSuB+G7tVrAlVsZgETT5nljf+Iw==}
@@ -16635,10 +16629,6 @@ snapshots:
       is-fullwidth-code-point: 5.1.0
 
   slugify@1.6.6: {}
-
-  solito@4.4.1:
-    dependencies:
-      typescript: 5.9.2
 
   source-list-map@2.0.1: {}
 

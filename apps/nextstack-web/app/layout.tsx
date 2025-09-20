@@ -1,5 +1,5 @@
-import type { Metadata } from 'next'
 import { NextTamaguiProvider } from '@nextstack/app/provider/NextTamaguiProvider'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'NextStack - Full-stack TypeScript Scaffold',

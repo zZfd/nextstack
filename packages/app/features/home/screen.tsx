@@ -5,14 +5,16 @@ import {
   YStack,
   XStack,
 } from '@nextstack/ui'
-import { useLink } from 'solito/navigation'
+import { useNavigation } from '../../hooks/useNavigation'
 
 export function HomeScreen() {
-  const linkToSignIn = useLink({
+  const { getLinkProps } = useNavigation()
+
+  const linkToSignIn = getLinkProps({
     href: '/auth/signin',
   })
 
-  const linkToSignUp = useLink({
+  const linkToSignUp = getLinkProps({
     href: '/auth/signup',
   })
 

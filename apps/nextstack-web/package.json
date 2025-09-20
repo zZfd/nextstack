@@ -33,8 +33,7 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-hook-form": "^7.62.0",
-    "react-native-web": "^0.20.0",
-    "solito": "^4.2.2"
+    "react-native-web": "^0.20.0"
   },
   "devDependencies": {
     "@nextstack/eslint-config": "workspace:*",

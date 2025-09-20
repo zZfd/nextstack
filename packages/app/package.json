@@ -25,13 +25,13 @@
     "@tamagui/next-theme": "^1.133.0",
     "react-native": "0.79.5",
     "react-native-safe-area-context": "5.4.0",
-    "react-hook-form": "^7.62.0",
-    "solito": "^4.2.2"
+    "react-hook-form": "^7.62.0"
   },
   "devDependencies": {
     "@nextstack/eslint-config": "workspace:*",
     "@nextstack/tsconfig": "workspace:*",
     "@types/react": "~19.0.10",
+    "expo-router": "~5.1.5",
     "next": "^15.1.8",
     "typescript": "^5.9.2"
   }
