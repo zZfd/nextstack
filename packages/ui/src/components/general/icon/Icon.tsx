@@ -71,7 +71,7 @@ export const Icon = ({ children, size = 'md', color, ...props }: IconProps) => {
         children as React.ReactElement<{ size?: number; color?: string }>,
         {
           size: getIconPixelSize(size),
-          color: color || '$color',
+          color: color,
           ...(children.props || {}),
         }
       )
