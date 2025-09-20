@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { YStack, XStack, Text } from 'tamagui';
+
 import { Switch } from './Switch';
 
 const meta: Meta<typeof Switch> = {

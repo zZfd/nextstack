@@ -1,14 +1,13 @@
+import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons';
 import {
   Select as TamaguiSelect,
   Adapt,
   Sheet,
   styled,
   SelectProps as TamaguiSelectProps,
-  YStack,
-  Text,
-  XStack
+  XStack,
 } from 'tamagui';
-import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons';
+
 import { Icon } from '../../general';
 
 // Select Props Interface - Rule 4: Explicit TypeScript interfaces
@@ -17,6 +16,7 @@ export interface SelectProps extends TamaguiSelectProps {
   variant?: 'default' | 'error' | 'success';
   placeholder?: string;
   items: SelectItem[];
+  disabled?: boolean;
 }
 
 export interface SelectItem {
@@ -143,12 +143,11 @@ const SelectViewport = styled(TamaguiSelect.Viewport, {
 });
 
 // Select Item - styled consistently with other form elements
-const SelectItem = styled(TamaguiSelect.Item, {
+const SelectItemComponent = styled(TamaguiSelect.Item, {
   name: 'SelectItem',
   paddingHorizontal: '$3',
   paddingVertical: '$2',
   borderRadius: '$2',
-  fontSize: '$4',
   cursor: 'pointer',
 
   // Hover and focus styles
@@ -205,18 +204,18 @@ export const Select = ({
   ...props
 }: SelectProps) => {
   return (
-    <TamaguiSelect {...props} disabled={disabled}>
+    <TamaguiSelect {...props}>
       <SelectTrigger size={size} variant={variant} disabled={disabled}>
         <SelectValue placeholder={placeholder} />
-        <XStack alignItems="center" marginLeft="$2">
-          <Icon size="sm" color="$color">
+        <XStack alignItems='center' marginLeft='$2'>
+          <Icon size='sm' color='$color'>
             <ChevronDown />
           </Icon>
         </XStack>
       </SelectTrigger>
 
       {/* Adapt to Sheet on mobile/touch devices - Rule 2: Use Tamagui building blocks */}
-      <Adapt when="sm" platform="touch">
+      <Adapt when='sm' platform='touch'>
         <Sheet modal dismissOnSnapToBottom>
           <Sheet.Frame>
             <Sheet.ScrollView>
@@ -229,26 +228,27 @@ export const Select = ({
 
       <SelectContent>
         <SelectScrollButton>
-          <Icon size="sm" color="$color">
+          <Icon size='sm' color='$color'>
             <ChevronUp />
           </Icon>
         </SelectScrollButton>
 
         <SelectViewport>
-          {items.map((item) => (
-            <SelectItem
+          {items.map(item => (
+            <SelectItemComponent
               key={item.value}
               value={item.value}
               disabled={item.disabled}
+              index={0}
             >
               <SelectItemText>{item.label}</SelectItemText>
-            </SelectItem>
+            </SelectItemComponent>
           ))}
         </SelectViewport>
 
         <TamaguiSelect.ScrollDownButton asChild>
           <SelectScrollButton>
-            <Icon size="sm" color="$color">
+            <Icon size='sm' color='$color'>
               <ChevronDown />
             </Icon>
           </SelectScrollButton>

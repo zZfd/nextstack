@@ -254,7 +254,7 @@ export const PerformanceExample: Story = {
         step={1}
         showValue
         formatValue={value => `${value}%`}
-        variant={45 > 80 ? 'error' : 45 > 60 ? 'default' : 'success'}
+        variant='success'
       />
 
       <Slider
@@ -265,7 +265,7 @@ export const PerformanceExample: Story = {
         step={1}
         showValue
         formatValue={value => `${value}%`}
-        variant={68 > 80 ? 'error' : 68 > 60 ? 'default' : 'success'}
+        variant='default'
       />
 
       <Slider

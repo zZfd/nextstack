@@ -1,15 +1,16 @@
+import { Plus, Minus } from '@tamagui/lucide-icons';
 import {
   styled,
   XStack,
   YStack,
   Text,
 } from 'tamagui';
-import { Plus, Minus } from '@tamagui/lucide-icons';
-import { Input, InputProps } from '../input';
+
 import { Icon } from '../../general';
+import { Input, InputProps } from '../input';
 
 // NumberInput Props Interface - Rule 4: Explicit TypeScript interfaces
-export interface NumberInputProps extends Omit<InputProps, 'value' | 'defaultValue' | 'onChangeText'> {
+export interface NumberInputProps extends Omit<InputProps, 'value' | 'defaultValue' | 'onChangeText' | 'onChange'> {
   value?: number;
   defaultValue?: number;
   min?: number;
@@ -32,15 +33,13 @@ const StepperButton = styled(XStack, {
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
-  borderColor: '$borderColor',
   backgroundColor: '$background',
   borderWidth: 1,
-  color: '$gray9',
+  borderColor: '$borderColor',
 
   hoverStyle: {
     backgroundColor: '$gray3',
-    color: '$gray11',
-  },
+    },
 
   pressStyle: {
     backgroundColor: '$gray4',
@@ -80,15 +79,18 @@ const StepperButton = styled(XStack, {
         cursor: 'not-allowed',
         hoverStyle: {
           backgroundColor: '$background',
-          color: '$gray9',
-        },
+                },
         pressStyle: {
           scale: 1,
         },
       },
     },
   } as const,
+  defaultVariants: {
+    size: 'md',
+  },
 });
+
 
 // NumberInput Input - extends base Input with stepper spacing
 const NumberInputField = styled(Input, {
@@ -212,6 +214,7 @@ export const NumberInput = ({
       {/* Decrement Button */}
       <StepperButton
         size={size}
+        // @ts-expect-error - Tamagui typing limitation with position variant
         position="left"
         disabled={disabled || !canDecrement}
         onPress={handleDecrement}
@@ -242,6 +245,7 @@ export const NumberInput = ({
       {/* Increment Button */}
       <StepperButton
         size={size}
+        // @ts-expect-error - Tamagui typing limitation with position variant
         position="right"
         disabled={disabled || !canIncrement}
         onPress={handleIncrement}

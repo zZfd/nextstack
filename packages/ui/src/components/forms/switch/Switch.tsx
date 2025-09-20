@@ -32,7 +32,7 @@ const StyledSwitch = styled(TamaguiSwitch, {
   },
 
   // Checked state styles
-  checkedStyle: {
+  pressStyle: {
     backgroundColor: '$primary',
   },
 
@@ -52,7 +52,7 @@ const StyledSwitch = styled(TamaguiSwitch, {
     variant: {
       default: {
         backgroundColor: '$gray6',
-        checkedStyle: {
+        pressStyle: {
           backgroundColor: '$primary',
         },
         focusStyle: {
@@ -61,7 +61,7 @@ const StyledSwitch = styled(TamaguiSwitch, {
       },
       error: {
         backgroundColor: '$gray6',
-        checkedStyle: {
+        pressStyle: {
           backgroundColor: '$destructive',
         },
         focusStyle: {
@@ -70,7 +70,7 @@ const StyledSwitch = styled(TamaguiSwitch, {
       },
       success: {
         backgroundColor: '$gray6',
-        checkedStyle: {
+        pressStyle: {
           backgroundColor: '$success',
         },
         focusStyle: {
@@ -96,7 +96,7 @@ const StyledSwitch = styled(TamaguiSwitch, {
 const SwitchThumb = styled(TamaguiSwitch.Thumb, {
   name: 'SwitchThumb',
   backgroundColor: '$background',
-  borderRadius: '100%',
+  borderRadius: '$6',
   shadowColor: '$shadowColor',
   shadowOpacity: 0.2,
   shadowOffset: { width: 0, height: 2 },
@@ -198,7 +198,7 @@ export const Switch = ({
   return (
     <XStack alignItems="flex-start" space="$3">
       {switchElement}
-      <YStack flex={1} space="$1">
+      <YStack flexGrow={1} space="$1">
         {label && (
           <SwitchLabel
             size={size}

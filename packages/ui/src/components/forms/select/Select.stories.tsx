@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { YStack, Text } from 'tamagui';
+
 import { Select } from './Select';
 
 const meta: Meta<typeof Select> = {
@@ -23,10 +24,6 @@ const meta: Meta<typeof Select> = {
       control: { type: 'radio' },
       options: ['default', 'error', 'success'],
       description: 'The visual variant of the select input',
-    },
-    disabled: {
-      control: { type: 'boolean' },
-      description: 'Whether the select is disabled',
     },
     placeholder: {
       control: { type: 'text' },
@@ -128,7 +125,6 @@ export const States: Story = {
         <Select
           items={countries}
           placeholder="Select a country..."
-          disabled
         />
       </YStack>
       <YStack space="$2">

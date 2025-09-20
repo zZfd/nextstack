@@ -1,3 +1,4 @@
+import { Check, Minus } from '@tamagui/lucide-icons';
 import {
   Checkbox as TamaguiCheckbox,
   styled,
@@ -6,7 +7,7 @@ import {
   Text,
   YStack,
 } from 'tamagui';
-import { Check, Minus } from '@tamagui/lucide-icons';
+
 import { Icon } from '../../general';
 
 // Checkbox Props Interface - Rule 4: Explicit TypeScript interfaces
@@ -41,8 +42,8 @@ const StyledCheckbox = styled(TamaguiCheckbox, {
     borderColor: '$borderColorHover',
   },
 
-  // Checked state styles
-  checkedStyle: {
+  // Checked state styles - using pressStyle instead of checkedStyle
+  pressStyle: {
     backgroundColor: '$primary',
     borderColor: '$primary',
   },
@@ -67,7 +68,7 @@ const StyledCheckbox = styled(TamaguiCheckbox, {
           borderColor: '$ring',
           shadowColor: '$ring',
         },
-        checkedStyle: {
+        pressStyle: {
           backgroundColor: '$primary',
           borderColor: '$primary',
         },
@@ -78,7 +79,7 @@ const StyledCheckbox = styled(TamaguiCheckbox, {
           borderColor: '$destructive',
           shadowColor: '$destructive',
         },
-        checkedStyle: {
+        pressStyle: {
           backgroundColor: '$destructive',
           borderColor: '$destructive',
         },
@@ -89,7 +90,7 @@ const StyledCheckbox = styled(TamaguiCheckbox, {
           borderColor: '$success',
           shadowColor: '$success',
         },
-        checkedStyle: {
+        pressStyle: {
           backgroundColor: '$success',
           borderColor: '$success',
         },
@@ -115,7 +116,6 @@ const StyledCheckbox = styled(TamaguiCheckbox, {
 // Checkbox Indicator - Rule 2: Use building blocks
 const CheckboxIndicator = styled(TamaguiCheckbox.Indicator, {
   name: 'CheckboxIndicator',
-  col: '$primaryForeground',
   alignItems: 'center',
   justifyContent: 'center',
 });
@@ -176,7 +176,8 @@ export const Checkbox = ({
   disabled,
   ...props
 }: CheckboxProps) => {
-  const checkboxId = props.id || `checkbox-${Math.random().toString(36).substr(2, 9)}`;
+  const checkboxId =
+    props.id || `checkbox-${Math.random().toString(36).substr(2, 9)}`;
 
   const renderIcon = () => {
     // Rule 2: Use Icon wrapper for consistent theming and sizing
@@ -184,13 +185,13 @@ export const Checkbox = ({
 
     if (indeterminate) {
       return (
-        <Icon size={iconSize} color="$primaryForeground">
+        <Icon size={iconSize} color='$primaryForeground'>
           <Minus />
         </Icon>
       );
     }
     return (
-      <Icon size={iconSize} color="$primaryForeground">
+      <Icon size={iconSize} color='$primaryForeground'>
         <Check />
       </Icon>
     );
@@ -204,9 +205,7 @@ export const Checkbox = ({
       variant={variant}
       disabled={disabled}
     >
-      <CheckboxIndicator>
-        {renderIcon()}
-      </CheckboxIndicator>
+      <CheckboxIndicator>{renderIcon()}</CheckboxIndicator>
     </StyledCheckbox>
   );
 
@@ -217,15 +216,15 @@ export const Checkbox = ({
 
   // Return checkbox with label and optional description - Rule 2: Use building blocks
   return (
-    <XStack alignItems="flex-start" space="$3">
+    <XStack alignItems='flex-start' space='$3'>
       {checkboxElement}
-      <YStack flex={1} space="$1">
+      <YStack flex={1} space='$1'>
         {label && (
           <CheckboxLabel
             size={size}
             disabled={disabled}
             htmlFor={checkboxId}
-            tag="label"
+            tag='label'
           >
             {label}
           </CheckboxLabel>

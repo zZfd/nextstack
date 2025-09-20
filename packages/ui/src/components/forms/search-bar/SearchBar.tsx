@@ -19,7 +19,6 @@ const SearchIconContainer = styled(XStack, {
   alignItems: 'center',
   justifyContent: 'center',
   paddingHorizontal: '$2',
-  color: '$gray9',
 
   variants: {
     position: {
@@ -53,12 +52,10 @@ const ClearButton = styled(XStack, {
   justifyContent: 'center',
   paddingHorizontal: '$2',
   cursor: 'pointer',
-  color: '$gray9',
   borderRadius: '$2',
 
   hoverStyle: {
     backgroundColor: '$gray4',
-    color: '$gray11',
   },
 
   pressStyle: {
@@ -156,10 +153,11 @@ export const SearchBar = ({
     <XStack position='relative' alignItems='center'>
       {/* Search Icon */}
       <SearchIconContainer
+        // @ts-expect-error - Tamagui typing limitation with position variant
         position={iconPosition}
         size={size}
-        left={iconPosition === 'left' ? '$0' : undefined}
-        right={iconPosition === 'right' ? '$0' : undefined}
+        left={iconPosition === 'left' ? 0 : undefined}
+        right={iconPosition === 'right' ? 0 : undefined}
         zIndex={1}
       >
         <Icon
@@ -179,7 +177,7 @@ export const SearchBar = ({
         value={value}
         placeholder={placeholder}
         iconPosition={iconPosition}
-        withClear={showClear}
+        withClear={showClear ? true : undefined}
         flex={1}
       />
 
@@ -195,7 +193,6 @@ export const SearchBar = ({
         >
           <Icon
             size={size === 'sm' ? 'xs' : size === 'md' ? 'sm' : 'md'}
-            color='$gray9'
           >
             <X />
           </Icon>

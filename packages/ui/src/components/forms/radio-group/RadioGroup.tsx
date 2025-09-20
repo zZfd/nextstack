@@ -1,3 +1,4 @@
+import { Circle } from '@tamagui/lucide-icons';
 import {
   RadioGroup as TamaguiRadioGroup,
   styled,
@@ -6,7 +7,7 @@ import {
   Text,
   YStack,
 } from 'tamagui';
-import { Circle } from '@tamagui/lucide-icons';
+
 import { Icon } from '../../general';
 
 // RadioGroup Props Interface - Rule 4: Explicit TypeScript interfaces
@@ -50,9 +51,9 @@ const StyledRadioGroup = styled(TamaguiRadioGroup, {
 });
 
 // RadioGroup Item - Rule 1: Token-based styling
-const RadioGroupItem = styled(TamaguiRadioGroup.Item, {
+const RadioGroupItemComponent = styled(TamaguiRadioGroup.Item, {
   name: 'RadioGroupItem',
-  borderRadius: '100%',
+  borderRadius: '$6',
   borderWidth: 2,
   borderColor: '$borderColor',
   backgroundColor: '$input',
@@ -241,7 +242,7 @@ export const RadioGroup = ({
 
           return (
             <XStack key={item.value} alignItems="flex-start" space="$3">
-              <RadioGroupItem
+              <RadioGroupItemComponent
                 value={item.value}
                 id={itemId}
                 size={size}
@@ -255,9 +256,9 @@ export const RadioGroup = ({
                     <Circle fill="currentColor" />
                   </Icon>
                 </RadioGroupIndicator>
-              </RadioGroupItem>
+              </RadioGroupItemComponent>
 
-              <YStack flex={1} space="$1">
+              <YStack flexGrow={1} space="$1">
                 <RadioLabel
                   size={size}
                   disabled={disabled || item.disabled}

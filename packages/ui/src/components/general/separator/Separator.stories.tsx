@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 
-import { Separator } from './Separator';
+import { Separator, SeparatorProps } from './Separator';
 
 const meta: Meta<typeof Separator> = {
   title: 'General/Separator',
@@ -34,7 +34,7 @@ export const Default: Story = {
     thickness: 'thin',
     variant: 'default',
   },
-  render: (args: any) => (
+  render: (args: SeparatorProps) => (
     <div style={{ width: '200px', padding: '20px' }}>
       <div style={{ marginBottom: '10px' }}>Content above</div>
       <Separator {...args} />

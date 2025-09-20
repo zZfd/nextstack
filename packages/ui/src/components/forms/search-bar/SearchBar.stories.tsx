@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-native-web-vite';
 import { YStack, Text } from 'tamagui';
+
 import { SearchBar } from './SearchBar';
 
 const meta: Meta<typeof SearchBar> = {
@@ -151,7 +152,7 @@ export const ClearButton: Story = {
           value="search term"
           placeholder="Search..."
           showClearButton
-          onClear={() => console.log('Cleared!')}
+          onClear={() => {}}
         />
       </YStack>
       <YStack space="$2">

@@ -73,11 +73,9 @@ const NavButton = styled(Button, {
   size: '$3',
   circular: true,
   chromeless: true,
-  color: '$gray9',
 
   hoverStyle: {
     backgroundColor: '$gray4',
-    color: '$gray11',
   },
 });
 
@@ -165,7 +163,7 @@ const InputIconContainer = styled(XStack, {
   position: 'absolute',
   right: '$2',
   zIndex: 1,
-  color: '$gray9',
+  borderColor: '$gray9',
 
   variants: {
     size: {
@@ -252,7 +250,7 @@ export const DatePicker = ({
   defaultValue,
   onChange,
   size = 'md',
-  variant = 'default',
+  variant: _variant = 'default',
   disabled = false,
   label,
   description,
@@ -304,10 +302,9 @@ export const DatePicker = ({
   const renderCalendar = () => {
     const daysInMonth = getDaysInMonth(viewDate);
     const firstDay = getFirstDayOfMonth(viewDate);
-    const today = new Date();
 
     const weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-    const days: JSX.Element[] = [];
+    const days: React.JSX.Element[] = [];
 
     // Previous month's trailing days
     const prevMonth = new Date(
@@ -372,7 +369,7 @@ export const DatePicker = ({
     }
 
     // Group days into weeks
-    const weeks: JSX.Element[] = [];
+    const weeks: React.JSX.Element[] = [];
     for (let i = 0; i < days.length; i += 7) {
       weeks.push(<DaysRow key={i}>{days.slice(i, i + 7)}</DaysRow>);
     }
@@ -416,7 +413,6 @@ export const DatePicker = ({
         <XStack position='relative' alignItems='center'>
           <DatePickerInput
             size={size}
-            variant={variant}
             disabled={disabled}
             value={displayValue}
             placeholder={placeholder}

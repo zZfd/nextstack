@@ -8,7 +8,9 @@ import {
 } from 'tamagui';
 
 // Slider Props Interface - Rule 4: Explicit TypeScript interfaces
-export interface SliderProps extends Omit<TamaguiSliderProps, 'size'> {
+export interface SliderProps extends Omit<TamaguiSliderProps,
+  'size' | 'hoverStyle' | 'pressStyle' | 'focusStyle' | 'focusWithinStyle' | 'focusVisibleStyle' |
+  'enterStyle' | 'exitStyle' | 'disabledStyle'> {
   size?: 'sm' | 'md' | 'lg';
   variant?: 'default' | 'error' | 'success';
   label?: string;
@@ -95,7 +97,7 @@ const SliderTrackActive = styled(TamaguiSlider.TrackActive, {
 const SliderThumb = styled(TamaguiSlider.Thumb, {
   name: 'SliderThumb',
   backgroundColor: '$background',
-  borderRadius: '100%',
+  borderRadius: '$6',
   borderWidth: 2,
   borderColor: '$primary',
   shadowColor: '$shadowColor',
@@ -121,13 +123,16 @@ const SliderThumb = styled(TamaguiSlider.Thumb, {
   variants: {
     size: {
       sm: {
-        size: '$4',
+        width: '$4',
+        height: '$4',
       },
       md: {
-        size: '$5',
+        width: '$5',
+        height: '$5',
       },
       lg: {
-        size: '$6',
+        width: '$6',
+        height: '$6',
       },
     },
     variant: {
@@ -235,20 +240,20 @@ export const Slider = ({
   disabled,
   value,
   defaultValue,
-  ...props
+  ...restProps
 }: SliderProps) => {
   const currentValue = value ?? defaultValue ?? [0];
   const displayValue = Array.isArray(currentValue) ? currentValue[0] : currentValue;
 
   const sliderElement = (
-    <XStack alignItems="center" space="$3" flex={1}>
+    <XStack alignItems="center" space="$3" flexGrow={1}>
+      {/* @ts-expect-error - Tamagui styling type conflict with size variants */}
       <StyledSlider
-        {...props}
-        size={size}
+        {...restProps}
         disabled={disabled}
         value={value}
         defaultValue={defaultValue}
-        flex={1}
+        flexGrow={1}
       >
         <SliderTrack size={size}>
           <SliderTrackActive variant={variant} />
