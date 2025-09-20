@@ -1,6 +1,5 @@
 'use client';
 
-import { Stack, Text } from '@nextstack/ui';
 import { useState } from 'react';
 
 interface CheckboxProps {
@@ -35,47 +34,39 @@ export function Checkbox({
   };
 
   return (
-    <Stack
-      flexDirection="row"
-      alignItems="center"
-      gap="$2"
-      onPress={handleToggle}
-      cursor={disabled ? 'not-allowed' : 'pointer'}
-      opacity={disabled ? 0.5 : 1}
+    <div
+      className={`flex items-center gap-2 ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+      onClick={handleToggle}
     >
-      <Stack
-        width={size}
-        height={size}
-        borderWidth={2}
-        borderColor={isChecked ? '$blue9' : '$gray7'}
-        backgroundColor={isChecked ? '$blue9' : 'transparent'}
-        borderRadius="$1"
-        alignItems="center"
-        justifyContent="center"
-        onPress={handleToggle}
+      <div
+        className={`
+          flex items-center justify-center border-2 rounded-sm
+          ${isChecked
+            ? 'border-blue-600 bg-blue-600'
+            : 'border-gray-400 bg-transparent'
+          }
+        `}
+        style={{ width: size, height: size }}
+        onClick={handleToggle}
       >
         {isChecked && (
-          <Text
-            color="white"
-            fontSize={size * 0.6}
-            fontWeight="bold"
-            lineHeight={size}
+          <span
+            className="text-white font-bold leading-none"
+            style={{ fontSize: size * 0.6 }}
           >
             ✓
-          </Text>
+          </span>
         )}
-      </Stack>
+      </div>
 
       {label && (
-        <Text
-          fontSize="$3"
-          color={disabled ? '$gray9' : '$gray11'}
-          onPress={handleToggle}
-          cursor={disabled ? 'not-allowed' : 'pointer'}
+        <span
+          className={`text-sm ${disabled ? 'text-gray-500' : 'text-gray-800'} ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+          onClick={handleToggle}
         >
           {label}
-        </Text>
+        </span>
       )}
-    </Stack>
+    </div>
   );
 }

@@ -1,7 +1,6 @@
 'use client';
 
 import { trpc } from '@nextstack/trpc';
-import { H1, Button, Stack, HStack, Text } from '@nextstack/ui';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
@@ -9,37 +8,46 @@ export default function Home() {
   const postsQuery = trpc.post.all.useQuery({});
 
   return (
-    <Stack padding='$4'>
-      <Stack space='$4'>
-        <H1>Web SEO (Next.js)</H1>
-        <Text>SEO-optimized application with server-side rendering</Text>
+    <div className="p-4">
+      <div className="space-y-4">
+        <h1 className="text-4xl font-bold">Web SEO (Next.js)</h1>
+        <p className="text-gray-600">SEO-optimized application with server-side rendering</p>
 
-        <HStack space='$2'>
-          <Button onPress={() => router.push('/auth/signin')}>Sign In</Button>
-          <Button onPress={() => router.push('/auth/signup')}>Sign Up</Button>
-        </HStack>
+        <div className="flex gap-2">
+          <button
+            onClick={() => router.push('/auth/signin')}
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            Sign In
+          </button>
+          <button
+            onClick={() => router.push('/auth/signup')}
+            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+          >
+            Sign Up
+          </button>
+        </div>
 
-        <Stack space='$2'>
-          <Text fontSize='$6' fontWeight='bold'>
+        <div className="space-y-2">
+          <h2 className="text-xl font-bold">
             Posts:
-          </Text>
-          {postsQuery.isLoading && <Text>Loading...</Text>}
+          </h2>
+          {postsQuery.isLoading && <p>Loading...</p>}
           {postsQuery.data?.map(
             (post) => (
-              <Stack
+              <div
                 key={post.id}
-                padding='$2'
-                backgroundColor='$background075'
+                className="p-2 bg-gray-100 rounded"
               >
-                <Text fontSize='$4' fontWeight='bold'>
+                <h3 className="text-lg font-bold">
                   {post.title}
-                </Text>
-                {post.content && <Text>{post.content}</Text>}
-              </Stack>
+                </h3>
+                {post.content && <p>{post.content}</p>}
+              </div>
             )
           )}
-        </Stack>
-      </Stack>
-    </Stack>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -1,29 +1,47 @@
 import { trpc } from '@nextstack/trpc';
-import { H1, Layout, Button, Stack, Text } from '@nextstack/ui';
 
 export function App() {
   const postsQuery = trpc.post.all.useQuery({});
   return (
-    <Layout padding='$4'>
-      <Stack space='$4'>
-        <H1>Web Dashboard (Vite)</H1>
-        <Button>Hello from Tamagui</Button>
+    <div style={{ padding: '16px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <h1 style={{ fontSize: '32px', fontWeight: 'bold', margin: 0 }}>Web Dashboard (Vite)</h1>
+        <button
+          style={{
+            backgroundColor: '#007AFF',
+            color: 'white',
+            border: 'none',
+            padding: '12px 16px',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            fontWeight: 'bold'
+          }}
+        >
+          Hello from React
+        </button>
 
-        <Stack space='$2'>
-          <Text fontSize='$6' fontWeight='bold'>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <h2 style={{ fontSize: '20px', fontWeight: 'bold', margin: 0 }}>
             Posts:
-          </Text>
-          {postsQuery.isLoading && <Text>Loading...</Text>}
+          </h2>
+          {postsQuery.isLoading && <p>Loading...</p>}
           {postsQuery.data?.map(post => (
-            <Layout key={post.id} padding='$2' backgroundColor='$background075'>
-              <Text fontSize='$4' fontWeight='bold'>
+            <div
+              key={post.id}
+              style={{
+                padding: '8px',
+                backgroundColor: '#f5f5f5',
+                borderRadius: '4px'
+              }}
+            >
+              <h3 style={{ fontSize: '16px', fontWeight: 'bold', margin: 0 }}>
                 {post.title}
-              </Text>
-              {post.content && <Text>{post.content}</Text>}
-            </Layout>
+              </h3>
+              {post.content && <p style={{ margin: '4px 0 0 0' }}>{post.content}</p>}
+            </div>
           ))}
-        </Stack>
-      </Stack>
-    </Layout>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -1,5 +1,4 @@
 import { trpc } from '@nextstack/trpc';
-import { TamaguiProvider } from '@nextstack/ui';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
 import { Stack } from 'expo-router';
@@ -23,27 +22,25 @@ export default function RootLayout() {
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
-        <TamaguiProvider>
-          <Stack
-            screenOptions={{
-              headerStyle: {
-                backgroundColor: '#f4511e',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
+        <Stack
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: '#f4511e',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        >
+          <Stack.Screen
+            name="index"
+            options={{
+              title: 'Mobile Expo App'
             }}
-          >
-            <Stack.Screen 
-              name="index" 
-              options={{ 
-                title: 'Mobile Expo App'
-              }} 
-            />
-          </Stack>
-          <StatusBar style="auto" />
-        </TamaguiProvider>
+          />
+        </Stack>
+        <StatusBar style="auto" />
       </QueryClientProvider>
     </trpc.Provider>
   );

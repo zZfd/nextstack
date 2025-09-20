@@ -1,7 +1,7 @@
 'use client';
 
-import { Stack, HStack, Text } from '@nextstack/ui';
 import { useRouter } from 'next/navigation';
+import React from 'react';
 
 import { SignUpForm } from '@/components/forms/SignUpForm';
 
@@ -9,33 +9,24 @@ export default function SignUpPage() {
   const router = useRouter();
 
   return (
-    <Stack
-      minHeight="100vh"
-      justifyContent="center"
-      alignItems="center"
-      backgroundColor="$background"
-      padding="$4"
-    >
-      <Stack maxWidth="$24" width="100%" space="$6">
-        <Stack space="$2" alignItems="center">
-          <Text fontSize="$8" fontWeight="bold" textAlign="center">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+      <div className="max-w-sm w-full space-y-6">
+        <div className="space-y-2 text-center">
+          <h1 className="text-3xl font-bold text-center">
             Create your NextStack account
-          </Text>
-          <HStack space="$1" alignItems="center">
-            <Text fontSize="$4" color="$gray11">
+          </h1>
+          <div className="flex items-center justify-center gap-1">
+            <span className="text-lg text-gray-600">
               Or
-            </Text>
-            <Text
-              fontSize="$4"
-              color="$blue10"
-              textDecorationLine="underline"
-              onPress={() => router.push('/auth/signin')}
-              cursor="pointer"
+            </span>
+            <span
+              className="text-lg text-blue-600 underline cursor-pointer"
+              onClick={() => router.push('/auth/signin')}
             >
               sign in to your existing account
-            </Text>
-          </HStack>
-        </Stack>
+            </span>
+          </div>
+        </div>
 
         <SignUpForm
           redirectTo="/dashboard"
@@ -44,7 +35,7 @@ export default function SignUpPage() {
           termsLink="/terms"
           privacyLink="/privacy"
         />
-      </Stack>
-    </Stack>
+      </div>
+    </div>
   );
 }

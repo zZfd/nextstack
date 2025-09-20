@@ -1,7 +1,6 @@
 'use client';
 
-import { Stack, HStack, Text } from '@nextstack/ui';
-import { Button, Input, FormField, FormLabel, FormError } from '@nextstack/ui';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Checkbox } from './Checkbox';
@@ -67,11 +66,11 @@ export function SignInForm({
   };
 
   return (
-    <Stack space='$4' width='100%' maxWidth='$24'>
-      <Stack space='$3'>
-        <FormField>
-          <FormLabel>Email</FormLabel>
-          <Input
+    <div className="w-full max-w-sm space-y-4">
+      <div className="space-y-3">
+        <div className="space-y-1">
+          <label className="block text-sm font-medium text-gray-700">Email</label>
+          <input
             {...register('email', {
               required: 'Email is required',
               validate: {
@@ -79,21 +78,23 @@ export function SignInForm({
                   isValidEmail(value) || 'Please enter a valid email address',
               },
             })}
-            placeholder='Enter your email'
-            keyboardType='email-address'
-            autoCapitalize='none'
-            autoComplete='email'
+            placeholder="Enter your email"
+            type="email"
+            autoCapitalize="none"
+            autoComplete="email"
             autoFocus
-            variant={errors.email ? 'error' : 'default'}
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              errors.email ? 'border-red-500' : 'border-gray-300'
+            }`}
             disabled={disabled || isLoading}
-            onSubmitEditing={() => setFocus('password')}
+            onKeyDown={(e) => e.key === 'Enter' && setFocus('password')}
           />
-          {errors.email && <FormError>{errors.email.message}</FormError>}
-        </FormField>
+          {errors.email && <div className="text-sm text-red-600">{errors.email.message}</div>}
+        </div>
 
-        <FormField>
-          <FormLabel>Password</FormLabel>
-          <Input
+        <div className="space-y-1">
+          <label className="block text-sm font-medium text-gray-700">Password</label>
+          <input
             {...register('password', {
               required: 'Password is required',
               minLength: {
@@ -101,20 +102,22 @@ export function SignInForm({
                 message: 'Password must be at least 6 characters',
               },
             })}
-            placeholder='Enter your password'
-            secureTextEntry
-            autoComplete='current-password'
-            variant={errors.password ? 'error' : 'default'}
+            placeholder="Enter your password"
+            type="password"
+            autoComplete="current-password"
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              errors.password ? 'border-red-500' : 'border-gray-300'
+            }`}
             disabled={disabled || isLoading}
-            onSubmitEditing={handleSubmit(onSubmit)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSubmit(onSubmit)()}
           />
-          {errors.password && <FormError>{errors.password.message}</FormError>}
-        </FormField>
-      </Stack>
+          {errors.password && <div className="text-sm text-red-600">{errors.password.message}</div>}
+        </div>
+      </div>
 
       {/* Remember Me and Forgot Password */}
       {(showRememberMe || showForgotPassword) && (
-        <HStack justifyContent='space-between' alignItems='center'>
+        <div className="flex justify-between items-center">
           {showRememberMe ? (
             <Checkbox
               checked={rememberMe}
@@ -123,49 +126,37 @@ export function SignInForm({
               label="Remember me"
             />
           ) : (
-            <Stack />
+            <div />
           )}
 
           {showForgotPassword && (
-            <Text
-              fontSize='$3'
-              color='$blue10'
-              textDecorationLine='underline'
-              cursor='pointer'
-              onPress={() => {
+            <span
+              className="text-sm text-blue-600 underline cursor-pointer"
+              onClick={() => {
                 // Navigate to forgot password page
                 window.location.href = '/auth/forgot-password';
               }}
             >
               Forgot password?
-            </Text>
+            </span>
           )}
-        </HStack>
+        </div>
       )}
 
       {/* Global error message */}
       {error && (
-        <Stack
-          backgroundColor='$red2'
-          borderColor='$red7'
-          borderWidth={1}
-          padding='$3'
-          borderRadius='$2'
-        >
-          <Text color='$red11'>{error.message}</Text>
-        </Stack>
+        <div className="bg-red-50 border border-red-300 rounded-md p-3">
+          <p className="text-red-700">{error.message}</p>
+        </div>
       )}
 
-      <Button
-        onPress={handleSubmit(onSubmit)}
+      <button
+        onClick={handleSubmit(onSubmit)}
         disabled={disabled || isLoading}
-        variant='default'
-        size='md'
+        className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <Text color='$primaryForeground'>
-          {isLoading ? 'Signing in...' : 'Sign In'}
-        </Text>
-      </Button>
-    </Stack>
+        {isLoading ? 'Signing in...' : 'Sign In'}
+      </button>
+    </div>
   );
 }

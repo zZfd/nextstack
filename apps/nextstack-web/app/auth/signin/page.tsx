@@ -1,7 +1,7 @@
 'use client';
 
-import { Stack, HStack, Text } from '@nextstack/ui';
 import { useRouter } from 'next/navigation';
+import React from 'react';
 
 import { SignInForm } from '@/components/forms/SignInForm';
 
@@ -9,38 +9,29 @@ export default function SignInPage() {
   const router = useRouter();
 
   return (
-    <Stack
-      minHeight="100vh"
-      justifyContent="center"
-      alignItems="center"
-      backgroundColor="$background"
-      padding="$4"
-    >
-      <Stack maxWidth="$24" width="100%" space="$6">
-        <Stack space="$2" alignItems="center">
-          <Text fontSize="$8" fontWeight="bold" textAlign="center">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+      <div className="max-w-sm w-full space-y-6">
+        <div className="space-y-2 text-center">
+          <h1 className="text-3xl font-bold text-center">
             Sign in to NextStack
-          </Text>
-          <HStack space="$1" alignItems="center">
-            <Text fontSize="$4" color="$gray11">
+          </h1>
+          <div className="flex items-center justify-center gap-1">
+            <span className="text-lg text-gray-600">
               Or
-            </Text>
-            <Text
-              fontSize="$4"
-              color="$blue10"
-              textDecorationLine="underline"
-              onPress={() => router.push('/auth/signup')}
-              cursor="pointer"
+            </span>
+            <span
+              className="text-lg text-blue-600 underline cursor-pointer"
+              onClick={() => router.push('/auth/signup')}
             >
               create a new account
-            </Text>
-          </HStack>
-        </Stack>
+            </span>
+          </div>
+        </div>
 
         <SignInForm
           redirectTo="/dashboard"
         />
-      </Stack>
-    </Stack>
+      </div>
+    </div>
   );
 }

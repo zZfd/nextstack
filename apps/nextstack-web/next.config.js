@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@nextstack/ui", "@nextstack/trpc", "@nextstack/api", "@nextstack/auth", "tamagui", "@tamagui/core", "@tamagui/config"],
+  transpilePackages: ["@nextstack/trpc", "@nextstack/api", "@nextstack/auth"],
   experimental: {
-    optimizePackageImports: ["@nextstack/ui", "tamagui"]
+    optimizePackageImports: []
   },
   output: 'standalone',
   eslint: {

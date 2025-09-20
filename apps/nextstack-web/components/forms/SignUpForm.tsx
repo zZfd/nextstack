@@ -1,7 +1,6 @@
 'use client';
 
-import { Stack, HStack, Text } from '@nextstack/ui';
-import { Button, Input, FormField, FormLabel, FormError } from '@nextstack/ui';
+import React from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -44,7 +43,7 @@ export interface SignUpFormProps {
 export function SignUpForm({
   redirectTo = '/',
   onSuccessCallback,
-  requireEmailVerification = false,
+  requireEmailVerification: _requireEmailVerification = false,
   showPasswordStrength = true,
   showTermsCheckbox = true,
   termsLink = '/terms',
@@ -96,11 +95,11 @@ export function SignUpForm({
   };
 
   return (
-    <Stack space='$4' width='100%' maxWidth='$24'>
-      <Stack space='$3'>
-        <FormField>
-          <FormLabel>Full Name</FormLabel>
-          <Input
+    <div className="w-full max-w-sm space-y-4">
+      <div className="space-y-3">
+        <div className="space-y-1">
+          <label className="block text-sm font-medium text-gray-700">Full Name</label>
+          <input
             {...register('name', {
               required: 'Full name is required',
               minLength: {
@@ -108,20 +107,22 @@ export function SignUpForm({
                 message: 'Name must be at least 2 characters',
               },
             })}
-            placeholder='Enter your full name'
-            autoCapitalize='words'
-            autoComplete='name'
+            placeholder="Enter your full name"
+            autoCapitalize="words"
+            autoComplete="name"
             autoFocus
-            variant={errors.name ? 'error' : 'default'}
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              errors.name ? 'border-red-500' : 'border-gray-300'
+            }`}
             disabled={disabled || isLoading}
-            onSubmitEditing={() => setFocus('email')}
+            onKeyDown={(e) => e.key === 'Enter' && setFocus('email')}
           />
-          {errors.name && <FormError>{errors.name.message}</FormError>}
-        </FormField>
+          {errors.name && <div className="text-sm text-red-600">{errors.name.message}</div>}
+        </div>
 
-        <FormField>
-          <FormLabel>Email</FormLabel>
-          <Input
+        <div className="space-y-1">
+          <label className="block text-sm font-medium text-gray-700">Email</label>
+          <input
             {...register('email', {
               required: 'Email is required',
               validate: {
@@ -129,20 +130,22 @@ export function SignUpForm({
                   isValidEmail(value) || 'Please enter a valid email address',
               },
             })}
-            placeholder='Enter your email'
-            keyboardType='email-address'
-            autoCapitalize='none'
-            autoComplete='email'
-            variant={errors.email ? 'error' : 'default'}
+            placeholder="Enter your email"
+            type="email"
+            autoCapitalize="none"
+            autoComplete="email"
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              errors.email ? 'border-red-500' : 'border-gray-300'
+            }`}
             disabled={disabled || isLoading}
-            onSubmitEditing={() => setFocus('password')}
+            onKeyDown={(e) => e.key === 'Enter' && setFocus('password')}
           />
-          {errors.email && <FormError>{errors.email.message}</FormError>}
-        </FormField>
+          {errors.email && <div className="text-sm text-red-600">{errors.email.message}</div>}
+        </div>
 
-        <FormField>
-          <FormLabel>Password</FormLabel>
-          <Input
+        <div className="space-y-1">
+          <label className="block text-sm font-medium text-gray-700">Password</label>
+          <input
             {...register('password', {
               required: 'Password is required',
               minLength: {
@@ -155,14 +158,16 @@ export function SignUpForm({
                   'Password must contain at least one lowercase letter, one uppercase letter, and one number',
               },
             })}
-            placeholder='Create a password'
-            secureTextEntry
-            autoComplete='new-password'
-            variant={errors.password ? 'error' : 'default'}
+            placeholder="Create a password"
+            type="password"
+            autoComplete="new-password"
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              errors.password ? 'border-red-500' : 'border-gray-300'
+            }`}
             disabled={disabled || isLoading}
-            onSubmitEditing={() => setFocus('confirmPassword')}
+            onKeyDown={(e) => e.key === 'Enter' && setFocus('confirmPassword')}
           />
-          {errors.password && <FormError>{errors.password.message}</FormError>}
+          {errors.password && <div className="text-sm text-red-600">{errors.password.message}</div>}
 
           {/* Password Strength Indicator */}
           {showPasswordStrength && watchPassword && (
@@ -172,33 +177,35 @@ export function SignUpForm({
               showFeedback={true}
             />
           )}
-        </FormField>
+        </div>
 
-        <FormField>
-          <FormLabel>Confirm Password</FormLabel>
-          <Input
+        <div className="space-y-1">
+          <label className="block text-sm font-medium text-gray-700">Confirm Password</label>
+          <input
             {...register('confirmPassword', {
               required: 'Please confirm your password',
               validate: (value: string) =>
                 value === watchPassword || 'Passwords do not match',
             })}
-            placeholder='Confirm your password'
-            secureTextEntry
-            autoComplete='new-password'
-            variant={errors.confirmPassword ? 'error' : 'default'}
+            placeholder="Confirm your password"
+            type="password"
+            autoComplete="new-password"
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
+            }`}
             disabled={disabled || isLoading}
-            onSubmitEditing={handleSubmit(onSubmit)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSubmit(onSubmit)()}
           />
           {errors.confirmPassword && (
-            <FormError>{errors.confirmPassword.message}</FormError>
+            <div className="text-sm text-red-600">{errors.confirmPassword.message}</div>
           )}
-        </FormField>
-      </Stack>
+        </div>
+      </div>
 
       {/* Terms and Conditions */}
       {showTermsCheckbox && (
-        <Stack>
-          <HStack space='$2' alignItems='flex-start'>
+        <div>
+          <div className="flex items-start gap-2">
             <Checkbox
               checked={watchAgreeToTerms}
               onChange={checked => {
@@ -212,74 +219,55 @@ export function SignUpForm({
               }}
               disabled={disabled || isLoading}
             />
-            <Text fontSize='$3' color='$gray11' lineHeight='$1' flex={1}>
+            <p className="text-sm text-gray-600 flex-1 leading-tight">
               I agree to the{' '}
-              <Text
-                color='$blue10'
-                textDecorationLine='underline'
-                cursor='pointer'
-                onPress={() => window.open(termsLink, '_blank')}
+              <span
+                className="text-blue-600 underline cursor-pointer"
+                onClick={() => window.open(termsLink, '_blank')}
               >
                 Terms and Conditions
-              </Text>
+              </span>
               {' and '}
-              <Text
-                color='$blue10'
-                textDecorationLine='underline'
-                cursor='pointer'
-                onPress={() => window.open(privacyLink, '_blank')}
+              <span
+                className="text-blue-600 underline cursor-pointer"
+                onClick={() => window.open(privacyLink, '_blank')}
               >
                 Privacy Policy
-              </Text>
-            </Text>
-          </HStack>
+              </span>
+            </p>
+          </div>
           {showTermsCheckbox && errors.agreeToTerms && (
-            <FormError>{errors.agreeToTerms.message}</FormError>
+            <div className="text-sm text-red-600">{errors.agreeToTerms.message}</div>
           )}
-        </Stack>
+        </div>
       )}
 
       {/* Global error message */}
       {error && (
-        <Stack
-          backgroundColor='$red2'
-          borderColor='$red7'
-          borderWidth={1}
-          padding='$3'
-          borderRadius='$2'
-        >
-          <Text color='$red11'>{error.message}</Text>
-        </Stack>
+        <div className="bg-red-50 border border-red-300 rounded-md p-3">
+          <p className="text-red-700">{error.message}</p>
+        </div>
       )}
 
       {/* Email verification message */}
       {showVerificationMessage && (
-        <Stack
-          backgroundColor='$blue2'
-          borderColor='$blue7'
-          borderWidth={1}
-          padding='$3'
-          borderRadius='$2'
-        >
-          <Text color='$blue11'>
+        <div className="bg-blue-50 border border-blue-300 rounded-md p-3">
+          <p className="text-blue-700">
             Account created successfully! Please check your email to verify your
             account before signing in.
-          </Text>
-        </Stack>
+          </p>
+        </div>
       )}
 
-      <Button
-        onPress={handleSubmit(onSubmit)}
+      <button
+        onClick={handleSubmit(onSubmit)}
         disabled={
           disabled || isLoading || (showTermsCheckbox && !watchAgreeToTerms)
         }
-        variant='default'
-        size='md'
+        className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <Text color='$primaryForeground'>
-          {isLoading ? 'Creating account...' : 'Create Account'}
-        </Text>
-      </Button>
-    </Stack>
+        {isLoading ? 'Creating account...' : 'Create Account'}
+      </button>
+    </div>
   );
 }

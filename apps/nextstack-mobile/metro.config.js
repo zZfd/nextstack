@@ -20,7 +20,6 @@ config.resolver.nodeModulesPaths = [
 // Add workspace packages as extra node modules
 config.resolver.alias = {
   '@nextstack/trpc': path.resolve(monorepoRoot, 'packages/trpc'),
-  '@nextstack/ui': path.resolve(monorepoRoot, 'packages/ui'),
 };
 
 module.exports = config;

@@ -1,6 +1,6 @@
 'use client';
 
-import { Stack, HStack, Text } from '@nextstack/ui';
+import React from 'react';
 
 import {
   calculatePasswordStrength,
@@ -27,50 +27,46 @@ export function PasswordStrengthIndicator({
   }
 
   return (
-    <Stack space="$2">
+    <div className="space-y-2">
       {/* Strength bars */}
-      <HStack space="$1">
+      <div className="flex gap-1">
         {[0, 1, 2, 3, 4].map((level) => (
-          <Stack
+          <div
             key={level}
-            height="$1"
-            flex={1}
-            backgroundColor={
-              level <= strength.score
+            className="h-1 flex-1 rounded-sm"
+            style={{
+              backgroundColor: level <= strength.score
                 ? PASSWORD_STRENGTH_COLORS[strength.score]
-                : '$gray4'
-            }
-            borderRadius="$1"
+                : '#e5e7eb'
+            }}
           />
         ))}
-      </HStack>
+      </div>
 
       {/* Strength label */}
       {showLabel && (
-        <Text
-          fontSize="$3"
-          color={PASSWORD_STRENGTH_COLORS[strength.score]}
-          fontWeight="500"
+        <div
+          className="text-sm font-medium"
+          style={{ color: PASSWORD_STRENGTH_COLORS[strength.score] }}
         >
           {PASSWORD_STRENGTH_LABELS[strength.score]}
-        </Text>
+        </div>
       )}
 
       {/* Feedback */}
       {showFeedback && strength.feedback.length > 0 && (
-        <Stack space="$1">
+        <div className="space-y-1">
           {strength.feedback.map((feedback, index) => (
-            <Text
+            <div
               key={index}
-              fontSize="$2"
-              color="$gray11"
+              className="text-xs text-gray-600"
             >
               • {feedback}
-            </Text>
+            </div>
           ))}
-        </Stack>
+        </div>
       )}
-    </Stack>
+    </div>
   );
 }
 
@@ -85,29 +81,26 @@ export function PasswordStrengthBadge({ password }: { password: string }) {
   }
 
   return (
-    <HStack space="$2" alignItems="center">
-      <HStack space="$0.5">
+    <div className="flex items-center gap-2">
+      <div className="flex gap-0.5">
         {[0, 1, 2, 3, 4].map((level) => (
-          <Stack
+          <div
             key={level}
-            width="$1"
-            height="$1"
-            backgroundColor={
-              level <= strength.score
+            className="w-1 h-1 rounded-sm"
+            style={{
+              backgroundColor: level <= strength.score
                 ? PASSWORD_STRENGTH_COLORS[strength.score]
-                : '$gray4'
-            }
-            borderRadius="$1"
+                : '#e5e7eb'
+            }}
           />
         ))}
-      </HStack>
-      <Text
-        fontSize="$2"
-        color={PASSWORD_STRENGTH_COLORS[strength.score]}
-        fontWeight="500"
+      </div>
+      <div
+        className="text-xs font-medium"
+        style={{ color: PASSWORD_STRENGTH_COLORS[strength.score] }}
       >
         {PASSWORD_STRENGTH_LABELS[strength.score]}
-      </Text>
-    </HStack>
+      </div>
+    </div>
   );
 }

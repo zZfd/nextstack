@@ -1,7 +1,6 @@
 'use client'
 
 import { trpc } from '@nextstack/trpc'
-import { TamaguiProvider } from '@nextstack/ui'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
 import React, { useState } from 'react'
@@ -32,9 +31,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
-        <TamaguiProvider>
-          {children}
-        </TamaguiProvider>
+        {children}
       </QueryClientProvider>
     </trpc.Provider>
   )
