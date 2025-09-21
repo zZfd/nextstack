@@ -1,5 +1,5 @@
-import { Button, H1, Paragraph, YStack, XStack } from '@nextstack/ui'
-import type { JSX } from 'react'
+import { Button, H1, Paragraph, YStack, XStack } from '@nextstack/ui';
+import type { JSX } from 'react';
 
 export function HomeScreenSimple(): JSX.Element {
   return (
@@ -12,10 +12,10 @@ export function HomeScreenSimple(): JSX.Element {
       backgroundColor='$background'
     >
       <YStack gap='$4' alignItems='center'>
-        <H1 style={{textAlign: 'center'}} color='$color12'>
+        <H1 color='$color12'>
           Welcome to NextStack
         </H1>
-        <Paragraph color='$color10' style={{textAlign: 'center'}}>
+        <Paragraph color='$color10'>
           A full-stack TypeScript development scaffold built on Monorepo
           architecture
         </Paragraph>
