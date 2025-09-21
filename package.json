@@ -2,7 +2,7 @@
   "name": "nextstack",
   "private": true,
   "scripts": {
-    "dev": "turbo dev --filter=nextstack-web --filter=nextstack-api",
+    "dev": "turbo dev --filter=nextstack-api",
     "lint": "NODE_OPTIONS='--max-old-space-size=2048' turbo lint",
     "lint:fix": "NODE_OPTIONS='--max-old-space-size=2048' turbo lint:fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

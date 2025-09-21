@@ -1,4 +1,4 @@
-import { Provider } from '@nextstack/app/provider';
+// Removed Provider import - implement locally if needed
 import { trpc } from '@nextstack/trpc';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
@@ -42,7 +42,7 @@ export default function RootLayout() {
   }
 
   return (
-    <Provider>
+    <>
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
           <Stack
@@ -66,6 +66,6 @@ export default function RootLayout() {
           <StatusBar style='auto' />
         </QueryClientProvider>
       </trpc.Provider>
-    </Provider>
+    </>
   );
 }

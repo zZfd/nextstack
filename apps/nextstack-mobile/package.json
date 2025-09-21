@@ -14,9 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@nextstack/app": "workspace:*",
     "@nextstack/trpc": "workspace:*",
-    "@nextstack/ui": "workspace:*",
     "@rn-primitives/accordion": "^1.0.4",
     "@rn-primitives/alert-dialog": "^1.0.4",
     "@rn-primitives/aspect-ratio": "^1.0.4",
