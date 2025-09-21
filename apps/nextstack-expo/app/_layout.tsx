@@ -2,6 +2,7 @@ import '@/global.css';
 
 // Removed Provider import - implement locally if needed
 import { trpc } from '@nextstack/trpc';
+import { ThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
 import { useFonts } from 'expo-font';
@@ -9,9 +10,9 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { ThemeProvider } from '@react-navigation/native';
 
 import { config } from '../config';
+
 import { useColorScheme } from '@/lib/useColorScheme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.

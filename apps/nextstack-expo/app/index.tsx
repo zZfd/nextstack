@@ -1,23 +1,33 @@
 import { ScrollView, View } from 'react-native';
 
-import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Text } from '@/components/ui';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Text,
+} from '@/components/ui';
 import '@/global.css';
 
 export default function HomePage() {
   return (
-    <ScrollView className="flex-1 bg-background">
-      <View className="flex-1 justify-center items-center p-6 gap-6">
-        <View className="absolute top-12 right-6 z-10">
+    <ScrollView className='flex-1 bg-background'>
+      <View className='flex-1 justify-center items-center p-6 gap-6'>
+        <View className='absolute top-12 right-6 z-10'>
           <ThemeToggle />
         </View>
 
-        <Text className="text-3xl font-bold text-foreground">NextStack Mobile</Text>
-        <Text className="text-lg text-muted-foreground text-center">
+        <Text className='text-3xl font-bold text-foreground'>
+          NextStack Mobile
+        </Text>
+        <Text className='text-lg text-muted-foreground text-center'>
           Welcome to the mobile app with @solid/native patterns!
         </Text>
 
-        <Card className="w-full max-w-sm">
+        <Card className='w-full max-w-sm'>
           <CardHeader>
             <CardTitle>
               <Text>UI Components</Text>
@@ -26,36 +36,36 @@ export default function HomePage() {
               <Text>Built with NativeWind + CVA + @rn-primitives</Text>
             </CardDescription>
           </CardHeader>
-          <CardContent className="gap-4">
-            <Button variant="default">
+          <CardContent className='gap-4'>
+            <Button variant='default'>
               <Text>Primary Button</Text>
             </Button>
-            <Button variant="secondary">
+            <Button variant='secondary'>
               <Text>Secondary Button</Text>
             </Button>
-            <Button variant="outline">
+            <Button variant='outline'>
               <Text>Outline Button</Text>
             </Button>
-            <Button variant="ghost">
+            <Button variant='ghost'>
               <Text>Ghost Button</Text>
             </Button>
           </CardContent>
         </Card>
 
-        <Card className="w-full max-w-sm">
+        <Card className='w-full max-w-sm'>
           <CardHeader>
             <CardTitle>
               <Text>Button Sizes</Text>
             </CardTitle>
           </CardHeader>
-          <CardContent className="gap-3">
-            <Button size="sm" variant="outline">
+          <CardContent className='gap-3'>
+            <Button size='sm' variant='outline'>
               <Text>Small</Text>
             </Button>
-            <Button size="default" variant="outline">
+            <Button size='default' variant='outline'>
               <Text>Default</Text>
             </Button>
-            <Button size="lg" variant="outline">
+            <Button size='lg' variant='outline'>
               <Text>Large</Text>
             </Button>
           </CardContent>
