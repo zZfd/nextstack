@@ -1,5 +1,7 @@
-import { NextTamaguiProvider } from '@nextstack/app/provider/NextTamaguiProvider'
+import { ThemeProvider } from '@nextstack/app/provider/ThemeProvider'
+import { Provider } from '@nextstack/app/provider'
 import type { Metadata } from 'next'
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'NextStack - Full-stack TypeScript Scaffold',
@@ -18,7 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <NextTamaguiProvider>{children}</NextTamaguiProvider>
+        <ThemeProvider>
+          <Provider>
+            {children}
+          </Provider>
+        </ThemeProvider>
       </body>
     </html>
   )

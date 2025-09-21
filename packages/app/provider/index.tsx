@@ -1,26 +1,22 @@
-import {
-  TamaguiProvider,
-  type TamaguiProviderProps,
-  ToastProvider,
-  config,
-  isWeb,
-} from '@nextstack/ui'
-import type { JSX } from 'react'
-import { useColorScheme } from 'react-native'
+import { isWeb } from '@nextstack/ui'
+import type { JSX, ReactNode } from 'react'
+import { Toaster } from 'sonner'
 
 export function Provider({
   children,
-  defaultTheme = 'light',
-  ...rest
-}: Omit<TamaguiProviderProps, 'config'> & { defaultTheme?: string }): JSX.Element {
-  const colorScheme = useColorScheme()
-  const theme = defaultTheme || (colorScheme === 'dark' ? 'dark' : 'light')
-
+}: {
+  children: ReactNode
+}): JSX.Element {
   return (
-    <TamaguiProvider config={config} defaultTheme={theme} {...rest}>
-      <ToastProvider swipeDirection="horizontal" duration={6000} native={isWeb ? [] : ['mobile']}>
-        {children}
-      </ToastProvider>
-    </TamaguiProvider>
+    <>
+      {children}
+      {isWeb && (
+        <Toaster
+          richColors
+          closeButton
+          position="top-right"
+        />
+      )}
+    </>
   )
 }

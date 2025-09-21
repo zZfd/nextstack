@@ -1,14 +1,11 @@
 import {
   Button,
   Input,
-  YStack,
-  XStack,
   Label,
-  Text,
   Checkbox,
   Card,
-  H2,
-  Paragraph,
+  CardContent,
+  CardHeader,
 } from '@nextstack/ui';
 import type { JSX } from 'react';
 import { useForm, Controller } from 'react-hook-form';
@@ -67,27 +64,21 @@ export function SignInScreen({
   };
 
   return (
-    <YStack
-      flex={1}
-      justifyContent='center'
-      alignItems='center'
-      padding='$4'
-      backgroundColor='$background'
-    >
-      <Card maxWidth={400} width='100%' padding='$6' space='$4'>
-        <YStack space='$2' alignItems='center'>
-          <H2>Sign In</H2>
-          <Paragraph color='$color10' style={{ textAlign: 'center' }}>
+    <div className="flex flex-1 justify-center items-center p-4 bg-background">
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-2 text-center">
+          <h2 className="text-3xl font-semibold">Sign In</h2>
+          <p className="text-sm text-muted-foreground">
             Welcome back! Please sign in to your account.
-          </Paragraph>
-        </YStack>
+          </p>
+        </CardHeader>
 
-        <YStack space='$4'>
-          <YStack space='$2'>
-            <Label htmlFor='email'>Email</Label>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
             <Controller
               control={control}
-              name='email'
+              name="email"
               rules={{
                 required: 'Email is required',
                 validate: {
@@ -97,30 +88,34 @@ export function SignInScreen({
               }}
               render={({ field }) => (
                 <Input
-                  id='email'
-                  placeholder='Enter your email'
-                  keyboardType='email-address'
-                  autoCapitalize='none'
-                  autoComplete='email'
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  autoCapitalize="none"
+                  autoComplete="email"
                   disabled={disabled || isLoading}
-                  borderColor={errors.email ? '$red10' : '$borderColor'}
-                  onSubmitEditing={() => setFocus('password')}
+                  className={errors.email ? 'border-destructive' : ''}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      setFocus('password');
+                    }
+                  }}
                   {...field}
                 />
               )}
             />
             {errors.email && (
-              <Text color='$red10' fontSize='$2'>
+              <span className="text-sm text-destructive">
                 {errors.email.message}
-              </Text>
+              </span>
             )}
-          </YStack>
+          </div>
 
-          <YStack space='$2'>
-            <Label htmlFor='password'>Password</Label>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
             <Controller
               control={control}
-              name='password'
+              name="password"
               rules={{
                 required: 'Password is required',
                 minLength: {
@@ -130,76 +125,77 @@ export function SignInScreen({
               }}
               render={({ field }) => (
                 <Input
-                  id='password'
-                  placeholder='Enter your password'
-                  secureTextEntry
-                  autoComplete='current-password'
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  autoComplete="current-password"
                   disabled={disabled || isLoading}
-                  borderColor={errors.password ? '$red10' : '$borderColor'}
-                  onSubmitEditing={handleSubmit(onSubmit)}
+                  className={errors.password ? 'border-destructive' : ''}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleSubmit(onSubmit)();
+                    }
+                  }}
                   {...field}
                 />
               )}
             />
             {errors.password && (
-              <Text color='$red10' fontSize='$2'>
+              <span className="text-sm text-destructive">
                 {errors.password.message}
-              </Text>
+              </span>
             )}
-          </YStack>
+          </div>
 
           {(showRememberMe || showForgotPassword) && (
-            <XStack justifyContent='space-between' alignItems='center'>
+            <div className="flex justify-between items-center">
               {showRememberMe ? (
-                <XStack space='$2' alignItems='center'>
+                <div className="flex items-center space-x-2">
                   <Checkbox
                     checked={rememberMe}
                     onCheckedChange={setRememberMe}
                     disabled={disabled || isLoading}
                   />
-                  <Label fontSize='$2'>Remember me</Label>
-                </XStack>
+                  <Label className="text-sm">Remember me</Label>
+                </div>
               ) : (
-                <YStack />
+                <div />
               )}
 
               {showForgotPassword && (
                 <Button
-                  variant='outlined'
-                  size='$2'
-                  chromeless
-                  onPress={() => {
+                  variant="link"
+                  size="sm"
+                  onClick={() => {
                     // Navigate to forgot password page
                     if (typeof window !== 'undefined') {
                       window.location.href = '/auth/forgot-password';
                     }
                   }}
                 >
-                  <Text color='$blue10' textDecorationLine='underline'>
-                    Forgot password?
-                  </Text>
+                  Forgot password?
                 </Button>
               )}
-            </XStack>
+            </div>
           )}
 
           {error && (
-            <Card backgroundColor='$red1' borderColor='$red7' padding='$3'>
-              <Text color='$red11'>
+            <div className="p-3 rounded-md bg-destructive/15 border border-destructive/20">
+              <span className="text-sm text-destructive">
                 {error.message}
-              </Text>
-            </Card>
+              </span>
+            </div>
           )}
 
           <Button
-            onPress={handleSubmit(onSubmit)}
+            onClick={handleSubmit(onSubmit)}
             disabled={disabled || isLoading}
-            opacity={disabled || isLoading ? 0.5 : 1}
+            className="w-full"
           >
             {isLoading ? 'Signing in...' : 'Sign In'}
           </Button>
-        </YStack>
+        </CardContent>
       </Card>
-    </YStack>
+    </div>
   );
 }

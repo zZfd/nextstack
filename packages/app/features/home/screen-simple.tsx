@@ -1,30 +1,23 @@
-import { Button, H1, Paragraph, YStack, XStack } from '@nextstack/ui';
+import { Button } from '@nextstack/ui';
 import type { JSX } from 'react';
 
 export function HomeScreenSimple(): JSX.Element {
   return (
-    <YStack
-      flex={1}
-      justifyContent='center'
-      alignItems='center'
-      gap='$8'
-      padding='$4'
-      backgroundColor='$background'
-    >
-      <YStack gap='$4' alignItems='center'>
-        <H1 color='$color12'>
+    <div className="flex flex-1 flex-col items-center justify-center gap-8 p-4 bg-background">
+      <div className="flex flex-col gap-4 items-center">
+        <h1 className="text-4xl font-bold text-foreground">
           Welcome to NextStack
-        </H1>
-        <Paragraph color='$color10'>
+        </h1>
+        <p className="text-base text-muted-foreground text-center">
           A full-stack TypeScript development scaffold built on Monorepo
           architecture
-        </Paragraph>
-      </YStack>
+        </p>
+      </div>
 
-      <XStack gap='$4'>
+      <div className="flex flex-row gap-4">
         <Button
-          variant='outlined'
-          onPress={() => {
+          variant="outline"
+          onClick={() => {
             if (typeof window !== 'undefined') {
               window.location.href = '/auth/signin';
             }
@@ -33,7 +26,7 @@ export function HomeScreenSimple(): JSX.Element {
           Sign In
         </Button>
         <Button
-          onPress={() => {
+          onClick={() => {
             if (typeof window !== 'undefined') {
               window.location.href = '/auth/signup';
             }
@@ -41,7 +34,7 @@ export function HomeScreenSimple(): JSX.Element {
         >
           Sign Up
         </Button>
-      </XStack>
-    </YStack>
+      </div>
+    </div>
   );
 }
