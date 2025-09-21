@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@nextstack/trpc": "workspace:*",
+    "@react-navigation/native": "^7.1.17",
     "@rn-primitives/accordion": "~1.2.0",
     "@rn-primitives/alert-dialog": "~1.2.0",
     "@rn-primitives/aspect-ratio": "~1.2.0",
@@ -55,6 +56,7 @@
     "expo-router": "~5.1.5",
     "expo-splash-screen": "~0.29.17",
     "expo-status-bar": "~2.2.3",
+    "lucide-react-native": "^0.544.0",
     "nativewind": "^4.1.23",
     "react": "19.0.0",
     "react-native": "0.79.5",

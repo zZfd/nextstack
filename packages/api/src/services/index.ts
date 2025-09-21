@@ -1,3 +1,2 @@
-export * from './base.service';
-export * from './user.service';
-export * from './post.service';
+export { UserService, type PaginatedResult } from './user.service';
+export { PostService } from './post.service';

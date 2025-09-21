@@ -6,10 +6,10 @@ import {
 } from '@nextstack/validators';
 import { z } from 'zod';
 
-import { handleError } from '../errors';
 import { protectedProcedure } from '../procedures/protected';
 import { publicProcedure } from '../procedures/public';
 import { PostService } from '../services/post.service';
+import { handleServiceError } from '../utils/error-handler';
 import { router } from '../trpc';
 
 export const postRouter = router({
@@ -17,34 +17,9 @@ export const postRouter = router({
     .input(GetPostsSchema)
     .query(async ({ ctx, input }) => {
       try {
-        const postService = new PostService({
-          db: ctx.db,
-          userId: ctx.user?.id,
-          sessionId: ctx.session?.id,
-        });
-        return await postService.getPosts(input);
+        return await PostService.getPosts(ctx.db, input);
       } catch (error) {
-        throw handleError(error);
-      }
-    }),
-
-  published: publicProcedure
-    .input(
-      z.object({
-        limit: z.number().min(1).max(100).default(10),
-        cursor: z.string().optional(),
-      })
-    )
-    .query(async ({ ctx, input }) => {
-      try {
-        const postService = new PostService({
-          db: ctx.db,
-          userId: ctx.user?.id,
-          sessionId: ctx.session?.id,
-        });
-        return await postService.getPublishedPosts(input.limit, input.cursor);
-      } catch (error) {
-        throw handleError(error);
+        throw handleServiceError(error);
       }
     }),
 
@@ -52,14 +27,9 @@ export const postRouter = router({
     .input(GetPostByIdSchema)
     .query(async ({ ctx, input }) => {
       try {
-        const postService = new PostService({
-          db: ctx.db,
-          userId: ctx.user?.id,
-          sessionId: ctx.session?.id,
-        });
-        return await postService.getPostById(input.id);
+        return await PostService.getPostById(ctx.db, input.id);
       } catch (error) {
-        throw handleError(error);
+        throw handleServiceError(error);
       }
     }),
 
@@ -67,14 +37,12 @@ export const postRouter = router({
     .input(CreatePostSchema)
     .mutation(async ({ ctx, input }) => {
       try {
-        const postService = new PostService({
-          db: ctx.db,
-          userId: ctx.user.id,
-          sessionId: ctx.session.id,
+        return await PostService.createPost(ctx.db, input, {
+          userId: ctx.user?.id,
+          sessionId: ctx.session?.id,
         });
-        return await postService.createPost(input);
       } catch (error) {
-        throw handleError(error);
+        throw handleServiceError(error);
       }
     }),
 
@@ -82,45 +50,13 @@ export const postRouter = router({
     .input(GetPostByIdSchema.merge(UpdatePostSchema))
     .mutation(async ({ ctx, input }) => {
       try {
-        const postService = new PostService({
-          db: ctx.db,
-          userId: ctx.user.id,
-          sessionId: ctx.session.id,
-        });
         const { id, ...data } = input;
-        return await postService.updatePost(id, data);
-      } catch (error) {
-        throw handleError(error);
-      }
-    }),
-
-  publish: protectedProcedure
-    .input(GetPostByIdSchema)
-    .mutation(async ({ ctx, input }) => {
-      try {
-        const postService = new PostService({
-          db: ctx.db,
-          userId: ctx.user.id,
-          sessionId: ctx.session.id,
+        return await PostService.updatePost(ctx.db, id, data, {
+          userId: ctx.user?.id,
+          sessionId: ctx.session?.id,
         });
-        return await postService.publishPost(input.id);
       } catch (error) {
-        throw handleError(error);
-      }
-    }),
-
-  unpublish: protectedProcedure
-    .input(GetPostByIdSchema)
-    .mutation(async ({ ctx, input }) => {
-      try {
-        const postService = new PostService({
-          db: ctx.db,
-          userId: ctx.user.id,
-          sessionId: ctx.session.id,
-        });
-        return await postService.unpublishPost(input.id);
-      } catch (error) {
-        throw handleError(error);
+        throw handleServiceError(error);
       }
     }),
 
@@ -128,49 +64,23 @@ export const postRouter = router({
     .input(GetPostByIdSchema)
     .mutation(async ({ ctx, input }) => {
       try {
-        const postService = new PostService({
-          db: ctx.db,
-          userId: ctx.user.id,
-          sessionId: ctx.session.id,
-        });
-        return await postService.deletePost(input.id);
-      } catch (error) {
-        throw handleError(error);
-      }
-    }),
-
-  search: publicProcedure
-    .input(
-      z.object({
-        query: z.string().min(2),
-        limit: z.number().min(1).max(100).default(10),
-      })
-    )
-    .query(async ({ ctx, input }) => {
-      try {
-        const postService = new PostService({
-          db: ctx.db,
+        return await PostService.deletePost(ctx.db, input.id, {
           userId: ctx.user?.id,
           sessionId: ctx.session?.id,
         });
-        return await postService.searchPosts(input.query, input.limit);
       } catch (error) {
-        throw handleError(error);
+        throw handleServiceError(error);
       }
     }),
+
 
   stats: publicProcedure
     .input(GetPostByIdSchema)
     .query(async ({ ctx, input }) => {
       try {
-        const postService = new PostService({
-          db: ctx.db,
-          userId: ctx.user?.id,
-          sessionId: ctx.session?.id,
-        });
-        return await postService.getPostStats(input.id);
+        return await PostService.getPostStats(ctx.db, input.id);
       } catch (error) {
-        throw handleError(error);
+        throw handleServiceError(error);
       }
     }),
 });

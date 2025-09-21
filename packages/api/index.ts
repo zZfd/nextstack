@@ -5,9 +5,9 @@ export { createAuthFromConfig, createAuthHandler, type Auth } from "./src/auth";
 
 // Layered architecture exports
 export * from "./src/services";
-export * from "./src/repositories";
 export * from "./src/errors";
 export * from "./src/cache";
+export * from "./src/utils/error-handler";
 
 // Procedure exports
 export { publicProcedure } from "./src/procedures/public";

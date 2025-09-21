@@ -6,10 +6,10 @@ import {
   UpdateUserSchema,
 } from '@nextstack/validators';
 
-import { handleError } from '../errors';
 import { protectedProcedure } from '../procedures/protected';
 import { publicProcedure } from '../procedures/public';
 import { UserService } from '../services/user.service';
+import { handleServiceError } from '../utils/error-handler';
 import { router } from '../trpc';
 
 export const userRouter = router({
@@ -17,14 +17,9 @@ export const userRouter = router({
     .input(GetUsersSchema)
     .query(async ({ ctx, input }) => {
       try {
-        const userService = new UserService({
-          db: ctx.db,
-          userId: ctx.user?.id,
-          sessionId: ctx.session?.id,
-        });
-        return await userService.getUsers(input);
+        return await UserService.getUsers(ctx.db, input);
       } catch (error) {
-        throw handleError(error);
+        throw handleServiceError(error);
       }
     }),
 
@@ -32,14 +27,9 @@ export const userRouter = router({
     .input(GetUserByIdSchema)
     .query(async ({ ctx, input }) => {
       try {
-        const userService = new UserService({
-          db: ctx.db,
-          userId: ctx.user?.id,
-          sessionId: ctx.session?.id,
-        });
-        return await userService.getUserById(input.id);
+        return await UserService.getUserById(ctx.db, input.id);
       } catch (error) {
-        throw handleError(error);
+        throw handleServiceError(error);
       }
     }),
 
@@ -47,14 +37,9 @@ export const userRouter = router({
     .input(GetUserByEmailSchema)
     .query(async ({ ctx, input }) => {
       try {
-        const userService = new UserService({
-          db: ctx.db,
-          userId: ctx.user?.id,
-          sessionId: ctx.session?.id,
-        });
-        return await userService.getUserByEmail(input.email);
+        return await UserService.getUserByEmail(ctx.db, input.email);
       } catch (error) {
-        throw handleError(error);
+        throw handleServiceError(error);
       }
     }),
 
@@ -62,14 +47,9 @@ export const userRouter = router({
     .input(CreateUserSchema)
     .mutation(async ({ ctx, input }) => {
       try {
-        const userService = new UserService({
-          db: ctx.db,
-          userId: ctx.user?.id,
-          sessionId: ctx.session?.id,
-        });
-        return await userService.createUser(input);
+        return await UserService.createUser(ctx.db, input);
       } catch (error) {
-        throw handleError(error);
+        throw handleServiceError(error);
       }
     }),
 
@@ -77,15 +57,13 @@ export const userRouter = router({
     .input(GetUserByIdSchema.merge(UpdateUserSchema))
     .mutation(async ({ ctx, input }) => {
       try {
-        const userService = new UserService({
-          db: ctx.db,
+        const { id, ...data } = input;
+        return await UserService.updateUser(ctx.db, id, data, {
           userId: ctx.user?.id,
           sessionId: ctx.session?.id,
         });
-        const { id, ...data } = input;
-        return await userService.updateUser(id, data);
       } catch (error) {
-        throw handleError(error);
+        throw handleServiceError(error);
       }
     }),
 
@@ -93,30 +71,22 @@ export const userRouter = router({
     .input(GetUserByIdSchema)
     .mutation(async ({ ctx, input }) => {
       try {
-        const userService = new UserService({
-          db: ctx.db,
+        return await UserService.deleteUser(ctx.db, input.id, {
           userId: ctx.user?.id,
           sessionId: ctx.session?.id,
         });
-        return await userService.deleteUser(input.id);
       } catch (error) {
-        throw handleError(error);
+        throw handleServiceError(error);
       }
     }),
 
-  // New endpoint for user stats
   stats: publicProcedure
     .input(GetUserByIdSchema)
     .query(async ({ ctx, input }) => {
       try {
-        const userService = new UserService({
-          db: ctx.db,
-          userId: ctx.user?.id,
-          sessionId: ctx.session?.id,
-        });
-        return await userService.getUserStats(input.id);
+        return await UserService.getUserStats(ctx.db, input.id);
       } catch (error) {
-        throw handleError(error);
+        throw handleServiceError(error);
       }
     }),
 });

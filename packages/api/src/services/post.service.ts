@@ -1,27 +1,23 @@
-import type { Post } from '@nextstack/database';
+import type { Post, PrismaClient } from '@nextstack/database';
 import type {
   CreatePostInput,
   UpdatePostInput,
   GetPostsInput,
 } from '@nextstack/validators';
 
-import type { PaginatedResult } from '../repositories/base.repository';
-import { PostRepository } from '../repositories/post.repository';
-import { UserRepository } from '../repositories/user.repository';
+import { BusinessError, ErrorCodes } from '../errors/business.error';
+import type { PaginatedResult } from './user.service';
 
-import { BaseService, type ServiceContext } from './base.service';
+interface PostServiceContext {
+  userId?: string;
+  sessionId?: string;
+}
 
-export class PostService extends BaseService {
-  private readonly postRepository: PostRepository;
-  private readonly userRepository: UserRepository;
-
-  constructor(context: ServiceContext) {
-    super(context);
-    this.postRepository = new PostRepository(this.db);
-    this.userRepository = new UserRepository(this.db);
-  }
-
-  async getPosts(input: GetPostsInput): Promise<Post[]> {
+export const PostService = {
+  /**
+   * Get posts with optional filtering
+   */
+  async getPosts(db: PrismaClient, input: GetPostsInput): Promise<Post[]> {
     const where: {
       authorId?: string;
       status?: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED';
@@ -31,11 +27,11 @@ export class PostService extends BaseService {
       where.authorId = input.authorId;
     }
 
-    if (input.status !== undefined) {
+    if (input.status) {
       where.status = input.status;
     }
 
-    return await this.postRepository.findMany({
+    return await db.post.findMany({
       where,
       take: input.limit,
       cursor: input.cursor ? { id: input.cursor } : undefined,
@@ -48,13 +44,26 @@ export class PostService extends BaseService {
             email: true,
           },
         },
+        media: {
+          include: {
+            file: true,
+          },
+        },
       },
     });
-  }
+  },
 
+  /**
+   * Get posts with pagination
+   */
   async getPostsPaginated(
+    db: PrismaClient,
     input: GetPostsInput & { page?: number; pageSize?: number }
   ): Promise<PaginatedResult<Post>> {
+    const page = input.page ?? 1;
+    const pageSize = input.pageSize ?? 10;
+    const skip = (page - 1) * pageSize;
+
     const where: {
       authorId?: string;
       status?: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED';
@@ -64,15 +73,52 @@ export class PostService extends BaseService {
       where.authorId = input.authorId;
     }
 
-    if (input.status !== undefined) {
+    if (input.status) {
       where.status = input.status;
     }
 
-    return await this.postRepository.findManyPaginated({
-      where,
-      orderBy: { createdAt: 'desc' },
-      page: input.page,
-      pageSize: input.pageSize,
+    const [data, total] = await Promise.all([
+      db.post.findMany({
+        where,
+        take: pageSize,
+        skip,
+        orderBy: { createdAt: 'desc' },
+        include: {
+          author: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+          media: {
+            include: {
+              file: true,
+            },
+          },
+        },
+      }),
+      db.post.count({ where }),
+    ]);
+
+    const totalPages = Math.ceil(total / pageSize);
+
+    return {
+      data,
+      total,
+      page,
+      pageSize,
+      totalPages,
+      hasMore: page < totalPages,
+    };
+  },
+
+  /**
+   * Get post by ID with author details
+   */
+  async getPostById(db: PrismaClient, id: string): Promise<Post> {
+    const post = await db.post.findUnique({
+      where: { id },
       include: {
         author: {
           select: {
@@ -81,58 +127,121 @@ export class PostService extends BaseService {
             email: true,
           },
         },
-      },
-    });
-  }
-
-  async getPublishedPosts(limit = 10, cursor?: string): Promise<Post[]> {
-    return await this.postRepository.findPublishedPosts(limit, cursor);
-  }
-
-  async getPostById(id: string): Promise<Post> {
-    const post = await this.postRepository.findWithAuthor(id);
-    return await this.validateExists(post, 'Post');
-  }
-
-  async getUserPosts(userId: string, includeUnpublished = false): Promise<Post[]> {
-    // Check if user exists
-    const user = await this.userRepository.findById(userId);
-    await this.validateExists(user, 'User');
-
-    // If requesting unpublished posts, check authorization
-    if (includeUnpublished && this.userId !== userId) {
-      throw new Error('You can only view your own unpublished posts');
-    }
-
-    return await this.postRepository.findUserPosts(userId, includeUnpublished);
-  }
-
-  async createPost(input: CreatePostInput): Promise<Post> {
-    // Must be authenticated
-    this.checkAuthentication();
-
-    // Verify the author exists (should be the authenticated user)
-    const author = await this.userRepository.findById(input.authorId);
-    await this.validateExists(author, 'Author');
-
-    // Check that the authenticated user is creating a post for themselves
-    if (this.userId !== input.authorId) {
-      throw new Error('You can only create posts for yourself');
-    }
-
-    return await this.withTransaction(async (tx) => {
-      const postRepo = new PostRepository(tx);
-
-      const post = await postRepo.create(
-        {
-          title: input.title,
-          content: input.content || '',
-          status: input.status,
-          author: {
-            connect: { id: input.authorId },
+        media: {
+          include: {
+            file: true,
           },
         },
-        {
+      },
+    });
+
+    if (!post) {
+      throw new BusinessError(ErrorCodes.POST_NOT_FOUND, 'Post not found', 404);
+    }
+
+    return post;
+  },
+
+  /**
+   * Create a new post
+   */
+  async createPost(
+    db: PrismaClient,
+    input: CreatePostInput,
+    context: PostServiceContext
+  ): Promise<Post> {
+    if (!context.userId) {
+      throw new BusinessError(
+        ErrorCodes.UNAUTHORIZED_ACCESS,
+        'User must be authenticated to create posts',
+        401
+      );
+    }
+
+    const createData: {
+      title?: string;
+      content: string;
+      status: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED';
+      authorId: string;
+    } = {
+      content: input.content || '',
+      status: input.status || 'DRAFT',
+      authorId: context.userId!,
+    };
+
+    if (input.title) {
+      createData.title = input.title;
+    }
+
+    return await db.post.create({
+      data: createData,
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+        media: {
+          include: {
+            file: true,
+          },
+        },
+      },
+    });
+  },
+
+  /**
+   * Update post with authorization checks
+   */
+  async updatePost(
+    db: PrismaClient,
+    id: string,
+    input: UpdatePostInput,
+    context: PostServiceContext
+  ): Promise<Post> {
+    return await db.$transaction(async (tx) => {
+      // Check if post exists
+      const post = await tx.post.findUnique({
+        where: { id },
+      });
+
+      if (!post) {
+        throw new BusinessError(ErrorCodes.POST_NOT_FOUND, 'Post not found', 404);
+      }
+
+      // Check authorization (user can only update their own posts)
+      if (context.userId && context.userId !== post.authorId) {
+        throw new BusinessError(
+          ErrorCodes.CANNOT_UPDATE_OTHER_POST,
+          'You can only update your own posts',
+          403
+        );
+      }
+
+      const updateData: {
+        title?: string;
+        content?: string;
+        status?: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED';
+      } = {};
+
+      if (input.title !== undefined) {
+        updateData.title = input.title;
+      }
+
+      if (input.content !== undefined) {
+        updateData.content = input.content || '';
+      }
+
+      if (input.status !== undefined) {
+        updateData.status = input.status;
+      }
+
+      return await tx.post.update({
+        where: { id },
+        data: updateData,
+        include: {
           author: {
             select: {
               id: true,
@@ -140,119 +249,87 @@ export class PostService extends BaseService {
               email: true,
             },
           },
-        }
-      );
-
-      // Here you could add additional operations
-      // For example, sending notifications, updating user stats, etc.
-
-      return post;
-    });
-  }
-
-  async updatePost(id: string, input: UpdatePostInput): Promise<Post> {
-    // Get the post
-    const post = await this.postRepository.findById(id);
-    const validatedPost = await this.validateExists(post, 'Post');
-
-    // Check authorization (only author can update)
-    this.checkAuthorization(validatedPost.authorId);
-
-    // Sanitize input
-    const allowedFields = ['title', 'content', 'status'];
-    const sanitizedInput = this.sanitizeInput(input, allowedFields);
-
-    // Handle null/undefined content for Prisma compatibility
-    const updateData: Record<string, unknown> = {};
-
-    if (sanitizedInput.title !== undefined) {
-      updateData.title = sanitizedInput.title;
-    }
-
-    if (sanitizedInput.content !== undefined) {
-      updateData.content = sanitizedInput.content ?? '';
-    }
-
-    if (sanitizedInput.status !== undefined) {
-      updateData.status = sanitizedInput.status;
-    }
-
-    return await this.postRepository.update(id, updateData, {
-      author: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
+          media: {
+            include: {
+              file: true,
+            },
+          },
         },
-      },
+      });
     });
-  }
+  },
 
-  async publishPost(id: string): Promise<Post> {
-    // Get the post
-    const post = await this.postRepository.findById(id);
-    const validatedPost = await this.validateExists(post, 'Post');
+  /**
+   * Delete post with authorization checks
+   */
+  async deletePost(
+    db: PrismaClient,
+    id: string,
+    context: PostServiceContext
+  ): Promise<Post> {
+    return await db.$transaction(async (tx) => {
+      // Check if post exists
+      const post = await tx.post.findUnique({
+        where: { id },
+      });
 
-    // Check authorization
-    this.checkAuthorization(validatedPost.authorId);
+      if (!post) {
+        throw new BusinessError(ErrorCodes.POST_NOT_FOUND, 'Post not found', 404);
+      }
 
-    if (validatedPost.status === 'PUBLISHED') {
-      throw new Error('Post is already published');
-    }
+      // Check authorization
+      if (context.userId && context.userId !== post.authorId) {
+        throw new BusinessError(
+          ErrorCodes.CANNOT_DELETE_OTHER_POST,
+          'You can only delete your own posts',
+          403
+        );
+      }
 
-    return await this.postRepository.publishPost(id);
-  }
+      // Delete the post (media will be cascade deleted by database)
+      return await tx.post.delete({
+        where: { id },
+      });
+    });
+  },
 
-  async unpublishPost(id: string): Promise<Post> {
-    // Get the post
-    const post = await this.postRepository.findById(id);
-    const validatedPost = await this.validateExists(post, 'Post');
-
-    // Check authorization
-    this.checkAuthorization(validatedPost.authorId);
-
-    if (validatedPost.status !== 'PUBLISHED') {
-      throw new Error('Post is not published');
-    }
-
-    return await this.postRepository.unpublishPost(id);
-  }
-
-  async deletePost(id: string): Promise<Post> {
-    // Get the post
-    const post = await this.postRepository.findById(id);
-    const validatedPost = await this.validateExists(post, 'Post');
-
-    // Check authorization
-    this.checkAuthorization(validatedPost.authorId);
-
-    return await this.postRepository.delete(id);
-  }
-
-  async searchPosts(query: string, limit = 10): Promise<Post[]> {
-    if (!query || query.trim().length < 2) {
-      throw new Error('Search query must be at least 2 characters');
-    }
-
-    return await this.postRepository.searchPosts(query, limit);
-  }
-
-  async getPostStats(id: string): Promise<{
+  /**
+   * Get post statistics
+   */
+  async getPostStats(db: PrismaClient, id: string): Promise<{
     post: Post;
-    wordCount: number;
-    readingTimeMinutes: number;
+    mediaCount: number;
   }> {
-    const stats = await this.postRepository.getPostStats(id);
-    const post = await this.validateExists(stats.post, 'Post');
+    const [post, mediaCount] = await Promise.all([
+      db.post.findUnique({
+        where: { id },
+        include: {
+          author: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+          media: {
+            include: {
+              file: true,
+            },
+          },
+        },
+      }),
+      db.postMedia.count({
+        where: { postId: id },
+      }),
+    ]);
 
-    // Calculate word count and reading time
-    const wordCount = post.content?.split(/\s+/).length ?? 0;
-    const readingTimeMinutes = Math.ceil(wordCount / 200); // Assuming 200 words per minute
+    if (!post) {
+      throw new BusinessError(ErrorCodes.POST_NOT_FOUND, 'Post not found', 404);
+    }
 
     return {
       post,
-      wordCount,
-      readingTimeMinutes,
+      mediaCount,
     };
-  }
-}
+  },
+};

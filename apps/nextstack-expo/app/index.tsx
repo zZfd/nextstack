@@ -1,12 +1,17 @@
 import { ScrollView, View } from 'react-native';
 
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Text } from '@/components/ui';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import '@/global.css';
 
 export default function HomePage() {
   return (
     <ScrollView className="flex-1 bg-background">
       <View className="flex-1 justify-center items-center p-6 gap-6">
+        <View className="absolute top-12 right-6 z-10">
+          <ThemeToggle />
+        </View>
+
         <Text className="text-3xl font-bold text-foreground">NextStack Mobile</Text>
         <Text className="text-lg text-muted-foreground text-center">
           Welcome to the mobile app with @solid/native patterns!
