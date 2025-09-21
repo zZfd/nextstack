@@ -1,3 +1,5 @@
+import '@/global.css';
+
 // Removed Provider import - implement locally if needed
 import { trpc } from '@nextstack/trpc';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -25,19 +27,18 @@ export default function RootLayout() {
     })
   );
 
-  const [interLoaded, interError] = useFonts({
-    Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
+  const [fontsLoaded, fontError] = useFonts({
+    // Using system fonts - no need to load Inter specifically
   });
 
   useEffect(() => {
-    if (interLoaded || interError) {
+    if (fontsLoaded || fontError) {
       // Hide the splash screen after the fonts have loaded (or an error was returned) and the UI is ready.
       SplashScreen.hideAsync();
     }
-  }, [interLoaded, interError]);
+  }, [fontsLoaded, fontError]);
 
-  if (!interLoaded && !interError) {
+  if (!fontsLoaded && !fontError) {
     return null;
   }
 

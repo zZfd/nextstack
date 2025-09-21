@@ -1,6 +1,7 @@
 const path = require('path');
 
 const { getDefaultConfig } = require('expo/metro-config');
+const { withNativeWind } = require('nativewind/metro');
 
 const config = getDefaultConfig(__dirname);
 
@@ -20,6 +21,10 @@ config.resolver.nodeModulesPaths = [
 // Add workspace packages as extra node modules
 config.resolver.alias = {
   '@nextstack/trpc': path.resolve(monorepoRoot, 'packages/trpc'),
+  '@': path.resolve(projectRoot),
 };
 
-module.exports = config;
+// Enable web platform extensions
+config.resolver.platforms = ['ios', 'android', 'native', 'web'];
+
+module.exports = withNativeWind(config, { input: './global.css' });
