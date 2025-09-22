@@ -4,24 +4,21 @@ import {
   GetPostsSchema,
   UpdatePostSchema,
 } from '@nextstack/validators';
-import { z } from 'zod';
 
 import { protectedProcedure } from '../procedures/protected';
 import { publicProcedure } from '../procedures/public';
 import { PostService } from '../services/post.service';
-import { handleServiceError } from '../utils/error-handler';
 import { router } from '../trpc';
+import { handleServiceError } from '../utils/error-handler';
 
 export const postRouter = router({
-  all: publicProcedure
-    .input(GetPostsSchema)
-    .query(async ({ ctx, input }) => {
-      try {
-        return await PostService.getPosts(ctx.db, input);
-      } catch (error) {
-        throw handleServiceError(error);
-      }
-    }),
+  all: publicProcedure.input(GetPostsSchema).query(async ({ ctx, input }) => {
+    try {
+      return await PostService.getPosts(ctx.db, input);
+    } catch (error) {
+      throw handleServiceError(error);
+    }
+  }),
 
   byId: publicProcedure
     .input(GetPostByIdSchema)
@@ -72,7 +69,6 @@ export const postRouter = router({
         throw handleServiceError(error);
       }
     }),
-
 
   stats: publicProcedure
     .input(GetPostByIdSchema)

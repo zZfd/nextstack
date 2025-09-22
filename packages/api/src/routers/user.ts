@@ -9,8 +9,8 @@ import {
 import { protectedProcedure } from '../procedures/protected';
 import { publicProcedure } from '../procedures/public';
 import { UserService } from '../services/user.service';
-import { handleServiceError } from '../utils/error-handler';
 import { router } from '../trpc';
+import { handleServiceError } from '../utils/error-handler';
 
 export const userRouter = router({
   all: publicProcedure
