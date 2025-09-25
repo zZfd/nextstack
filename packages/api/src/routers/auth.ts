@@ -21,24 +21,4 @@ export const authRouter = router({
       isAuthenticated: !!ctx.user,
     };
   }),
-
-  // Update user profile - requires authentication
-  updateProfile: protectedProcedure
-    .input(
-      z.object({
-        name: z.string().min(1).optional(),
-        image: z.string().url().optional(),
-      })
-    )
-    .mutation(async ({ input, ctx }) => {
-      const updatedUser = await ctx.db.user.update({
-        where: { id: ctx.user.id },
-        data: {
-          ...(input.name !== undefined && { name: input.name }),
-          ...(input.image !== undefined && { image: input.image }),
-        },
-      });
-
-      return updatedUser;
-    }),
 });
