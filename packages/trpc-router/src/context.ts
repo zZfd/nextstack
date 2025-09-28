@@ -25,13 +25,13 @@ export const createContext = async (opts: CreateContextOptions) => {
 
       // Handle different header formats
       if (reqHeaders) {
-        if (typeof reqHeaders.get === 'function') {
-          // Headers object - use entries() method
-          for (const [key, value] of (reqHeaders as { entries(): IterableIterator<[string, string]> }).entries()) {
+        if (reqHeaders instanceof Headers) {
+          // Web API Headers object - use forEach method
+          reqHeaders.forEach((value, key) => {
             headers.set(key, value);
-          }
+          });
         } else {
-          // Plain object
+          // Node.js IncomingHttpHeaders object
           Object.entries(reqHeaders).forEach(([key, value]) => {
             if (typeof value === 'string') {
               headers.set(key, value);
