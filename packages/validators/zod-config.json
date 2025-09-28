@@ -1,0 +1,64 @@
+{
+  "mode": "custom",
+  "output": "./src/generated",
+  "organizationMode": "multi-file",
+  "globalExclusions": {
+    "input": ["createdAt", "updatedAt", "deletedAt"],
+    "pure": []
+  },
+  "variants": {
+    "pure": {
+      "enabled": true,
+      "suffix": ""
+    },
+    "input": {
+      "enabled": true,
+      "suffix": "Input"
+    },
+    "result": {
+      "enabled": false
+    }
+  },
+  "models": {
+    "User": {
+      "enabled": true,
+      "operations": ["findUnique", "findMany", "create", "update", "delete"]
+    },
+    "Post": {
+      "enabled": true,
+      "operations": ["findUnique", "findMany", "create", "update", "delete"]
+    },
+    "Profile": {
+      "enabled": true,
+      "operations": ["findUnique", "findMany", "create", "update", "delete"]
+    },
+    "Order": {
+      "enabled": true,
+      "operations": ["findUnique", "findMany", "create", "update", "delete"]
+    },
+    "Payment": {
+      "enabled": true,
+      "operations": ["findUnique", "findMany", "create", "update", "delete"]
+    },
+    "Offering": {
+      "enabled": true,
+      "operations": ["findUnique", "findMany", "create", "update", "delete"]
+    },
+    "File": {
+      "enabled": true,
+      "operations": ["findUnique", "findMany", "create", "update", "delete"]
+    },
+    "Session": {
+      "enabled": true,
+      "operations": ["findUnique", "create", "delete"]
+    },
+    "Account": {
+      "enabled": true,
+      "operations": ["findUnique", "create", "delete"]
+    },
+    "Verification": {
+      "enabled": true,
+      "operations": ["findUnique", "create", "delete"]
+    }
+  }
+}
