@@ -1,6 +1,7 @@
 {
   "extends": "@nextstack/tsconfig/base.json",
   "compilerOptions": {
+    "outDir": "dist",
     "tsBuildInfoFile": "node_modules/.cache/typescript/auth.tsbuildinfo"
   },
   "include": ["src"],

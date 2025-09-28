@@ -27,7 +27,7 @@ export const createContext = async (opts: CreateContextOptions) => {
       if (reqHeaders) {
         if (typeof reqHeaders.get === 'function') {
           // Headers object - use entries() method
-          for (const [key, value] of (reqHeaders as Headers).entries()) {
+          for (const [key, value] of (reqHeaders as { entries(): IterableIterator<[string, string]> }).entries()) {
             headers.set(key, value);
           }
         } else {

@@ -6,6 +6,12 @@
   },
   "exclude": ["node_modules"],
   "references": [
-    { "path": "packages/ui" }
+    { "path": "packages/auth" },
+    { "path": "packages/database" },
+    { "path": "packages/storage" },
+    { "path": "packages/validators" },
+    { "path": "packages/trpc-client" },
+    { "path": "packages/trpc-router" },
+    { "path": "apps/nextstack-server" }
   ]
 }

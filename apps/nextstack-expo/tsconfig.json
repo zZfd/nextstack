@@ -20,7 +20,7 @@
     "paths": {
       "@/*": ["./*"]
     },
-    "tsBuildInfoFile": "node_modules/.cache/typescript/nextstack-expo.tsbuildinfo"
+    "composite": false
   },
   "include": [
     "**/*.ts",

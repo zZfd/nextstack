@@ -1,7 +1,7 @@
 import { createAuthClient } from "better-auth/client";
 
 // Factory function to create auth client with custom base URL
-export function createAuthClientWithConfig(baseURL?: string) {
+export function createAuthClientWithConfig(baseURL?: string): ReturnType<typeof createAuthClient> {
   return createAuthClient({
     baseURL: baseURL || getDefaultBaseURL(),
   });
@@ -22,7 +22,7 @@ const getDefaultBaseURL = (): string => {
 };
 
 // Default client for convenience (maintains backward compatibility)
-export const authClient = createAuthClientWithConfig();
+export const authClient: ReturnType<typeof createAuthClient> = createAuthClientWithConfig();
 
 export type AuthClient = typeof authClient;
 
