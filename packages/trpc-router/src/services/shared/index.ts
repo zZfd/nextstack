@@ -1,1 +1,0 @@
-export { PaginationService, type PaginatedResult, type PaginationInput } from './pagination.service';
