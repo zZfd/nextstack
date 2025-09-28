@@ -19,7 +19,8 @@
     "db:push": "turbo db:push",
     "db:migrate": "turbo db:migrate",
     "db:reset": "turbo db:reset",
-    "db:studio": "turbo db:studio"
+    "db:studio": "turbo db:studio",
+    "postinstall": "pnpm db:generate"
   },
   "devDependencies": {
     "husky": "^9.1.7",
