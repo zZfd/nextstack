@@ -11,5 +11,6 @@ export * from './utils';
 // =====================================
 // GENERATED PRISMA SCHEMAS & TYPES
 // =====================================
-// For advanced use cases and direct Prisma integration
-export * from './generated';
+// For optimal performance, import directly from specific files:
+// import { UserCreateInputSchema } from '@nextstack/validators/generated/inputTypeSchemas/UserCreateInputSchema';
+// import { UserSchema } from '@nextstack/validators/generated/modelSchema/UserSchema';

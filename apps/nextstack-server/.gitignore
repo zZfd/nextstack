@@ -39,3 +39,5 @@ pids/
 # Backup files
 *.backup
 *.bak
+
+dist

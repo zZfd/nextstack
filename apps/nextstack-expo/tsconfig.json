@@ -19,7 +19,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "tsBuildInfoFile": "node_modules/.cache/typescript/nextstack-expo.tsbuildinfo"
   },
   "include": [
     "**/*.ts",
