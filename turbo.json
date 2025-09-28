@@ -1,16 +1,40 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local", "**/.env"],
+  "globalDependencies": [
+    "**/.env.*local",
+    "**/.env"
+  ],
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "build/**"],
-      "inputs": ["src/**", "*.ts", "*.tsx", "package.json", "tsconfig.json"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**",
+        "build/**"
+      ],
+      "inputs": [
+        "src/**",
+        "*.ts",
+        "*.tsx",
+        "package.json",
+        "tsconfig.json"
+      ]
     },
     "lint": {
       "cache": true,
       "outputs": [],
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "*.ts", "*.tsx", "eslint.config.js", ".eslintrc.js", "package.json"],
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "*.ts",
+        "*.tsx",
+        "eslint.config.js",
+        ".eslintrc.js",
+        "package.json"
+      ],
       "dependsOn": []
     },
     "lint:fix": {
@@ -24,13 +48,28 @@
     },
     "typecheck": {
       "cache": true,
-      "outputs": ["node_modules/.cache/typescript/**"],
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "index.ts", "*.ts", "*.tsx", "tsconfig.json", "package.json"],
-      "dependsOn": ["^typecheck"]
+      "outputs": [
+        "node_modules/.cache/typescript/**"
+      ],
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "index.ts",
+        "*.ts",
+        "*.tsx",
+        "tsconfig.json",
+        "package.json"
+      ],
+      "dependsOn": [
+        "^typecheck"
+      ]
     },
     "db:generate": {
-      "cache": true,
-      "outputs": ["node_modules/.prisma/**", "packages/validators/src/generated/**"]
+      "cache": false,
+      "outputs": [
+        "node_modules/.prisma/**",
+        "packages/validators/src/generated/**"
+      ]
     },
     "db:push": {
       "cache": false
