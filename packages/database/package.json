@@ -23,7 +23,7 @@
     "@nextstack/tsconfig": "workspace:*",
     "dotenv": "^17.2.2",
     "prisma": "^6.15.0",
-    "prisma-zod-generator": "^1.22.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "zod-prisma-types": "^3.2.4"
   }
 }

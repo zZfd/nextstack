@@ -17,7 +17,14 @@ generator client {
 }
 
 generator zod {
-  provider   = "prisma-zod-generator"
-  output     = "../../../validators/src/generated"
-  configPath = "../../../validators/zod-config.json"
+  provider               = "zod-prisma-types"
+  output                 = "../../../validators/src/generated"
+  useMultipleFiles       = true
+  writeBarrelFiles       = false
+  createInputTypes       = true
+  createModelTypes       = true
+  addInputTypeValidation = false
+  addIncludeType         = false
+  addSelectType          = false
+  validateWhereUniqueInput = false
 }
