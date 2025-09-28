@@ -15,7 +15,7 @@
     "postinstall": "npx tailwindcss -i ./global.css -o ./node_modules/.cache/nativewind/global.css"
   },
   "dependencies": {
-    "@nextstack/trpc": "workspace:*",
+    "@nextstack/trpc-client": "workspace:*",
     "@react-navigation/native": "^7.1.17",
     "@rn-primitives/accordion": "~1.2.0",
     "@rn-primitives/alert-dialog": "~1.2.0",

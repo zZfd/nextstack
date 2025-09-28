@@ -1,7 +1,7 @@
 import '@/global.css';
 
 // Removed Provider import - implement locally if needed
-import { trpc } from '@nextstack/trpc';
+import { trpc } from '@nextstack/trpc-client';
 import { ThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';

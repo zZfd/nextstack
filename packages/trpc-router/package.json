@@ -1,5 +1,5 @@
 {
-  "name": "@nextstack/api",
+  "name": "@nextstack/trpc-router",
   "version": "0.0.0",
   "private": true,
   "main": "./index.ts",

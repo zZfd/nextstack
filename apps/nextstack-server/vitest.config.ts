@@ -5,7 +5,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   resolve: {
     alias: {
-      '@nextstack/api': path.resolve(__dirname, '../../packages/api'),
+      '@nextstack/trpc-router': path.resolve(__dirname, '../../packages/trpc-router'),
       '@nextstack/database': path.resolve(__dirname, '../../packages/database'),
     }
   },

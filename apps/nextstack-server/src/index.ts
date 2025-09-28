@@ -1,7 +1,7 @@
 // Load environment variables first
 import './env';
 
-import { createAppRouter, createExpressContext, createAuthFromConfig, createAuthHandler } from '@nextstack/api';
+import { createAppRouter, createExpressContext, createAuthFromConfig, createAuthHandler } from '@nextstack/trpc-router';
 import * as trpcExpress from '@trpc/server/adapters/express';
 import compression from 'compression';
 import express from 'express';

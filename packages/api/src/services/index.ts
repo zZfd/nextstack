@@ -1,1 +1,0 @@
-export { UserService, type PaginatedResult } from './user.service';
