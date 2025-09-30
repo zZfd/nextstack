@@ -1,4 +1,4 @@
-import { validateEmail, validatePassword } from '@nextstack/auth';
+import { validateEmail, validatePassword } from '@nextstack/auth/validation';
 import { Eye, EyeOff } from 'lucide-react-native';
 import * as React from 'react';
 import { Controller, useForm } from 'react-hook-form';

@@ -23,6 +23,9 @@
         --border: 240 5.9% 90%;
         --input: 240 5.9% 90%;
         --ring: 240 5.9% 10%;
+        --input-text: 0 0% 17.6%;
+        --input-border: 0 0% 0% / 0.1;
+        --input-placeholder: 0 0% 44.5%;
     }
 
     .dark:root {
@@ -45,5 +48,8 @@
         --border: 240 3.7% 15.9%;
         --input: 240 3.7% 15.9%;
         --ring: 240 4.9% 83.9%;
+        --input-text: 0 0% 98%;
+        --input-border: 0 0% 100% / 0.1;
+        --input-placeholder: 0 0% 64.9%;
     }
 }

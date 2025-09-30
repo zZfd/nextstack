@@ -29,15 +29,15 @@ const Input = React.forwardRef<TextInput, InputProps>(
       <TextInput
         ref={ref}
         className={cn(
-          'h-12 rounded-lg border border-[rgba(0,0,0,0.1)] bg-white px-4 text-sm text-[#2d2d2d] tracking-[-0.15px]',
+          'h-12 rounded-lg border border-input-border bg-white px-4 text-sm text-input-text tracking-[-0.15px]',
           'web:flex web:w-full web:py-2',
-          'placeholder:text-[#717171]',
+          'placeholder:text-input-placeholder',
           'web:focus:outline-none web:focus:ring-0 web:focus:border-primary',
           isFocused && 'native:border-primary',
           editable === false && 'opacity-50',
           className
         )}
-        placeholderTextColor='#717171'
+        placeholderTextColor='hsl(var(--input-placeholder))'
         placeholderClassName={placeholderClassName}
         editable={editable}
         onFocus={handleFocus}

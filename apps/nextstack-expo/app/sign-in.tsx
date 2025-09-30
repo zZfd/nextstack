@@ -1,4 +1,4 @@
-import { createAuthClientWithConfig } from '@nextstack/auth';
+import { createAuthClientWithConfig } from '@nextstack/auth/client';
 import { useRouter } from 'expo-router';
 import * as React from 'react';
 import { Alert, View } from 'react-native';
