@@ -1,22 +1,27 @@
 // Load environment variables first
 import './env';
 
-import { createAppRouter, createExpressContext, createAuthFromConfig, createAuthHandler } from '@nextstack/trpc-router';
+import {
+  createAppRouter,
+  createAuthFromConfig,
+  createAuthHandler,
+  createExpressContext,
+} from '@nextstack/trpc-router';
 import * as trpcExpress from '@trpc/server/adapters/express';
 import compression from 'compression';
 import express from 'express';
 
 // Import custom middleware and configurations
 import {
-  env,
-  requestIdMiddleware,
-  timeoutMiddleware,
-  requestLogger,
-  createSecurityMiddleware,
   createCorsMiddleware,
   createRateLimitMiddleware,
+  createSecurityMiddleware,
+  env,
   globalErrorHandler,
   notFoundHandler,
+  requestIdMiddleware,
+  requestLogger,
+  timeoutMiddleware,
 } from './middleware';
 import { setupGracefulShutdown } from './utils/shutdown';
 
@@ -73,7 +78,7 @@ app.use('/trpc', rateLimiter);
 app.get('/health', (req, res) => {
   res.status(200).json({
     status: 'ok',
-    service: 'nextstack-api',
+    service: 'nextstack-server',
     version: process.env.npm_package_version || '0.0.0',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),

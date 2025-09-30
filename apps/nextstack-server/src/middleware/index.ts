@@ -1,5 +1,5 @@
 /**
- * Middleware exports for nextstack-api
+ * Middleware exports for nextstack-server
  * Provides a central place to manage all middleware imports
  */
 
@@ -7,15 +7,15 @@
 export { env } from './validation';
 
 // Core middleware (order matters)
+export { requestLogger } from './logger';
 export { requestIdMiddleware } from './requestId';
 export { timeoutMiddleware } from './timeout';
-export { requestLogger } from './logger';
 
 // Third-party middleware configurations
-export { createSecurityMiddleware } from './security';
 export { createCorsMiddleware } from './cors';
-export { createRateLimitMiddleware } from './rateLimit';
 export * from './errorHandlers';
+export { createRateLimitMiddleware } from './rateLimit';
+export { createSecurityMiddleware } from './security';
 
 // Utility functions
 export { shouldSkipLogging } from './logger';

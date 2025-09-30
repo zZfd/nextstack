@@ -14,11 +14,11 @@
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "test:integration": "vitest run tests/integration",
-    "docker:build": "docker build -t nextstack-api .",
-    "docker:run": "docker run -d -p 3001:3001 --name nextstack-api-container nextstack-api",
-    "docker:stop": "docker stop nextstack-api-container",
-    "docker:remove": "docker rm nextstack-api-container",
-    "docker:logs": "docker logs -f nextstack-api-container",
+    "docker:build": "docker build -t nextstack-server .",
+    "docker:run": "docker run -d -p 3001:3001 --name nextstack-server-container nextstack-server",
+    "docker:stop": "docker stop nextstack-server-container",
+    "docker:remove": "docker rm nextstack-server-container",
+    "docker:logs": "docker logs -f nextstack-server-container",
     "docker:deploy": "pnpm docker:build && pnpm docker:run"
   },
   "dependencies": {
