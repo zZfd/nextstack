@@ -59,36 +59,6 @@ export function SignInForm({
 
   return (
     <ScrollView className='flex-1' contentContainerClassName='gap-6'>
-      {/* Demo Accounts Card */}
-      <View className='bg-[rgba(248,248,248,0.5)] rounded-lg border border-[rgba(0,0,0,0.1)] p-4 gap-3'>
-        <Text className='text-sm font-medium text-[#2d2d2d]'>
-          🎯 Demo Accounts
-        </Text>
-        <View className='gap-2'>
-          <View className='flex-row justify-between'>
-            <Text className='text-xs text-[#717171]'>Customer:</Text>
-            <Text className='text-xs text-[#2d2d2d]'>customer@demo.com</Text>
-          </View>
-          <View className='flex-row justify-between'>
-            <Text className='text-xs text-[#717171]'>Photographer:</Text>
-            <Text className='text-xs text-[#2d2d2d]'>photograph@demo.com</Text>
-          </View>
-          <View className='flex-row justify-between'>
-            <Text className='text-xs text-[#717171]'>Business:</Text>
-            <Text className='text-xs text-[#2d2d2d]'>merchant@demo.com</Text>
-          </View>
-          <View className='flex-row justify-between'>
-            <Text className='text-xs text-[#717171]'>Admin:</Text>
-            <Text className='text-xs text-[#2d2d2d]'>admin@demo.com</Text>
-          </View>
-          <View className='border-t border-[rgba(0,0,0,0.05)] pt-2 mt-1'>
-            <Text className='text-xs text-center text-[#717171]'>
-              Password: <Text className='font-medium text-[#2d2d2d]'>123</Text>
-            </Text>
-          </View>
-        </View>
-      </View>
-
       {/* Auth Method Tabs */}
       <View className='bg-[#f8f8f8] rounded-lg p-1 flex-row'>
         <Pressable
