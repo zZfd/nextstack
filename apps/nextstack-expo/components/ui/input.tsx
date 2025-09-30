@@ -1,12 +1,30 @@
 import * as React from 'react';
-import { TextInput } from 'react-native';
+import { TextInput, type NativeSyntheticEvent, type TextInputFocusEventData } from 'react-native';
 
 import { cn } from '@/lib/utils';
 
 export type InputProps = React.ComponentPropsWithoutRef<typeof TextInput>;
 
 const Input = React.forwardRef<TextInput, InputProps>(
-  ({ className, placeholderClassName, editable = true, ...props }, ref) => {
+  ({ className, placeholderClassName, editable = true, onFocus, onBlur, ...props }, ref) => {
+    const [isFocused, setIsFocused] = React.useState(false);
+
+    const handleFocus = React.useCallback(
+      (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        setIsFocused(true);
+        onFocus?.(e);
+      },
+      [onFocus]
+    );
+
+    const handleBlur = React.useCallback(
+      (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        setIsFocused(false);
+        onBlur?.(e);
+      },
+      [onBlur]
+    );
+
     return (
       <TextInput
         ref={ref}
@@ -14,12 +32,16 @@ const Input = React.forwardRef<TextInput, InputProps>(
           'h-12 rounded-lg border border-[rgba(0,0,0,0.1)] bg-white px-4 text-sm text-[#2d2d2d] tracking-[-0.15px]',
           'web:flex web:w-full web:py-2',
           'placeholder:text-[#717171]',
+          'web:focus:outline-none web:focus:ring-0 web:focus:border-primary',
+          isFocused && 'native:border-primary',
           editable === false && 'opacity-50',
           className
         )}
         placeholderTextColor='#717171'
         placeholderClassName={placeholderClassName}
         editable={editable}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         {...props}
       />
     );
