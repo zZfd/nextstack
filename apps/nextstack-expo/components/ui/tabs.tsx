@@ -26,27 +26,32 @@ TabsList.displayName = TabsPrimitive.List.displayName;
 const TabsTrigger = React.forwardRef<
   TriggerRef,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->(({ className, ...props }, ref) => (
-  <TextClassContext.Provider
-    value={cn(
-      'text-sm font-medium text-muted-foreground web:transition-all',
-      props.disabled && 'web:pointer-events-none opacity-50',
-      'group-data-[state=active]:text-foreground'
-    )}
-  >
-    <TabsPrimitive.Trigger
-      ref={ref}
-      className={cn(
-        'group inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 web:transition-all',
-        'web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2',
-        'disabled:pointer-events-none disabled:opacity-50',
-        'data-[state=active]:bg-background data-[state=active]:shadow-sm',
-        className
+>(({ className, ...props }, ref) => {
+  const { value: rootValue } = TabsPrimitive.useRootContext();
+  const isActive = props.value === rootValue;
+
+  return (
+    <TextClassContext.Provider
+      value={cn(
+        'text-sm font-medium web:transition-all',
+        props.disabled && 'web:pointer-events-none opacity-50',
+        isActive ? 'text-foreground' : 'text-muted-foreground'
       )}
-      {...props}
-    />
-  </TextClassContext.Provider>
-));
+    >
+      <TabsPrimitive.Trigger
+        ref={ref}
+        className={cn(
+          'group inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 web:transition-all',
+          'web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2',
+          'disabled:pointer-events-none disabled:opacity-50',
+          isActive && 'bg-white',
+          className
+        )}
+        {...props}
+      />
+    </TextClassContext.Provider>
+  );
+});
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
 const TabsContent = React.forwardRef<

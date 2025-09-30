@@ -66,24 +66,12 @@ export function SignInForm({
         onValueChange={value => setAuthMethod(value as AuthMethod)}
       >
         <TabsList className='bg-[#f8f8f8]'>
-          <TabsTrigger
-            value='email'
-            className='flex-1 h-10'
-            onPress={() => {
-              console.log('email');
-            }}
-          >
+          <TabsTrigger value='email' className='flex-1 h-10'>
             <Text className='text-sm font-medium tracking-[-0.15px]'>
               Email
             </Text>
           </TabsTrigger>
-          <TabsTrigger
-            value='phone'
-            className='flex-1 h-10'
-            onPress={() => {
-              console.log('phone');
-            }}
-          >
+          <TabsTrigger value='phone' className='flex-1 h-10'>
             <Text className='text-sm font-medium tracking-[-0.15px]'>
               Phone
             </Text>
