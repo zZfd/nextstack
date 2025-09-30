@@ -58,6 +58,9 @@ importers:
 
   apps/nextstack-expo:
     dependencies:
+      '@nextstack/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@nextstack/trpc-client':
         specifier: workspace:*
         version: link:../../packages/trpc-client

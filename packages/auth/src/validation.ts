@@ -1,4 +1,4 @@
-import type { FormValidation, ValidationError } from './types';
+import type { ValidationError } from './types';
 
 export const validateEmail = (email: string): ValidationError | null => {
   if (!email) {
@@ -13,17 +13,26 @@ export const validateEmail = (email: string): ValidationError | null => {
   return null;
 };
 
-export const validatePassword = (password: string, minLength = 8): ValidationError | null => {
+export const validatePassword = (
+  password: string,
+  minLength = 8
+): ValidationError | null => {
   if (!password) {
     return { field: 'password', message: 'Password is required' };
   }
 
   if (password.length < minLength) {
-    return { field: 'password', message: `Password must be at least ${minLength} characters long` };
+    return {
+      field: 'password',
+      message: `Password must be at least ${minLength} characters long`,
+    };
   }
 
   if (password.length > 128) {
-    return { field: 'password', message: 'Password must be no more than 128 characters long' };
+    return {
+      field: 'password',
+      message: 'Password must be no more than 128 characters long',
+    };
   }
 
   return null;
@@ -35,7 +44,10 @@ export const validateName = (name: string): ValidationError | null => {
   }
 
   if (name.length > 100) {
-    return { field: 'name', message: 'Name must be no more than 100 characters long' };
+    return {
+      field: 'name',
+      message: 'Name must be no more than 100 characters long',
+    };
   }
 
   return null;
@@ -46,7 +58,10 @@ export const validateConfirmPassword = (
   confirmPassword: string
 ): ValidationError | null => {
   if (!confirmPassword) {
-    return { field: 'confirmPassword', message: 'Please confirm your password' };
+    return {
+      field: 'confirmPassword',
+      message: 'Please confirm your password',
+    };
   }
 
   if (password !== confirmPassword) {
@@ -54,45 +69,4 @@ export const validateConfirmPassword = (
   }
 
   return null;
-};
-
-export const validateSignInForm = (email: string, password: string): FormValidation => {
-  const errors: ValidationError[] = [];
-
-  const emailError = validateEmail(email);
-  if (emailError) errors.push(emailError);
-
-  const passwordError = validatePassword(password);
-  if (passwordError) errors.push(passwordError);
-
-  return {
-    isValid: errors.length === 0,
-    errors,
-  };
-};
-
-export const validateSignUpForm = (
-  name: string,
-  email: string,
-  password: string,
-  confirmPassword: string
-): FormValidation => {
-  const errors: ValidationError[] = [];
-
-  const nameError = validateName(name);
-  if (nameError) errors.push(nameError);
-
-  const emailError = validateEmail(email);
-  if (emailError) errors.push(emailError);
-
-  const passwordError = validatePassword(password);
-  if (passwordError) errors.push(passwordError);
-
-  const confirmPasswordError = validateConfirmPassword(password, confirmPassword);
-  if (confirmPasswordError) errors.push(confirmPasswordError);
-
-  return {
-    isValid: errors.length === 0,
-    errors,
-  };
 };
