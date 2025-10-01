@@ -47,11 +47,9 @@ import {
   Text,
   Textarea,
 } from '@/components/ui';
-import { useToast } from '@/hooks/use-toast';
 import '@/global.css';
 
 export default function HomePage() {
-  const { toast } = useToast();
   const [checked, setChecked] = React.useState(false);
   const [switchValue, setSwitchValue] = React.useState(false);
   const [radioValue, setRadioValue] = React.useState('option1');
@@ -286,42 +284,6 @@ export default function HomePage() {
             </CardContent>
           </Card>
 
-          {/* Toast */}
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                <Text>Toast</Text>
-              </CardTitle>
-              <CardDescription>
-                <Text>Temporary notifications</Text>
-              </CardDescription>
-            </CardHeader>
-            <CardContent className='gap-3'>
-              <Button
-                variant='outline'
-                onPress={() => {
-                  toast({
-                    title: 'Success',
-                    description: 'Your changes have been saved.',
-                  });
-                }}
-              >
-                <Text>Show Toast</Text>
-              </Button>
-              <Button
-                variant='destructive'
-                onPress={() => {
-                  toast({
-                    variant: 'destructive',
-                    title: 'Error',
-                    description: 'Something went wrong.',
-                  });
-                }}
-              >
-                <Text>Show Error Toast</Text>
-              </Button>
-            </CardContent>
-          </Card>
         </View>
 
         <Separator />

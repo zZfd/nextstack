@@ -44,7 +44,6 @@
     "@rn-primitives/switch": "~1.2.0",
     "@rn-primitives/table": "~1.2.0",
     "@rn-primitives/tabs": "~1.2.0",
-    "@rn-primitives/toast": "~1.2.0",
     "@rn-primitives/toggle": "~1.2.0",
     "@rn-primitives/toggle-group": "~1.2.0",
     "@rn-primitives/toolbar": "~1.2.0",

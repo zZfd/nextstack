@@ -14,7 +14,6 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { config } from '../config';
 
-import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/lib/ThemeProvider';
 import { useColorScheme } from '@/lib/useColorScheme';
 
@@ -75,7 +74,6 @@ export default function RootLayout() {
                 />
               </Stack>
               <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
-              <Toaster />
             </NavigationThemeProvider>
           </ThemeProvider>
         </QueryClientProvider>
