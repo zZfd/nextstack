@@ -10,6 +10,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { config } from '../config';
 
@@ -50,7 +51,7 @@ export default function RootLayout() {
   }
 
   return (
-    <>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider>
@@ -80,6 +81,6 @@ export default function RootLayout() {
         </QueryClientProvider>
       </trpc.Provider>
       <PortalHost />
-    </>
+    </GestureHandlerRootView>
   );
 }
