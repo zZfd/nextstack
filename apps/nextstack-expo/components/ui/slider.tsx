@@ -4,53 +4,148 @@ import { LayoutChangeEvent, Platform, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   clamp,
+  runOnJS,
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
 
 import { cn } from '@/lib/utils';
 
+interface SliderNativeProps
+  extends Omit<
+    React.ComponentPropsWithoutRef<typeof SliderPrimitives.Root>,
+    'value' | 'onValueChange'
+  > {
+  className?: string;
+  value?: number;
+  onValueChange?: (value: number[]) => void;
+  max?: number;
+  min?: number;
+  step?: number;
+  disabled?: boolean;
+}
+
 const SliderNative = React.forwardRef<
   React.ComponentRef<typeof SliderPrimitives.Root>,
-  { className: string; value: number; disabled?: boolean }
->(({ className, value = 0, ...props }, ref) => {
-  const offset = useSharedValue<number>(value);
-  const pressed = useSharedValue<boolean>(false);
-  const width = useSharedValue<number>(0);
+  SliderNativeProps
+>(
+  (
+    {
+      className,
+      value = 0,
+      onValueChange,
+      max = 100,
+      min = 0,
+      step = 1,
+      disabled,
+      ...props
+    },
+    ref
+  ) => {
+    const offset = useSharedValue<number>(0);
+    const pressed = useSharedValue<boolean>(false);
+    const width = useSharedValue<number>(0);
+    const previousValue = React.useRef<number>(value);
 
-  const onLayout = (event: LayoutChangeEvent) => {
-    width.value = event.nativeEvent.layout.width;
-  };
-  const pan = Gesture.Pan()
-    .onBegin(event => {
-      pressed.value = true;
-      offset.value = clamp(event.x, 0, width.value);
-    })
-    .onChange(event => {
-      offset.value = clamp(event.x, 0, width.value);
-    })
-    .onFinalize(() => {
-      pressed.value = false;
-    });
+    // Helper function to calculate offset from value
+    const calculateOffset = React.useCallback(
+      (val: number, trackWidth: number) => {
+        if (trackWidth === 0) return 0;
+        const percentage = (val - min) / (max - min);
+        return clamp(percentage * trackWidth, 0, trackWidth);
+      },
+      [max, min]
+    );
 
-  return (
-    <SliderPrimitives.Root
-      className={cn('h-2 w-full mx-[12px]', className)}
-      ref={ref}
-      value={value}
-      {...props}
-    >
-      <View onLayout={onLayout}>
-        <GestureDetector gesture={pan}>
-          <SliderPrimitives.Track className='relative h-2 w-full bg-primary/20 rounded-full'>
-            <SliderRange offset={offset} />
-            <SliderThumb offset={offset} />
-          </SliderPrimitives.Track>
-        </GestureDetector>
-      </View>
-    </SliderPrimitives.Root>
-  );
-});
+    // Sync offset when value or width changes
+    React.useEffect(() => {
+      if (width.value > 0) {
+        offset.value = calculateOffset(value, width.value);
+      }
+    }, [value, calculateOffset]);
+
+    // Callback wrapper that can be called from worklet
+    const handleValueChange = React.useCallback(
+      (newValue: number) => {
+        if (
+          onValueChange &&
+          Math.abs(newValue - previousValue.current) >= step
+        ) {
+          previousValue.current = newValue;
+          onValueChange([newValue]);
+        }
+      },
+      [onValueChange, step]
+    );
+
+    const onLayout = (event: LayoutChangeEvent) => {
+      const newWidth = event.nativeEvent.layout.width;
+      width.value = newWidth;
+      // Initialize offset based on current value
+      offset.value = calculateOffset(value, newWidth);
+    };
+
+    const pan = Gesture.Pan()
+      .onBegin(event => {
+        'worklet';
+        pressed.value = true;
+        const clampedOffset = clamp(event.x, 0, width.value);
+        offset.value = clampedOffset;
+
+        // Calculate value from offset (worklet-safe)
+        if (width.value > 0) {
+          const percentage = clamp(clampedOffset / width.value, 0, 1);
+          const rawValue = percentage * (max - min) + min;
+          const steppedValue = Math.round(rawValue / step) * step;
+          const newValue = Math.max(min, Math.min(max, steppedValue));
+
+          runOnJS(handleValueChange)(newValue);
+        }
+      })
+      .onChange(event => {
+        'worklet';
+        const clampedOffset = clamp(event.x, 0, width.value);
+        offset.value = clampedOffset;
+
+        // Calculate value from offset (worklet-safe)
+        if (width.value > 0) {
+          const percentage = clamp(clampedOffset / width.value, 0, 1);
+          const rawValue = percentage * (max - min) + min;
+          const steppedValue = Math.round(rawValue / step) * step;
+          const newValue = Math.max(min, Math.min(max, steppedValue));
+
+          runOnJS(handleValueChange)(newValue);
+        }
+      })
+      .onFinalize(() => {
+        'worklet';
+        pressed.value = false;
+      });
+
+    return (
+      <SliderPrimitives.Root
+        className={cn('h-2 w-full mx-[12px]', className)}
+        ref={ref}
+        value={value}
+        onValueChange={onValueChange}
+        max={max}
+        min={min}
+        step={step}
+        disabled={disabled}
+        {...props}
+      >
+        <View onLayout={onLayout}>
+          <GestureDetector gesture={pan}>
+            <SliderPrimitives.Track className='relative h-2 w-full bg-primary/20 rounded-full'>
+              <SliderRange offset={offset} />
+              <SliderThumb offset={offset} />
+            </SliderPrimitives.Track>
+          </GestureDetector>
+        </View>
+      </SliderPrimitives.Root>
+    );
+  }
+);
 
 SliderNative.displayName = 'SliderNative';
 
