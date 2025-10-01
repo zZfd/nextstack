@@ -76,12 +76,12 @@ export default function RootLayout() {
                   />
                 </Stack>
                 <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+                <PortalHost />
               </NavigationThemeProvider>
             </ToastProvider>
           </ThemeProvider>
         </QueryClientProvider>
       </trpc.Provider>
-      <PortalHost />
     </GestureHandlerRootView>
   );
 }

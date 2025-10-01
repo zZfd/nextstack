@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ScrollView, View } from 'react-native';
+import { Platform, ScrollView, View } from 'react-native';
 
 import { ThemeToggle } from '@/components/ThemeToggle';
 import {
@@ -474,81 +474,402 @@ export default function HomePage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <View className='overflow-hidden rounded-md border border-border'>
-                <Table aria-labelledby='invoice-table'>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className='w-[100px]'>
-                        <Text>Invoice</Text>
-                      </TableHead>
-                      <TableHead>
-                        <Text>Status</Text>
-                      </TableHead>
-                      <TableHead>
-                        <Text>Method</Text>
-                      </TableHead>
-                      <TableHead className='text-right'>
-                        <Text>Amount</Text>
-                      </TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell className='w-[100px] font-medium'>
-                        <Text>INV001</Text>
-                      </TableCell>
-                      <TableCell>
-                        <Text>Paid</Text>
-                      </TableCell>
-                      <TableCell>
-                        <Text>Credit Card</Text>
-                      </TableCell>
-                      <TableCell className='text-right'>
-                        <Text>$250.00</Text>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className='w-[100px] font-medium'>
-                        <Text>INV002</Text>
-                      </TableCell>
-                      <TableCell>
-                        <Text>Pending</Text>
-                      </TableCell>
-                      <TableCell>
-                        <Text>PayPal</Text>
-                      </TableCell>
-                      <TableCell className='text-right'>
-                        <Text>$150.00</Text>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className='w-[100px] font-medium'>
-                        <Text>INV003</Text>
-                      </TableCell>
-                      <TableCell>
-                        <Text>Unpaid</Text>
-                      </TableCell>
-                      <TableCell>
-                        <Text>Bank Transfer</Text>
-                      </TableCell>
-                      <TableCell className='text-right'>
-                        <Text>$350.00</Text>
-                      </TableCell>
-                    </TableRow>
-                    <TableFooter>
+              <View className='rounded-md border border-border'>
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={Platform.OS === 'web'}
+                  contentContainerStyle={{ minWidth: '100%' }}
+                >
+                  <Table aria-labelledby='invoice-table'>
+                    <TableHeader>
                       <TableRow>
-                        <TableCell className='w-[100px]'>
-                          <Text>Total</Text>
+                        <TableHead className='w-24'>
+                          <Text>Invoice</Text>
+                        </TableHead>
+                        <TableHead className='w-24'>
+                          <Text>Status</Text>
+                        </TableHead>
+                        <TableHead className='w-32'>
+                          <Text>Customer</Text>
+                        </TableHead>
+                        <TableHead className='w-28'>
+                          <Text>Date</Text>
+                        </TableHead>
+                        <TableHead className='w-32'>
+                          <Text>Method</Text>
+                        </TableHead>
+                        <TableHead className='w-28'>
+                          <Text>Amount</Text>
+                        </TableHead>
+                        <TableHead className='w-40'>
+                          <Text>Notes</Text>
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV001</Text>
                         </TableCell>
-                        <TableCell />
-                        <TableCell />
-                        <TableCell className='text-right'>
-                          <Text>$750.00</Text>
+                        <TableCell className='w-24'>
+                          <Text>Paid</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>John Doe</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-15</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Credit Card</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$250.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>Regular customer</Text>
                         </TableCell>
                       </TableRow>
-                    </TableFooter>
-                  </TableBody>
-                </Table>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV002</Text>
+                        </TableCell>
+                        <TableCell className='w-24'>
+                          <Text>Pending</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Jane Smith</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-16</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>PayPal</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$150.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>First time buyer</Text>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV003</Text>
+                        </TableCell>
+                        <TableCell className='w-24'>
+                          <Text>Unpaid</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Bob Johnson</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-17</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Bank Transfer</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$350.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>Premium package</Text>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV004</Text>
+                        </TableCell>
+                        <TableCell className='w-24'>
+                          <Text>Paid</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Alice Wang</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-18</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Debit Card</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$420.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>Corporate client</Text>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV005</Text>
+                        </TableCell>
+                        <TableCell className='w-24'>
+                          <Text>Pending</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Mike Chen</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-19</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Wire Transfer</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$890.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>Enterprise deal</Text>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV006</Text>
+                        </TableCell>
+                        <TableCell className='w-24'>
+                          <Text>Paid</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Sarah Lee</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-20</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>PayPal</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$125.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>Referral discount</Text>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV007</Text>
+                        </TableCell>
+                        <TableCell className='w-24'>
+                          <Text>Unpaid</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>David Kim</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-21</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Credit Card</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$675.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>Bulk order</Text>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV008</Text>
+                        </TableCell>
+                        <TableCell className='w-24'>
+                          <Text>Pending</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Emma Brown</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-22</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Debit Card</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$299.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>VIP member</Text>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV009</Text>
+                        </TableCell>
+                        <TableCell className='w-24'>
+                          <Text>Paid</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Chris Taylor</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-23</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Bank Transfer</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$540.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>Repeat customer</Text>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV010</Text>
+                        </TableCell>
+                        <TableCell className='w-24'>
+                          <Text>Paid</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Lisa Chen</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-24</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>PayPal</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$189.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>Holiday sale</Text>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV011</Text>
+                        </TableCell>
+                        <TableCell className='w-24'>
+                          <Text>Pending</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Tom Wilson</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-25</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Wire Transfer</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$1,250.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>Large project</Text>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV012</Text>
+                        </TableCell>
+                        <TableCell className='w-24'>
+                          <Text>Paid</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Amy Zhang</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-26</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Credit Card</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$395.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>Express delivery</Text>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV013</Text>
+                        </TableCell>
+                        <TableCell className='w-24'>
+                          <Text>Unpaid</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Ryan Miller</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-27</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Debit Card</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$825.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>Corporate account</Text>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV014</Text>
+                        </TableCell>
+                        <TableCell className='w-24'>
+                          <Text>Paid</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Kate Anderson</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-28</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>PayPal</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$215.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>Gift purchase</Text>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className='w-24 font-medium'>
+                          <Text>INV015</Text>
+                        </TableCell>
+                        <TableCell className='w-24'>
+                          <Text>Pending</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Mark Davis</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>2024-01-29</Text>
+                        </TableCell>
+                        <TableCell className='w-32'>
+                          <Text>Bank Transfer</Text>
+                        </TableCell>
+                        <TableCell className='w-28'>
+                          <Text>$960.00</Text>
+                        </TableCell>
+                        <TableCell className='w-40'>
+                          <Text>Subscription plan</Text>
+                        </TableCell>
+                      </TableRow>
+                      <TableFooter>
+                        <TableRow>
+                          <TableCell className='w-24'>
+                            <Text>Total</Text>
+                          </TableCell>
+                          <TableCell className='w-24' />
+                          <TableCell className='w-32' />
+                          <TableCell className='w-28' />
+                          <TableCell className='w-32' />
+                          <TableCell className='w-28'>
+                            <Text>$8,458.00</Text>
+                          </TableCell>
+                          <TableCell className='w-40' />
+                        </TableRow>
+                      </TableFooter>
+                    </TableBody>
+                  </Table>
+                </ScrollView>
               </View>
             </CardContent>
           </Card>
