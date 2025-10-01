@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+    /* CSS Variables work on web, fallback to direct classes on native */
     :root {
         --background: 0 0% 100%;
         --foreground: 240 10% 3.9%;
@@ -28,7 +29,7 @@
         --input-placeholder: 0 0% 44.5%;
     }
 
-    .dark:root {
+    .dark {
         --background: 240 10% 3.9%;
         --foreground: 0 0% 98%;
         --card: 240 10% 3.9%;

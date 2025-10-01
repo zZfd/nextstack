@@ -1,8 +1,7 @@
 import '@/global.css';
 
-// Removed Provider import - implement locally if needed
 import { trpc } from '@nextstack/trpc-client';
-import { ThemeProvider } from '@react-navigation/native';
+import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
 import { useFonts } from 'expo-font';
@@ -13,6 +12,8 @@ import { useEffect, useState } from 'react';
 
 import { config } from '../config';
 
+import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from '@/lib/ThemeProvider';
 import { useColorScheme } from '@/lib/useColorScheme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -51,26 +52,29 @@ export default function RootLayout() {
     <>
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
-          <ThemeProvider value={theme}>
-            <Stack
-              screenOptions={{
-                headerStyle: {
-                  backgroundColor: theme.colors.card,
-                },
-                headerTintColor: theme.colors.text,
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-              }}
-            >
-              <Stack.Screen
-                name='index'
-                options={{
-                  title: 'Mobile Expo App',
+          <ThemeProvider>
+            <NavigationThemeProvider value={theme}>
+              <Stack
+                screenOptions={{
+                  headerStyle: {
+                    backgroundColor: theme.colors.card,
+                  },
+                  headerTintColor: theme.colors.text,
+                  headerTitleStyle: {
+                    fontWeight: 'bold',
+                  },
                 }}
-              />
-            </Stack>
-            <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+              >
+                <Stack.Screen
+                  name='index'
+                  options={{
+                    title: 'Mobile Expo App',
+                  }}
+                />
+              </Stack>
+              <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+              <Toaster />
+            </NavigationThemeProvider>
           </ThemeProvider>
         </QueryClientProvider>
       </trpc.Provider>
