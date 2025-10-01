@@ -2,6 +2,7 @@ import '@/global.css';
 
 import { trpc } from '@nextstack/trpc-client';
 import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
+import { PortalHost } from '@rn-primitives/portal';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
 import { useFonts } from 'expo-font';
@@ -78,6 +79,7 @@ export default function RootLayout() {
           </ThemeProvider>
         </QueryClientProvider>
       </trpc.Provider>
+      <PortalHost />
     </>
   );
 }

@@ -84,6 +84,7 @@ const SelectContent = React.forwardRef<
   return (
     <SelectPrimitive.Portal hostName={portalHost}>
       <SelectPrimitive.Overlay
+        className={cn(Platform.OS === 'web' && 'z-50')}
         style={Platform.OS !== 'web' ? StyleSheet.absoluteFill : undefined}
       >
         <SelectPrimitive.Content
