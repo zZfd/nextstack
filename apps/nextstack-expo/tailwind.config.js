@@ -8,9 +8,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Using hsl() format that NativeWind can parse for both web and native
-        // The CSS variables are defined in global.css for web
-        // NativeWind will handle these values directly on native
+        // CSS variables for dynamic theming
+        // These reference variables defined in addBase plugin below
         border: 'hsl(var(--border) / <alpha-value>)',
         input: {
           DEFAULT: 'hsl(var(--input) / <alpha-value>)',
@@ -69,5 +68,59 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    // Define CSS variables for web
+    ({ addBase }) =>
+      addBase({
+        ':root': {
+          '--background': '0 0% 100%',
+          '--foreground': '240 10% 3.9%',
+          '--card': '0 0% 100%',
+          '--card-foreground': '240 10% 3.9%',
+          '--popover': '0 0% 100%',
+          '--popover-foreground': '240 10% 3.9%',
+          '--primary': '142 76% 36%',
+          '--primary-foreground': '0 0% 98%',
+          '--secondary': '142 20% 95%',
+          '--secondary-foreground': '142 76% 25%',
+          '--muted': '142 20% 95%',
+          '--muted-foreground': '140 8% 46%',
+          '--accent': '162 60% 40%',
+          '--accent-foreground': '0 0% 98%',
+          '--destructive': '0 84.2% 60.2%',
+          '--destructive-foreground': '0 0% 98%',
+          '--border': '240 5.9% 90%',
+          '--input': '240 5.9% 90%',
+          '--ring': '240 5.9% 10%',
+          '--input-text': '0 0% 17.6%',
+          '--input-border': '0 0% 0% / 0.1',
+          '--input-placeholder': '0 0% 44.5%',
+        },
+        '.dark': {
+          '--background': '240 10% 3.9%',
+          '--foreground': '0 0% 98%',
+          '--card': '240 10% 3.9%',
+          '--card-foreground': '0 0% 98%',
+          '--popover': '240 10% 3.9%',
+          '--popover-foreground': '0 0% 98%',
+          '--primary': '142 76% 36%',
+          '--primary-foreground': '0 0% 98%',
+          '--secondary': '142 15% 20%',
+          '--secondary-foreground': '142 70% 65%',
+          '--muted': '142 15% 20%',
+          '--muted-foreground': '140 5% 64.9%',
+          '--accent': '162 60% 45%',
+          '--accent-foreground': '0 0% 98%',
+          '--destructive': '0 72% 51%',
+          '--destructive-foreground': '0 0% 98%',
+          '--border': '240 3.7% 15.9%',
+          '--input': '240 3.7% 15.9%',
+          '--ring': '240 4.9% 83.9%',
+          '--input-text': '0 0% 98%',
+          '--input-border': '0 0% 100% / 0.1',
+          '--input-placeholder': '0 0% 64.9%',
+        },
+      }),
+  ],
 };
