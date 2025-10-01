@@ -1,12 +1,26 @@
 import * as React from 'react';
-import { TextInput, type NativeSyntheticEvent, type TextInputFocusEventData } from 'react-native';
+import {
+  TextInput,
+  type NativeSyntheticEvent,
+  type TextInputFocusEventData,
+} from 'react-native';
 
 import { cn } from '@/lib/utils';
 
 export type InputProps = React.ComponentPropsWithoutRef<typeof TextInput>;
 
 const Input = React.forwardRef<TextInput, InputProps>(
-  ({ className, placeholderClassName, editable = true, onFocus, onBlur, ...props }, ref) => {
+  (
+    {
+      className,
+      placeholderClassName,
+      editable = true,
+      onFocus,
+      onBlur,
+      ...props
+    },
+    ref
+  ) => {
     const [isFocused, setIsFocused] = React.useState(false);
 
     const handleFocus = React.useCallback(

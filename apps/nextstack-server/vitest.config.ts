@@ -1,13 +1,16 @@
-import path from 'path'
+import path from 'path';
 
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   resolve: {
     alias: {
-      '@nextstack/trpc-router': path.resolve(__dirname, '../../packages/trpc-router'),
+      '@nextstack/trpc-router': path.resolve(
+        __dirname,
+        '../../packages/trpc-router'
+      ),
       '@nextstack/database': path.resolve(__dirname, '../../packages/database'),
-    }
+    },
   },
   test: {
     environment: 'node',
@@ -18,10 +21,10 @@ export default defineConfig({
     poolOptions: {
       forks: {
         singleFork: false, // 允许并发测试
-      }
+      },
     },
     testTimeout: 30000, // 数据库操作需要更长时间
     include: ['tests/**/*.test.ts'],
-    exclude: ['node_modules', 'dist']
-  }
-})
+    exclude: ['node_modules', 'dist'],
+  },
+});

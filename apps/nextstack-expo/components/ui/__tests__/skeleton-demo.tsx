@@ -9,11 +9,11 @@ import { Skeleton } from '../skeleton';
  */
 export function SkeletonDemo() {
   return (
-    <View className="flex-row items-center gap-4">
-      <Skeleton className="h-12 w-12 rounded-full" />
-      <View className="flex-1 gap-2">
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-4/5" />
+    <View className='flex-row items-center gap-4'>
+      <Skeleton className='h-12 w-12 rounded-full' />
+      <View className='flex-1 gap-2'>
+        <Skeleton className='h-4 w-full' />
+        <Skeleton className='h-4 w-4/5' />
       </View>
     </View>
   );
@@ -24,13 +24,13 @@ export function SkeletonDemo() {
  */
 export function SkeletonCardDemo() {
   return (
-    <View className="w-full max-w-md gap-4 rounded-lg border border-border p-4">
-      <View className="gap-2">
-        <Skeleton className="h-32 w-full rounded-md" />
+    <View className='w-full max-w-md gap-4 rounded-lg border border-border p-4'>
+      <View className='gap-2'>
+        <Skeleton className='h-32 w-full rounded-md' />
       </View>
-      <View className="gap-2">
-        <Skeleton className="h-4 w-3/4" />
-        <Skeleton className="h-4 w-1/2" />
+      <View className='gap-2'>
+        <Skeleton className='h-4 w-3/4' />
+        <Skeleton className='h-4 w-1/2' />
       </View>
     </View>
   );
@@ -41,13 +41,13 @@ export function SkeletonCardDemo() {
  */
 export function SkeletonListDemo() {
   return (
-    <View className="w-full max-w-md gap-3">
+    <View className='w-full max-w-md gap-3'>
       {Array.from({ length: 3 }).map((_, i) => (
-        <View key={i} className="flex-row items-center gap-4">
-          <Skeleton className="h-12 w-12 rounded-full" />
-          <View className="flex-1 gap-2">
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-3/4" />
+        <View key={i} className='flex-row items-center gap-4'>
+          <Skeleton className='h-12 w-12 rounded-full' />
+          <View className='flex-1 gap-2'>
+            <Skeleton className='h-4 w-full' />
+            <Skeleton className='h-4 w-3/4' />
           </View>
         </View>
       ))}

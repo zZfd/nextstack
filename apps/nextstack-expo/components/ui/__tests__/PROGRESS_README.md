@@ -48,14 +48,20 @@ See the following files for comprehensive examples:
 The component supports Tailwind CSS classes via the `className` prop:
 
 ```tsx
-{/* Taller progress bar */}
-<Progress value={60} max={100} className="h-6" />
+{
+  /* Taller progress bar */
+}
+<Progress value={60} max={100} className='h-6' />;
 
-{/* Thinner progress bar */}
-<Progress value={60} max={100} className="h-2" />
+{
+  /* Thinner progress bar */
+}
+<Progress value={60} max={100} className='h-2' />;
 
-{/* Square edges */}
-<Progress value={60} max={100} className="rounded-none" />
+{
+  /* Square edges */
+}
+<Progress value={60} max={100} className='rounded-none' />;
 ```
 
 ## Accessibility

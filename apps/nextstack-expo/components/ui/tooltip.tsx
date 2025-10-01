@@ -2,7 +2,10 @@ import * as TooltipPrimitive from '@rn-primitives/tooltip';
 import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
 
-import { tooltipOverlayVariants, tooltipContentVariants } from './tooltip-variants';
+import {
+  tooltipOverlayVariants,
+  tooltipContentVariants,
+} from './tooltip-variants';
 
 import { cn } from '@/lib/utils';
 
@@ -36,18 +39,23 @@ const TooltipContent = React.forwardRef<
     overlay?: boolean;
     overlayClassName?: string;
   }
->(({ className, portalHost, overlay = false, overlayClassName, ...props }, ref) => {
-  return (
-    <TooltipPortal hostName={portalHost}>
-      {overlay && <TooltipOverlay className={overlayClassName} />}
-      <TooltipPrimitive.Content
-        ref={ref}
-        className={cn(tooltipContentVariants(), className)}
-        {...props}
-      />
-    </TooltipPortal>
-  );
-});
+>(
+  (
+    { className, portalHost, overlay = false, overlayClassName, ...props },
+    ref
+  ) => {
+    return (
+      <TooltipPortal hostName={portalHost}>
+        {overlay && <TooltipOverlay className={overlayClassName} />}
+        <TooltipPrimitive.Content
+          ref={ref}
+          className={cn(tooltipContentVariants(), className)}
+          {...props}
+        />
+      </TooltipPortal>
+    );
+  }
+);
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
 export {

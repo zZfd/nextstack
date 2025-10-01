@@ -28,15 +28,15 @@ export function MyComponent() {
 The default orientation is horizontal:
 
 ```tsx
-<View className="w-full">
-  <View className="p-4">
-    <Text className="text-sm font-medium">Title</Text>
-    <Text className="text-sm text-muted-foreground">Description</Text>
+<View className='w-full'>
+  <View className='p-4'>
+    <Text className='text-sm font-medium'>Title</Text>
+    <Text className='text-sm text-muted-foreground'>Description</Text>
   </View>
   <Separator />
-  <View className="p-4">
-    <Text className="text-sm font-medium">Another Title</Text>
-    <Text className="text-sm text-muted-foreground">Another Description</Text>
+  <View className='p-4'>
+    <Text className='text-sm font-medium'>Another Title</Text>
+    <Text className='text-sm text-muted-foreground'>Another Description</Text>
   </View>
 </View>
 ```
@@ -46,12 +46,12 @@ The default orientation is horizontal:
 Use the `orientation` prop for vertical separators:
 
 ```tsx
-<View className="flex-row items-center">
-  <Text className="text-sm">Home</Text>
-  <Separator orientation="vertical" className="mx-4 h-4" />
-  <Text className="text-sm">About</Text>
-  <Separator orientation="vertical" className="mx-4 h-4" />
-  <Text className="text-sm">Contact</Text>
+<View className='flex-row items-center'>
+  <Text className='text-sm'>Home</Text>
+  <Separator orientation='vertical' className='mx-4 h-4' />
+  <Text className='text-sm'>About</Text>
+  <Separator orientation='vertical' className='mx-4 h-4' />
+  <Text className='text-sm'>Contact</Text>
 </View>
 ```
 
@@ -76,6 +76,7 @@ The Separator component accepts all props from `@rn-primitives/separator` Root c
 ## Examples
 
 See the following files for complete examples:
+
 - `components/ui/__tests__/separator-demo.tsx` - Basic usage demos
 - `components/ui/__examples__/separator-example.tsx` - Comprehensive examples with different use cases
 

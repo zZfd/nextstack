@@ -54,16 +54,17 @@ AppRouter
 // packages/trpc-router/src/router.ts
 core: router({
   user: router({
-    create: createUser,    // POST - Create new user
-    update: updateUser,    // PUT - Update existing user
-    delete: deleteUser,    // DELETE - Remove user
-    get: getUser,          // GET - Fetch single user by ID
-    list: getUsers,        // GET - Fetch paginated user list
+    create: createUser, // POST - Create new user
+    update: updateUser, // PUT - Update existing user
+    delete: deleteUser, // DELETE - Remove user
+    get: getUser, // GET - Fetch single user by ID
+    list: getUsers, // GET - Fetch paginated user list
   }),
-})
+});
 ```
 
 **Client Usage**:
+
 ```typescript
 // Type-safe API calls
 await trpc.core.user.create.mutate({ email, name });
@@ -77,17 +78,18 @@ await trpc.core.user.list.query({ page: 1, limit: 10 });
 ```typescript
 main: router({
   auth: router({
-    getMe,         // GET - Current user profile
-    getSession,    // GET - Session validation
+    getMe, // GET - Current user profile
+    getSession, // GET - Session validation
   }),
   user: router({
-    getByEmail: getUserByEmail,  // GET - Lookup by email
-    stats: getUserStats,         // GET - User statistics
+    getByEmail: getUserByEmail, // GET - Lookup by email
+    stats: getUserStats, // GET - User statistics
   }),
-})
+});
 ```
 
 **Client Usage**:
+
 ```typescript
 const { data } = await trpc.main.auth.getMe.useQuery();
 const stats = await trpc.main.user.stats.query({ userId });
@@ -174,6 +176,7 @@ packages/trpc-router/src/routers/user/
 ```
 
 **Benefits**:
+
 - ✅ Easy code navigation
 - ✅ Clear git history per feature
 - ✅ Reduced merge conflicts
@@ -233,6 +236,7 @@ model User {
 ```
 
 **Key Features**:
+
 - CUID for globally unique IDs
 - Role-based access control
 - Soft relationships with cascading deletes
@@ -366,6 +370,7 @@ export const userWithPostsSummarySelect = {
 ```
 
 **Usage**:
+
 ```typescript
 const user = await ctx.db.user.create({
   data: { email, name },
@@ -374,6 +379,7 @@ const user = await ctx.db.user.create({
 ```
 
 **Benefits**:
+
 - ✅ Prevents N+1 queries
 - ✅ Consistent data shapes across endpoints
 - ✅ Type-safe with `satisfies Prisma.UserSelect`
@@ -418,10 +424,10 @@ import { BusinessError, ErrorCodes } from '../../errors/business.error';
 import { handleServiceError } from '../../utils/error-handler';
 
 export const createUser = publicProcedure
-  .input(CreateUserSchema)  // Zod validation
+  .input(CreateUserSchema) // Zod validation
   .mutation(async ({ ctx, input }) => {
     try {
-      return await ctx.db.$transaction(async (tx) => {
+      return await ctx.db.$transaction(async tx => {
         // 1. Check if user exists
         const existingUser = await tx.user.findUnique({
           where: { email: input.email },
@@ -452,6 +458,7 @@ export const createUser = publicProcedure
 ```
 
 **Pattern Breakdown**:
+
 1. **Input Validation**: Zod schema auto-generated from Prisma
 2. **Transaction Wrapper**: Ensures atomicity
 3. **Business Logic**: Check constraints before mutation
@@ -484,9 +491,9 @@ export function createAuth(config: AuthConfig) {
     },
 
     session: {
-      expiresIn: 60 * 60 * 24 * 7,      // 7 days
-      updateAge: 60 * 60 * 24,          // Update every 1 day
-      freshAge: 60 * 60,                // Fresh within 1 hour
+      expiresIn: 60 * 60 * 24 * 7, // 7 days
+      updateAge: 60 * 60 * 24, // Update every 1 day
+      freshAge: 60 * 60, // Fresh within 1 hour
       cookieCache: {
         enabled: true,
         maxAge: isDev ? 5 * 60 : 15 * 60, // Dev: 5min, Prod: 15min
@@ -494,9 +501,9 @@ export function createAuth(config: AuthConfig) {
     },
 
     advanced: {
-      useSecureCookies: !isDev,         // Production: HTTPS only
+      useSecureCookies: !isDev, // Production: HTTPS only
       database: {
-        generateId: false,               // Use Prisma's cuid()
+        generateId: false, // Use Prisma's cuid()
       },
     },
 
@@ -536,9 +543,9 @@ export const createContext = async (opts: CreateContextOptions) => {
   }
 
   return {
-    db,      // Prisma client
+    db, // Prisma client
     session, // BetterAuth session or null
-    user,    // User object or null
+    user, // User object or null
   };
 };
 
@@ -560,7 +567,7 @@ export const isAuthenticated = middleware(async ({ ctx, next }) => {
   return next({
     ctx: {
       ...ctx,
-      user: ctx.user,      // Type refinement (not null)
+      user: ctx.user, // Type refinement (not null)
       session: ctx.session,
     },
   });
@@ -582,7 +589,7 @@ export const isOptionalAuth = middleware(async ({ ctx, next }) => {
 
 ```typescript
 // packages/trpc-router/src/procedures/public.ts
-export const publicProcedure = procedure;  // No auth required
+export const publicProcedure = procedure; // No auth required
 
 // packages/trpc-router/src/procedures/protected.ts
 export const protectedProcedure = publicProcedure.use(isAuthenticated);
@@ -590,19 +597,18 @@ export const optionalAuthProcedure = publicProcedure.use(isOptionalAuth);
 ```
 
 **Usage**:
+
 ```typescript
 // Public endpoint
-export const getUsers = publicProcedure
-  .query(async ({ ctx }) => {
-    // ctx.user may be null
-  });
+export const getUsers = publicProcedure.query(async ({ ctx }) => {
+  // ctx.user may be null
+});
 
 // Protected endpoint
-export const getMe = protectedProcedure
-  .query(async ({ ctx }) => {
-    // ctx.user is guaranteed to exist
-    return ctx.user;
-  });
+export const getMe = protectedProcedure.query(async ({ ctx }) => {
+  // ctx.user is guaranteed to exist
+  return ctx.user;
+});
 ```
 
 ### Authentication Flow
@@ -780,9 +786,10 @@ export function handleServiceError(error: unknown): TRPCError {
   console.error('Unexpected error:', error);
   return new TRPCError({
     code: 'INTERNAL_SERVER_ERROR',
-    message: process.env.NODE_ENV === 'development'
-      ? String(error)
-      : 'An unexpected error occurred',
+    message:
+      process.env.NODE_ENV === 'development'
+        ? String(error)
+        : 'An unexpected error occurred',
   });
 }
 ```
@@ -845,6 +852,7 @@ export const requestIdMiddleware = (req, res, next) => {
 ```
 
 **Benefits**:
+
 - Track requests across logs
 - Debug distributed systems
 - Correlate errors with user actions
@@ -864,13 +872,13 @@ export const createSecurityMiddleware = () => {
       },
     },
     hsts: {
-      maxAge: 31536000,         // 1 year
+      maxAge: 31536000, // 1 year
       includeSubDomains: true,
       preload: true,
     },
-    hidePoweredBy: true,        // Remove X-Powered-By
-    noSniff: true,              // X-Content-Type-Options: nosniff
-    frameguard: { action: 'sameorigin' },  // X-Frame-Options
+    hidePoweredBy: true, // Remove X-Powered-By
+    noSniff: true, // X-Content-Type-Options: nosniff
+    frameguard: { action: 'sameorigin' }, // X-Frame-Options
   });
 };
 ```
@@ -881,10 +889,10 @@ export const createSecurityMiddleware = () => {
 // apps/nextstack-server/src/middleware/rateLimit.ts
 export const createRateLimitMiddleware = () => {
   return rateLimit({
-    windowMs: 15 * 60 * 1000,   // 15 minutes
-    max: 100,                    // 100 requests per IP
-    standardHeaders: true,       // RateLimit-* headers
-    legacyHeaders: false,        // Disable X-RateLimit-*
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // 100 requests per IP
+    standardHeaders: true, // RateLimit-* headers
+    legacyHeaders: false, // Disable X-RateLimit-*
 
     handler: (req, res) => {
       console.warn(`Rate limit exceeded for ${req.ip} [${req.requestId}]`);
@@ -949,7 +957,7 @@ toJSON() {
 ```typescript
 // Zod schemas auto-validate and sanitize inputs
 export const CreateUserSchema = z.object({
-  email: z.string().email().max(255),  // Prevent overflow
+  email: z.string().email().max(255), // Prevent overflow
   name: z.string().max(100).optional(),
 });
 ```
@@ -974,13 +982,13 @@ await db.$executeRaw`SELECT * FROM users WHERE email = ${userInput}`; // ❌
 // packages/auth/src/server.ts
 function validateAuthConfig(config: AuthConfig): void {
   const isProduction = !config.isDevelopment;
-  if (isProduction && (
-    config.secret.includes('change-this') ||
-    config.secret.length < 32
-  )) {
+  if (
+    isProduction &&
+    (config.secret.includes('change-this') || config.secret.length < 32)
+  ) {
     throw new Error(
       'Security Error: Please set a secure BETTER_AUTH_SECRET in production.\n' +
-      'Generate one with: openssl rand -base64 32'
+        'Generate one with: openssl rand -base64 32'
     );
   }
 }
@@ -992,10 +1000,10 @@ function validateAuthConfig(config: AuthConfig): void {
 // apps/nextstack-server/src/middleware/cors.ts
 const corsOptions = {
   origin: env.CORS_ORIGINS?.split(',') || ['http://localhost:3000'],
-  credentials: true,                    // Allow cookies
+  credentials: true, // Allow cookies
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  maxAge: 86400,                        // Cache preflight for 24h
+  maxAge: 86400, // Cache preflight for 24h
 };
 ```
 
@@ -1023,19 +1031,21 @@ export const timeoutMiddleware = (req, res, next) => {
 import { PrismaClient } from '@prisma/client';
 
 export const db = new PrismaClient({
-  log: process.env.NODE_ENV === 'development'
-    ? ['query', 'error', 'warn']
-    : ['error'],
+  log:
+    process.env.NODE_ENV === 'development'
+      ? ['query', 'error', 'warn']
+      : ['error'],
 });
 ```
 
 **Docker Compose Setup**:
+
 ```yaml
 services:
   postgres:
     image: postgres:16-alpine
     ports:
-      - "5433:5432"
+      - '5433:5432'
     environment:
       POSTGRES_USER: nextstack
       POSTGRES_PASSWORD: nextstack_dev
@@ -1057,23 +1067,29 @@ export class S3StorageProvider implements BaseStorageProvider {
 
   constructor(config: S3Config) {
     this.client = new S3Client({
-      endpoint: config.endpoint,        // http://localhost:9000
+      endpoint: config.endpoint, // http://localhost:9000
       region: 'us-east-1',
       credentials: {
         accessKeyId: config.accessKeyId,
         secretAccessKey: config.secretAccessKey,
       },
-      forcePathStyle: true,             // Required for MinIO
+      forcePathStyle: true, // Required for MinIO
     });
   }
 
-  async upload(file: Buffer, key: string, metadata?: Record<string, string>): Promise<string> {
-    await this.client.send(new PutObjectCommand({
-      Bucket: this.config.bucket,
-      Key: key,
-      Body: file,
-      Metadata: metadata,
-    }));
+  async upload(
+    file: Buffer,
+    key: string,
+    metadata?: Record<string, string>
+  ): Promise<string> {
+    await this.client.send(
+      new PutObjectCommand({
+        Bucket: this.config.bucket,
+        Key: key,
+        Body: file,
+        Metadata: metadata,
+      })
+    );
 
     return `${this.config.endpoint}/${this.config.bucket}/${key}`;
   }
@@ -1081,13 +1097,14 @@ export class S3StorageProvider implements BaseStorageProvider {
 ```
 
 **Docker Compose Setup**:
+
 ```yaml
 services:
   minio:
     image: minio/minio
     ports:
-      - "9000:9000"      # API
-      - "9001:9001"      # Console
+      - '9000:9000' # API
+      - '9001:9001' # Console
     environment:
       MINIO_ROOT_USER: nextstack_minio
       MINIO_ROOT_PASSWORD: nextstack_password
@@ -1114,6 +1131,7 @@ export function createAuth(config: AuthConfig) {
 ```
 
 **Endpoints Provided**:
+
 - `POST /api/auth/sign-up/email` - Register with email/password
 - `POST /api/auth/sign-in/email` - Login
 - `POST /api/auth/sign-out` - Logout
@@ -1143,7 +1161,7 @@ const user = await db.user.findUnique({
 **Pattern**: Wrap related operations in transactions
 
 ```typescript
-return await ctx.db.$transaction(async (tx) => {
+return await ctx.db.$transaction(async tx => {
   const user = await tx.user.create({ data: { email, name } });
   await tx.profile.create({ data: { userId: user.id } });
   return user;
@@ -1151,6 +1169,7 @@ return await ctx.db.$transaction(async (tx) => {
 ```
 
 **Benefits**:
+
 - Atomicity (all-or-nothing)
 - Isolation (concurrent request safety)
 - Rollback on error
@@ -1161,10 +1180,12 @@ return await ctx.db.$transaction(async (tx) => {
 
 ```typescript
 export const getUsers = publicProcedure
-  .input(z.object({
-    page: z.number().min(1).default(1),
-    limit: z.number().min(1).max(100).default(20),
-  }))
+  .input(
+    z.object({
+      page: z.number().min(1).default(1),
+      limit: z.number().min(1).max(100).default(20),
+    })
+  )
   .query(async ({ ctx, input }) => {
     const skip = (input.page - 1) * input.limit;
 
@@ -1219,11 +1240,11 @@ app.use(compression()); // Gzip response bodies
 
 ### API Endpoints
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/health` | GET | Health check |
-| `/api/auth/*` | * | BetterAuth endpoints |
-| `/trpc` | POST | tRPC API (batched) |
+| Endpoint      | Method | Purpose              |
+| ------------- | ------ | -------------------- |
+| `/health`     | GET    | Health check         |
+| `/api/auth/*` | \*     | BetterAuth endpoints |
+| `/trpc`       | POST   | tRPC API (batched)   |
 
 ### Environment Variables
 

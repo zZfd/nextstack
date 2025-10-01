@@ -100,7 +100,6 @@ Create a focused task following the AB Method principle: one task at a time to c
 
 1. **Check `.ab-method/structure/index.yaml`** for architecture doc locations
 2. **Read architecture documentation** to understand:
-
    - `tech-stack.md` - What technologies are in use
    - `entry-points.md` - Existing routes and entry points
    - `frontend-patterns.md` - Component structure and state management
@@ -110,7 +109,6 @@ Create a focused task following the AB Method principle: one task at a time to c
    - `testing-strategy.md` - Test frameworks, patterns, and commands
 
 3. **Analyze relevant code areas** based on the problem:
-
    - Search for similar existing implementations
    - Understand file organization patterns
    - Identify reusable components/services

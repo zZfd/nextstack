@@ -9,7 +9,7 @@ export const createUser = publicProcedure
   .input(CreateUserSchema)
   .mutation(async ({ ctx, input }) => {
     try {
-      return await ctx.db.$transaction(async (tx) => {
+      return await ctx.db.$transaction(async tx => {
         // Check if user with email already exists
         const existingUser = await tx.user.findUnique({
           where: { email: input.email },

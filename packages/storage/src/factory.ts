@@ -7,10 +7,10 @@ export function createStorageProvider(config: StorageConfig): StorageProvider {
     case 's3':
     case 'minio':
       return new S3StorageProvider(config);
-    
+
     case 'local':
       return new LocalStorageProvider(config);
-    
+
     default:
       throw new Error(`Unsupported storage provider: ${config.provider}`);
   }
@@ -18,7 +18,8 @@ export function createStorageProvider(config: StorageConfig): StorageProvider {
 
 export function createStorageProviderFromEnv(): StorageProvider {
   const config: StorageConfig = {
-    provider: (process.env.STORAGE_PROVIDER as StorageConfig['provider']) ?? 'local',
+    provider:
+      (process.env.STORAGE_PROVIDER as StorageConfig['provider']) ?? 'local',
     bucket: process.env.STORAGE_BUCKET ?? 'nextstack-dev',
     region: process.env.STORAGE_REGION ?? 'us-east-1',
     endpoint: process.env.STORAGE_ENDPOINT,

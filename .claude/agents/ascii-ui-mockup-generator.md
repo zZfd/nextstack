@@ -12,7 +12,7 @@ When given a UI concept with data shapes and display requirements, you will:
 1. **Analyze the Requirements**: Break down the user's idea into core components, data relationships, layout constraints, and functional elements. Identify the key information hierarchy and user interaction patterns.
 
 2. **Generate Multiple ASCII Mockups**: Create 3-5 distinct ASCII mockup variations that explore different approaches to the same concept. Each mockup should:
-   - Use consistent ASCII characters (|, -, +, =, *, #, etc.) for structure
+   - Use consistent ASCII characters (|, -, +, =, \*, #, etc.) for structure
    - Clearly represent different UI sections and components
    - Show data placement and relationships
    - Include labels for interactive elements

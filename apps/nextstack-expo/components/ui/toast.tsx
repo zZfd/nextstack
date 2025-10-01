@@ -20,14 +20,13 @@ const ToastProvider = React.Fragment;
 const ToastViewport = React.forwardRef<
   React.ElementRef<typeof React.Fragment>,
   React.ComponentPropsWithoutRef<typeof React.Fragment>
->(({ ...props }, _ref) => (
-  <React.Fragment {...props} />
-));
+>(({ ...props }, _ref) => <React.Fragment {...props} />);
 ToastViewport.displayName = 'ToastViewport';
 
 const Toast = React.forwardRef<
   React.ElementRef<typeof ToastPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ToastPrimitive.Root> & VariantProps<typeof toastVariants>
+  React.ComponentPropsWithoutRef<typeof ToastPrimitive.Root> &
+    VariantProps<typeof toastVariants>
 >(({ className, variant, ...props }, ref) => {
   return (
     <ToastPrimitive.Root
@@ -60,7 +59,7 @@ const ToastClose = React.forwardRef<
     className={cn(toastCloseVariants(), className)}
     {...props}
   >
-    <X size={Platform.OS === 'web' ? 16 : 18} className="text-foreground" />
+    <X size={Platform.OS === 'web' ? 16 : 18} className='text-foreground' />
   </ToastPrimitive.Close>
 ));
 ToastClose.displayName = ToastPrimitive.Close.displayName;

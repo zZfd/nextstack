@@ -10,7 +10,10 @@ import { BusinessError } from '../errors/business.error';
 export function handleServiceError(error: unknown): never {
   if (error instanceof BusinessError) {
     // Map business errors to appropriate HTTP status codes
-    const codeMap: Record<number, 'BAD_REQUEST' | 'UNAUTHORIZED' | 'FORBIDDEN' | 'NOT_FOUND' | 'CONFLICT'> = {
+    const codeMap: Record<
+      number,
+      'BAD_REQUEST' | 'UNAUTHORIZED' | 'FORBIDDEN' | 'NOT_FOUND' | 'CONFLICT'
+    > = {
       400: 'BAD_REQUEST',
       401: 'UNAUTHORIZED',
       403: 'FORBIDDEN',

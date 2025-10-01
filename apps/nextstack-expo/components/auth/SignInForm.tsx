@@ -224,7 +224,7 @@ export function SignInForm({
                 editable={!isLoading}
               />
               <Text className='text-xs text-muted-foreground'>
-                We'll send you a code via SMS
+                We&apos;ll send you a code via SMS
               </Text>
             </View>
 

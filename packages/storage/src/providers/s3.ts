@@ -24,20 +24,22 @@ import type {
 
 import { BaseStorageProvider } from './base';
 
-
 export class S3StorageProvider extends BaseStorageProvider {
   private client: S3Client;
 
   constructor(config: StorageConfig) {
     super(config);
-    
+
     this.client = new S3Client({
       region: config.region,
       endpoint: config.endpoint,
-      credentials: config.accessKeyId && config.secretAccessKey ? {
-        accessKeyId: config.accessKeyId,
-        secretAccessKey: config.secretAccessKey,
-      } : undefined,
+      credentials:
+        config.accessKeyId && config.secretAccessKey
+          ? {
+              accessKeyId: config.accessKeyId,
+              secretAccessKey: config.secretAccessKey,
+            }
+          : undefined,
       forcePathStyle: config.provider === 'minio', // MinIO compatibility
     });
   }
@@ -65,7 +67,11 @@ export class S3StorageProvider extends BaseStorageProvider {
     };
   }
 
-  async uploadBuffer(key: string, buffer: Buffer, mimeType?: string): Promise<void> {
+  async uploadBuffer(
+    key: string,
+    buffer: Buffer,
+    mimeType?: string
+  ): Promise<void> {
     this.validateKey(key);
 
     const command = new PutObjectCommand({
@@ -78,11 +84,15 @@ export class S3StorageProvider extends BaseStorageProvider {
     await this.client.send(command);
   }
 
-  async uploadFile(key: string, filePath: string, mimeType?: string): Promise<void> {
+  async uploadFile(
+    key: string,
+    filePath: string,
+    mimeType?: string
+  ): Promise<void> {
     this.validateKey(key);
 
     const fileStream = createReadStream(filePath);
-    
+
     const command = new PutObjectCommand({
       Bucket: this.config.bucket,
       Key: key,
@@ -93,7 +103,10 @@ export class S3StorageProvider extends BaseStorageProvider {
     await this.client.send(command);
   }
 
-  async getPresignedDownloadUrl(key: string, options?: PresignedUrlOptions): Promise<string> {
+  async getPresignedDownloadUrl(
+    key: string,
+    options?: PresignedUrlOptions
+  ): Promise<string> {
     this.validateKey(key);
 
     const command = new GetObjectCommand({
@@ -115,7 +128,7 @@ export class S3StorageProvider extends BaseStorageProvider {
     });
 
     const response = await this.client.send(command);
-    
+
     if (!response.Body) {
       throw new Error(`Object not found: ${key}`);
     }
@@ -126,16 +139,16 @@ export class S3StorageProvider extends BaseStorageProvider {
     for await (const chunk of stream) {
       chunks.push(chunk);
     }
-    
+
     return Buffer.concat(chunks);
   }
 
   async downloadFile(key: string, destination: string): Promise<void> {
     const buffer = await this.downloadBuffer(key);
     const writeStream = createWriteStream(destination);
-    
+
     return new Promise((resolve, reject) => {
-      writeStream.write(buffer, (error) => {
+      writeStream.write(buffer, error => {
         if (error) {
           reject(error);
         } else {
@@ -191,7 +204,9 @@ export class S3StorageProvider extends BaseStorageProvider {
     }
   }
 
-  async listObjects(options?: ListObjectsOptions): Promise<ListObjectsResponse> {
+  async listObjects(
+    options?: ListObjectsOptions
+  ): Promise<ListObjectsResponse> {
     const command = new ListObjectsV2Command({
       Bucket: this.config.bucket,
       Prefix: options?.prefix,
@@ -222,7 +237,8 @@ export class S3StorageProvider extends BaseStorageProvider {
       return `${this.config.publicUrl}/${this.config.bucket}/${key}`;
     }
 
-    const endpoint = this.config.endpoint || `https://s3.${this.config.region}.amazonaws.com`;
+    const endpoint =
+      this.config.endpoint || `https://s3.${this.config.region}.amazonaws.com`;
     return `${endpoint}/${this.config.bucket}/${key}`;
   }
 

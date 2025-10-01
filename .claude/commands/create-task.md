@@ -1,17 +1,21 @@
 # Create Task
 
 ## Description
+
 Create a new task from a problem definition using the AB Method's incremental tasking workflow system.
 
 ## Usage
+
 ```
 /create-task
 ```
 
 ## Behavior
+
 Loads and executes the create-task workflow from `.ab-method/core/create-task.md`
 
 This workflow will:
+
 1. Gather detailed problem requirements through interactive questioning
 2. Analyze project context and extract technical constraints
 3. Create a comprehensive task document with technical details
@@ -19,7 +23,9 @@ This workflow will:
 5. Set up progress tracking for incremental development
 
 ## Workflow Details
+
 The create-task workflow follows AB Method principles:
+
 - **Problem Definition** - Interactive gathering of requirements and technical constraints
 - **Context Analysis** - Understanding existing codebase architecture and patterns
 - **Task Documentation** - Creating comprehensive task documents with code constraints and hints
@@ -27,6 +33,7 @@ The create-task workflow follows AB Method principles:
 - **Technical Guidance** - Including coding standards, testing requirements, and performance considerations
 
 ## Examples
+
 ```
 /create-task
 # Starts interactive task creation workflow
@@ -35,7 +42,9 @@ The create-task workflow follows AB Method principles:
 ```
 
 ## Alternative Usage
+
 You can also use the traditional AB Method master controller:
+
 ```
 /ab-master create-task
 ```

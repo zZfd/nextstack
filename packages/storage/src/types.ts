@@ -47,12 +47,18 @@ export interface ListObjectsResponse {
 
 export interface StorageProvider {
   // Upload operations
-  getPresignedUploadUrl(request: UploadRequest, options?: PresignedUrlOptions): Promise<UploadResponse>;
+  getPresignedUploadUrl(
+    request: UploadRequest,
+    options?: PresignedUrlOptions
+  ): Promise<UploadResponse>;
   uploadBuffer(key: string, buffer: Buffer, mimeType?: string): Promise<void>;
   uploadFile(key: string, filePath: string, mimeType?: string): Promise<void>;
 
   // Download operations
-  getPresignedDownloadUrl(key: string, options?: PresignedUrlOptions): Promise<string>;
+  getPresignedDownloadUrl(
+    key: string,
+    options?: PresignedUrlOptions
+  ): Promise<string>;
   downloadBuffer(key: string): Promise<Buffer>;
   downloadFile(key: string, destination: string): Promise<void>;
 
@@ -61,7 +67,7 @@ export interface StorageProvider {
   deleteObjects(keys: string[]): Promise<void>;
   objectExists(key: string): Promise<boolean>;
   listObjects(options?: ListObjectsOptions): Promise<ListObjectsResponse>;
-  
+
   // Utility operations
   getObjectUrl(key: string): string;
   copyObject(sourceKey: string, destinationKey: string): Promise<void>;

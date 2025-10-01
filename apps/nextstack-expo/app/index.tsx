@@ -55,24 +55,27 @@ export default function HomePage() {
   const [checked, setChecked] = React.useState(false);
   const [switchValue, setSwitchValue] = React.useState(false);
   const [radioValue, setRadioValue] = React.useState('option1');
-  const [selectValue, setSelectValue] = React.useState<{ value: string; label: string }>();
+  const [selectValue, setSelectValue] = React.useState<{
+    value: string;
+    label: string;
+  }>();
   const [sliderValue, setSliderValue] = React.useState(50);
   const [progressValue] = React.useState(60);
   const [collapsibleOpen, setCollapsibleOpen] = React.useState(false);
 
   return (
-    <ScrollView className="flex-1 bg-background">
-      <View className="flex-1 p-6 gap-8 pb-20">
-        <View className="absolute top-12 right-6 z-10">
+    <ScrollView className='flex-1 bg-background'>
+      <View className='flex-1 p-6 gap-8 pb-20'>
+        <View className='absolute top-12 right-6 z-10'>
           <ThemeToggle />
         </View>
 
         {/* Header */}
-        <View className="gap-2 mt-12">
-          <Text className="text-4xl font-bold text-foreground">
+        <View className='gap-2 mt-12'>
+          <Text className='text-4xl font-bold text-foreground'>
             UI Components Demo
           </Text>
-          <Text className="text-lg text-muted-foreground">
+          <Text className='text-lg text-muted-foreground'>
             All 20 shadcn/ui components for React Native
           </Text>
         </View>
@@ -80,8 +83,8 @@ export default function HomePage() {
         <Separator />
 
         {/* Form Components Section */}
-        <View className="gap-6">
-          <Text className="text-2xl font-bold text-foreground">
+        <View className='gap-6'>
+          <Text className='text-2xl font-bold text-foreground'>
             Form Components
           </Text>
 
@@ -95,8 +98,8 @@ export default function HomePage() {
                 <Text>Select one or multiple options</Text>
               </CardDescription>
             </CardHeader>
-            <CardContent className="gap-4">
-              <View className="flex-row items-center gap-2">
+            <CardContent className='gap-4'>
+              <View className='flex-row items-center gap-2'>
                 <Checkbox checked={checked} onCheckedChange={setChecked} />
                 <Label onPress={() => setChecked(!checked)}>
                   <Text>Accept terms and conditions</Text>
@@ -117,20 +120,20 @@ export default function HomePage() {
             </CardHeader>
             <CardContent>
               <RadioGroup value={radioValue} onValueChange={setRadioValue}>
-                <View className="flex-row items-center gap-2">
-                  <RadioGroupItem value="option1" />
+                <View className='flex-row items-center gap-2'>
+                  <RadioGroupItem value='option1' />
                   <Label>
                     <Text>Option 1</Text>
                   </Label>
                 </View>
-                <View className="flex-row items-center gap-2">
-                  <RadioGroupItem value="option2" />
+                <View className='flex-row items-center gap-2'>
+                  <RadioGroupItem value='option2' />
                   <Label>
                     <Text>Option 2</Text>
                   </Label>
                 </View>
-                <View className="flex-row items-center gap-2">
-                  <RadioGroupItem value="option3" />
+                <View className='flex-row items-center gap-2'>
+                  <RadioGroupItem value='option3' />
                   <Label>
                     <Text>Option 3</Text>
                   </Label>
@@ -152,12 +155,12 @@ export default function HomePage() {
             <CardContent>
               <Select value={selectValue} onValueChange={setSelectValue}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a fruit" />
+                  <SelectValue placeholder='Select a fruit' />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="apple" label="Apple" />
-                  <SelectItem value="banana" label="Banana" />
-                  <SelectItem value="orange" label="Orange" />
+                  <SelectItem value='apple' label='Apple' />
+                  <SelectItem value='banana' label='Banana' />
+                  <SelectItem value='orange' label='Orange' />
                 </SelectContent>
               </Select>
             </CardContent>
@@ -174,11 +177,14 @@ export default function HomePage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <View className="flex-row items-center justify-between">
+              <View className='flex-row items-center justify-between'>
                 <Label>
                   <Text>Enable notifications</Text>
                 </Label>
-                <Switch checked={switchValue} onCheckedChange={setSwitchValue} />
+                <Switch
+                  checked={switchValue}
+                  onCheckedChange={setSwitchValue}
+                />
               </View>
             </CardContent>
           </Card>
@@ -193,18 +199,18 @@ export default function HomePage() {
                 <Text>Text input fields</Text>
               </CardDescription>
             </CardHeader>
-            <CardContent className="gap-4">
-              <View className="gap-2">
+            <CardContent className='gap-4'>
+              <View className='gap-2'>
                 <Label>
                   <Text>Email</Text>
                 </Label>
-                <Input placeholder="Enter your email" />
+                <Input placeholder='Enter your email' />
               </View>
-              <View className="gap-2">
+              <View className='gap-2'>
                 <Label>
                   <Text>Message</Text>
                 </Label>
-                <Textarea placeholder="Type your message..." />
+                <Textarea placeholder='Type your message...' />
               </View>
             </CardContent>
           </Card>
@@ -222,7 +228,7 @@ export default function HomePage() {
             <CardContent>
               <Slider
                 value={sliderValue}
-                onValueChange={(value) => setSliderValue(value[0])}
+                onValueChange={value => setSliderValue(value[0])}
                 max={100}
                 step={1}
               />
@@ -248,8 +254,8 @@ export default function HomePage() {
         <Separator />
 
         {/* Feedback & Overlay Components */}
-        <View className="gap-6">
-          <Text className="text-2xl font-bold text-foreground">
+        <View className='gap-6'>
+          <Text className='text-2xl font-bold text-foreground'>
             Feedback & Overlays
           </Text>
 
@@ -260,8 +266,8 @@ export default function HomePage() {
                 <Text>Alert</Text>
               </CardTitle>
             </CardHeader>
-            <CardContent className="gap-4">
-              <Alert variant="default">
+            <CardContent className='gap-4'>
+              <Alert variant='default'>
                 <AlertTitle>
                   <Text>Heads up!</Text>
                 </AlertTitle>
@@ -269,7 +275,7 @@ export default function HomePage() {
                   <Text>You can add components to your app using the CLI.</Text>
                 </AlertDescription>
               </Alert>
-              <Alert variant="destructive">
+              <Alert variant='destructive'>
                 <AlertTitle>
                   <Text>Error</Text>
                 </AlertTitle>
@@ -290,9 +296,9 @@ export default function HomePage() {
                 <Text>Temporary notifications</Text>
               </CardDescription>
             </CardHeader>
-            <CardContent className="gap-3">
+            <CardContent className='gap-3'>
               <Button
-                variant="outline"
+                variant='outline'
                 onPress={() => {
                   toast({
                     title: 'Success',
@@ -303,7 +309,7 @@ export default function HomePage() {
                 <Text>Show Toast</Text>
               </Button>
               <Button
-                variant="destructive"
+                variant='destructive'
                 onPress={() => {
                   toast({
                     variant: 'destructive',
@@ -321,8 +327,8 @@ export default function HomePage() {
         <Separator />
 
         {/* Layout & Display Components */}
-        <View className="gap-6">
-          <Text className="text-2xl font-bold text-foreground">
+        <View className='gap-6'>
+          <Text className='text-2xl font-bold text-foreground'>
             Layout & Display
           </Text>
 
@@ -334,8 +340,8 @@ export default function HomePage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <Accordion type="single" collapsible>
-                <AccordionItem value="item-1">
+              <Accordion type='single' collapsible>
+                <AccordionItem value='item-1'>
                   <AccordionTrigger>
                     <Text>Is it accessible?</Text>
                   </AccordionTrigger>
@@ -343,7 +349,7 @@ export default function HomePage() {
                     <Text>Yes. It adheres to the WAI-ARIA design pattern.</Text>
                   </AccordionContent>
                 </AccordionItem>
-                <AccordionItem value="item-2">
+                <AccordionItem value='item-2'>
                   <AccordionTrigger>
                     <Text>Is it styled?</Text>
                   </AccordionTrigger>
@@ -366,8 +372,8 @@ export default function HomePage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <View className="flex-row gap-4">
-                <Avatar alt="User avatar">
+              <View className='flex-row gap-4'>
+                <Avatar alt='User avatar'>
                   <AvatarImage
                     source={{ uri: 'https://github.com/shadcn.png' }}
                   />
@@ -375,12 +381,12 @@ export default function HomePage() {
                     <Text>CN</Text>
                   </AvatarFallback>
                 </Avatar>
-                <Avatar alt="Avatar fallback">
+                <Avatar alt='Avatar fallback'>
                   <AvatarFallback>
                     <Text>AB</Text>
                   </AvatarFallback>
                 </Avatar>
-                <Avatar alt="Large avatar" className="h-16 w-16">
+                <Avatar alt='Large avatar' className='h-16 w-16'>
                   <AvatarFallback>
                     <Text>LG</Text>
                   </AvatarFallback>
@@ -397,17 +403,17 @@ export default function HomePage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <View className="flex-row flex-wrap gap-2">
-                <Badge variant="default">
+              <View className='flex-row flex-wrap gap-2'>
+                <Badge variant='default'>
                   <Text>Default</Text>
                 </Badge>
-                <Badge variant="secondary">
+                <Badge variant='secondary'>
                   <Text>Secondary</Text>
                 </Badge>
-                <Badge variant="destructive">
+                <Badge variant='destructive'>
                   <Text>Destructive</Text>
                 </Badge>
-                <Badge variant="outline">
+                <Badge variant='outline'>
                   <Text>Outline</Text>
                 </Badge>
               </View>
@@ -424,10 +430,10 @@ export default function HomePage() {
                 <Text>Loading placeholders</Text>
               </CardDescription>
             </CardHeader>
-            <CardContent className="gap-3">
-              <Skeleton className="h-12 w-12 rounded-full" />
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-3/4" />
+            <CardContent className='gap-3'>
+              <Skeleton className='h-12 w-12 rounded-full' />
+              <Skeleton className='h-4 w-full' />
+              <Skeleton className='h-4 w-3/4' />
             </CardContent>
           </Card>
 
@@ -485,14 +491,12 @@ export default function HomePage() {
                 onOpenChange={setCollapsibleOpen}
               >
                 <CollapsibleTrigger asChild>
-                  <Button variant="outline">
-                    <Text>
-                      {collapsibleOpen ? 'Hide' : 'Show'} Details
-                    </Text>
+                  <Button variant='outline'>
+                    <Text>{collapsibleOpen ? 'Hide' : 'Show'} Details</Text>
                   </Button>
                 </CollapsibleTrigger>
-                <CollapsibleContent className="mt-4">
-                  <Text className="text-sm text-muted-foreground">
+                <CollapsibleContent className='mt-4'>
+                  <Text className='text-sm text-muted-foreground'>
                     This is the collapsible content that can be toggled on and
                     off.
                   </Text>

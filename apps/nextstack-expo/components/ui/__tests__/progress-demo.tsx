@@ -13,7 +13,7 @@ export function ProgressDemo() {
 
   React.useEffect(() => {
     const timer = setInterval(() => {
-      setProgress((prev) => {
+      setProgress(prev => {
         if (prev >= 100) {
           return 0;
         }
@@ -25,7 +25,7 @@ export function ProgressDemo() {
   }, []);
 
   return (
-    <View className="gap-2">
+    <View className='gap-2'>
       <Text>Progress: {progress}%</Text>
       <Progress value={progress} max={100} />
     </View>
@@ -37,20 +37,20 @@ export function ProgressDemo() {
  */
 export function ProgressVariantsDemo() {
   return (
-    <View className="gap-4">
-      <View className="gap-2">
+    <View className='gap-4'>
+      <View className='gap-2'>
         <Text>25%</Text>
         <Progress value={25} max={100} />
       </View>
-      <View className="gap-2">
+      <View className='gap-2'>
         <Text>50%</Text>
         <Progress value={50} max={100} />
       </View>
-      <View className="gap-2">
+      <View className='gap-2'>
         <Text>75%</Text>
         <Progress value={75} max={100} />
       </View>
-      <View className="gap-2">
+      <View className='gap-2'>
         <Text>100%</Text>
         <Progress value={100} max={100} />
       </View>

@@ -55,12 +55,18 @@ const AlertDialogContent = React.forwardRef<
 });
 AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName;
 
-const AlertDialogHeader = ({ className, ...props }: React.ComponentPropsWithoutRef<typeof View>) => (
+const AlertDialogHeader = ({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof View>) => (
   <View className={cn(alertDialogHeaderVariants(), className)} {...props} />
 );
 AlertDialogHeader.displayName = 'AlertDialogHeader';
 
-const AlertDialogFooter = ({ className, ...props }: React.ComponentPropsWithoutRef<typeof View>) => (
+const AlertDialogFooter = ({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof View>) => (
   <View className={cn(alertDialogFooterVariants(), className)} {...props} />
 );
 AlertDialogFooter.displayName = 'AlertDialogFooter';
@@ -79,11 +85,14 @@ const AlertDialogDescription = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
-  <TextClassContext.Provider value={cn(alertDialogDescriptionVariants(), className)}>
+  <TextClassContext.Provider
+    value={cn(alertDialogDescriptionVariants(), className)}
+  >
     <AlertDialogPrimitive.Description ref={ref} {...props} />
   </TextClassContext.Provider>
 ));
-AlertDialogDescription.displayName = AlertDialogPrimitive.Description.displayName;
+AlertDialogDescription.displayName =
+  AlertDialogPrimitive.Description.displayName;
 
 const AlertDialogAction = AlertDialogPrimitive.Action;
 

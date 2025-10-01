@@ -9,7 +9,7 @@ export const deleteUser = protectedProcedure
   .input(GetUserByIdSchema)
   .mutation(async ({ ctx, input }) => {
     try {
-      return await ctx.db.$transaction(async (tx) => {
+      return await ctx.db.$transaction(async tx => {
         // Check if user exists
         const user = await tx.user.findUnique({
           where: { id: input.id },
@@ -17,7 +17,11 @@ export const deleteUser = protectedProcedure
         });
 
         if (!user) {
-          throw new BusinessError(ErrorCodes.USER_NOT_FOUND, 'User not found', 404);
+          throw new BusinessError(
+            ErrorCodes.USER_NOT_FOUND,
+            'User not found',
+            404
+          );
         }
 
         // Check authorization (user can only delete their own account)

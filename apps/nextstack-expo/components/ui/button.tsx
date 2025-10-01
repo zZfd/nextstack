@@ -7,7 +7,8 @@ import { TextClassContext } from './text';
 
 import { cn } from '@/lib/utils';
 
-type ButtonProps = React.ComponentProps<typeof Pressable> & VariantProps<typeof buttonVariants>;
+type ButtonProps = React.ComponentProps<typeof Pressable> &
+  VariantProps<typeof buttonVariants>;
 
 function Button({ ref, className, variant, size, ...props }: ButtonProps) {
   return (
@@ -21,10 +22,10 @@ function Button({ ref, className, variant, size, ...props }: ButtonProps) {
       <Pressable
         className={cn(
           props.disabled && 'opacity-50 web:pointer-events-none',
-          buttonVariants({ variant, size, className }),
+          buttonVariants({ variant, size, className })
         )}
         ref={ref}
-        role="button"
+        role='button'
         {...props}
       />
     </TextClassContext.Provider>

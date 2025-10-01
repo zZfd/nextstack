@@ -77,7 +77,8 @@ export const createContext = async (opts: CreateContextOptions) => {
 };
 
 // Express-specific wrapper
-export const createExpressContext = (auth: Auth, isDevelopment?: boolean) =>
+export const createExpressContext =
+  (auth: Auth, isDevelopment?: boolean) =>
   async (opts: trpcExpress.CreateExpressContextOptions) => {
     return await createContext({ ...opts, auth, isDevelopment });
   };

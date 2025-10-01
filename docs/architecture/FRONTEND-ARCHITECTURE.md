@@ -75,12 +75,14 @@ The NextStack frontend is currently implemented as a **React Native mobile appli
 ### Component Categories
 
 #### 1. Layout Components
+
 **Location**: `app/`
 
 - **`_layout.tsx`** - Root layout with provider setup
 - File-based routing with Expo Router Stack navigation
 
 **Example**:
+
 ```typescript
 // app/_layout.tsx
 export default function RootLayout() {
@@ -106,9 +108,11 @@ export default function RootLayout() {
 ```
 
 #### 2. UI Primitive Components (27+ Components)
+
 **Location**: `components/ui/`
 
 **Complete Component Library**:
+
 ```
 Form Controls:
 ├─ button.tsx           # Pressable with variants (default, outline, ghost, etc.)
@@ -147,12 +151,14 @@ Data Display:
 ```
 
 #### 3. Feature Components
+
 **Location**: `components/auth/`, `components/`
 
 - **SignInForm.tsx** - Authentication form (uses react-hook-form)
 - **ThemeToggle.tsx** - Dark/light mode switcher
 
 #### 4. Provider Components
+
 **Location**: `lib/`
 
 - **ThemeProvider.tsx** - CSS variable injection for NativeWind
@@ -164,14 +170,14 @@ Data Display:
 
 ### Core Libraries
 
-| Library | Version | Purpose | Usage |
-|---------|---------|---------|-------|
-| **@rn-primitives** | ~1.2.0 | Headless UI components | 27 primitive components |
-| **NativeWind** | 4.1.23 | Tailwind for React Native | All styling |
-| **class-variance-authority** | 0.7.1 | Component variants | Button, Card, etc. |
-| **tailwind-merge** | 3.3.1 | Class merging utility | `cn()` helper |
-| **lucide-react-native** | 0.544.0 | Icon library | UI icons |
-| **react-hook-form** | 7.63.0 | Form management | Forms validation |
+| Library                      | Version | Purpose                   | Usage                   |
+| ---------------------------- | ------- | ------------------------- | ----------------------- |
+| **@rn-primitives**           | ~1.2.0  | Headless UI components    | 27 primitive components |
+| **NativeWind**               | 4.1.23  | Tailwind for React Native | All styling             |
+| **class-variance-authority** | 0.7.1   | Component variants        | Button, Card, etc.      |
+| **tailwind-merge**           | 3.3.1   | Class merging utility     | `cn()` helper           |
+| **lucide-react-native**      | 0.544.0 | Icon library              | UI icons                |
+| **react-hook-form**          | 7.63.0  | Form management           | Forms validation        |
 
 ### Component Pattern: CVA + @rn-primitives
 
@@ -216,6 +222,7 @@ function Button({ variant, size, className, ...props }: ButtonProps) {
 ```
 
 **Key Insight**: This pattern provides:
+
 - **Type-safe variants** via TypeScript + CVA
 - **Platform-specific styles** using `web:` and `native:` prefixes
 - **Composable styling** through Tailwind utilities
@@ -257,6 +264,7 @@ function UserProfile() {
 ```
 
 **Benefits**:
+
 - ✅ **End-to-end type safety** - Changes to backend instantly reflected in frontend
 - ✅ **Automatic caching** - React Query manages stale/fresh data
 - ✅ **Optimistic updates** - Built-in mutation hooks
@@ -316,6 +324,7 @@ export function useColorScheme() {
 ```
 
 **Flow**:
+
 ```
 User toggles theme
     ↓
@@ -345,7 +354,7 @@ All components re-style automatically
 :root {
   --background: 0 0% 100%;
   --foreground: 240 10% 3.9%;
-  --primary: 142 76% 36%;      /* Green theme */
+  --primary: 142 76% 36%; /* Green theme */
   --primary-foreground: 0 0% 98%;
   --secondary: 142 20% 95%;
   --destructive: 0 84.2% 60.2%;
@@ -357,7 +366,7 @@ All components re-style automatically
 .dark {
   --background: 240 10% 3.9%;
   --foreground: 0 0% 98%;
-  --primary: 142 76% 36%;      /* Same primary in dark mode */
+  --primary: 142 76% 36%; /* Same primary in dark mode */
   --border: 240 3.7% 15.9%;
   /* ... */
 }
@@ -417,6 +426,7 @@ export function ThemeProvider({ children }) {
 ```
 
 **Why this approach?**
+
 - ✅ **Single source of truth** - Design tokens defined once
 - ✅ **Runtime theme switching** - No app restart needed
 - ✅ **Cross-platform** - Works on iOS, Android, and web
@@ -452,13 +462,15 @@ export function cn(...inputs: ClassValue[]) {
 ```
 
 **Purpose**: Merge Tailwind classes intelligently
+
 - `clsx`: Conditional class names
 - `twMerge`: Resolve conflicting Tailwind utilities (last wins)
 
 **Example**:
+
 ```typescript
-cn('px-4', 'px-6')           // → 'px-6' (last wins)
-cn('bg-red-500', isActive && 'bg-blue-500')  // → conditional
+cn('px-4', 'px-6'); // → 'px-6' (last wins)
+cn('bg-red-500', isActive && 'bg-blue-500'); // → conditional
 ```
 
 ---
@@ -549,6 +561,7 @@ export function useColorScheme() {
 ```
 
 **Why this order?**
+
 1. **tRPC first** - Required by QueryClientProvider
 2. **QueryClient second** - Required by tRPC hooks
 3. **ThemeProvider third** - Must wrap all styled components
@@ -681,14 +694,14 @@ apps/nextstack-expo/
 
 ### Naming Conventions
 
-| Type | Convention | Example |
-|------|------------|---------|
-| **Components** | PascalCase | `SignInForm.tsx` |
-| **Hooks** | camelCase with `use` prefix | `useColorScheme.tsx` |
-| **Utilities** | camelCase | `utils.ts` |
-| **Variants** | kebab-case suffix | `button-variants.ts` |
-| **Tests** | `__tests__/` folder | `__tests__/checkbox-demo.tsx` |
-| **Examples** | `__examples__/` folder | `__examples__/avatar-example.tsx` |
+| Type           | Convention                  | Example                           |
+| -------------- | --------------------------- | --------------------------------- |
+| **Components** | PascalCase                  | `SignInForm.tsx`                  |
+| **Hooks**      | camelCase with `use` prefix | `useColorScheme.tsx`              |
+| **Utilities**  | camelCase                   | `utils.ts`                        |
+| **Variants**   | kebab-case suffix           | `button-variants.ts`              |
+| **Tests**      | `__tests__/` folder         | `__tests__/checkbox-demo.tsx`     |
+| **Examples**   | `__examples__/` folder      | `__examples__/avatar-example.tsx` |
 
 ---
 
@@ -697,6 +710,7 @@ apps/nextstack-expo/
 ### 1. Type Safety
 
 ✅ **Do**: Leverage auto-generated types from tRPC
+
 ```typescript
 // Types are inferred from backend
 const { data } = trpc.core.user.list.useQuery();
@@ -704,6 +718,7 @@ const { data } = trpc.core.user.list.useQuery();
 ```
 
 ❌ **Don't**: Use `any` or manual type definitions for API data
+
 ```typescript
 // Bad - loses type safety
 const { data }: any = trpc.core.user.list.useQuery();
@@ -712,6 +727,7 @@ const { data }: any = trpc.core.user.list.useQuery();
 ### 2. Component Composition
 
 ✅ **Do**: Use the `cn()` utility for conditional classes
+
 ```typescript
 <Button
   className={cn(
@@ -723,6 +739,7 @@ const { data }: any = trpc.core.user.list.useQuery();
 ```
 
 ❌ **Don't**: Manually concatenate class strings
+
 ```typescript
 // Bad - harder to read and maintain
 <Button className={'rounded-md' + (isLoading ? ' opacity-50' : '')} />
@@ -731,11 +748,13 @@ const { data }: any = trpc.core.user.list.useQuery();
 ### 3. Platform-Specific Code
 
 ✅ **Do**: Use NativeWind prefixes for platform-specific styles
+
 ```typescript
-className="web:hover:bg-accent native:h-12"
+className = 'web:hover:bg-accent native:h-12';
 ```
 
 ✅ **Do**: Use `Platform` API for logic branching
+
 ```typescript
 import { Platform } from 'react-native';
 
@@ -751,16 +770,19 @@ const config = {
 ### 4. State Management
 
 ✅ **Do**: Use React Query for server state
+
 ```typescript
 const { data, isLoading, error } = trpc.core.user.list.useQuery();
 ```
 
 ✅ **Do**: Use `useState` for local UI state
+
 ```typescript
 const [isFocused, setIsFocused] = useState(false);
 ```
 
 ❌ **Don't**: Store server data in local state
+
 ```typescript
 // Bad - duplicates server state
 const [users, setUsers] = useState([]);
@@ -772,26 +794,34 @@ useEffect(() => {
 ### 5. Theme Implementation
 
 ✅ **Do**: Use design tokens for all colors
+
 ```typescript
-className="bg-primary text-primary-foreground"
+className = 'bg-primary text-primary-foreground';
 ```
 
 ❌ **Don't**: Hardcode color values
+
 ```typescript
 // Bad - bypasses theme system
-className="bg-[#22c55e] text-white"
+className = 'bg-[#22c55e] text-white';
 ```
 
 ### 6. Form Handling
 
 ✅ **Do**: Use React Hook Form for complex forms
+
 ```typescript
 import { useForm } from 'react-hook-form';
 
-const { register, handleSubmit, formState: { errors } } = useForm();
+const {
+  register,
+  handleSubmit,
+  formState: { errors },
+} = useForm();
 ```
 
 ✅ **Do**: Use controlled components for React Native
+
 ```typescript
 const [value, setValue] = useState('');
 <Input value={value} onChangeText={setValue} />
@@ -800,6 +830,7 @@ const [value, setValue] = useState('');
 ### 7. Performance Optimization
 
 ✅ **Do**: Memoize expensive computations
+
 ```typescript
 const theme = useMemo(() => {
   return isDark ? darkTheme : lightTheme;
@@ -807,6 +838,7 @@ const theme = useMemo(() => {
 ```
 
 ✅ **Do**: Use `useCallback` for event handlers
+
 ```typescript
 const handlePress = useCallback(() => {
   setColorScheme(isDark ? 'light' : 'dark');
@@ -814,6 +846,7 @@ const handlePress = useCallback(() => {
 ```
 
 ❌ **Don't**: Create inline functions in render
+
 ```typescript
 // Bad - creates new function on every render
 <Button onPress={() => setColorScheme('dark')} />

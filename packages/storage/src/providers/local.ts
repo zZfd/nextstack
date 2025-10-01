@@ -14,13 +14,12 @@ import type {
 
 import { BaseStorageProvider } from './base';
 
-
 export class LocalStorageProvider extends BaseStorageProvider {
   private basePath: string;
 
   constructor(config: StorageConfig) {
     super(config);
-    
+
     // Use bucket name as the local directory
     this.basePath = join(process.cwd(), 'storage', config.bucket);
     this.ensureDirectory(this.basePath);
@@ -30,7 +29,11 @@ export class LocalStorageProvider extends BaseStorageProvider {
     try {
       await fs.mkdir(path, { recursive: true });
     } catch (error: unknown) {
-      if (error instanceof Error && 'code' in error && error.code !== 'EEXIST') {
+      if (
+        error instanceof Error &&
+        'code' in error &&
+        error.code !== 'EEXIST'
+      ) {
         throw error;
       }
     }
@@ -39,15 +42,15 @@ export class LocalStorageProvider extends BaseStorageProvider {
   private getFilePath(key: string): string {
     this.validateKey(key);
     const filePath = join(this.basePath, key);
-    
+
     // Ensure the file is within our base path (security check)
     const resolvedPath = require('path').resolve(filePath);
     const resolvedBase = require('path').resolve(this.basePath);
-    
+
     if (!resolvedPath.startsWith(resolvedBase)) {
       throw new Error('Invalid file path - outside storage directory');
     }
-    
+
     return filePath;
   }
 
@@ -67,51 +70,66 @@ export class LocalStorageProvider extends BaseStorageProvider {
     };
   }
 
-  async uploadBuffer(key: string, buffer: Buffer, _mimeType?: string): Promise<void> {
+  async uploadBuffer(
+    key: string,
+    buffer: Buffer,
+    _mimeType?: string
+  ): Promise<void> {
     const filePath = this.getFilePath(key);
-    
+
     // Ensure directory exists
     await this.ensureDirectory(dirname(filePath));
-    
+
     await fs.writeFile(filePath, buffer);
   }
 
-  async uploadFile(key: string, sourceFilePath: string, _mimeType?: string): Promise<void> {
+  async uploadFile(
+    key: string,
+    sourceFilePath: string,
+    _mimeType?: string
+  ): Promise<void> {
     const destPath = this.getFilePath(key);
-    
+
     // Ensure directory exists
     await this.ensureDirectory(dirname(destPath));
-    
+
     return new Promise((resolve, reject) => {
       const readStream = createReadStream(sourceFilePath);
       const writeStream = createWriteStream(destPath);
-      
+
       readStream.pipe(writeStream);
-      
+
       writeStream.on('finish', resolve);
       writeStream.on('error', reject);
       readStream.on('error', reject);
     });
   }
 
-  async getPresignedDownloadUrl(key: string, _options?: PresignedUrlOptions): Promise<string> {
+  async getPresignedDownloadUrl(
+    key: string,
+    _options?: PresignedUrlOptions
+  ): Promise<string> {
     const filePath = this.getFilePath(key);
-    
+
     if (!existsSync(filePath)) {
       throw new Error(`File not found: ${key}`);
     }
-    
+
     // For local storage, return file:// URL
     return `file://${filePath}`;
   }
 
   async downloadBuffer(key: string): Promise<Buffer> {
     const filePath = this.getFilePath(key);
-    
+
     try {
       return await fs.readFile(filePath);
     } catch (error: unknown) {
-      if (error instanceof Error && 'code' in error && error.code === 'ENOENT') {
+      if (
+        error instanceof Error &&
+        'code' in error &&
+        error.code === 'ENOENT'
+      ) {
         throw new Error(`File not found: ${key}`);
       }
       throw error;
@@ -120,16 +138,16 @@ export class LocalStorageProvider extends BaseStorageProvider {
 
   async downloadFile(key: string, destination: string): Promise<void> {
     const sourcePath = this.getFilePath(key);
-    
+
     // Ensure destination directory exists
     await this.ensureDirectory(dirname(destination));
-    
+
     return new Promise((resolve, reject) => {
       const readStream = createReadStream(sourcePath);
       const writeStream = createWriteStream(destination);
-      
+
       readStream.pipe(writeStream);
-      
+
       writeStream.on('finish', resolve);
       writeStream.on('error', reject);
       readStream.on('error', reject);
@@ -138,11 +156,15 @@ export class LocalStorageProvider extends BaseStorageProvider {
 
   async deleteObject(key: string): Promise<void> {
     const filePath = this.getFilePath(key);
-    
+
     try {
       await fs.unlink(filePath);
     } catch (error: unknown) {
-      if (error instanceof Error && 'code' in error && error.code !== 'ENOENT') {
+      if (
+        error instanceof Error &&
+        'code' in error &&
+        error.code !== 'ENOENT'
+      ) {
         throw error;
       }
     }
@@ -154,7 +176,7 @@ export class LocalStorageProvider extends BaseStorageProvider {
 
   async objectExists(key: string): Promise<boolean> {
     const filePath = this.getFilePath(key);
-    
+
     try {
       await fs.access(filePath);
       return true;
@@ -163,20 +185,25 @@ export class LocalStorageProvider extends BaseStorageProvider {
     }
   }
 
-  async listObjects(options?: ListObjectsOptions): Promise<ListObjectsResponse> {
+  async listObjects(
+    options?: ListObjectsOptions
+  ): Promise<ListObjectsResponse> {
     const prefix = options?.prefix ?? '';
     const maxKeys = options?.maxKeys ?? 1000;
-    
+
     const objects: StorageObject[] = [];
-    
-    async function scanDirectory(dir: string, currentPrefix: string): Promise<void> {
+
+    async function scanDirectory(
+      dir: string,
+      currentPrefix: string
+    ): Promise<void> {
       try {
         const entries = await fs.readdir(dir, { withFileTypes: true });
-        
+
         for (const entry of entries) {
           const fullPath = join(dir, entry.name);
           const relativePath = join(currentPrefix, entry.name);
-          
+
           if (entry.isDirectory()) {
             await scanDirectory(fullPath, relativePath);
           } else if (entry.isFile()) {
@@ -188,7 +215,7 @@ export class LocalStorageProvider extends BaseStorageProvider {
                 lastModified: stats.mtime,
                 etag: `"${stats.mtime.getTime()}"`, // Simple etag based on mtime
               });
-              
+
               if (objects.length >= maxKeys) {
                 return;
               }
@@ -196,19 +223,23 @@ export class LocalStorageProvider extends BaseStorageProvider {
           }
         }
       } catch (error: unknown) {
-        if (error instanceof Error && 'code' in error && error.code !== 'ENOENT') {
+        if (
+          error instanceof Error &&
+          'code' in error &&
+          error.code !== 'ENOENT'
+        ) {
           throw error;
         }
       }
     }
-    
+
     await scanDirectory(this.basePath, '');
-    
+
     return {
       objects: objects.slice(0, maxKeys),
       isTruncated: objects.length > maxKeys,
-      nextContinuationToken: objects.length > maxKeys ? 
-        objects[maxKeys - 1]?.key : undefined,
+      nextContinuationToken:
+        objects.length > maxKeys ? objects[maxKeys - 1]?.key : undefined,
     };
   }
 
@@ -220,10 +251,10 @@ export class LocalStorageProvider extends BaseStorageProvider {
   async copyObject(sourceKey: string, destinationKey: string): Promise<void> {
     const sourcePath = this.getFilePath(sourceKey);
     const destPath = this.getFilePath(destinationKey);
-    
+
     // Ensure destination directory exists
     await this.ensureDirectory(dirname(destPath));
-    
+
     await fs.copyFile(sourcePath, destPath);
   }
 }

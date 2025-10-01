@@ -57,12 +57,18 @@ const DialogContent = React.forwardRef<
 });
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
-const DialogHeader = ({ className, ...props }: React.ComponentPropsWithoutRef<typeof View>) => (
+const DialogHeader = ({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof View>) => (
   <View className={cn(dialogHeaderVariants(), className)} {...props} />
 );
 DialogHeader.displayName = 'DialogHeader';
 
-const DialogFooter = ({ className, ...props }: React.ComponentPropsWithoutRef<typeof View>) => (
+const DialogFooter = ({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof View>) => (
   <View className={cn(dialogFooterVariants(), className)} {...props} />
 );
 DialogFooter.displayName = 'DialogFooter';

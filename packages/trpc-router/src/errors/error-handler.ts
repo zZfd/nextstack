@@ -42,7 +42,10 @@ export function handleError(error: unknown): TRPCError {
       });
     }
 
-    if (error.message.includes('unauthorized') || error.message.includes('authenticated')) {
+    if (
+      error.message.includes('unauthorized') ||
+      error.message.includes('authenticated')
+    ) {
       return new TRPCError({
         code: 'UNAUTHORIZED',
         message: error.message,
@@ -50,7 +53,10 @@ export function handleError(error: unknown): TRPCError {
       });
     }
 
-    if (error.message.includes('forbidden') || error.message.includes('authorized')) {
+    if (
+      error.message.includes('forbidden') ||
+      error.message.includes('authorized')
+    ) {
       return new TRPCError({
         code: 'FORBIDDEN',
         message: error.message,
@@ -60,9 +66,10 @@ export function handleError(error: unknown): TRPCError {
 
     return new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: process.env.NODE_ENV === 'production'
-        ? 'An unexpected error occurred'
-        : error.message,
+      message:
+        process.env.NODE_ENV === 'production'
+          ? 'An unexpected error occurred'
+          : error.message,
       cause: error,
     });
   }
@@ -115,9 +122,12 @@ function mapErrorCodeToTRPC(code: ErrorCode): TRPCError['code'] {
   }
 }
 
-function handlePrismaError(error: Prisma.PrismaClientKnownRequestError): TRPCError {
+function handlePrismaError(
+  error: Prisma.PrismaClientKnownRequestError
+): TRPCError {
   switch (error.code) {
-    case 'P2002': { // Unique constraint violation
+    case 'P2002': {
+      // Unique constraint violation
       const field = (error.meta?.target as string[])?.[0] ?? 'field';
       return new TRPCError({
         code: 'CONFLICT',
@@ -157,9 +167,10 @@ function handlePrismaError(error: Prisma.PrismaClientKnownRequestError): TRPCErr
     default:
       return new TRPCError({
         code: 'INTERNAL_SERVER_ERROR',
-        message: process.env.NODE_ENV === 'production'
-          ? 'Database operation failed'
-          : `Database error: ${error.message}`,
+        message:
+          process.env.NODE_ENV === 'production'
+            ? 'Database operation failed'
+            : `Database error: ${error.message}`,
         cause: error,
       });
   }
@@ -167,7 +178,12 @@ function handlePrismaError(error: Prisma.PrismaClientKnownRequestError): TRPCErr
 
 export function createErrorHandler() {
   return {
-    onError: ({ error, type, path, input }: {
+    onError: ({
+      error,
+      type,
+      path,
+      input,
+    }: {
       error: Error;
       type: string;
       path?: string;

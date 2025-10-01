@@ -20,7 +20,7 @@ export class GracefulShutdown {
 
   private setupConnectionTracking() {
     // Track all connections
-    this.server.on('connection', (connection) => {
+    this.server.on('connection', connection => {
       this.connections.add(connection);
 
       connection.on('close', () => {
@@ -43,7 +43,7 @@ export class GracefulShutdown {
     });
 
     // Handle uncaught exceptions
-    process.on('uncaughtException', (error) => {
+    process.on('uncaughtException', error => {
       console.error('Uncaught Exception:', error);
       this.shutdown('UNCAUGHT_EXCEPTION');
     });
@@ -66,7 +66,9 @@ export class GracefulShutdown {
     console.log(`Starting graceful shutdown due to ${signal}...`);
 
     const shutdownTimeout = setTimeout(() => {
-      console.error(`Graceful shutdown timeout after ${this.timeoutMs}ms, forcing exit`);
+      console.error(
+        `Graceful shutdown timeout after ${this.timeoutMs}ms, forcing exit`
+      );
       this.forceShutdown();
     }, this.timeoutMs);
 
@@ -85,7 +87,7 @@ export class GracefulShutdown {
 
         // Give connections time to finish naturally
         setTimeout(() => {
-          this.connections.forEach((connection) => {
+          this.connections.forEach(connection => {
             if (!connection.destroyed) {
               connection.destroy();
             }
@@ -95,7 +97,6 @@ export class GracefulShutdown {
 
       // Add any cleanup tasks here
       await this.performCleanup();
-
     } catch (error) {
       console.error('Error during graceful shutdown:', error);
       clearTimeout(shutdownTimeout);
@@ -134,6 +135,9 @@ export class GracefulShutdown {
 /**
  * Initialize graceful shutdown for the given server
  */
-export function setupGracefulShutdown(server: Server, timeoutMs?: number): GracefulShutdown {
+export function setupGracefulShutdown(
+  server: Server,
+  timeoutMs?: number
+): GracefulShutdown {
   return new GracefulShutdown(server, timeoutMs);
 }

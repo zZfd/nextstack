@@ -14,27 +14,28 @@ function validateAuthConfig(config: AuthConfig): void {
   if (!config.secret) {
     throw new Error(
       'Auth configuration error: secret is required.\n' +
-      'Please provide BETTER_AUTH_SECRET in your environment variables.'
+        'Please provide BETTER_AUTH_SECRET in your environment variables.'
     );
   }
 
   if (!config.baseURL) {
     throw new Error(
       'Auth configuration error: baseURL is required.\n' +
-      'Please provide BETTER_AUTH_URL in your environment variables.'
+        'Please provide BETTER_AUTH_URL in your environment variables.'
     );
   }
 
   // Production security checks
   const isProduction = !config.isDevelopment;
-  if (isProduction && (
-    config.secret.includes('change-this') ||
-    config.secret.includes('generate-with') ||
-    config.secret.length < 32
-  )) {
+  if (
+    isProduction &&
+    (config.secret.includes('change-this') ||
+      config.secret.includes('generate-with') ||
+      config.secret.length < 32)
+  ) {
     throw new Error(
       'Security Error: Please set a secure BETTER_AUTH_SECRET in production.\n' +
-      'Generate one with: openssl rand -base64 32'
+        'Generate one with: openssl rand -base64 32'
     );
   }
 }

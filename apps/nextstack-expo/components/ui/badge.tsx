@@ -19,7 +19,7 @@ const Badge = React.forwardRef<React.ElementRef<typeof View>, BadgeProps>(
         {...props}
       />
     </TextClassContext.Provider>
-  ),
+  )
 );
 Badge.displayName = 'Badge';
 

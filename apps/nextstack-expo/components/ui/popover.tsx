@@ -2,7 +2,10 @@ import * as PopoverPrimitive from '@rn-primitives/popover';
 import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
 
-import { popoverOverlayVariants, popoverContentVariants } from './popover-variants';
+import {
+  popoverOverlayVariants,
+  popoverContentVariants,
+} from './popover-variants';
 
 import { cn } from '@/lib/utils';
 
@@ -36,18 +39,30 @@ const PopoverContent = React.forwardRef<
     overlay?: boolean;
     overlayClassName?: string;
   }
->(({ className, portalHost, overlay = true, overlayClassName, ...props }, ref) => {
-  return (
-    <PopoverPortal hostName={portalHost}>
-      {overlay && <PopoverOverlay className={overlayClassName} />}
-      <PopoverPrimitive.Content
-        ref={ref}
-        className={cn(popoverContentVariants(), className)}
-        {...props}
-      />
-    </PopoverPortal>
-  );
-});
+>(
+  (
+    { className, portalHost, overlay = true, overlayClassName, ...props },
+    ref
+  ) => {
+    return (
+      <PopoverPortal hostName={portalHost}>
+        {overlay && <PopoverOverlay className={overlayClassName} />}
+        <PopoverPrimitive.Content
+          ref={ref}
+          className={cn(popoverContentVariants(), className)}
+          {...props}
+        />
+      </PopoverPortal>
+    );
+  }
+);
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
-export { Popover, PopoverTrigger, PopoverContent, PopoverClose, PopoverPortal, PopoverOverlay };
+export {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverClose,
+  PopoverPortal,
+  PopoverOverlay,
+};

@@ -20,7 +20,11 @@ export const getUserStats = publicProcedure
       ]);
 
       if (!user) {
-        throw new BusinessError(ErrorCodes.USER_NOT_FOUND, 'User not found', 404);
+        throw new BusinessError(
+          ErrorCodes.USER_NOT_FOUND,
+          'User not found',
+          404
+        );
       }
 
       const joinedDaysAgo = Math.floor(

@@ -5,34 +5,28 @@ export const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          'border-transparent bg-primary',
-        secondary:
-          'border-transparent bg-secondary',
-        destructive:
-          'border-transparent bg-destructive',
+        default: 'border-transparent bg-primary',
+        secondary: 'border-transparent bg-secondary',
+        destructive: 'border-transparent bg-destructive',
         outline: 'border-border bg-background',
       },
     },
     defaultVariants: {
       variant: 'default',
     },
-  },
+  }
 );
 
-export const badgeTextVariants = cva(
-  'text-xs font-semibold',
-  {
-    variants: {
-      variant: {
-        default: 'text-primary-foreground',
-        secondary: 'text-secondary-foreground',
-        destructive: 'text-destructive-foreground',
-        outline: 'text-foreground',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
+export const badgeTextVariants = cva('text-xs font-semibold', {
+  variants: {
+    variant: {
+      default: 'text-primary-foreground',
+      secondary: 'text-secondary-foreground',
+      destructive: 'text-destructive-foreground',
+      outline: 'text-foreground',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+  },
+});

@@ -20,7 +20,7 @@ export function Toaster() {
       {toasts.map(function ({ id, title, description, action, ...props }) {
         return (
           <Toast key={id} {...props}>
-            <View className="grid gap-1">
+            <View className='grid gap-1'>
               {title && (
                 <ToastTitle>
                   <Text>{title}</Text>

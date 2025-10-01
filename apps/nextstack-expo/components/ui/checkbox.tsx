@@ -14,12 +14,14 @@ const Checkbox = React.forwardRef<
       className={cn(
         'web:peer h-4 w-4 native:h-[20] native:w-[20] shrink-0 rounded-sm border border-primary web:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2',
         props.checked === true && 'bg-primary',
-        className,
+        className
       )}
       {...props}
     >
-      <CheckboxPrimitive.Indicator className={cn('items-center justify-center h-full w-full')}>
-        <Check size={12} strokeWidth={3} className="text-primary-foreground" />
+      <CheckboxPrimitive.Indicator
+        className={cn('items-center justify-center h-full w-full')}
+      >
+        <Check size={12} strokeWidth={3} className='text-primary-foreground' />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );

@@ -1,12 +1,15 @@
 # Analyze Project Workflow
 
 ## Purpose
+
 Entry point orchestrator that deploys specialized subagents to analyze project architecture in parallel.
 
 ## Process
 
 ### 1. User Confirmation
+
 Prompt the user with:
+
 ```
 Project Architecture Analysis
 =============================
@@ -31,6 +34,7 @@ Would you like to proceed with the full analysis, or prefer to analyze only spec
 ### 2. Deploy Agents Based on Choice
 
 #### Option 1: Full Analysis (Parallel Execution)
+
 Deploy all agents simultaneously using Task tool:
 
 ```
@@ -39,7 +43,7 @@ Agents to deploy in parallel:
    - subagent_type: "frontend-developer"
    - prompt: "Analyze the frontend architecture following the workflow in .ab-method/core/analyze-frontend.md. Check .ab-method/structure/index.yaml for output paths and create comprehensive frontend-patterns.md documentation."
 
-2. Task: "Analyze Backend Architecture"  
+2. Task: "Analyze Backend Architecture"
    - subagent_type: "backend-architect"
    - prompt: "Analyze the backend architecture following the workflow in .ab-method/core/analyze-backend.md. Check .ab-method/structure/index.yaml for output paths and create comprehensive backend-patterns.md documentation."
 
@@ -48,7 +52,7 @@ Agents to deploy in parallel:
    - prompt: "Analyze the project's technology stack and create docs/architecture/tech-stack.md. Document all languages, frameworks, databases, and tools used. Check package.json, requirements.txt, go.mod, etc."
 
 4. Task: "Analyze Entry Points"
-   - subagent_type: "backend-architect"  
+   - subagent_type: "backend-architect"
    - prompt: "Map all application entry points and create docs/architecture/entry-points.md. Document main files, routes, CLI commands, and how the application starts."
 
 5. Task: "Analyze External Services"
@@ -65,24 +69,31 @@ Agents to deploy in parallel:
 ```
 
 #### Option 2: Frontend Only
+
 Deploy single agent:
+
 - Task: "Analyze Frontend Architecture"
 - subagent_type: "frontend-developer"
 - Same prompt as above
 
 #### Option 3: Backend Only
+
 Deploy single agent:
+
 - Task: "Analyze Backend Architecture"
 - subagent_type: "backend-architect"
 - Same prompt as above
 
 ### 3. Post-Analysis
+
 After agents complete their work:
+
 1. Inform user that analysis is complete
 2. List the documentation files created
 3. Suggest next steps (e.g., review documentation, create tasks based on findings)
 
 ## Important Notes
+
 - This workflow is **only an entry point** - it doesn't perform analysis itself
 - All actual analysis work is delegated to specialized agents
 - Agents work in parallel for maximum efficiency

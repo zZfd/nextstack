@@ -28,7 +28,7 @@ const SelectTrigger = React.forwardRef<
     {...props}
   >
     <>{children}</>
-    <ChevronDown size={16} className="text-muted-foreground" />
+    <ChevronDown size={16} className='text-muted-foreground' />
   </SelectPrimitive.Trigger>
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
@@ -40,10 +40,13 @@ const SelectScrollUpButton = ({
   if (Platform.OS === 'web') {
     return (
       <SelectPrimitive.ScrollUpButton
-        className={cn('flex cursor-default items-center justify-center py-1', className)}
+        className={cn(
+          'flex cursor-default items-center justify-center py-1',
+          className
+        )}
         {...props}
       >
-        <ChevronUp size={14} className="text-foreground" />
+        <ChevronUp size={14} className='text-foreground' />
       </SelectPrimitive.ScrollUpButton>
     );
   }
@@ -57,10 +60,13 @@ const SelectScrollDownButton = ({
   if (Platform.OS === 'web') {
     return (
       <SelectPrimitive.ScrollDownButton
-        className={cn('flex cursor-default items-center justify-center py-1', className)}
+        className={cn(
+          'flex cursor-default items-center justify-center py-1',
+          className
+        )}
         {...props}
       >
-        <ChevronDown size={14} className="text-foreground" />
+        <ChevronDown size={14} className='text-foreground' />
       </SelectPrimitive.ScrollDownButton>
     );
   }
@@ -119,7 +125,10 @@ const SelectLabel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
-    className={cn('py-1.5 pl-8 pr-2 text-sm font-semibold text-foreground', className)}
+    className={cn(
+      'py-1.5 pl-8 pr-2 text-sm font-semibold text-foreground',
+      className
+    )}
     {...props}
   />
 ));
@@ -140,12 +149,12 @@ const SelectItem = React.forwardRef<
     )}
     {...props}
   >
-    <View className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+    <View className='absolute left-2 flex h-3.5 w-3.5 items-center justify-center'>
       <SelectPrimitive.ItemIndicator>
-        <Check size={16} strokeWidth={3} className="text-foreground" />
+        <Check size={16} strokeWidth={3} className='text-foreground' />
       </SelectPrimitive.ItemIndicator>
     </View>
-    <SelectPrimitive.ItemText className="text-sm text-foreground web:group-focus:text-accent-foreground" />
+    <SelectPrimitive.ItemText className='text-sm text-foreground web:group-focus:text-accent-foreground' />
   </SelectPrimitive.Item>
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;

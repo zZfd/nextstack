@@ -1,24 +1,29 @@
 # Planning Mission Utils
 
 ## Purpose
+
 Guide planning missions that involve research, architecture decisions, or system design before implementation.
 
 ## Critical Step
+
 **ALWAYS check `.ab-method/structure/index.yaml` FIRST** to find architecture documentation paths.
 
 ## Architecture Loading
 
 ### 1. Read Structure Index
+
 ```yaml
 Check .ab-method/structure/index.yaml for:
-- docs.architecture location
-- All architecture files for comprehensive view
-- project-constraints.md path
-- external-services.md path
+  - docs.architecture location
+  - All architecture files for comprehensive view
+  - project-constraints.md path
+  - external-services.md path
 ```
 
 ### 2. Load Comprehensive Architecture
+
 Based on index.yaml paths, read ALL:
+
 - **tech-stack.md** - Current technology choices
 - **frontend-patterns.md** - Frontend architecture
 - **backend-patterns.md** - Backend architecture
@@ -27,7 +32,9 @@ Based on index.yaml paths, read ALL:
 - **entry-points.md** - System boundaries
 
 ### 3. Identify Planning Needs
+
 Determine planning type:
+
 - **Technical Research** - New technology evaluation
 - **Architecture Design** - System structure planning
 - **Integration Planning** - Third-party service integration
@@ -37,7 +44,9 @@ Determine planning type:
 ## Agent Coordination
 
 ### For Technical Research:
+
 Deploy research-focused agent:
+
 ```
 Task: "Research [technology/approach] for [mission]"
 Context provided:
@@ -54,7 +63,9 @@ Agent should:
 ```
 
 ### For Architecture Design:
+
 Deploy architecture-focused agent:
+
 ```
 Task: "Design architecture for [feature/system]"
 Context provided:
@@ -71,7 +82,9 @@ Agent should:
 ```
 
 ### For Integration Planning:
+
 Deploy integration specialist:
+
 ```
 Task: "Plan integration with [service]"
 Context provided:
@@ -88,33 +101,41 @@ Agent should:
 ```
 
 ## Mission Document Structure
+
 For planning missions:
+
 ```markdown
 # Mission N: Planning - [Description]
 
 ## Status
+
 Current: Planning
 
 ## Research/Analysis
+
 - Key findings
 - Options evaluated
 - Pros and cons
 
 ## Recommendations
+
 - Proposed approach
 - Architecture decisions
 - Technology choices
 
 ## Implementation Plan
+
 - High-level steps
 - Estimated complexity
 - Dependencies
 
 ## Risks & Mitigations
+
 - Identified risks
 - Mitigation strategies
 
 ## Next Steps
+
 - Follow-up missions needed
 - Implementation approach
 ```
@@ -122,6 +143,7 @@ Current: Planning
 ## Key Guidelines
 
 ### For All Planning Missions:
+
 - Consider existing architecture
 - Respect project constraints
 - Evaluate impact on current system
@@ -129,6 +151,7 @@ Current: Planning
 - Document decision rationale
 
 ### Documentation Focus:
+
 - WHY decisions were made
 - Trade-offs considered
 - Alternative approaches
@@ -137,35 +160,42 @@ Current: Planning
 ## Output Examples
 
 ### Technical Research Output:
+
 ```markdown
 ## Research: State Management Solutions
 
 ### Options Evaluated:
+
 1. Redux - Heavy but battle-tested
 2. Zustand - Lightweight, good DX
 3. Context API - Built-in, simple
 
 ### Recommendation: Zustand
+
 - Fits current lightweight approach
 - Easy integration with existing code
 - Minimal boilerplate
 ```
 
 ### Architecture Design Output:
+
 ```markdown
 ## Architecture: Real-time Chat Feature
 
 ### Components:
+
 - WebSocket service layer
 - Message queue (Redis)
 - Chat UI components
 - Database schema changes
 
 ### Data Flow:
+
 Client → WebSocket → Queue → Database
 ```
 
 ## Remember
+
 - Planning missions inform future implementation
 - Load ALL architecture docs for context
 - Document decisions thoroughly

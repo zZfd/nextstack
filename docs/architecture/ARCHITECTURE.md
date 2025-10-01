@@ -88,13 +88,13 @@
 
 ### Key Architectural Decisions
 
-| Decision | Rationale |
-|----------|-----------|
-| **Standalone API Server** | Dedicated Express server (not Next.js API routes) enables multi-platform support and clearer separation |
-| **Schema-First Development** | Prisma schema generates both DB client and Zod validators, ensuring single source of truth |
-| **tRPC over REST** | Type-safe RPC with auto-completion, no manual API contracts needed |
-| **Monorepo Structure** | Code sharing between platforms while maintaining clear boundaries |
-| **Multi-file Prisma Schema** | Domain-based schema organization (~515 lines split into 10 files) for maintainability |
+| Decision                     | Rationale                                                                                               |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------- |
+| **Standalone API Server**    | Dedicated Express server (not Next.js API routes) enables multi-platform support and clearer separation |
+| **Schema-First Development** | Prisma schema generates both DB client and Zod validators, ensuring single source of truth              |
+| **tRPC over REST**           | Type-safe RPC with auto-completion, no manual API contracts needed                                      |
+| **Monorepo Structure**       | Code sharing between platforms while maintaining clear boundaries                                       |
+| **Multi-file Prisma Schema** | Domain-based schema organization (~515 lines split into 10 files) for maintainability                   |
 
 ---
 
@@ -251,44 +251,44 @@ nextstack/
 
 ### Backend Stack
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **TypeScript** | 5.9.2 | Language |
-| **Node.js** | >=18.0.0 | Runtime |
-| **Express** | 4.18.2 | HTTP Server |
-| **tRPC** | 11.5.1 | Type-safe API |
-| **Prisma** | 6.15.0 | Database ORM |
-| **PostgreSQL** | 16 | Database |
-| **BetterAuth** | 1.3.9 | Authentication |
-| **MinIO** | latest | Object Storage |
-| **Zod** | 3.22.4 | Runtime Validation |
+| Technology     | Version  | Purpose            |
+| -------------- | -------- | ------------------ |
+| **TypeScript** | 5.9.2    | Language           |
+| **Node.js**    | >=18.0.0 | Runtime            |
+| **Express**    | 4.18.2   | HTTP Server        |
+| **tRPC**       | 11.5.1   | Type-safe API      |
+| **Prisma**     | 6.15.0   | Database ORM       |
+| **PostgreSQL** | 16       | Database           |
+| **BetterAuth** | 1.3.9    | Authentication     |
+| **MinIO**      | latest   | Object Storage     |
+| **Zod**        | 3.22.4   | Runtime Validation |
 
 ### Frontend Stack (Mobile)
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **React** | 19.0.0 | UI Library |
-| **React Native** | 0.79.5 | Mobile Framework |
-| **Expo** | ~53.0.22 | Development Platform |
-| **Expo Router** | ~5.1.5 | File-based Routing |
-| **NativeWind** | 4.1.23 | Tailwind for RN |
-| **@rn-primitives** | ~1.2.0 | Headless Components (27+ primitives) |
-| **TanStack Query** | 5.80.3 | Data Fetching |
-| **tRPC React Query** | 11.5.1 | Type-safe Client |
-| **Lucide React Native** | 0.544.0 | Icon Library |
-| **React Hook Form** | 7.63.0 | Form Management |
+| Technology              | Version  | Purpose                              |
+| ----------------------- | -------- | ------------------------------------ |
+| **React**               | 19.0.0   | UI Library                           |
+| **React Native**        | 0.79.5   | Mobile Framework                     |
+| **Expo**                | ~53.0.22 | Development Platform                 |
+| **Expo Router**         | ~5.1.5   | File-based Routing                   |
+| **NativeWind**          | 4.1.23   | Tailwind for RN                      |
+| **@rn-primitives**      | ~1.2.0   | Headless Components (27+ primitives) |
+| **TanStack Query**      | 5.80.3   | Data Fetching                        |
+| **tRPC React Query**    | 11.5.1   | Type-safe Client                     |
+| **Lucide React Native** | 0.544.0  | Icon Library                         |
+| **React Hook Form**     | 7.63.0   | Form Management                      |
 
 ### DevOps & Tooling
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **pnpm** | 9.15.0 | Package Manager |
-| **Turbo** | 2.5.6 | Build System |
-| **Vitest** | 3.2.4 | Test Runner |
-| **ESLint** | 9.17.0 | Linter |
-| **Prettier** | 3.6.2 | Formatter |
-| **Husky** | 9.1.7 | Git Hooks |
-| **Docker Compose** | 3.8 | Local Infrastructure |
+| Technology         | Version | Purpose              |
+| ------------------ | ------- | -------------------- |
+| **pnpm**           | 9.15.0  | Package Manager      |
+| **Turbo**          | 2.5.6   | Build System         |
+| **Vitest**         | 3.2.4   | Test Runner          |
+| **ESLint**         | 9.17.0  | Linter               |
+| **Prettier**       | 3.6.2   | Formatter            |
+| **Husky**          | 9.1.7   | Git Hooks            |
+| **Docker Compose** | 3.8     | Local Infrastructure |
 
 ---
 
@@ -346,6 +346,7 @@ export type AppRouter = ReturnType<typeof createAppRouter>;
 ```
 
 **Client Usage**:
+
 ```typescript
 // Type-safe client calls
 trpc.core.user.create.mutate({ email, name });
@@ -354,6 +355,7 @@ trpc._meta.health.query();
 ```
 
 **Benefits**:
+
 - Clear separation: `core` for CRUD, `main` for business logic
 - Type inference across client/server boundary
 - Scalable organization for large APIs
@@ -418,12 +420,13 @@ export class ApplicationError extends BaseError {
 ```
 
 **Usage in Procedures**:
+
 ```typescript
 export const createUser = publicProcedure
   .input(CreateUserSchema)
   .mutation(async ({ ctx, input }) => {
     try {
-      return await ctx.db.$transaction(async (tx) => {
+      return await ctx.db.$transaction(async tx => {
         const existingUser = await tx.user.findUnique({
           where: { email: input.email },
         });
@@ -448,6 +451,7 @@ export const createUser = publicProcedure
 ```
 
 **Error Codes**:
+
 ```typescript
 export enum ErrorCode {
   // Auth
@@ -525,9 +529,9 @@ export const createContext = async (opts: CreateContextOptions) => {
   }
 
   return {
-    db,      // Prisma client
+    db, // Prisma client
     session, // BetterAuth session or null
-    user,    // User object or null
+    user, // User object or null
   };
 };
 
@@ -535,6 +539,7 @@ export type Context = Awaited<ReturnType<typeof createContext>>;
 ```
 
 **Protected Procedures**:
+
 ```typescript
 // packages/trpc-router/src/middleware/auth.ts
 export const isAuthenticated = t.middleware(async ({ ctx, next }) => {
@@ -589,6 +594,7 @@ generator zod {
 ```
 
 **Flow**:
+
 ```
 Prisma Schema
     ↓
@@ -601,6 +607,7 @@ Prisma Schema
 ```
 
 **Example**:
+
 ```typescript
 // Auto-generated: packages/validators/src/generated/User.ts
 export const CreateUserSchema = z.object({
@@ -660,6 +667,7 @@ app.use(globalErrorHandler);
 ```
 
 **Why Order Matters**:
+
 - Request ID must be first (logged in all subsequent middleware)
 - Security headers before any response
 - Rate limiting after logging (to log blocked requests)
@@ -674,7 +682,11 @@ app.use(globalErrorHandler);
 ```typescript
 // packages/storage/src/index.ts
 export interface BaseStorageProvider {
-  upload(file: Buffer, key: string, metadata?: Record<string, string>): Promise<string>;
+  upload(
+    file: Buffer,
+    key: string,
+    metadata?: Record<string, string>
+  ): Promise<string>;
   download(key: string): Promise<Buffer>;
   delete(key: string): Promise<void>;
   getSignedUrl(key: string, expiresIn?: number): Promise<string>;
@@ -708,6 +720,7 @@ export function createStorageProviderFromEnv(): BaseStorageProvider {
 ```
 
 **Usage**:
+
 ```typescript
 // In service layer
 const storage = createStorageProviderFromEnv();
@@ -733,6 +746,7 @@ routers/user/
 ```
 
 **Benefits**:
+
 - Easy to find specific route logic
 - Clear git history per feature
 - Avoids merge conflicts
@@ -749,7 +763,7 @@ export const createUser = publicProcedure
   .input(CreateUserSchema)
   .mutation(async ({ ctx, input }) => {
     try {
-      return await ctx.db.$transaction(async (tx) => {
+      return await ctx.db.$transaction(async tx => {
         // 1. Check existing user
         const existingUser = await tx.user.findUnique({
           where: { email: input.email },
@@ -847,6 +861,7 @@ describe('Database Real Operations', () => {
 ```
 
 **Why Real DB**:
+
 - Tests actual constraints and indexes
 - Catches migration issues early
 - Validates transaction behavior
@@ -861,12 +876,14 @@ describe('Database Real Operations', () => {
 **Purpose**: Database access layer with Prisma ORM
 
 **Exports**:
+
 ```typescript
 export const db = new PrismaClient();
-export * from "@prisma/client";
+export * from '@prisma/client';
 ```
 
 **Schema Organization** (~515 lines):
+
 - `schema.prisma` - Datasource & generator config
 - `enums.prisma` - Shared enumerations
 - `user.prisma` - User model
@@ -879,6 +896,7 @@ export * from "@prisma/client";
 - `level.prisma` - Level/tier system
 
 **Key Models**:
+
 ```prisma
 model User {
   id            String   @id @default(cuid())
@@ -899,6 +917,7 @@ model User {
 ```
 
 **Commands**:
+
 - `pnpm db:generate` - Generate Prisma Client + Zod schemas
 - `pnpm db:push` - Push schema to database
 - `pnpm db:migrate` - Create and run migrations
@@ -912,6 +931,7 @@ model User {
 **Purpose**: BetterAuth wrapper with validation utilities
 
 **Exports**:
+
 ```typescript
 // Server
 export { createAuth, createAuthConfig } from './server';
@@ -933,6 +953,7 @@ export type { Session, User } from './types';
 ```
 
 **Configuration**:
+
 ```typescript
 const auth = createAuth({
   secret: env.BETTER_AUTH_SECRET,
@@ -952,31 +973,41 @@ const auth = createAuth({
 **Purpose**: Business logic and API route definitions
 
 **Exports**:
+
 ```typescript
 // Core
-export { createAppRouter, type AppRouter } from "./src/router";
-export { createContext, createExpressContext, type Context } from "./src/context";
-export { createAuthFromConfig, createAuthHandler, type Auth } from "./src/auth";
+export { createAppRouter, type AppRouter } from './src/router';
+export {
+  createContext,
+  createExpressContext,
+  type Context,
+} from './src/context';
+export { createAuthFromConfig, createAuthHandler, type Auth } from './src/auth';
 
 // Layered architecture
-export * from "./src/services";
-export * from "./src/errors";
-export * from "./src/utils/error-handler";
+export * from './src/services';
+export * from './src/errors';
+export * from './src/utils/error-handler';
 
 // Procedures
-export { publicProcedure } from "./src/procedures/public";
-export { protectedProcedure, optionalAuthProcedure } from "./src/procedures/protected";
+export { publicProcedure } from './src/procedures/public';
+export {
+  protectedProcedure,
+  optionalAuthProcedure,
+} from './src/procedures/protected';
 
 // Middleware
-export { isAuthenticated, isOptionalAuth } from "./src/middleware/auth";
+export { isAuthenticated, isOptionalAuth } from './src/middleware/auth';
 ```
 
 **Router Structure**:
+
 - `core.*` - CRUD operations
 - `main.*` - Business logic
 - `_meta.*` - System information
 
 **Dependencies**:
+
 - `@nextstack/database` - Data access
 - `@nextstack/storage` - File storage
 - `@nextstack/validators` - Input validation
@@ -990,6 +1021,7 @@ export { isAuthenticated, isOptionalAuth } from "./src/middleware/auth";
 **Purpose**: Type-safe tRPC client utilities
 
 **Exports**:
+
 ```typescript
 import { createTRPCReact } from '@trpc/react-query';
 import type { AppRouter } from '@nextstack/trpc-router';
@@ -998,6 +1030,7 @@ export const trpc = createTRPCReact<AppRouter>();
 ```
 
 **Usage in React/React Native**:
+
 ```typescript
 const [trpcClient] = useState(() =>
   trpc.createClient({
@@ -1026,18 +1059,21 @@ const createUser = trpc.core.user.create.useMutation();
 **Purpose**: Zod schemas auto-generated from Prisma
 
 **Generation**:
+
 ```bash
 pnpm db:generate
 # Generates: packages/validators/src/generated/**
 ```
 
 **Auto-generated Schemas**:
+
 - `UserSchema` - User model validation
 - `CreateUserSchema` - User creation input
 - `UpdateUserSchema` - User update input
 - `ProfileSchema`, `OrderSchema`, etc.
 
 **Manual Schemas** (in `src/index.ts`):
+
 ```typescript
 export const LoginSchema = z.object({
   email: z.string().email(),
@@ -1052,13 +1088,19 @@ export const LoginSchema = z.object({
 **Purpose**: S3-compatible file storage abstraction
 
 **Providers**:
+
 - `S3StorageProvider` - AWS S3 / MinIO
 - `LocalStorageProvider` - Local filesystem (dev/test)
 
 **Interface**:
+
 ```typescript
 interface BaseStorageProvider {
-  upload(file: Buffer, key: string, metadata?: Record<string, string>): Promise<string>;
+  upload(
+    file: Buffer,
+    key: string,
+    metadata?: Record<string, string>
+  ): Promise<string>;
   download(key: string): Promise<Buffer>;
   delete(key: string): Promise<void>;
   getSignedUrl(key: string, expiresIn?: number): Promise<string>;
@@ -1066,6 +1108,7 @@ interface BaseStorageProvider {
 ```
 
 **Factory Usage**:
+
 ```typescript
 import { createStorageProviderFromEnv } from '@nextstack/storage';
 
@@ -1080,10 +1123,12 @@ const url = await storage.upload(buffer, 'avatars/user-123.jpg');
 **Purpose**: Shared TypeScript configurations
 
 **Configs**:
+
 - `base.json` - Default config for all packages
 - `react-library.json` - React-specific config
 
 **base.json**:
+
 ```json
 {
   "compilerOptions": {
@@ -1102,6 +1147,7 @@ const url = await storage.upload(buffer, 'avatars/user-123.jpg');
 ```
 
 **Usage in packages**:
+
 ```json
 {
   "extends": "@nextstack/tsconfig/base.json",
@@ -1119,6 +1165,7 @@ const url = await storage.upload(buffer, 'avatars/user-123.jpg');
 **Purpose**: Shared ESLint configurations
 
 **Configs**:
+
 - `base.js` - TypeScript + Import rules
 - `react.js` - React-specific rules
 - `react-native.js` - React Native rules
@@ -1127,6 +1174,7 @@ const url = await storage.upload(buffer, 'avatars/user-123.jpg');
 - `library.js` - Library-specific rules
 
 **Key Rules**:
+
 ```javascript
 {
   '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
@@ -1333,11 +1381,11 @@ export default defineConfig({
     setupFiles: ['./tests/setup/setup.ts'],
     pool: 'forks',
     poolOptions: {
-      forks: { singleFork: false }
+      forks: { singleFork: false },
     },
     testTimeout: 30000,
     include: ['tests/**/*.test.ts'],
-  }
+  },
 });
 ```
 
@@ -1398,18 +1446,20 @@ app.use('/trpc', rateLimiter);
 ```typescript
 import helmet from 'helmet';
 
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+      },
     },
-  },
-  hsts: {
-    maxAge: 31536000,
-    includeSubDomains: true,
-  },
-}));
+    hsts: {
+      maxAge: 31536000,
+      includeSubDomains: true,
+    },
+  })
+);
 ```
 
 ### 5. CORS Configuration
@@ -1512,21 +1562,24 @@ import { handleServiceError } from '../utils/error-handler';
 ### TypeScript Rules
 
 **Strict Mode** enabled:
+
 ```json
 {
   "strict": true,
-  "noUnusedLocals": false,    // Handled by ESLint
+  "noUnusedLocals": false, // Handled by ESLint
   "noUnusedParameters": false, // Handled by ESLint
   "forceConsistentCasingInFileNames": true
 }
 ```
 
 **Forbidden**:
+
 - ❌ `any` type (use `unknown` or proper typing)
 - ❌ `var` keyword (use `const`/`let`)
 - ❌ Relative imports across packages (use `@` aliases)
 
 **Allowed**:
+
 - ✅ Unused vars with `_` prefix: `_unusedParam`
 - ✅ Type assertions when necessary: `as const`
 - ✅ Non-null assertions when safe: `user!.name`
@@ -1536,16 +1589,17 @@ import { handleServiceError } from '../utils/error-handler';
 ```typescript
 // Good: Explain WHY, not WHAT
 // We use forks pool to ensure database connections are isolated between tests
-pool: 'forks'
+pool: 'forks';
 
 // Bad: Obvious comment
 // Set timeout to 30000
-testTimeout: 30000
+testTimeout: 30000;
 ```
 
 ### Error Messages
 
 **User-facing**: Clear, actionable
+
 ```typescript
 throw new BusinessError(
   ErrorCodes.USER_ALREADY_EXISTS,
@@ -1555,6 +1609,7 @@ throw new BusinessError(
 ```
 
 **Internal**: Technical, with context
+
 ```typescript
 console.error(`Failed to upload file to S3: ${error.message}`, {
   bucket: config.bucket,
@@ -1625,6 +1680,7 @@ console.error(`Failed to upload file to S3: ${error.message}`, {
 ```
 
 **Explanation**:
+
 - `^build` means "run build on all dependencies first"
 - `cache: true` enables Turbo's remote/local caching
 - `persistent: true` keeps dev servers running
@@ -1633,10 +1689,7 @@ console.error(`Failed to upload file to S3: ${error.message}`, {
 
 ```json
 {
-  "globalDependencies": [
-    "**/.env.*local",
-    "**/.env"
-  ]
+  "globalDependencies": ["**/.env.*local", "**/.env"]
 }
 ```
 
@@ -1741,32 +1794,32 @@ Changes to `.env` files invalidate all caches.
 
 ### Common Commands
 
-| Task | Command |
-|------|---------|
-| Install | `pnpm install` |
-| Dev | `pnpm dev` |
-| Build | `pnpm build` |
-| Lint | `pnpm lint` |
-| Type Check | `pnpm typecheck` |
-| Format | `pnpm format` |
-| Test | `pnpm --filter nextstack-server test` |
-| DB Generate | `pnpm db:generate` |
-| DB Push | `pnpm db:push` |
-| DB Studio | `pnpm db:studio` |
-| Docker Up | `pnpm docker` |
-| Docker Down | `pnpm docker:down` |
-| Clean | `pnpm clean` |
+| Task        | Command                               |
+| ----------- | ------------------------------------- |
+| Install     | `pnpm install`                        |
+| Dev         | `pnpm dev`                            |
+| Build       | `pnpm build`                          |
+| Lint        | `pnpm lint`                           |
+| Type Check  | `pnpm typecheck`                      |
+| Format      | `pnpm format`                         |
+| Test        | `pnpm --filter nextstack-server test` |
+| DB Generate | `pnpm db:generate`                    |
+| DB Push     | `pnpm db:push`                        |
+| DB Studio   | `pnpm db:studio`                      |
+| Docker Up   | `pnpm docker`                         |
+| Docker Down | `pnpm docker:down`                    |
+| Clean       | `pnpm clean`                          |
 
 ### Port Assignments
 
-| Service | Port |
-|---------|------|
-| API Server | 3001 |
-| PostgreSQL | 5433 |
-| MinIO API | 9000 |
+| Service       | Port |
+| ------------- | ---- |
+| API Server    | 3001 |
+| PostgreSQL    | 5433 |
+| MinIO API     | 9000 |
 | MinIO Console | 9001 |
 | Prisma Studio | 5555 |
-| Expo Dev | 8081 |
+| Expo Dev      | 8081 |
 
 ### Environment Variables
 
@@ -1793,14 +1846,14 @@ CORS_ORIGINS="http://localhost:3000,http://localhost:8081"
 
 ### File Locations
 
-| Purpose | Path |
-|---------|------|
-| Prisma Schema | `packages/database/prisma/schema/` |
-| tRPC Routes | `packages/trpc-router/src/routers/` |
-| API Server | `apps/nextstack-server/src/index.ts` |
-| Mobile App | `apps/nextstack-expo/app/` |
-| Tests | `apps/nextstack-server/tests/` |
-| Configs | `packages/tsconfig/`, `packages/eslint-config/` |
+| Purpose       | Path                                            |
+| ------------- | ----------------------------------------------- |
+| Prisma Schema | `packages/database/prisma/schema/`              |
+| tRPC Routes   | `packages/trpc-router/src/routers/`             |
+| API Server    | `apps/nextstack-server/src/index.ts`            |
+| Mobile App    | `apps/nextstack-expo/app/`                      |
+| Tests         | `apps/nextstack-server/tests/`                  |
+| Configs       | `packages/tsconfig/`, `packages/eslint-config/` |
 
 ---
 
@@ -1816,6 +1869,7 @@ CORS_ORIGINS="http://localhost:3000,http://localhost:8081"
 ### Development Process
 
 1. **Create Feature Branch**
+
    ```bash
    git checkout -b feature/user-authentication
    ```
@@ -1826,13 +1880,16 @@ CORS_ORIGINS="http://localhost:3000,http://localhost:8081"
    - Write tests (integration tests preferred)
 
 3. **Commit**
+
    ```bash
    git add .
    git commit -m "feat: add user authentication endpoints"
    ```
+
    Husky runs lint-staged automatically.
 
 4. **Test Locally**
+
    ```bash
    pnpm typecheck
    pnpm lint
@@ -1856,6 +1913,7 @@ CORS_ORIGINS="http://localhost:3000,http://localhost:8081"
 ```
 
 **Types**:
+
 - `feat:` - New feature
 - `fix:` - Bug fix
 - `docs:` - Documentation only

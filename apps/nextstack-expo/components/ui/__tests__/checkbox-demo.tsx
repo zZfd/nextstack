@@ -13,7 +13,7 @@ export function CheckboxDemo() {
   const [checked, setChecked] = React.useState(false);
 
   return (
-    <View className="flex-row items-center gap-2">
+    <View className='flex-row items-center gap-2'>
       <Checkbox checked={checked} onCheckedChange={setChecked} />
       <Label onPress={() => setChecked(!checked)}>
         <Text>Accept terms and conditions</Text>
@@ -27,10 +27,10 @@ export function CheckboxDemo() {
  */
 export function CheckboxDisabledDemo() {
   return (
-    <View className="flex-row items-center gap-2">
+    <View className='flex-row items-center gap-2'>
       <Checkbox checked={true} disabled onCheckedChange={() => {}} />
       <Label>
-        <Text className="text-muted-foreground">Disabled checkbox</Text>
+        <Text className='text-muted-foreground'>Disabled checkbox</Text>
       </Label>
     </View>
   );

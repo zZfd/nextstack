@@ -20,12 +20,12 @@ module.exports = [
       },
     },
     rules: {
-      // Console is fine in React Native (Metro handles it)
-      'no-console': 'warn',
-      
-      // Platform-specific considerations  
+      // Allow console.error and console.warn for legitimate logging, warn on console.log
+      'no-console': ['warn', { allow: ['error', 'warn'] }],
+
+      // Platform-specific considerations
       'import/no-nodejs-modules': 'error',
-      
+
       // Note: eslint-plugin-react-native is not compatible with ESLint v9 yet
       // Will re-enable specific rules when plugin is updated
     },
