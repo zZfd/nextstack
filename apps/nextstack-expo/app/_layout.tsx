@@ -11,11 +11,11 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
 
 import { config } from '../config';
 
 import { ThemeProvider } from '@/lib/ThemeProvider';
-import { ToastProvider } from '@/lib/toast-context';
 import { useColorScheme } from '@/lib/useColorScheme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -55,33 +55,32 @@ export default function RootLayout() {
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider>
-            <ToastProvider>
-              <NavigationThemeProvider value={theme}>
-                <Stack
-                  screenOptions={{
-                    headerStyle: {
-                      backgroundColor: theme.colors.card,
-                    },
-                    headerTintColor: theme.colors.text,
-                    headerTitleStyle: {
-                      fontWeight: 'bold',
-                    },
+            <NavigationThemeProvider value={theme}>
+              <Stack
+                screenOptions={{
+                  headerStyle: {
+                    backgroundColor: theme.colors.card,
+                  },
+                  headerTintColor: theme.colors.text,
+                  headerTitleStyle: {
+                    fontWeight: 'bold',
+                  },
+                }}
+              >
+                <Stack.Screen
+                  name='index'
+                  options={{
+                    title: 'Mobile Expo App',
                   }}
-                >
-                  <Stack.Screen
-                    name='index'
-                    options={{
-                      title: 'Mobile Expo App',
-                    }}
-                  />
-                </Stack>
-                <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
-                <PortalHost />
-              </NavigationThemeProvider>
-            </ToastProvider>
+                />
+              </Stack>
+              <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+              <PortalHost />
+            </NavigationThemeProvider>
           </ThemeProvider>
         </QueryClientProvider>
       </trpc.Provider>
+      <Toast />
     </GestureHandlerRootView>
   );
 }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Platform, ScrollView, View } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 import { ThemeToggle } from '@/components/ThemeToggle';
 import {
@@ -48,11 +49,9 @@ import {
   Text,
   Textarea,
 } from '@/components/ui';
-import { useToast } from '@/lib/toast-context';
 import '@/global.css';
 
 export default function HomePage() {
-  const { toast } = useToast();
   const [checked, setChecked] = React.useState(false);
   const [switchValue, setSwitchValue] = React.useState(false);
   const [radioValue, setRadioValue] = React.useState('option1');
@@ -301,10 +300,10 @@ export default function HomePage() {
               <Button
                 variant='default'
                 onPress={() => {
-                  toast({
-                    title: 'Info',
-                    description: 'This is an informational message.',
+                  Toast.show({
                     type: 'info',
+                    text1: 'Info',
+                    text2: 'This is an informational message.',
                   });
                 }}
               >
@@ -313,10 +312,10 @@ export default function HomePage() {
               <Button
                 variant='outline'
                 onPress={() => {
-                  toast({
-                    title: 'Success!',
-                    description: 'Your changes have been saved.',
+                  Toast.show({
                     type: 'success',
+                    text1: 'Success!',
+                    text2: 'Your changes have been saved.',
                   });
                 }}
               >
@@ -325,22 +324,10 @@ export default function HomePage() {
               <Button
                 variant='secondary'
                 onPress={() => {
-                  toast({
-                    title: 'Warning',
-                    description: 'Please check your input.',
-                    type: 'warning',
-                  });
-                }}
-              >
-                <Text>Show Warning Toast</Text>
-              </Button>
-              <Button
-                variant='destructive'
-                onPress={() => {
-                  toast({
-                    title: 'Error',
-                    description: 'Something went wrong.',
+                  Toast.show({
                     type: 'error',
+                    text1: 'Error',
+                    text2: 'Something went wrong.',
                   });
                 }}
               >
