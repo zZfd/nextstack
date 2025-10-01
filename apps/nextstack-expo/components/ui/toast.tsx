@@ -1,8 +1,9 @@
 import * as ToastPrimitive from '@rn-primitives/toast';
 import { type VariantProps } from 'class-variance-authority';
-import { X } from 'lucide-react-native';
 import * as React from 'react';
 import { Platform } from 'react-native';
+
+import { X } from '@/lib/icons';
 
 import { TextClassContext } from './text';
 import {

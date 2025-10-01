@@ -1,7 +1,7 @@
 import * as CheckboxPrimitive from '@rn-primitives/checkbox';
-import { Check } from 'lucide-react-native';
 import * as React from 'react';
 
+import { Check } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 
 const Checkbox = React.forwardRef<

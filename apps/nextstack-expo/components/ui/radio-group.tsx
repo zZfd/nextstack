@@ -1,7 +1,7 @@
 import * as RadioGroupPrimitive from '@rn-primitives/radio-group';
-import { Circle } from 'lucide-react-native';
 import * as React from 'react';
 
+import { Circle } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 
 const RadioGroup = React.forwardRef<
@@ -35,12 +35,7 @@ const RadioGroupItem = React.forwardRef<
       <RadioGroupPrimitive.Indicator
         className={cn('items-center justify-center h-full w-full')}
       >
-        <Circle
-          size={10}
-          strokeWidth={0}
-          fill='currentColor'
-          className='text-primary'
-        />
+        <Circle size={10} strokeWidth={0} className='text-primary fill-primary' />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   );

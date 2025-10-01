@@ -1,6 +1,6 @@
-import { Moon, Sun } from 'lucide-react-native';
 import { Pressable, View } from 'react-native';
 
+import { Moon, Sun } from '@/lib/icons';
 import { useColorScheme } from '@/lib/useColorScheme';
 
 export function ThemeToggle() {

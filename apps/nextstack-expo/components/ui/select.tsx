@@ -1,8 +1,8 @@
 import * as SelectPrimitive from '@rn-primitives/select';
-import { Check, ChevronDown, ChevronUp } from 'lucide-react-native';
 import * as React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 
+import { Check, ChevronDown, ChevronUp } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 
 type Option = SelectPrimitive.Option;

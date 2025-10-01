@@ -1,7 +1,8 @@
 import * as AccordionPrimitive from '@rn-primitives/accordion';
-import { ChevronDown } from 'lucide-react-native';
 import * as React from 'react';
 import { View } from 'react-native';
+
+import { ChevronDown } from '@/lib/icons';
 
 import {
   accordionItemVariants,
