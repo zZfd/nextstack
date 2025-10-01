@@ -9,11 +9,11 @@ import Animated, {
   useDerivedValue,
   withTiming,
 } from 'react-native-reanimated';
+import { ChevronDown } from 'lucide-react-native';
 
 import { Icon } from './icon';
 import { TextClassContext } from './text';
 
-import { ChevronDown } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 
 function Accordion({

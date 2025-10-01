@@ -1,8 +1,10 @@
 import * as SelectPrimitive from '@rn-primitives/select';
 import * as React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
+import { Check, ChevronDown, ChevronUp } from 'lucide-react-native';
 
-import { Check, ChevronDown, ChevronUp } from '@/lib/icons';
+import { Icon } from './icon';
+
 import { cn } from '@/lib/utils';
 
 type Option = SelectPrimitive.Option;
@@ -28,7 +30,7 @@ const SelectTrigger = React.forwardRef<
     {...props}
   >
     <>{children}</>
-    <ChevronDown size={16} className="text-muted-foreground" />
+    <Icon as={ChevronDown} size={16} className="text-muted-foreground" />
   </SelectPrimitive.Trigger>
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
@@ -46,7 +48,7 @@ const SelectScrollUpButton = ({
         )}
         {...props}
       >
-        <ChevronUp size={14} className='text-foreground' />
+        <Icon as={ChevronUp} size={14} className='text-foreground' />
       </SelectPrimitive.ScrollUpButton>
     );
   }
@@ -66,7 +68,7 @@ const SelectScrollDownButton = ({
         )}
         {...props}
       >
-        <ChevronDown size={14} className='text-foreground' />
+        <Icon as={ChevronDown} size={14} className='text-foreground' />
       </SelectPrimitive.ScrollDownButton>
     );
   }
@@ -179,7 +181,7 @@ const SelectItem = React.forwardRef<
   >
     <View className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <Check size={16} strokeWidth={3} className="text-foreground" />
+        <Icon as={Check} size={16} strokeWidth={3} className="text-foreground" />
       </SelectPrimitive.ItemIndicator>
     </View>
     <SelectPrimitive.ItemText className="text-sm text-foreground web:group-focus:text-accent-foreground" />

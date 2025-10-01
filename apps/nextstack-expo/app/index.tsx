@@ -41,15 +41,18 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
   Text,
   Textarea,
 } from '@/components/ui';
+import { useToast } from '@/lib/toast-context';
 import '@/global.css';
 
 export default function HomePage() {
+  const { toast } = useToast();
   const [checked, setChecked] = React.useState(false);
   const [switchValue, setSwitchValue] = React.useState(false);
   const [radioValue, setRadioValue] = React.useState('option1');
@@ -284,6 +287,67 @@ export default function HomePage() {
             </CardContent>
           </Card>
 
+          {/* Toast */}
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <Text>Toast</Text>
+              </CardTitle>
+              <CardDescription>
+                <Text>Temporary notifications</Text>
+              </CardDescription>
+            </CardHeader>
+            <CardContent className='gap-3'>
+              <Button
+                variant='default'
+                onPress={() => {
+                  toast({
+                    title: 'Info',
+                    description: 'This is an informational message.',
+                    type: 'info',
+                  });
+                }}
+              >
+                <Text>Show Info Toast</Text>
+              </Button>
+              <Button
+                variant='outline'
+                onPress={() => {
+                  toast({
+                    title: 'Success!',
+                    description: 'Your changes have been saved.',
+                    type: 'success',
+                  });
+                }}
+              >
+                <Text>Show Success Toast</Text>
+              </Button>
+              <Button
+                variant='secondary'
+                onPress={() => {
+                  toast({
+                    title: 'Warning',
+                    description: 'Please check your input.',
+                    type: 'warning',
+                  });
+                }}
+              >
+                <Text>Show Warning Toast</Text>
+              </Button>
+              <Button
+                variant='destructive'
+                onPress={() => {
+                  toast({
+                    title: 'Error',
+                    description: 'Something went wrong.',
+                    type: 'error',
+                  });
+                }}
+              >
+                <Text>Show Error Toast</Text>
+              </Button>
+            </CardContent>
+          </Card>
         </View>
 
         <Separator />
@@ -405,38 +469,87 @@ export default function HomePage() {
               <CardTitle>
                 <Text>Table</Text>
               </CardTitle>
+              <CardDescription>
+                <Text>A list of recent invoices</Text>
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>
-                      <Text>Name</Text>
-                    </TableHead>
-                    <TableHead>
-                      <Text>Status</Text>
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <Text>Item 1</Text>
-                    </TableCell>
-                    <TableCell>
-                      <Text>Active</Text>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Text>Item 2</Text>
-                    </TableCell>
-                    <TableCell>
-                      <Text>Pending</Text>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
+              <View className='overflow-hidden rounded-md border border-border'>
+                <Table aria-labelledby='invoice-table'>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className='w-[100px]'>
+                        <Text>Invoice</Text>
+                      </TableHead>
+                      <TableHead>
+                        <Text>Status</Text>
+                      </TableHead>
+                      <TableHead>
+                        <Text>Method</Text>
+                      </TableHead>
+                      <TableHead className='text-right'>
+                        <Text>Amount</Text>
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell className='w-[100px] font-medium'>
+                        <Text>INV001</Text>
+                      </TableCell>
+                      <TableCell>
+                        <Text>Paid</Text>
+                      </TableCell>
+                      <TableCell>
+                        <Text>Credit Card</Text>
+                      </TableCell>
+                      <TableCell className='text-right'>
+                        <Text>$250.00</Text>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className='w-[100px] font-medium'>
+                        <Text>INV002</Text>
+                      </TableCell>
+                      <TableCell>
+                        <Text>Pending</Text>
+                      </TableCell>
+                      <TableCell>
+                        <Text>PayPal</Text>
+                      </TableCell>
+                      <TableCell className='text-right'>
+                        <Text>$150.00</Text>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className='w-[100px] font-medium'>
+                        <Text>INV003</Text>
+                      </TableCell>
+                      <TableCell>
+                        <Text>Unpaid</Text>
+                      </TableCell>
+                      <TableCell>
+                        <Text>Bank Transfer</Text>
+                      </TableCell>
+                      <TableCell className='text-right'>
+                        <Text>$350.00</Text>
+                      </TableCell>
+                    </TableRow>
+                    <TableFooter>
+                      <TableRow>
+                        <TableCell className='w-[100px]'>
+                          <Text>Total</Text>
+                        </TableCell>
+                        <TableCell />
+                        <TableCell />
+                        <TableCell className='text-right'>
+                          <Text>$750.00</Text>
+                        </TableCell>
+                      </TableRow>
+                    </TableFooter>
+                  </TableBody>
+                </Table>
+              </View>
             </CardContent>
           </Card>
 

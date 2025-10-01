@@ -1,10 +1,11 @@
 import { validateEmail, validatePassword } from '@nextstack/auth/validation';
-import { Eye, EyeOff } from 'lucide-react-native';
 import * as React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ActivityIndicator, Pressable, ScrollView, View } from 'react-native';
+import { Eye, EyeOff } from 'lucide-react-native';
 
 import { Button } from '@/components/ui/button';
+import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -146,9 +147,9 @@ export function SignInForm({
                   disabled={isLoading}
                 >
                   {showPassword ? (
-                    <EyeOff size={16} color='#717171' />
+                    <Icon as={EyeOff} size={16} className='text-[#717171]' />
                   ) : (
-                    <Eye size={16} color='#717171' />
+                    <Icon as={Eye} size={16} className='text-[#717171]' />
                   )}
                 </Pressable>
               </View>

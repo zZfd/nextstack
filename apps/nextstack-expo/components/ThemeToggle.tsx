@@ -1,6 +1,8 @@
 import { Pressable, View } from 'react-native';
+import { Moon, Sun } from 'lucide-react-native';
 
-import { Moon, Sun } from '@/lib/icons';
+import { Icon } from './ui/icon';
+
 import { useColorScheme } from '@/lib/useColorScheme';
 
 export function ThemeToggle() {
@@ -18,9 +20,9 @@ export function ThemeToggle() {
     >
       <View className='flex-1 aspect-square pt-0.5 justify-center items-center web:px-5'>
         {isDarkColorScheme ? (
-          <Moon className='text-foreground' size={23} strokeWidth={1.25} />
+          <Icon as={Moon} className='text-foreground' size={23} strokeWidth={1.25} />
         ) : (
-          <Sun className='text-foreground' size={24} strokeWidth={1.25} />
+          <Icon as={Sun} className='text-foreground' size={24} strokeWidth={1.25} />
         )}
       </View>
     </Pressable>

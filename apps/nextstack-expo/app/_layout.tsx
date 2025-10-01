@@ -15,6 +15,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { config } from '../config';
 
 import { ThemeProvider } from '@/lib/ThemeProvider';
+import { ToastProvider } from '@/lib/toast-context';
 import { useColorScheme } from '@/lib/useColorScheme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -54,27 +55,29 @@ export default function RootLayout() {
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider>
-            <NavigationThemeProvider value={theme}>
-              <Stack
-                screenOptions={{
-                  headerStyle: {
-                    backgroundColor: theme.colors.card,
-                  },
-                  headerTintColor: theme.colors.text,
-                  headerTitleStyle: {
-                    fontWeight: 'bold',
-                  },
-                }}
-              >
-                <Stack.Screen
-                  name='index'
-                  options={{
-                    title: 'Mobile Expo App',
+            <ToastProvider>
+              <NavigationThemeProvider value={theme}>
+                <Stack
+                  screenOptions={{
+                    headerStyle: {
+                      backgroundColor: theme.colors.card,
+                    },
+                    headerTintColor: theme.colors.text,
+                    headerTitleStyle: {
+                      fontWeight: 'bold',
+                    },
                   }}
-                />
-              </Stack>
-              <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
-            </NavigationThemeProvider>
+                >
+                  <Stack.Screen
+                    name='index'
+                    options={{
+                      title: 'Mobile Expo App',
+                    }}
+                  />
+                </Stack>
+                <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+              </NavigationThemeProvider>
+            </ToastProvider>
           </ThemeProvider>
         </QueryClientProvider>
       </trpc.Provider>
