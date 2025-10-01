@@ -62,11 +62,12 @@ DropdownMenuSubContent.displayName =
 const DropdownMenuOverlay = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Overlay>
->(({ className, ...props }, ref) => {
+>(({ className, closeOnPress = true, ...props }, ref) => {
   return (
     <DropdownMenuPrimitive.Overlay
       className={cn(dropdownMenuOverlayVariants(), className)}
       style={Platform.OS !== 'web' ? StyleSheet.absoluteFill : undefined}
+      closeOnPress={closeOnPress}
       {...props}
       ref={ref}
     />
@@ -83,7 +84,7 @@ const DropdownMenuContent = React.forwardRef<
   }
 >(
   (
-    { className, portalHost, overlay = false, overlayClassName, ...props },
+    { className, portalHost, overlay = Platform.OS !== 'web', overlayClassName, ...props },
     ref
   ) => {
     const content = (

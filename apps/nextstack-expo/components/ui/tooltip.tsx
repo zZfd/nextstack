@@ -20,11 +20,12 @@ const TooltipPortal = TooltipPrimitive.Portal;
 const TooltipOverlay = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Overlay>
->(({ className, ...props }, ref) => {
+>(({ className, closeOnPress = true, ...props }, ref) => {
   return (
     <TooltipPrimitive.Overlay
       className={cn(tooltipOverlayVariants(), className)}
       style={Platform.OS !== 'web' ? StyleSheet.absoluteFill : undefined}
+      closeOnPress={closeOnPress}
       {...props}
       ref={ref}
     />
@@ -41,7 +42,7 @@ const TooltipContent = React.forwardRef<
   }
 >(
   (
-    { className, portalHost, overlay = false, overlayClassName, ...props },
+    { className, portalHost, overlay = Platform.OS !== 'web', overlayClassName, ...props },
     ref
   ) => {
     const content = (

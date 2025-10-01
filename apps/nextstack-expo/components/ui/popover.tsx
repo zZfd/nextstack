@@ -20,11 +20,12 @@ const PopoverClose = PopoverPrimitive.Close;
 const PopoverOverlay = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Overlay>
->(({ className, ...props }, ref) => {
+>(({ className, closeOnPress = true, ...props }, ref) => {
   return (
     <PopoverPrimitive.Overlay
       className={cn(popoverOverlayVariants(), className)}
       style={Platform.OS !== 'web' ? StyleSheet.absoluteFill : undefined}
+      closeOnPress={closeOnPress}
       {...props}
       ref={ref}
     />
@@ -41,7 +42,7 @@ const PopoverContent = React.forwardRef<
   }
 >(
   (
-    { className, portalHost, overlay = false, overlayClassName, ...props },
+    { className, portalHost, overlay = Platform.OS !== 'web', overlayClassName, ...props },
     ref
   ) => {
     const content = (

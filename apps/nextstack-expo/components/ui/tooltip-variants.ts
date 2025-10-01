@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 export const tooltipOverlayVariants = cva(
-  'absolute inset-0 z-50 bg-black/80 web:animate-in web:fade-in-0'
+  'absolute inset-0 z-50 bg-transparent web:animate-in web:fade-in-0'
 );
 
 export const tooltipContentVariants = cva(
