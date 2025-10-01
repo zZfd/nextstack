@@ -3,8 +3,6 @@ import { type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 import { Platform } from 'react-native';
 
-import { X } from '@/lib/icons';
-
 import { TextClassContext } from './text';
 import {
   toastVariants,
@@ -14,6 +12,7 @@ import {
   toastDescriptionVariants,
 } from './toast-variants';
 
+import { X } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 
 const ToastProvider = React.Fragment;

@@ -2,8 +2,6 @@ import * as AccordionPrimitive from '@rn-primitives/accordion';
 import * as React from 'react';
 import { View } from 'react-native';
 
-import { ChevronDown } from '@/lib/icons';
-
 import {
   accordionItemVariants,
   accordionHeaderVariants,
@@ -14,6 +12,7 @@ import {
 } from './accordion-variants';
 import { TextClassContext } from './text';
 
+import { ChevronDown } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 
 const Accordion = AccordionPrimitive.Root;

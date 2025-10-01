@@ -1,26 +1,12 @@
 import * as React from 'react';
-import {
-  TextInput,
-  type NativeSyntheticEvent,
-  type TextInputFocusEventData,
-} from 'react-native';
+import { TextInput, type NativeSyntheticEvent, type TextInputFocusEventData } from 'react-native';
 
 import { cn } from '@/lib/utils';
 
 export type TextareaProps = React.ComponentPropsWithoutRef<typeof TextInput>;
 
 const Textarea = React.forwardRef<TextInput, TextareaProps>(
-  (
-    {
-      className,
-      placeholderClassName,
-      editable = true,
-      onFocus,
-      onBlur,
-      ...props
-    },
-    ref
-  ) => {
+  ({ className, placeholderClassName, editable = true, onFocus, onBlur, ...props }, ref) => {
     const [isFocused, setIsFocused] = React.useState(false);
 
     const handleFocus = React.useCallback(
@@ -57,7 +43,7 @@ const Textarea = React.forwardRef<TextInput, TextareaProps>(
         onFocus={handleFocus}
         onBlur={handleBlur}
         multiline
-        textAlignVertical='top'
+        textAlignVertical="top"
         {...props}
       />
     );

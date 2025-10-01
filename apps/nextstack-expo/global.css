@@ -29,6 +29,19 @@
         --input-placeholder: 0 0% 44.5%;
     }
 
+    /* Fix for Select component positioning on web */
+    [role="listbox"] {
+        position: absolute !important;
+    }
+
+    /* Ensure Select overlay is properly positioned */
+    [role="listbox"]:not([data-state="closed"]) {
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+    }
+
     .dark {
         --background: 240 10% 3.9%;
         --foreground: 0 0% 98%;

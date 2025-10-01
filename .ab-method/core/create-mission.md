@@ -386,6 +386,7 @@ Deploy research and analysis agents (e.g., general-purpose, qa-code-auditor):
 
 1. **Create Agent Output Document** in `sub-agents-outputs/[agent-name]-[action]-[timestamp].md`
 2. **Update Mission Document** with agent summary:
+
    ```markdown
    ## Agent Activities
 
@@ -394,6 +395,7 @@ Deploy research and analysis agents (e.g., general-purpose, qa-code-auditor):
      - Summary: [Key accomplishments]
      - Files: [List of files created/modified]
    ```
+
 3. **Update Progress Tracker** with agent usage:
    - Link to agent output files
    - Track which agents were used for which tasks

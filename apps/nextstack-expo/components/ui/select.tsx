@@ -28,7 +28,7 @@ const SelectTrigger = React.forwardRef<
     {...props}
   >
     <>{children}</>
-    <ChevronDown size={16} className='text-muted-foreground' />
+    <ChevronDown size={16} className="text-muted-foreground" />
   </SelectPrimitive.Trigger>
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
@@ -81,22 +81,49 @@ const SelectContent = React.forwardRef<
 >(({ className, children, position = 'popper', portalHost, ...props }, ref) => {
   const { open } = SelectPrimitive.useRootContext();
 
-  return (
-    <SelectPrimitive.Portal hostName={portalHost}>
-      <SelectPrimitive.Overlay
-        className={cn(Platform.OS === 'web' && 'z-50')}
-        style={Platform.OS !== 'web' ? StyleSheet.absoluteFill : undefined}
-      >
+  if (Platform.OS === 'web') {
+    // On web, skip the Overlay wrapper to allow proper Radix UI positioning
+    return (
+      <SelectPrimitive.Portal hostName={portalHost}>
         <SelectPrimitive.Content
           ref={ref}
           className={cn(
-            'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-lg border border-border bg-popover shadow-lg shadow-foreground/5',
+            'z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-lg border border-border bg-popover shadow-lg shadow-foreground/5',
             'data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
             position === 'popper' &&
               'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
             open
               ? 'web:zoom-in-95 web:animate-in web:fade-in-0'
               : 'web:zoom-out-95 web:animate-out web:fade-out-0',
+            className
+          )}
+          position={position}
+          {...props}
+        >
+          <SelectScrollUpButton />
+          <SelectPrimitive.Viewport
+            className={cn(
+              'p-1',
+              position === 'popper' &&
+                'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]'
+            )}
+          >
+            {children}
+          </SelectPrimitive.Viewport>
+          <SelectScrollDownButton />
+        </SelectPrimitive.Content>
+      </SelectPrimitive.Portal>
+    );
+  }
+
+  // Native version with Overlay
+  return (
+    <SelectPrimitive.Portal hostName={portalHost}>
+      <SelectPrimitive.Overlay style={StyleSheet.absoluteFill}>
+        <SelectPrimitive.Content
+          ref={ref}
+          className={cn(
+            'z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-lg border border-border bg-popover shadow-lg shadow-foreground/5',
             className
           )}
           position={position}
@@ -150,12 +177,12 @@ const SelectItem = React.forwardRef<
     )}
     {...props}
   >
-    <View className='absolute left-2 flex h-3.5 w-3.5 items-center justify-center'>
+    <View className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <Check size={16} strokeWidth={3} className='text-foreground' />
+        <Check size={16} strokeWidth={3} className="text-foreground" />
       </SelectPrimitive.ItemIndicator>
     </View>
-    <SelectPrimitive.ItemText className='text-sm text-foreground web:group-focus:text-accent-foreground' />
+    <SelectPrimitive.ItemText className="text-sm text-foreground web:group-focus:text-accent-foreground" />
   </SelectPrimitive.Item>
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;
