@@ -41,17 +41,26 @@ const PopoverContent = React.forwardRef<
   }
 >(
   (
-    { className, portalHost, overlay = true, overlayClassName, ...props },
+    { className, portalHost, overlay = false, overlayClassName, ...props },
     ref
   ) => {
+    const content = (
+      <PopoverPrimitive.Content
+        ref={ref}
+        className={cn(popoverContentVariants(), className)}
+        {...props}
+      />
+    );
+
     return (
       <PopoverPortal hostName={portalHost}>
-        {overlay && <PopoverOverlay className={overlayClassName} />}
-        <PopoverPrimitive.Content
-          ref={ref}
-          className={cn(popoverContentVariants(), className)}
-          {...props}
-        />
+        {overlay ? (
+          <PopoverOverlay className={overlayClassName}>
+            {content}
+          </PopoverOverlay>
+        ) : (
+          content
+        )}
       </PopoverPortal>
     );
   }

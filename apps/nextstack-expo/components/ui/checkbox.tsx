@@ -1,7 +1,7 @@
 import * as CheckboxPrimitive from '@rn-primitives/checkbox';
+import { Check } from 'lucide-react-native';
 import * as React from 'react';
 import { Platform } from 'react-native';
-import { Check } from 'lucide-react-native';
 
 import { Icon } from './icon';
 
@@ -31,7 +31,7 @@ const Checkbox = React.forwardRef<
       <CheckboxPrimitive.Root
         ref={ref}
         className={cn(
-          'border-input dark:bg-input/30 size-4 shrink-0 rounded-[4px] border shadow-sm shadow-black/5',
+          'border-primary dark:bg-input/30 size-4 shrink-0 rounded-[4px] border shadow-sm shadow-black/5',
           Platform.select({
             web: 'focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive peer cursor-default outline-none transition-shadow focus-visible:ring-[3px] disabled:cursor-not-allowed',
             native: 'overflow-hidden',

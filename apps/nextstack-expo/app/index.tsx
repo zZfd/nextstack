@@ -10,6 +10,15 @@ import {
   AccordionTrigger,
   Alert,
   AlertDescription,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
   AlertTitle,
   Avatar,
   AvatarFallback,
@@ -25,8 +34,34 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
+  Dialog,
+  DialogClose,
+  DialogCloseButton,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
   Input,
   Label,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
   Progress,
   RadioGroup,
   RadioGroupItem,
@@ -46,8 +81,16 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
   Text,
   Textarea,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
 } from '@/components/ui';
 import '@/global.css';
 
@@ -62,6 +105,11 @@ export default function HomePage() {
   const [sliderValue, setSliderValue] = React.useState(50);
   const [progressValue] = React.useState(60);
   const [collapsibleOpen, setCollapsibleOpen] = React.useState(false);
+  const [activeTab, setActiveTab] = React.useState('tab1');
+  const [showStatusBar, setShowStatusBar] = React.useState(true);
+  const [showActivityBar, setShowActivityBar] = React.useState(false);
+  const [showPanel, setShowPanel] = React.useState(false);
+  const [position, setPosition] = React.useState('bottom');
 
   return (
     <ScrollView className='flex-1 bg-background'>
@@ -76,7 +124,7 @@ export default function HomePage() {
             UI Components Demo
           </Text>
           <Text className='text-lg text-muted-foreground'>
-            All 20 shadcn/ui components for React Native
+            Complete shadcn/ui components for React Native
           </Text>
         </View>
 
@@ -333,6 +381,513 @@ export default function HomePage() {
               >
                 <Text>Show Error Toast</Text>
               </Button>
+            </CardContent>
+          </Card>
+        </View>
+
+        <Separator />
+
+        {/* Interactive Components */}
+        <View className='gap-6'>
+          <Text className='text-2xl font-bold text-foreground'>
+            Interactive Components
+          </Text>
+
+          {/* Button */}
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <Text>Button</Text>
+              </CardTitle>
+              <CardDescription>
+                <Text>Action triggers with different variants</Text>
+              </CardDescription>
+            </CardHeader>
+            <CardContent className='gap-3'>
+              <View className='flex-row flex-wrap gap-2'>
+                <Button variant='default'>
+                  <Text>Default</Text>
+                </Button>
+                <Button variant='secondary'>
+                  <Text>Secondary</Text>
+                </Button>
+                <Button variant='destructive'>
+                  <Text>Destructive</Text>
+                </Button>
+                <Button variant='outline'>
+                  <Text>Outline</Text>
+                </Button>
+                <Button variant='ghost'>
+                  <Text>Ghost</Text>
+                </Button>
+                <Button variant='link'>
+                  <Text>Link</Text>
+                </Button>
+              </View>
+              <View className='flex-row flex-wrap gap-2'>
+                <Button size='sm'>
+                  <Text>Small</Text>
+                </Button>
+                <Button size='default'>
+                  <Text>Default</Text>
+                </Button>
+                <Button size='lg'>
+                  <Text>Large</Text>
+                </Button>
+                <Button disabled>
+                  <Text>Disabled</Text>
+                </Button>
+              </View>
+            </CardContent>
+          </Card>
+
+          {/* Dialog */}
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <Text>Dialog</Text>
+              </CardTitle>
+              <CardDescription>
+                <Text>Modal window for content display</Text>
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant='outline'>
+                    <Text>Open Dialog</Text>
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogCloseButton />
+                  <DialogHeader>
+                    <DialogTitle>
+                      <Text>Edit Profile</Text>
+                    </DialogTitle>
+                    <DialogDescription>
+                      <Text>
+                        Make changes to your profile here. Click save when
+                        you're done.
+                      </Text>
+                    </DialogDescription>
+                  </DialogHeader>
+                  <View className='gap-4 py-4'>
+                    <View className='gap-2'>
+                      <Label>
+                        <Text>Name</Text>
+                      </Label>
+                      <Input placeholder='Enter your name' />
+                    </View>
+                    <View className='gap-2'>
+                      <Label>
+                        <Text>Username</Text>
+                      </Label>
+                      <Input placeholder='@username' />
+                    </View>
+                  </View>
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button variant='outline'>
+                        <Text>Cancel</Text>
+                      </Button>
+                    </DialogClose>
+                    <Button>
+                      <Text>Save Changes</Text>
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </CardContent>
+          </Card>
+
+          {/* Alert Dialog */}
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <Text>Alert Dialog</Text>
+              </CardTitle>
+              <CardDescription>
+                <Text>Confirmation dialog for critical actions</Text>
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant='destructive'>
+                    <Text>Delete Account</Text>
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      <Text>Are you absolutely sure?</Text>
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      <Text>
+                        This action cannot be undone. This will permanently
+                        delete your account and remove your data from our
+                        servers.
+                      </Text>
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel asChild>
+                      <Button variant='outline'>
+                        <Text>Cancel</Text>
+                      </Button>
+                    </AlertDialogCancel>
+                    <AlertDialogAction asChild>
+                      <Button>
+                        <Text>Continue</Text>
+                      </Button>
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </CardContent>
+          </Card>
+
+          {/* Popover */}
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <Text>Popover</Text>
+              </CardTitle>
+              <CardDescription>
+                <Text>Floating content container</Text>
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant='outline'>
+                    <Text>Open Popover</Text>
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className='w-80'>
+                  <View className='gap-4'>
+                    <View className='gap-2'>
+                      <Text className='text-sm font-medium'>Dimensions</Text>
+                      <Text className='text-sm text-muted-foreground'>
+                        Set the dimensions for the layer.
+                      </Text>
+                    </View>
+                    <View className='gap-2'>
+                      <Label>
+                        <Text>Width</Text>
+                      </Label>
+                      <Input placeholder='100%' />
+                    </View>
+                    <View className='gap-2'>
+                      <Label>
+                        <Text>Height</Text>
+                      </Label>
+                      <Input placeholder='25px' />
+                    </View>
+                  </View>
+                </PopoverContent>
+              </Popover>
+            </CardContent>
+          </Card>
+
+          {/* Tooltip */}
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <Text>Tooltip</Text>
+              </CardTitle>
+              <CardDescription>
+                <Text>Hover or press for additional information</Text>
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <View className='flex-row gap-4'>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant='outline'>
+                        <Text>Hover me</Text>
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <Text>This is a tooltip</Text>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant='secondary'>
+                        <Text>Info</Text>
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <Text>Additional helpful information appears here</Text>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </View>
+            </CardContent>
+          </Card>
+
+          {/* Tabs */}
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <Text>Tabs</Text>
+              </CardTitle>
+              <CardDescription>
+                <Text>Organize content into tabbed sections</Text>
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Tabs value={activeTab} onValueChange={setActiveTab}>
+                <TabsList>
+                  <TabsTrigger value='tab1'>
+                    <Text>Account</Text>
+                  </TabsTrigger>
+                  <TabsTrigger value='tab2'>
+                    <Text>Password</Text>
+                  </TabsTrigger>
+                  <TabsTrigger value='tab3'>
+                    <Text>Settings</Text>
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value='tab1' className='gap-4'>
+                  <View className='gap-2'>
+                    <Label>
+                      <Text>Name</Text>
+                    </Label>
+                    <Input placeholder='Your name' />
+                  </View>
+                  <View className='gap-2'>
+                    <Label>
+                      <Text>Email</Text>
+                    </Label>
+                    <Input placeholder='your.email@example.com' />
+                  </View>
+                  <Button>
+                    <Text>Save Account</Text>
+                  </Button>
+                </TabsContent>
+                <TabsContent value='tab2' className='gap-4'>
+                  <View className='gap-2'>
+                    <Label>
+                      <Text>Current Password</Text>
+                    </Label>
+                    <Input placeholder='Enter current password' secureTextEntry />
+                  </View>
+                  <View className='gap-2'>
+                    <Label>
+                      <Text>New Password</Text>
+                    </Label>
+                    <Input placeholder='Enter new password' secureTextEntry />
+                  </View>
+                  <Button>
+                    <Text>Update Password</Text>
+                  </Button>
+                </TabsContent>
+                <TabsContent value='tab3' className='gap-4'>
+                  <View className='flex-row items-center justify-between'>
+                    <Label>
+                      <Text>Email Notifications</Text>
+                    </Label>
+                    <Switch checked={switchValue} onCheckedChange={setSwitchValue} />
+                  </View>
+                  <View className='flex-row items-center justify-between'>
+                    <Label>
+                      <Text>Marketing Emails</Text>
+                    </Label>
+                    <Switch checked={false} onCheckedChange={() => {}} />
+                  </View>
+                  <Button>
+                    <Text>Save Settings</Text>
+                  </Button>
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+
+          {/* Dropdown Menu */}
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <Text>Dropdown Menu</Text>
+              </CardTitle>
+              <CardDescription>
+                <Text>Context menus with nested options</Text>
+              </CardDescription>
+            </CardHeader>
+            <CardContent className='gap-4'>
+              {/* User Menu Example */}
+              <View className='gap-2'>
+                <Label>
+                  <Text>User Menu</Text>
+                </Label>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant='outline'>
+                      <Text>Open User Menu</Text>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className='w-56'>
+                    <DropdownMenuLabel>
+                      <Text>My Account</Text>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem>
+                        <Text>Profile</Text>
+                        <DropdownMenuShortcut>
+                          <Text>⇧⌘P</Text>
+                        </DropdownMenuShortcut>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Text>Billing</Text>
+                        <DropdownMenuShortcut>
+                          <Text>⌘B</Text>
+                        </DropdownMenuShortcut>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Text>Settings</Text>
+                        <DropdownMenuShortcut>
+                          <Text>⌘S</Text>
+                        </DropdownMenuShortcut>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Text>Keyboard shortcuts</Text>
+                        <DropdownMenuShortcut>
+                          <Text>⌘K</Text>
+                        </DropdownMenuShortcut>
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem>
+                        <Text>Team</Text>
+                      </DropdownMenuItem>
+                      <DropdownMenuSub>
+                        <DropdownMenuSubTrigger>
+                          <Text>Invite users</Text>
+                        </DropdownMenuSubTrigger>
+                        <DropdownMenuSubContent>
+                          <DropdownMenuItem>
+                            <Text>Email</Text>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <Text>Message</Text>
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem>
+                            <Text>More...</Text>
+                          </DropdownMenuItem>
+                        </DropdownMenuSubContent>
+                      </DropdownMenuSub>
+                      <DropdownMenuItem>
+                        <Text>New Team</Text>
+                        <DropdownMenuShortcut>
+                          <Text>⌘+T</Text>
+                        </DropdownMenuShortcut>
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <Text>GitHub</Text>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Text>Support</Text>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem disabled>
+                      <Text>API</Text>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <Text>Log out</Text>
+                      <DropdownMenuShortcut>
+                        <Text>⇧⌘Q</Text>
+                      </DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </View>
+
+              {/* Checkbox Items Example */}
+              <View className='gap-2'>
+                <Label>
+                  <Text>View Options</Text>
+                </Label>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant='outline'>
+                      <Text>Toggle Views</Text>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className='w-56'>
+                    <DropdownMenuLabel>
+                      <Text>Appearance</Text>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuCheckboxItem
+                      checked={showStatusBar}
+                      onCheckedChange={setShowStatusBar}
+                    >
+                      <Text>Status Bar</Text>
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem
+                      checked={showActivityBar}
+                      onCheckedChange={setShowActivityBar}
+                    >
+                      <Text>Activity Bar</Text>
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem
+                      checked={showPanel}
+                      onCheckedChange={setShowPanel}
+                    >
+                      <Text>Panel</Text>
+                    </DropdownMenuCheckboxItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <Text className='text-xs text-muted-foreground'>
+                  Status Bar: {showStatusBar ? 'Visible' : 'Hidden'}, Activity
+                  Bar: {showActivityBar ? 'Visible' : 'Hidden'}, Panel:{' '}
+                  {showPanel ? 'Visible' : 'Hidden'}
+                </Text>
+              </View>
+
+              {/* Radio Items Example */}
+              <View className='gap-2'>
+                <Label>
+                  <Text>Panel Position</Text>
+                </Label>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant='outline'>
+                      <Text>Set Position</Text>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className='w-56'>
+                    <DropdownMenuLabel>
+                      <Text>Panel Position</Text>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+                      <DropdownMenuRadioItem value='top'>
+                        <Text>Top</Text>
+                      </DropdownMenuRadioItem>
+                      <DropdownMenuRadioItem value='bottom'>
+                        <Text>Bottom</Text>
+                      </DropdownMenuRadioItem>
+                      <DropdownMenuRadioItem value='right'>
+                        <Text>Right</Text>
+                      </DropdownMenuRadioItem>
+                    </DropdownMenuRadioGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <Text className='text-xs text-muted-foreground'>
+                  Position: {position}
+                </Text>
+              </View>
             </CardContent>
           </Card>
         </View>

@@ -44,14 +44,23 @@ const TooltipContent = React.forwardRef<
     { className, portalHost, overlay = false, overlayClassName, ...props },
     ref
   ) => {
+    const content = (
+      <TooltipPrimitive.Content
+        ref={ref}
+        className={cn(tooltipContentVariants(), className)}
+        {...props}
+      />
+    );
+
     return (
       <TooltipPortal hostName={portalHost}>
-        {overlay && <TooltipOverlay className={overlayClassName} />}
-        <TooltipPrimitive.Content
-          ref={ref}
-          className={cn(tooltipContentVariants(), className)}
-          {...props}
-        />
+        {overlay ? (
+          <TooltipOverlay className={overlayClassName}>
+            {content}
+          </TooltipOverlay>
+        ) : (
+          content
+        )}
       </TooltipPortal>
     );
   }

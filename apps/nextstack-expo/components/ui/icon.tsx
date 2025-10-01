@@ -1,10 +1,12 @@
 import type { LucideIcon, LucideProps } from 'lucide-react-native';
 import { cssInterop } from 'nativewind';
+import type { PointerEvents } from 'react-native';
 
 import { cn } from '@/lib/utils';
 
 type IconProps = LucideProps & {
   as: LucideIcon;
+  pointerEvents?: PointerEvents;
 };
 
 function IconImpl({ as: IconComponent, ...props }: IconProps) {

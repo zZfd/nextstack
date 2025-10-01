@@ -1,4 +1,5 @@
 import * as DialogPrimitive from '@rn-primitives/dialog';
+import { X } from 'lucide-react-native';
 import * as React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 
@@ -10,6 +11,8 @@ import {
   dialogTitleVariants,
   dialogDescriptionVariants,
 } from './dialog-variants';
+import { Button } from './button';
+import { Icon } from './icon';
 import { TextClassContext } from './text';
 
 import { cn } from '@/lib/utils';
@@ -93,6 +96,23 @@ const DialogDescription = React.forwardRef<
 ));
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
+const DialogCloseButton = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Close>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
+>(({ className, ...props }, ref) => (
+  <DialogPrimitive.Close
+    ref={ref}
+    asChild
+    className={cn('absolute right-3 top-3 z-10', className)}
+    {...props}
+  >
+    <Button variant="ghost" size="icon">
+      <Icon as={X} size={20} pointerEvents="none" />
+    </Button>
+  </DialogPrimitive.Close>
+));
+DialogCloseButton.displayName = 'DialogCloseButton';
+
 export {
   Dialog,
   DialogTrigger,
@@ -102,6 +122,7 @@ export {
   DialogTitle,
   DialogDescription,
   DialogClose,
+  DialogCloseButton,
   DialogPortal,
   DialogOverlay,
 };
